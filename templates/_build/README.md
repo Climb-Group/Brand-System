@@ -28,3 +28,5 @@ python3 video_previews.py   # video/previews/*.jpg
 | `art.py`, `pptx_build.py`, `video_build.py` | the climb-visual-style skill, `guidelines/video.md` and `guidelines/motion.md` |
 
 The motion clips (`video/*/motion/`) are not committed: they are attached to a release as `climb-video-motion-v1.zip`.
+
+The install package (`python3 templates/_build/package_build.py`, written to `templates/dist/`) is not committed either: `Climb-Templates-<version>.zip` is the second asset on the same release, next to the motion clips. See `templates/install/README.md`.

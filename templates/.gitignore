@@ -7,3 +7,4 @@ prev_*/
 video/_shared/motion/
 video/*/motion/
 __pycache__/
+dist/
