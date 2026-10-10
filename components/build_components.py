@@ -404,10 +404,10 @@ def components(S):
         "section. Decorative only, so `aria-hidden`, and never the only place the words appear.\n"
         "- In design apps: same font, weight and tracking, fill none, stroke Climb Orange centred at about 1% of the point size.")
 
-    # ---------------------------------------------------------------- Selling
+    # ---------------------------------------------------------------- Tickets and stands
     ticket = pick(S["s_climb_hero_ticket"], ".climb-ticket")
     partner = pick(S["s_climb_ticket_band"], ".climb-ticket")
-    add("Ticket card", "Selling", "The glass ticket with stub notches, highlighted and on orange", 640,
+    add("Ticket card", "Tickets and stands", "The glass ticket with stub notches, highlighted and on orange", 640,
         '<div>' + wrap_ground('<div class="row g-5 align-items-start"><div class="col-lg-6">%s</div></div>' % ticket) +
         '<section class="s_climb_kit climb-p4 climb-glow pt48 pb48"><div class="container"><div class="row"><div class="col-lg-6">%s</div></div></div></section></div>'
         % partner,
@@ -417,7 +417,7 @@ def components(S):
         "- `climb-levels` lists packages with a note on the right (passes, sizes).")
 
     offers = pick(S["s_climb_tickets"], ".climb-offers")
-    add("Offer cards", "Selling", "Ticket offers: the pick, the rest, and a closed release", 620,
+    add("Offer cards", "Tickets and stands", "Ticket offers: the pick, the rest, and a closed release", 620,
         wrap_ground(offers, "alt"),
         "Offer cards sit side by side so people can compare. One is highlighted, the rest are equal.\n\n"
         "- `climb-offer-hl` is the offer to pick: orange edge, glow, lifted, a filled kicker.\n"
@@ -426,7 +426,7 @@ def components(S):
         "- Prices always say inc VAT. No false scarcity: never write last few, hurry or selling fast.")
 
     ladder = pick(S["s_climb_ticket_ladder"], ".climb-ladder")
-    add("Release ladder", "Selling", "Price releases as rising steps: past, now and next", 520,
+    add("Release ladder", "Tickets and stands", "Price releases as rising steps: past, now and next", 520,
         wrap_ground(ladder),
         "The release ladder shows that the price rises with every release, and where today sits on it.\n\n"
         "- Each `climb-ladder-step` sets `--climb-step` (1, 2, 3 ...) so its cap rises.\n"
@@ -435,14 +435,14 @@ def components(S):
         "- On phones the ladder turns into a vertical rail.")
 
     stands = pick(S["s_climb_stands"], ".climb-offers")
-    add("Stand cards", "Selling", "Exhibition stands with an outlined floor plan and stock", 600,
+    add("Stand cards", "Tickets and stands", "Exhibition stands with an outlined floor plan and stock", 600,
         wrap_ground(stands),
-        "Stand cards sell exhibition space. The outlined plan (`climb-plan-1`, `-2`, `-4`) shows the footprint at a glance.\n\n"
+        "Stand cards show the exhibition space. The outlined plan (`climb-plan-1`, `-2`, `-4`) shows the footprint at a glance.\n\n"
         "- `climb-left` shows stock left, from live stock only. A sold-out stand uses `is-soldout`.\n"
         "- Name, size, what is included, price inc VAT, one button.")
 
     team = pick(S["s_climb_tickets"], ".climb-team")
-    add("Group offer", "Selling", "The orange band for teams and groups", 260,
+    add("Group offer", "Tickets and stands", "The orange band for teams and groups", 260,
         wrap_ground(team, "alt"),
         "The group offer is one orange band under the ticket offers: bring the team, one line, one Dark Brown button.")
 
@@ -484,7 +484,7 @@ def components(S):
         ("s_climb_hero", "Hero", "Full-bleed stage photo with the poster line", 820,
          "The hero opens a page: a full-bleed Climb26 stage photo faded from the left, an eyebrow, one display line, a lead, two buttons and the pull link."),
         ("s_climb_hero_ticket", "Hero with ticket", "The hero with a glass ticket to pick up", 820,
-         "The hero with a ticket adds the glass ticket card on the right, for pages whose job is to sell one ticket."),
+         "The hero with a ticket adds the glass ticket card on the right, for pages built around one ticket."),
         ("s_climb_moments", "Moments", "Statement, lead and three moment cards", 1000,
          "Moments sells the feeling: one statement with an italic word, a lead, three moment cards and two buttons."),
         ("s_climb_photo_wall", "Photo wall", "A mosaic of Climb26 photos and two quotes", 1300,
@@ -492,7 +492,7 @@ def components(S):
         ("s_climb_ticket_band", "Ticket band", "Climb Orange band with a Dark Brown ticket", 640,
          "The ticket band is the partner pitch on Climb Orange: one big line, a lead, one button and a Dark Brown ticket listing the packages."),
         ("s_climb_tickets", "Tickets", "Offers, the release ladder, the group offer and the pull link", 1500,
-         "The tickets section is the order on a sales page: the offers, the release ladder, the group offer and a pull link for anyone still choosing."),
+         "The tickets section is the order on a ticket page: the offers, the release ladder, the group offer and a pull link for anyone still choosing."),
         ("s_climb_ticket_ladder", "Ticket ladder section", "The release ladder on its own", 520,
          "The release ladder as its own section, for a pricing page or under a hero."),
         ("s_climb_stands", "Stands", "Exhibition stands with plans and stock", 760,
@@ -505,9 +505,9 @@ def components(S):
         ("s_climb_audiences", "Audience chooser", "Four audience cards on Charcoal", 760,
          "The audience chooser asks what brings you to ClimbUK and routes each audience to its own page."),
         ("s_climb_moment", "Moment", "A big photo with a sticker and one line", 640,
-         "Moment is one photo, one sticker, one line and one button. Use it to sell a single thing, like the ClimbAwards."),
+         "Moment is one photo, one sticker, one line and one button. Use it to put one thing in the spotlight, like the ClimbAwards."),
         ("s_climb_close", "Close", "Climb Orange close with the last question", 560,
-         "The close ends every sales page on Climb Orange: the last question, the dates and the main button in Dark Brown."),
+         "The close ends every ticket page on Climb Orange: the last question, the dates and one clear next step in Dark Brown."),
         ("s_climb_divider", "Divider", "Rising chevrons between two sections", 200,
          "The divider is a low band of rising chevrons between two sections. Match its preset to the section above."),
     ]:

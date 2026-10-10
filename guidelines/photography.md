@@ -41,7 +41,7 @@ The fade is what makes a photo section feel like a festival: the photo fills the
 | Fade | Use it for | Layers |
 |---|---|---|
 | **Brown** | Statements and story bands ("Business with a party"), with photo cards below | `linear-gradient(90deg, ink 90%, ink 60% at 55%, ink 45%)`, then `linear-gradient(180deg, ink 50%, ink 20% at 50%, ink 100%)` |
-| **Heat** | Selling moments: a line, two buttons | `linear-gradient(90deg, ink 92%, ink 70% at 45%, orange 35%)`, then `radial-gradient(60rem 30rem at 85% 110%, orange 55%, transparent 60%)`, then `linear-gradient(180deg, ink 35%, ink 0% at 45%, ink 70%)` |
+| **Heat** | Ticket moments: a line, two buttons | `linear-gradient(90deg, ink 92%, ink 70% at 45%, orange 35%)`, then `radial-gradient(60rem 30rem at 85% 110%, orange 55%, transparent 60%)`, then `linear-gradient(180deg, ink 35%, ink 0% at 45%, ink 70%)` |
 | **Orange** | One offer on a Climb Orange section (team tickets, a deadline) | `linear-gradient(90deg, orange 97%, orange 90% at 50%, orange 50%)`, then a white light `radial-gradient(40rem 20rem at 10% 0%, white 20%, transparent 60%)` |
 | **Hero** | The first screen | `linear-gradient(180deg, ink 35%, ink 15% at 40%, ink 97%)`, then `linear-gradient(100deg, ink 94%, ink 72% at 45%, ink 25%)`, then the orange glow `radial-gradient(60rem 30rem at 85% 110%, orange 28%, transparent 60%)` |
 | **Card** | Photo cards with text top and bottom | `linear-gradient(180deg, ink 88%, ink 55% at 30%, ink 38% at 50%, ink 94%)` |

@@ -141,9 +141,9 @@ class LookupTest(unittest.TestCase):
         self.assertIn("LinkedIn", brand_rules.call("channel", {"channel": "linkedin"})["channels"][0]["Channel"])
 
     def test_guide_finds_a_section(self):
-        result = brand_rules.call("guide", {"topic": "selling tickets"})
+        result = brand_rules.call("guide", {"topic": "ticket pages"})
         self.assertTrue(result["ok"])
-        self.assertEqual(result["sections"][0]["section"], "Selling tickets")
+        self.assertEqual(result["sections"][0]["section"], "Ticket pages")
 
     def test_unknown_tool(self):
         self.assertFalse(brand_rules.call("nope", {})["ok"])

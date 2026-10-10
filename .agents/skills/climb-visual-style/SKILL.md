@@ -69,7 +69,7 @@ These carry the energy. Use two or three per piece, not all of them at once.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
 - **Cut edges and glow:** a diagonal top edge from one section into the next; an orange stage-light glow in a dark corner; orange glows (not grey shadows) under orange buttons.
 - **Photo fades:** a full-width photo faded to Dark Brown on the words' side (or Climb Orange on an orange section), the photo showing through on the other, ending solid so it runs into the next section. Recipes in `guidelines/photography.md`.
-- **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Selling tickets".
+- **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Ticket pages".
 - **Outline numerals:** giant numbers in Montserrat ExtraBold (800) with no fill and a Climb Orange stroke of about 1% of the size (4px at 380px, never under 2px), letter spacing -0.04em. For section numbers 01 to 10 (decorative, `aria-hidden`, with the real heading in text beside them) and the odd big stat. One size per view, numbers only. Rules in `guidelines/ui.md`, "Outline numerals"; web classes `climb-outline-num`, `climb-outline-num-sm`, `climb-numbered`, `climb-outline-marquee`.
 - **Pull links:** a small uppercase line at the foot of a section with a down arrow, handing the reader on.
 
@@ -118,6 +118,6 @@ See `references/elements.md` for how each motif is built and scaled.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
-- On a sales page a way to buy is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
+- On a sales page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.
