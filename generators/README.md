@@ -78,7 +78,7 @@ How to use them (the rule the layouts follow): one hero drawing tied to the mess
 
 `poster_kit.py` builds Calls, Wallpapers, Social and Print and merch (`catalogue.assets()` calls it). It reuses the festival kit devices (ticket cards, stickers, display lines with `[[orange]]` and `*italic*` words, grain) and adds: `glow()` for the orange stage glow from a corner, `head()` for the display lines with the short orange rule and an eyebrow, `slab_poly()` for diagonal cuts, `chevrons()`, `date_ticket()` for a ticket with the edition mark, dates and URL, and `Kit.pic()` for photos (cover crop, optional duotone, blur, tilt, fade and shadow). Sticker positions can be measured from the right edge (`side="right"`) so long labels never leave the canvas.
 
-Photo resolution: the Climb26 photos are 1600px wide. Crisp photos sit in tilted photo cards no larger than the source; anywhere a photo has to cover more (full bleed on 4K and 5K screens, call background edges, story backgrounds), it is blurred, set as a duotone or held under a heavy fade. `Kit.pic()` checks every crisp photo and `catalogue.py` prints a `RESOLUTION` line for any shown above its own size, so a new layout cannot slip an upscale through. Swap in full resolution photography for final print files.
+Photo resolution: the Climb26 photos in `photos/` are 4K (3840px on the long edge, recaps 2160px square) from the original files; `photos/candid/` holds more frames for the PDFs, and `photos/SOURCES.md` lists where each one came from. `Kit.pic()` checks every crisp photo and `catalogue.py` prints a `RESOLUTION` line for any shown above its own size, so a new layout cannot slip an upscale through.
 
 ## Email banners and the signature
 
