@@ -70,7 +70,21 @@ Elevation says what floats above what. Grounds stay flat (colour and photos do t
 ## Data and numbers
 
 - Charts use Climb Orange for the one series that matters and tones of the ground's ink (100%, 60%, 30%) for the rest. Never a rainbow.
-- Big numbers in Montserrat Black. Public copy follows the voice rules: no attendance, meeting or investment figures in marketing.
+- Big numbers in Montserrat ExtraBold (800). Public copy follows the voice rules: no attendance, meeting or investment figures in marketing.
+
+### Outline numerals
+
+Giant numbers drawn as an outline with no fill, for chapter and section numbers and the odd big stat.
+
+- Montserrat ExtraBold (800), upright, tabular figures, letter spacing -0.04em, line height 0.8.
+- No fill and a Climb Orange stroke of about 1% of the type size: 4px at 380px. Never thinner than 2px.
+- Best on a dark ground or over a photo on a Dark Brown fade. On White or Light Grey use the darker text orange for the stroke; on Climb Orange use White.
+- Section numbers are two digits, 01 to 10. They are decoration, so screen readers skip them and the real heading sits beside them in text.
+- A stat keeps its number as readable text with a label underneath in words. In the AAA size set the stat fills solid.
+- One size of outline numeral per view, and only for numbers. Headlines are never outlined.
+- The quiet marquee is the one outlined line of words: giant italic uppercase in Orange Tint at 35% with a 2px stroke, running off the edge behind a section. It is decoration and never the only place the words appear.
+- In design apps: the same font, weight and tracking, fill none, stroke Climb Orange centred at about 1% of the point size.
+- On the web: `climb-outline-num` (and `climb-outline-num-sm` for stats), `climb-numbered` to sit a number beside its heading, and `climb-outline-marquee`. See the Outline numerals component.
 
 ## Selling tickets
 

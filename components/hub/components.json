@@ -36,6 +36,12 @@
   "id": "Tags"
  },
  {
+  "name": "Outline numerals",
+  "group": "Festival devices",
+  "subtitle": "Giant outlined numbers for section numbers and big stats",
+  "id": "OutlineNumerals"
+ },
+ {
   "name": "Ticket card",
   "group": "Selling",
   "subtitle": "The glass ticket with stub notches, highlighted and on orange",

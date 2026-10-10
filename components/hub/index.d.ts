@@ -23,6 +23,8 @@ export type EyebrowProps = ClimbComponentProps;
 export type StickerProps = ClimbComponentProps;
 /** Outlined tags for formats and topics, and the live label */
 export type TagsProps = ClimbComponentProps;
+/** Giant outlined numbers for section numbers and big stats */
+export type OutlineNumeralsProps = ClimbComponentProps;
 /** The glass ticket with stub notches, highlighted and on orange */
 export type TicketCardProps = ClimbComponentProps;
 /** Ticket offers: the pick, the rest, and a closed release */
@@ -94,6 +96,7 @@ export interface ClimbUK {
   Eyebrow: ClimbComponent;
   Sticker: ClimbComponent;
   Tags: ClimbComponent;
+  OutlineNumerals: ClimbComponent;
   TicketCard: ClimbComponent;
   OfferCards: ClimbComponent;
   ReleaseLadder: ClimbComponent;

@@ -37,6 +37,15 @@ How each motif is built so every app and every agent draws it the same way. Mast
 - Text on the bar is White only at large sizes (19px bold or 24px and up), otherwise Dark Brown.
 - On the website this is `[[word]]` in page content.
 
+## Outline numerals
+
+- Montserrat ExtraBold (800), upright, tabular figures, letter spacing -0.04em, line height 0.8.
+- Fill none, stroke Climb Orange centred, about 1% of the type size: 4px at 380px, 2px at stat sizes, never thinner.
+- Section numbers at 280 to 380px, two digits (01 to 10), set beside or behind the heading; stats at 64 to 120px with a label in words underneath.
+- On White or Light Grey the stroke is the darker text orange; on Climb Orange it is White.
+- The quiet marquee: italic uppercase at about 92px, Orange Tint at 35% with a 2px stroke, running off the edge.
+- Web: `color: transparent; -webkit-text-stroke: 4px var(--climb-orange);`
+
 ## Photography treatment
 
 - Prefer warm, high-contrast frames. On dark layouts, darken the photo 25 to 50 percent, never with an orange wash over faces.

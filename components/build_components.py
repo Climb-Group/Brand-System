@@ -374,6 +374,36 @@ def components(S):
         "The live label (`climb-live`) adds a pulsing orange dot. Use it only for something that is happening now: tickets on sale, "
         "a live stream, doors open. The pulse stops under reduced motion.")
 
+    photo = blob("climb_awards_winners.jpg")
+    add("Outline numerals", "Festival devices", "Giant outlined numbers for section numbers and big stats", 1480,
+        '<div>'
+        '<section class="s_climb_kit climb-p3 pt96 pb96" style="background:linear-gradient(90deg,rgba(30,15,5,.96) 35%%,rgba(30,15,5,.7)),url(%s) center/cover;">'
+        '<div class="container"><div class="climb-numbered"><p class="climb-outline-num" aria-hidden="true">05</p>'
+        '<div><p class="climb-eyebrow">Chapter five</p><h2 class="climb-statement"><em>Real</em> <span class="climb-accent">photos</span></h2></div></div></div></section>'
+        % photo
+        + wrap_ground('<div class="climb-numbered"><p class="climb-outline-num climb-outline-num-sm" aria-hidden="true">01</p>'
+                      '<h3 class="climb-statement climb-statement-sm">Find your <span class="climb-accent">people</span></h3></div>'
+                      '<div class="climb-numbered pt32"><p class="climb-outline-num climb-outline-num-sm" aria-hidden="true">02</p>'
+                      '<h3 class="climb-statement climb-statement-sm">Grow your <em>business</em></h3></div>')
+        + wrap_ground('<div class="climb-stats"><div><p class="climb-outline-num climb-outline-num-sm">2</p><p class="climb-stat-label">Days of business growth</p></div>'
+                      '<div><p class="climb-outline-num climb-outline-num-sm">27</p><p class="climb-stat-label">The next edition</p></div></div>', theme="alt")
+        + '<section class="s_climb_kit climb-p3 pt48 pb48"><p class="climb-outline-marquee" aria-hidden="true">Find your people / Grow your business / Find your people</p></section>'
+        '</div>',
+        "Outline numerals are giant numbers drawn as an orange outline with no fill. They number chapters and sections and carry the "
+        "odd big stat, like a festival poster.\n\n"
+        "- `climb-outline-num`: Montserrat ExtraBold (800), upright, tabular figures, letter spacing -0.04em, line height 0.8, no fill "
+        "and a Climb Orange stroke of about 1% of the size (4px at 380px). `climb-outline-num-sm` is the stat size with a 2px stroke. "
+        "Never go below a 2px stroke.\n"
+        "- Best on a dark ground or over a photo on a Dark Brown fade. On White or Light Grey the stroke turns to the darker text orange; "
+        "on Climb Orange it turns White.\n"
+        "- Section numbers are two digits (01 to 10) and decorative: mark them `aria-hidden` and put the real heading in text beside them "
+        "(`climb-numbered` lines them up).\n"
+        "- A stat number stays readable text with its label underneath in words. With `data-climb-size=\"aaa\"` the stat fills solid.\n"
+        "- Use one size of outline numeral per view. Never outline words or headlines with it; the only outlined words are the quiet marquee.\n"
+        "- `climb-outline-marquee`: a giant italic uppercase line in Orange Tint at 35% with a 2px stroke, running off the edge behind a "
+        "section. Decorative only, so `aria-hidden`, and never the only place the words appear.\n"
+        "- In design apps: same font, weight and tracking, fill none, stroke Climb Orange centred at about 1% of the point size.")
+
     # ---------------------------------------------------------------- Selling
     ticket = pick(S["s_climb_hero_ticket"], ".climb-ticket")
     partner = pick(S["s_climb_ticket_band"], ".climb-ticket")
@@ -604,6 +634,18 @@ EXTRA_CSS = """
 @keyframes climb-demo-spring{from{transform:scale(1)}to{transform:scale(1.18) translateY(-6px)}}
 @keyframes climb-demo-drift{from{transform:translateX(-3rem)}to{transform:translateX(12rem)}}
 @media (prefers-reduced-motion: reduce){.m-rise,.m-spring,.m-pulse,.m-drift{animation:none}}
+.climb-outline-num{display:block;margin:0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:normal;font-size:clamp(7.5rem,22vw,23.75rem);line-height:.8;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:4px var(--climb-orange)}
+.climb-outline-num-sm{font-size:clamp(4rem,9vw,7.5rem);-webkit-text-stroke-width:2px}
+.climb-p1 .climb-outline-num,.climb-p2 .climb-outline-num{-webkit-text-stroke-color:var(--orange-text)}
+.climb-p4 .climb-outline-num{-webkit-text-stroke-color:var(--white)}
+@supports not (-webkit-text-stroke:1px){.climb-outline-num{color:var(--climb-orange)}}
+@media (forced-colors:active){.climb-outline-num{color:CanvasText;-webkit-text-stroke:0}}
+[data-climb-size="aaa"] .climb-outline-num-sm{color:currentColor;-webkit-text-stroke:0}
+.climb-numbered{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1.5rem 2.5rem}
+.climb-numbered .climb-statement{margin-bottom:0}
+.climb-stats{display:flex;flex-wrap:wrap;gap:2rem 4rem}
+.climb-stat-label{margin:.75rem 0 0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.climb-outline-marquee{margin:0;overflow:hidden;white-space:nowrap;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:italic;font-size:clamp(3rem,7vw,5.75rem);line-height:1;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,174,134,.35)}
 """
 
 
