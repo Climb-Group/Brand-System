@@ -511,6 +511,45 @@ def facebook_cover(C, brand):
     return asset(name, "Social", brand, w, h, p, copy, scale=2)
 
 
+def youtube_banner(C, brand, tone):
+    """2560x1440, the YouTube channel art. TVs show it all, desktops a 2560x423 band and phones only the centre
+    1546x423, so the logo and the line sit inside that safe area; photos, glow and ghosts fill the rest.
+    tone "dark" is Dark Brown with the orange word; "orange" is a Climb Orange ground with Dark Brown type, the
+    emphasis word in White and the mono dark logo."""
+    w, h = 2560, 1440
+    sx, sy, sw, sh = (w - 1546) // 2, (h - 423) // 2, 1546, 423
+    name = "%s_youtube-banner_%s_%dx%d" % (brand.lower(), tone, w, h)
+    K = Kit(C, name, 1)
+    B = BRANDS[brand]
+    line = HEADER_LINES[brand]
+    dark = tone == "dark"
+    p = []
+    if dark:
+        p.append(K.pic(B["photos"][0], 0, 0, w, h, pos="center 40%", duo=True, blur=6,
+                       fade="radial-gradient(ellipse at center, rgba(%s,.92) 0%%, rgba(%s,.78) 45%%, rgba(%s,.35) 100%%)"
+                       % (DB_RGB, DB_RGB, DB_RGB)))
+        p.append(glow(w, h, w * 0.5, h * 0.62, 900, 0.4))
+    else:
+        p.append('<div class="abs" style="left:0;top:0;width:%dpx;height:%dpx;background:%s"></div>' % (w, h, OR))
+        p.append(scatter(B["extras"], (80, 80, w - 80, sy - 60), 6, (150, 200), seed=9, opacity=(0.18, 0.28), ink=DB))
+    # band photos left and right of the safe area, so the desktop crop still shows real people
+    for k, ph in enumerate(B["photos"][1:3]):
+        x = 60 if k == 0 else sx + sw + 60
+        p.append(K.pic(ph, x, sy, sx - 120, sh, pos="center 35%", radius=18, rot=-3 if k == 0 else 3,
+                       duo=not dark, fade=None if dark else fade("to bottom", 0, 100, 0.0, 0.25)))
+    ink = DB if not dark else WH
+    p.append(head([line], sx + 60, sy + 130, 118, 1100, eyebrow=B["eyebrow"] if brand != "Climb27" else C.DATES,
+                  colour=ink, sub_colour=ink, rule_on=dark))
+    p.append(F.logo_img(C, brand, "reversed-dark" if dark else "mono-dark", sx + 60, sy + 30, 260))
+    if dark:
+        p.append(hero(B["heroes"][0], sx + sw - 330, sy + 70, 260, rot=-6, ghosts=[(-0.6, 0.2, 0.5, 14, 0.18)]))
+    else:
+        p.append(I.place(B["heroes"][0], sx + sw - 330, sy + 70, 260, rotate=-6, ink=DB))
+    css = "" if dark else ".o{color:%s !important}.lab{color:%s !important}" % (WH, DB)
+    copy = [plain(line), B["eyebrow"], C.DATES]
+    return asset(name, "Social", brand, w, h, p, copy, scale=1, css=css)
+
+
 def see_you(C):
     """1584x396 at 2x, the personal LinkedIn banner for the team, speakers and partners. The profile photo sits
     bottom left, so everything that matters is in the right two thirds."""
@@ -864,7 +903,8 @@ def assets(C):
             for (w, h) in [(1179, 2556), (1440, 3120)]:
                 out.append(phone(C, brand, i, motif, w, h))
     for brand in ("Climb27", "ClimbUK", "ClimbGroup"):
-        out += [linkedin_company(C, brand), x_header(C, brand), facebook_cover(C, brand)]
+        out += [linkedin_company(C, brand), x_header(C, brand), facebook_cover(C, brand),
+                youtube_banner(C, brand, "dark"), youtube_banner(C, brand, "orange")]
     out.append(see_you(C))
     out.append(footer_strip(C))
     for key in PACKS:
