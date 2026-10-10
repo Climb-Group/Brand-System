@@ -45,13 +45,13 @@ The screen rules carry over at print sizes: White on Climb Orange only at 14pt b
 
 | Method | Use | Colour rule |
 | --- | --- | --- |
-| Screen print | T-shirts, hoodies, totes | Pantone 158 and White on dark garments; max two colours |
+| Screen print | T-shirts, hoodies, totes | Pantone 158 and White on dark garments, Pantone 158 and Dark Brown on White; max two colours |
 | DTF or DTG | Full-colour photo or contour prints | Approve a sample on the garment colour |
 | Embroidery | Caps, beanies, polos | Square icon or monogram only, no text under 6mm cap height; thread matched to 158 (approve a sew-out) |
 | Pad or laser | Bottles, pens, small hard goods | Single colour; laser marks come out tonal, so use the monogram |
 | Woven | Lanyards | 158 ground with White or Dark Brown logo repeat and Ascent marks |
 
-Garments are Dark Brown, Charcoal or black first; orange garments for crew and volunteers so they are easy to find.
+Garments are Dark Brown, Charcoal, black or White; orange garments for crew and volunteers so they are easy to find.
 
 ## Signage and spaces
 
