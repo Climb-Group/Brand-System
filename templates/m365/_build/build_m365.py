@@ -36,7 +36,6 @@ import poster_kit as P  # noqa: E402
 
 sys.path.insert(0, str(HERE))
 import reactions as R  # noqa: E402
-import shapes as S  # noqa: E402
 
 DB, CH, OR, TI, LG, WH = F.DB, F.CH, F.OR, F.TI, F.LG, F.WH
 OR_TEXT = "#C55308"      # color.orange.text: small orange text and accents on white (4.6:1)
@@ -159,58 +158,84 @@ def theme_image(brand, mode, scale, label):
 
 # ---------------------------------------------------------------- Organisation backgrounds
 
-SEED = {"ClimbUK": 1, "ClimbGroup": 2, "Climb27": 3}
-SHAPE_SETS = ["funky", "wavy", "simple", "shapes", "pop", "stickers", "photo-cards"]
-NOTES = []
+FESTIVAL = ["spotlight", "summit", "orbit", "network", "ascent-light", "contours-light"]
+CALM = ["calm-dark", "calm-light", "calm-glow", "calm-white"]
 
 
-def bg_shapes(brand, kind):
-    """Graphic background in the Climb26 call background style: blobs and marks over the edges, the middle calm for
-    the person, the logo top left in whichever variant reads on the shape under it. photo-cards and stickers add
-    tilted Climb26 photo cards and house drawings as accents; photos never fill the frame."""
+def bg_festival(brand, motif):
+    """More backgrounds in the catalogue festival style: glow, contours, chevrons, slabs and house drawings at the
+    edges, the centre calm for the person, the logo top left. The -light pair sits on Light Grey with the drawings in
+    Orange Text."""
     w, h = 3840, 2160
-    name = "%s_teams-bg_%s_%dx%d" % (brand.lower(), kind, w, h)
-    b = B[brand]
-    seed = SEED[brand]
-    field, spec = S.LAYOUTS["funky" if kind == "photo-cards" else kind](seed + (10 if kind == "photo-cards" else 0))
-    p = ['<svg class="abs" style="left:0;top:0" viewBox="0 0 %d %d" width="%d" height="%d">%s%s</svg>'
-         % (w, h, w, h, field.body(), S.marks(field, spec if kind != "photo-cards" else spec[:6]))]
-    K = P.Kit(C, name)
-    copy = []
-    if kind == "photo-cards":
-        cards = b["cards"]
-        p.append(K.pic(cards[0], 2900, 120, 820, 560, rot=6, radius=28, shadow=True, frame="14px solid #FFFFFF"))
-        p.append(K.pic(cards[1], 3020, 1240, 700, 480, rot=-5, radius=28, shadow=True, frame="14px solid #FFFFFF"))
-        p.append(K.pic(cards[2], 150, 1300, 760, 520, rot=-4, radius=28, shadow=True, frame="14px solid #FFFFFF"))
-        p.append(P.sticker(b["sticker"], 260, 1220, 60, rot=-5))
-        copy.append(b["sticker"])
-    elif kind == "stickers":
-        drawings = [b["hero"], "sparkles", "tickets", "star", "megaphone", "party-popper"]
-        spots = [(3080, 1380, 680, 8), (140, 1000, 500, -12), (2700, 90, 420, 14), (520, 1620, 400, -8),
-                 (2150, 40, 300, 18), (2350, 1720, 340, -16)]
-        for d, (x, y, sz, r) in zip(drawings, spots):
-            ink = S.mark_colour(field, (x + sz / 2) / S.K, (y + sz / 2) / S.K)
-            p.append(I.place(d, x, y, sz, rotate=r, weight=1.2, ink=ink, ground=field.under((x + sz / 2) / S.K, (y + sz / 2) / S.K)))
-        p.append(K.pic(b["cards"][0], 2860, 520, 640, 460, rot=7, radius=24, shadow=True, frame="12px solid #FFFFFF"))
-        p.append(P.sticker(b["sticker"], 180, 1900, 60, rot=-4))
-        copy.append(b["sticker"])
-    elif kind in ("funky", "pop"):
-        p.append(P.sticker(b["sticker"], 160, 1960, 58, rot=-4, tone="brown" if kind == "pop" else "orange"))
-        copy.append(b["sticker"])
-    p.append(F.grain_layer(w, h, 80 + seed, 0.04))
-    under = field.uniform(*S.LOGO)
-    if under is None:
-        NOTES.append("%s: logo sits over more than one colour" % name)
-        under = field.under(S.LOGO[0], S.LOGO[1])
-    variant = S.ON.get(under, (None, "reversed-dark"))[1]
-    p.append(F.logo_img(C, brand, variant, w * 0.04, h * 0.06, w * 0.15))
-    calm = max(field.calm_share(*S.PERSON, c) for c in (S.TONE, S.CH, S.WH, S.OR, S.DB))
-    if calm < 0.75:
-        NOTES.append("%s: the person zone is only %d%% one colour" % (name, calm * 100))
-    ground = {S.CH: "charcoal", S.TONE: "charcoal", S.WH: "white", S.OR: "orange", S.DB: "dark-brown"}[field.ground]
-    a = add(name, w, h, p, copy, group="Backgrounds", ground=ground)
-    if field.ground == S.TONE:
-        a["extra_css"] += ".canvas{background:linear-gradient(%s,%s),%s !important}" % (S.TONE_CSS, S.TONE_CSS, S.CH)
+    name = "%s_teams-bg_%s_%dx%d" % (brand.lower(), motif, w, h)
+    Bd = P.BRANDS[brand]
+    heroes, extras = Bd["heroes"], Bd["extras"]
+    seed = {"ClimbUK": 1, "ClimbGroup": 2, "Climb27": 3}[brand]
+    centre = (w / 2 - 980, h / 2 - 760, w / 2 + 980, h / 2 + 760)
+    logo_zone = (0, 0, w * 0.26, h * 0.22)
+    sticker_text = Bd["sticker"]
+    p, ground, logo = [], "dark-brown", "reversed-dark"
+    if motif == "spotlight":
+        # A beam of stage light from the top edge, the hero lit at the bottom right.
+        p.append(P.glow(w, h, w * 0.78, -h * 0.1, w * 0.55, 0.48))
+        p.append(P.glow(w, h, w * 0.85, h, w * 0.3, 0.22))
+        p.append(F.svg(w, h, M.contours(w, h, seed=40 + seed, rings=8, dark=True, marker=False, cx=0.8, cy=-0.12)))
+        p.append(P.hero(heroes[2], w - 900, h - 920, 720, rot=7,
+                        ghosts=[(-0.55, -0.6, 0.55, -16, 0.18), (0.2, -1.1, 0.45, 14, 0.12)]))
+        p.append(P.scatter(extras, (60, h * 0.45, w * 0.24, h - 260), 3, (240, 320), seed=40 + seed, avoid=[centre]))
+        p.append(P.sticker(sticker_text, 150, h - 280, 66, rot=-4))
+    elif motif == "summit":
+        # The ascent turned round: the slab and chevrons climb from the bottom left, the hero top right.
+        p.append(P.slab_poly([(0, h - 1050), (1150, h), (0, h)], OR))
+        p.append(P.chevrons(80, h - 120, 480, steps=3, colour=DB, w=w, h=h))
+        p.append(P.glow(w, h, w * 0.08, h * 0.88, w * 0.42, 0.38))
+        p.append(F.svg(w, h, M.contours(w, h, seed=44 + seed, rings=9, dark=True, marker=False, cx=1.0, cy=0.05)))
+        p.append(P.hero(heroes[0], w - 920, 200, 700, rot=-5,
+                        ghosts=[(-0.4, 0.6, 0.5, 12, 0.18), (-0.1, 1.05, 0.38, -18, 0.12)]))
+        p.append(P.scatter(extras, (w * 0.78, h * 0.5, w - 60, h - 60), 3, (230, 300), seed=44 + seed, avoid=[centre]))
+        p.append(P.sticker(sticker_text, 150, h - 300, 66, rot=4, side="right"))
+    elif motif == "orbit":
+        # Contour rings from the top right corner, drawings along the bottom edge like a festival line-up.
+        p.append(F.svg(w, h, M.contours(w, h, seed=48 + seed, rings=15, dark=True, marker=True, cx=1.04, cy=-0.04)))
+        p.append(P.glow(w, h, w, 0, w * 0.4, 0.34))
+        p.append(F.svg(w, h, M.slabs(w, h, corners=("bl",), length=w * 0.2, thick=h * 0.05)))
+        for k, (x, sz, r) in enumerate([(w * 0.05, 360, -8), (w * 0.72, 420, 6), (w * 0.86, 360, -10)]):
+            p.append(I.place(extras[(k + seed) % len(extras)], x, h - sz - 150, sz, rotate=r, opacity=0.3, seed=k))
+        p.append(P.hero(heroes[1], w - 860, 180, 620, rot=-8, ghosts=[(-0.5, 0.7, 0.5, 14, 0.16)]))
+        p.append(P.sticker(sticker_text, 150, 150, 62, rot=3, side="right"))
+    elif motif == "network":
+        # Joined dots along the top and bottom edges, a glow in two corners, two drawings, no photos.
+        p.append(F.svg(w, h, M.connections(w, h, seed=52 + seed, dots=24, dark=True, region=(0.28, 0.0, 0.98, 0.15)), "opacity:.6"))
+        p.append(F.svg(w, h, M.connections(w, h, seed=53 + seed, dots=22, dark=True, region=(0.02, 0.86, 0.72, 1.0)), "opacity:.6"))
+        p.append(P.glow(w, h, 0, h, w * 0.38, 0.3))
+        p.append(P.glow(w, h, w, 0, w * 0.38, 0.3))
+        p.append(P.hero(heroes[3], w - 880, h - 960, 700, rot=6,
+                        ghosts=[(-0.3, -0.7, 0.55, -14, 0.2), (0.35, -1.1, 0.42, 12, 0.14)]))
+        p.append(P.hero(extras[1], 130, h - 820, 520, rot=-9, ghosts=[(0.5, -0.6, 0.55, 16, 0.18)]))
+        p.append(P.sticker(sticker_text, 150, h - 290, 64, rot=-5))
+    elif motif == "ascent-light":
+        p.append(F.svg(w, h, M.contours(w, h, seed=56 + seed, rings=9, dark=False, marker=False, cx=0.0, cy=0.1)))
+        p.append(P.slab_poly([(w - 1250, h), (w, h - 1120), (w, h)], OR))
+        p.append(P.chevrons(w - 520, h - 120, 520, steps=3, colour=DB, w=w, h=h))
+        p.append(P.hero(heroes[3], w - 900, 180, 700, rot=0, ghost_ink=OR_TEXT,
+                        ghosts=[(-0.35, 0.55, 0.5, 10, 0.22), (-0.62, 0.95, 0.36, 18, 0.15)]))
+        p.append(P.scatter(extras, (60, h * 0.3, w * 0.24, h - 400), 3, (240, 320), seed=56 + seed, ink=OR_TEXT,
+                           opacity=(0.3, 0.45), avoid=[centre, logo_zone]))
+        p.append(P.sticker(sticker_text, 150, h - 300, 66, rot=-4, tone="brown"))
+        ground, logo = "light-grey", "full-colour-grey"
+    else:  # contours-light
+        p.append(F.svg(w, h, M.contours(w, h, seed=60 + seed, rings=14, dark=False, marker=True, cx=-0.02, cy=1.04)))
+        p.append(F.svg(w, h, M.slabs(w, h, corners=("br",), length=w * 0.22, thick=h * 0.06)))
+        p.append(P.scatter(extras, (w * 0.76, 120, w - 60, h * 0.78), 4, (230, 320), seed=60 + seed, ink=OR_TEXT,
+                           opacity=(0.3, 0.45), avoid=[centre]))
+        p.append(I.place(heroes[1], 140, h - 880, 700, rotate=8, ink=OR_TEXT, ground=LG))
+        p.append(P.sticker(sticker_text, 150, 150, 66, rot=3, side="right"))
+        ground, logo = "light-grey", "full-colour-grey"
+    p.append(F.grain_layer(w, h, 90 + seed, 0.06 if ground == "dark-brown" else 0.03))
+    p.append(F.logo_img(C, brand, logo, w * 0.04, h * 0.06, w * 0.15))
+    a = add(name, w, h, p, [sticker_text], group="Backgrounds", ground="dark-brown")
+    if ground == "light-grey":
+        a["extra_css"] += ".canvas{background:%s !important}" % LG
 
 
 def bg_calm(brand, mode):
@@ -225,44 +250,26 @@ def bg_calm(brand, mode):
              F.grain_layer(w, h, 51, 0.05),
              F.logo_img(C, brand, "reversed-dark", w * 0.04, h * 0.06, w * 0.15)]
         ground = "dark-brown"
+    elif mode == "glow":
+        p = [P.glow(w, h, w, h, w * 0.55, 0.42),
+             F.svg(w, h, M.connections(w, h, seed=34, dots=18, dark=True, region=(0.7, 0.55, 0.99, 0.97)), "opacity:.5"),
+             P.chevrons(w - 420, h - 110, 300, steps=3, colour=OR, w=w, h=h),
+             F.grain_layer(w, h, 53, 0.05),
+             F.logo_img(C, brand, "reversed-dark", w * 0.04, h * 0.06, w * 0.15)]
+        ground = "dark-brown"
+    elif mode == "white":
+        p = [F.svg(w, h, M.slabs(w, h, corners=("bl", "tr"), length=w * 0.18, thick=h * 0.045)),
+             I.place(B[brand]["hero"], w - 760, h - 780, 560, rotate=-6, ink=OR_TEXT, ground=WH, opacity=0.5),
+             F.logo_img(C, brand, "full-colour-light", w * 0.04, h * 0.06, w * 0.15)]
+        ground = "white"
     else:
         p = [F.svg(w, h, M.contours(w, h, seed=32, rings=13, dark=False, marker=False, cx=1.04, cy=1.06)),
              F.svg(w, h, M.slabs(w, h, corners=("br",), length=w * 0.22, thick=h * 0.05)),
              F.logo_img(C, brand, "full-colour-grey", w * 0.04, h * 0.06, w * 0.15)]
         ground = "light-grey"
     a = add(name, w, h, p, group="Backgrounds", ground="dark-brown")
-    if ground == "light-grey":
-        a["extra_css"] += ".canvas{background:%s !important}" % LG
-
-
-def bg_frosted(brand, kind):
-    """Frosted glass background: a transparent PNG. Teams blurs the person's own room through the clear areas and
-    keeps the brand graphic sharp. corner: logo on a Dark Brown card top left, slab and chevrons bottom right.
-    band: a Dark Brown band along the bottom with the tagline lockup."""
-    w, h = 3840, 2160
-    name = "%s_teams-bg_frosted-%s_%dx%d" % (brand.lower(), kind, w, h)
-    p = []
-    if kind == "corner":
-        lw = w * 0.15
-        lh = lw * C.logo_ratio(brand, "reversed-dark")
-        pad = lh * 1.0
-        p.append('<div class="abs" style="left:%.0fpx;top:%.0fpx;width:%.0fpx;height:%.0fpx;background:%s;'
-                 'border-radius:%.0fpx"></div>' % (w * 0.04 - pad, h * 0.06 - pad, lw + 2 * pad, lh + 2 * pad, DB,
-                                                   pad * 0.5))
-        p.append(F.logo_img(C, brand, "reversed-dark", w * 0.04, h * 0.06, lw))
-        p.append(P.slab_poly([(w - 1100, h), (w, h - 980), (w, h)], OR))
-        p.append(P.chevrons(w - 470, h - 110, 470, steps=3, colour=DB, w=w, h=h))
-    else:
-        bh = h * 0.16
-        p.append('<div class="abs" style="left:0;top:%.0fpx;width:%.0fpx;height:%.0fpx;background:%s"></div>'
-                 % (h - bh, w, bh, DB))
-        p.append('<div class="abs" style="left:0;top:%.0fpx;width:%.0fpx;height:%.0fpx;background:%s"></div>'
-                 % (h - bh - 14, w, 14, OR))
-        lw = w * 0.3
-        lh = lw * C.logo_ratio(brand, "tagline-lockup-reversed")
-        p.append(F.logo_img(C, brand, "tagline-lockup-reversed", w * 0.04, h - bh / 2 - lh / 2, lw))
-        p.append(P.chevrons(w - 380, h - bh / 2 + 120, 240, steps=3, colour=OR, w=w, h=h))
-    add(name, w, h, p, transparent=True, group="Backgrounds")
+    if ground in ("light-grey", "white"):
+        a["extra_css"] += ".canvas{background:%s !important}" % (LG if ground == "light-grey" else WH)
 
 
 # ---------------------------------------------------------------- Organisation theme, sign-in page, app tiles
@@ -315,12 +322,10 @@ def build_pages(build):
             theme_logo(brand, mode, build)
             theme_image(brand, mode, 1, "1440x810")
             theme_image(brand, mode, 3840 / 1440, "3840x2160")
-        for kind in SHAPE_SETS:
-            bg_shapes(brand, kind)
-        bg_calm(brand, "dark")
-        bg_calm(brand, "light")
-        bg_frosted(brand, "corner")
-        bg_frosted(brand, "band")
+        for motif in FESTIVAL:
+            bg_festival(brand, motif)
+        for mode in CALM:
+            bg_calm(brand, mode.split("-")[1])
         # Organisation theme logos: shown in the navigation bar, scaled to fit 200x48.
         wordmark(brand, "reversed-dark", 200, 48, "%s_m365-logo-default_200x48" % brand.lower())
         wordmark(brand, "mono-white", 200, 48, "%s_m365-logo-alternative_200x48" % brand.lower())
@@ -454,12 +459,8 @@ def save(build):
                 report.append((dst, dst.stat().st_size, 5 * 1024 * 1024))
         bgd = out / "teams-backgrounds" / brand
         for f in sorted(png.glob("%s_teams-bg_*.png" % low)):
-            if "frosted" in f.name:
-                dst = bgd / f.name.replace("_teams-bg_", "_teams-bg_")
-                save_png(f, dst)
-            else:
-                dst = bgd / (f.stem + ".jpg")
-                save_jpeg(f, dst, quality=88)
+            dst = bgd / (f.stem + ".jpg")
+            save_jpeg(f, dst, quality=88)
             report.append((dst, dst.stat().st_size, None))
         o = out / "org-theme"
         for kind in ("default", "alternative"):
@@ -501,8 +502,6 @@ def save(build):
                              ("entra_favicon_32x32", "climbuk_favicon_32x32.png", 5 * 1024)]:
         n = save_png(png / (src + ".png"), e / name, limit=limit - 1)
         report.append((e / name, n, limit))
-    for n in NOTES:
-        print("[m365] LAYOUT " + n)
     bad = [(p, n, l) for p, n, l in report if l and n >= l]
     for p, n, l in bad:
         print("[m365] OVER LIMIT %s: %d bytes (limit %d)" % (p.relative_to(ROOT), n, l))

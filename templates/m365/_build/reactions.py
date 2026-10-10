@@ -2,7 +2,9 @@
 PNG and a 51-frame animated sprite (100x5100, 24 fps, frames 0 to 9 fade in, key moment at frame 23, frames 41 to
 50 fade out), as Microsoft asks for every reaction a theme replaces.
 
-Two sets share one drawing each:
+Three sets share one drawing each:
+- mixed: each reaction in its own brand palette so they are told apart at a glance: Like on Climb Orange, Heart on
+  Dark Brown, Applause on Charcoal, Laugh on Orange Tint, Surprised on White.
 - orange: a Climb Orange disc with the drawing in Dark Brown (6.06:1).
 - dark: a Dark Brown disc ringed in Climb Orange with the drawing in Climb Orange (6.06:1).
 
@@ -13,11 +15,21 @@ import math
 
 from PIL import Image
 
-DB, OR, TI = "#1E0F05", "#E8712A", "#F2AE86"
+DB, OR, TI, CH, WH = "#1E0F05", "#E8712A", "#F2AE86", "#242322", "#FFFFFF"
 SIZE = 400
 DISC = 300            # disc diameter inside the 400 frame, so effects have room around it
 REACTIONS = ("like", "heart", "applause", "laugh", "surprised")
-SETS = {"orange": dict(disc=OR, ink=DB, ring=None, fx=OR), "dark": dict(disc=DB, ink=OR, ring=OR, fx=OR)}
+SETS = {"orange": dict(disc=OR, ink=DB, ring=None), "dark": dict(disc=DB, ink=OR, ring=OR)}
+MIXED = {"like": dict(disc=OR, ink=DB, ring=None),          # 6.06:1
+         "heart": dict(disc=DB, ink=OR, ring=OR),           # 6.06:1
+         "applause": dict(disc=CH, ink=WH, ring=OR),        # 15.69:1
+         "laugh": dict(disc=TI, ink=DB, ring=None),         # 11.3:1
+         "surprised": dict(disc=WH, ink=DB, ring=OR)}       # 19.4:1
+SETS["mixed"] = None
+
+
+def palette(key, r):
+    return MIXED[r] if key == "mixed" else SETS[key]
 
 FACES = {
     # Laugh: closed, upturned eyes and a wide open D mouth with a tongue.
@@ -42,12 +54,13 @@ def _wrap(body):
 def pages(add, I):
     """Add the layer pages: per set a disc, per set and reaction a drawing, and the shared effect layers."""
     c = SIZE / 2
-    for key, s in SETS.items():
-        ring = ('<circle cx="%d" cy="%d" r="%d" fill="none" stroke="%s" stroke-width="16"/>' % (c, c, DISC / 2 - 8, s["ring"])
-                if s["ring"] else "")
-        add("rx_%s_disc" % key, SIZE, SIZE, [_wrap('<circle cx="%d" cy="%d" r="%d" fill="%s"/>%s' % (c, c, DISC / 2, s["disc"], ring))],
-            transparent=True)
+    for key in SETS:
         for r in REACTIONS:
+            s = palette(key, r)
+            ring = ('<circle cx="%d" cy="%d" r="%d" fill="none" stroke="%s" stroke-width="16"/>' % (c, c, DISC / 2 - 8, s["ring"])
+                    if s["ring"] else "")
+            add("rx_%s_%s_disc" % (key, r), SIZE, SIZE,
+                [_wrap('<circle cx="%d" cy="%d" r="%d" fill="%s"/>%s' % (c, c, DISC / 2, s["disc"], ring))], transparent=True)
             if r in FACES:
                 body = FACES[r].format(ink=s["ink"], disc=s["disc"])
                 d = DISC * 0.86
@@ -149,15 +162,15 @@ def frame(kind, f, disc, ink, burst, heart):
 
 
 def compose(png, out):
-    """Write <set>/<reaction>_static_100x100.png and <set>/<reaction>_animated_100x5100.png for both sets."""
+    """Write <set>/<reaction>_static_100x100.png and <set>/<reaction>_animated_100x5100.png for every set."""
     load = lambda n: Image.open(png / (n + ".png")).convert("RGBA")
     burst, heart = load("rx_fx_burst"), load("rx_fx_heart")
     written = []
     for key in SETS:
-        disc = load("rx_%s_disc" % key)
         d = out / key
         d.mkdir(parents=True, exist_ok=True)
         for r in REACTIONS:
+            disc = load("rx_%s_%s_disc" % (key, r))
             ink = load("rx_%s_%s" % (key, r))
             still = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
             still.alpha_composite(disc)
