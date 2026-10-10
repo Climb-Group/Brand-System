@@ -1,334 +1,247 @@
 {
 	Tools = ordered() {
-		Climb_LowerThird_Festival = MacroOperator {
+		ClimbGroup_Lower_Third_Festival = MacroOperator {
 			CtrlWZoom = false,
 			NameSet = true,
 			Inputs = ordered() {
-				Input1 = InstanceInput { SourceOp = "FirstName", Source = "StyledText", Name = "First name", Default = "First name", },
-				Input2 = InstanceInput { SourceOp = "LastName", Source = "StyledText", Name = "Last name", Default = "Last name", },
-				Input3 = InstanceInput { SourceOp = "RoleText", Source = "StyledText", Name = "Role and company", Default = "Role, Company", },
-				Input4 = InstanceInput { SourceOp = "Mark", Source = "StyledText", Name = "Brand mark", Default = "ClimbGroup", },
+				Input1 = InstanceInput { SourceOp = "Canvas", Source = "Variant", Name = "Colour variant", Default = 0, },
+				Input2 = InstanceInput { SourceOp = "FirstName", Source = "StyledText", Name = "First name", Default = "FIRST NAME", },
+				Input3 = InstanceInput { SourceOp = "LastName", Source = "StyledText", Name = "Last name", Default = "LAST NAME", },
+				Input4 = InstanceInput { SourceOp = "RoleText", Source = "StyledText", Name = "Role and company", Default = "Role, Company", },
+				Input5 = InstanceInput { SourceOp = "FirstName", Source = "Red1", Name = "First name colour", ControlGroup = 104, Default = 1, },
+				Input6 = InstanceInput { SourceOp = "FirstName", Source = "Green1", ControlGroup = 104, Default = 1, },
+				Input7 = InstanceInput { SourceOp = "FirstName", Source = "Blue1", ControlGroup = 104, Default = 1, },
+				Input8 = InstanceInput { SourceOp = "LastName", Source = "Red1", Name = "Last name colour", ControlGroup = 107, Default = 1, },
+				Input9 = InstanceInput { SourceOp = "LastName", Source = "Green1", ControlGroup = 107, Default = 1, },
+				Input10 = InstanceInput { SourceOp = "LastName", Source = "Blue1", ControlGroup = 107, Default = 1, },
 			},
 			Outputs = {
-				MainOutput1 = InstanceOutput { SourceOp = "MergeMark", Source = "Output", },
+				MainOutput1 = InstanceOutput { SourceOp = "MergeRole", Source = "Output", },
 			},
 			ViewInfo = GroupInfo { Pos = { 0, 0 } },
 			Tools = ordered() {
 				Canvas = Background {
-				Inputs = {
-					Width = Input { Value = 3840, },
-					Height = Input { Value = 2160, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					TopLeftRed = Input { Value = 0, },
-					TopLeftGreen = Input { Value = 0, },
-					TopLeftBlue = Input { Value = 0, },
-					TopLeftAlpha = Input { Value = 0, },
+					UserControls = ordered() {
+						Variant = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ComboControl",
+							INP_Integer = true,
+							INP_Default = 0,
+							INP_MinScale = 0,
+							INP_MaxScale = 2,
+							CC_LabelPosition = "Horizontal",
+							ICS_ControlPage = "Controls",
+							LINKS_Name = "Colour variant",
+							{ CCS_AddString = "Dark Brown", },
+							{ CCS_AddString = "Charcoal", },
+							{ CCS_AddString = "Climb Orange", },
+						},
+					},
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						Variant = Input { Value = 0, },
+						TopLeftRed = Input { Value = 0, },
+						TopLeftGreen = Input { Value = 0, },
+						TopLeftBlue = Input { Value = 0, },
+						TopLeftAlpha = Input { Value = 0, },
+					},
 				},
-			},
 				Panel = Background {
-				Inputs = {
-					Width = Input { Value = 2000, },
-					Height = Input { Value = 560, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					TopLeftRed = Input { Value = 0.117647, },
-					TopLeftGreen = Input { Value = 0.058824, },
-					TopLeftBlue = Input { Value = 0.019608, },
-					TopLeftAlpha = Input { Value = 1, },
+					Inputs = {
+						Width = Input { Value = 2000, },
+						Height = Input { Value = 560, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						TopLeftRed = Input { Value = 0.117647, Expression = "iif(Canvas.Variant == 0, 0.117647, iif(Canvas.Variant == 1, 0.141176, 0.909804))", },
+						TopLeftGreen = Input { Value = 0.058824, Expression = "iif(Canvas.Variant == 0, 0.058824, iif(Canvas.Variant == 1, 0.137255, 0.443137))", },
+						TopLeftBlue = Input { Value = 0.019608, Expression = "iif(Canvas.Variant == 0, 0.019608, iif(Canvas.Variant == 1, 0.133333, 0.164706))", },
+						TopLeftAlpha = Input { Value = 1, },
+					},
 				},
-			},
-				MergePanelBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[0] = { 0, RH = { 1.6, 1 } },
-					[10] = { 1, LH = { 3, 1 } }
-				}
-			},
 				MergePanel = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "Canvas", Source = "Output", },
-					Foreground = Input { SourceOp = "Panel", Source = "Output", },
-					Center = Input { Value = { 0.31042, 0.21296 }, },
-					Blend = Input { SourceOp = "MergePanelBlend", Source = "Value", },
+					Inputs = {
+						Background = Input { SourceOp = "Canvas", Source = "Output", },
+						Foreground = Input { SourceOp = "Panel", Source = "Output", },
+						Center = Input { Value = { 0.310417, 0.133333 }, Expression = "Point(0.310417, 0.133333-0.007407*(1-(1-(1-min(max((time-0)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-0)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
 				},
-			},
 				Slab = Background {
-				Inputs = {
-					Width = Input { Value = 420, },
-					Height = Input { Value = 44, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					TopLeftRed = Input { Value = 0.909804, },
-					TopLeftGreen = Input { Value = 0.443137, },
-					TopLeftBlue = Input { Value = 0.164706, },
-					TopLeftAlpha = Input { Value = 1, },
+					Inputs = {
+						Width = Input { Value = 420, },
+						Height = Input { Value = 44, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						TopLeftRed = Input { Value = 0.909804, Expression = "iif(Canvas.Variant == 0, 0.909804, iif(Canvas.Variant == 1, 0.909804, 0.117647))", },
+						TopLeftGreen = Input { Value = 0.443137, Expression = "iif(Canvas.Variant == 0, 0.443137, iif(Canvas.Variant == 1, 0.443137, 0.058824))", },
+						TopLeftBlue = Input { Value = 0.164706, Expression = "iif(Canvas.Variant == 0, 0.164706, iif(Canvas.Variant == 1, 0.164706, 0.019608))", },
+						TopLeftAlpha = Input { Value = 1, },
+					},
 				},
-			},
-				MergeSlabBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[3] = { 0, RH = { 4.6, 1 } },
-					[13] = { 1, LH = { 6, 1 } }
-				}
-			},
 				MergeSlab = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergePanel", Source = "Output", },
-					Foreground = Input { SourceOp = "Slab", Source = "Output", },
-					Center = Input { Value = { 0.10469, 0.07315 }, },
-					Blend = Input { SourceOp = "MergeSlabBlend", Source = "Value", },
+					Inputs = {
+						Background = Input { SourceOp = "MergePanel", Source = "Output", },
+						Foreground = Input { SourceOp = "Slab", Source = "Output", },
+						Center = Input { Value = { 0.104688, 0.013889 }, Expression = "Point(0.104688, 0.013889-0.007407*(1-(1-(1-min(max((time-2)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-2)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
 				},
-			},
-				Pill = Background {
-				Inputs = {
-					Width = Input { Value = 520, },
-					Height = Input { Value = 30, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					TopLeftRed = Input { Value = 0.909804, },
-					TopLeftGreen = Input { Value = 0.443137, },
-					TopLeftBlue = Input { Value = 0.164706, },
-					TopLeftAlpha = Input { Value = 1, },
+				MarkColour = Loader {
+					Clips = {
+						Clip {
+							ID = "Clip1",
+							Filename = "Templates:/Edit/Titles/ClimbGroup/ClimbGroup_reversed-dark_2048.png",
+							FormatID = "PNGFormat",
+							StartFrame = -1,
+							LengthSetManually = true,
+							TrimIn = 0,
+							TrimOut = 0,
+							ExtendFirst = 0,
+							ExtendLast = 0,
+							Loop = 1,
+							AspectMode = 0,
+							Depth = 0,
+							TimeCode = 0,
+							GlobalStart = -2000000000,
+							GlobalEnd = 2000000000
+						}
+					},
+					Inputs = {
+					},
 				},
-			},
-				MergePillBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[4] = { 0, RH = { 5.6, 1 } },
-					[14] = { 1, LH = { 7, 1 } }
-				}
-			},
-				MergePill = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergeSlab", Source = "Output", },
-					Foreground = Input { SourceOp = "Pill", Source = "Output", },
-					Center = Input { Value = { 0.14115, 0.25139 }, },
-					Blend = Input { SourceOp = "MergePillBlend", Source = "Value", },
+				MarkWhite = Loader {
+					Clips = {
+						Clip {
+							ID = "Clip1",
+							Filename = "Templates:/Edit/Titles/ClimbGroup/ClimbGroup_mono-white_2048.png",
+							FormatID = "PNGFormat",
+							StartFrame = -1,
+							LengthSetManually = true,
+							TrimIn = 0,
+							TrimOut = 0,
+							ExtendFirst = 0,
+							ExtendLast = 0,
+							Loop = 1,
+							AspectMode = 0,
+							Depth = 0,
+							TimeCode = 0,
+							GlobalStart = -2000000000,
+							GlobalEnd = 2000000000
+						}
+					},
+					Inputs = {
+					},
 				},
-			},
-				FirstName = TextPlus {
-				Inputs = {
-					Width = Input { Value = 3840, },
-					Height = Input { Value = 2160, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					StyledText = Input { Value = "FIRST NAME", },
-					Font = Input { Value = "Montserrat", },
-					Style = Input { Value = "Black", },
-					Size = Input { Value = 0.06111, },
-					CharacterSpacing = Input { Value = 1, },
-					Center = Input { Value = { 0.07344, 0.28009 }, },
-					HorizontalLeftCenterRight = Input { Value = -1, },
-					HorizontalJustificationNew = Input { Value = 3, },
-					VerticalTopCenterBottom = Input { Value = 0, },
-					VerticalJustificationNew = Input { Value = 3, },
-					Red1 = Input { Value = 1, },
-					Green1 = Input { Value = 1, },
-					Blue1 = Input { Value = 1, },
-					Alpha1 = Input { Value = 1, },
+				MarkPick = Dissolve {
+					Inputs = {
+						Background = Input { SourceOp = "MarkColour", Source = "Output", },
+						Foreground = Input { SourceOp = "MarkWhite", Source = "Output", },
+						Mix = Input { Value = 0, Expression = "iif(Canvas.Variant == 2, 1, 0)", },
+					},
 				},
-			},
-				FirstRiseX = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[0] = { 0.5, RH = { 3.68, 0.5 } },
-					[23] = { 0.5, LH = { 6.9, 0.5 } }
-				}
-			},
-				FirstRiseY = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[5] = { 0.485185, RH = { 7.88, 0.5 } },
-					[23] = { 0.5, LH = { 10.4, 0.5 } }
-				}
-			},
-				FirstRisePath = XYPath {
-				ShowKeyPoints = false,
-				DrawMode = "ModifyOnly",
-				Inputs = {
-					X = Input { SourceOp = "FirstRiseX", Source = "Value", },
-					Y = Input { SourceOp = "FirstRiseY", Source = "Value", },
+				MarkSize = Transform {
+					Inputs = {
+						Input = Input { SourceOp = "MarkPick", Source = "Output", },
+						Size = Input { Value = 0.234375, },
+					},
 				},
-			},
-				FirstRise = Transform {
-				Inputs = {
-					Input = Input { SourceOp = "FirstName", Source = "Output", },
-					Center = Input { SourceOp = "FirstRisePath", Source = "Value", },
-				},
-			},
-				MergeFirstBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[5] = { 0, RH = { 6.92, 1 } },
-					[17] = { 1, LH = { 8.6, 1 } }
-				}
-			},
-				MergeFirst = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergePill", Source = "Output", },
-					Foreground = Input { SourceOp = "FirstRise", Source = "Output", },
-					Blend = Input { SourceOp = "MergeFirstBlend", Source = "Value", },
-				},
-			},
-				LastName = TextPlus {
-				Inputs = {
-					Width = Input { Value = 3840, },
-					Height = Input { Value = 2160, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					StyledText = Input { Value = "LAST NAME", },
-					Font = Input { Value = "Montserrat", },
-					Style = Input { Value = "Black", },
-					Size = Input { Value = 0.06111, },
-					CharacterSpacing = Input { Value = 1, },
-					Center = Input { Value = { 0.07344, 0.21991 }, },
-					HorizontalLeftCenterRight = Input { Value = -1, },
-					HorizontalJustificationNew = Input { Value = 3, },
-					VerticalTopCenterBottom = Input { Value = 0, },
-					VerticalJustificationNew = Input { Value = 3, },
-					Red1 = Input { Value = 1, },
-					Green1 = Input { Value = 1, },
-					Blue1 = Input { Value = 1, },
-					Alpha1 = Input { Value = 1, },
-				},
-			},
-				LastRiseX = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[0] = { 0.5, RH = { 4, 0.5 } },
-					[25] = { 0.5, LH = { 7.5, 0.5 } }
-				}
-			},
-				LastRiseY = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[7] = { 0.485185, RH = { 9.88, 0.5 } },
-					[25] = { 0.5, LH = { 12.4, 0.5 } }
-				}
-			},
-				LastRisePath = XYPath {
-				ShowKeyPoints = false,
-				DrawMode = "ModifyOnly",
-				Inputs = {
-					X = Input { SourceOp = "LastRiseX", Source = "Value", },
-					Y = Input { SourceOp = "LastRiseY", Source = "Value", },
-				},
-			},
-				LastRise = Transform {
-				Inputs = {
-					Input = Input { SourceOp = "LastName", Source = "Output", },
-					Center = Input { SourceOp = "LastRisePath", Source = "Value", },
-				},
-			},
-				MergeLastBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[7] = { 0, RH = { 8.92, 1 } },
-					[19] = { 1, LH = { 10.6, 1 } }
-				}
-			},
-				MergeLast = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergeFirst", Source = "Output", },
-					Foreground = Input { SourceOp = "LastRise", Source = "Output", },
-					Blend = Input { SourceOp = "MergeLastBlend", Source = "Value", },
-				},
-			},
-				RoleText = TextPlus {
-				Inputs = {
-					Width = Input { Value = 3840, },
-					Height = Input { Value = 2160, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					StyledText = Input { Value = "Role, Company", },
-					Font = Input { Value = "Open Sans", },
-					Style = Input { Value = "SemiBold Italic", },
-					Size = Input { Value = 0.02685, },
-					CharacterSpacing = Input { Value = 1, },
-					Center = Input { Value = { 0.07396, 0.13426 }, },
-					HorizontalLeftCenterRight = Input { Value = -1, },
-					HorizontalJustificationNew = Input { Value = 3, },
-					VerticalTopCenterBottom = Input { Value = 0, },
-					VerticalJustificationNew = Input { Value = 3, },
-					Red1 = Input { Value = 0.94902, },
-					Green1 = Input { Value = 0.682353, },
-					Blue1 = Input { Value = 0.52549, },
-					Alpha1 = Input { Value = 1, },
-				},
-			},
-				RoleRiseX = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[0] = { 0.5, RH = { 4.32, 0.5 } },
-					[27] = { 0.5, LH = { 8.1, 0.5 } }
-				}
-			},
-				RoleRiseY = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[9] = { 0.485185, RH = { 11.88, 0.5 } },
-					[27] = { 0.5, LH = { 14.4, 0.5 } }
-				}
-			},
-				RoleRisePath = XYPath {
-				ShowKeyPoints = false,
-				DrawMode = "ModifyOnly",
-				Inputs = {
-					X = Input { SourceOp = "RoleRiseX", Source = "Value", },
-					Y = Input { SourceOp = "RoleRiseY", Source = "Value", },
-				},
-			},
-				RoleRise = Transform {
-				Inputs = {
-					Input = Input { SourceOp = "RoleText", Source = "Output", },
-					Center = Input { SourceOp = "RoleRisePath", Source = "Value", },
-				},
-			},
-				MergeRoleBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[9] = { 0, RH = { 10.92, 1 } },
-					[21] = { 1, LH = { 12.6, 1 } }
-				}
-			},
-				MergeRole = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergeLast", Source = "Output", },
-					Foreground = Input { SourceOp = "RoleRise", Source = "Output", },
-					Blend = Input { SourceOp = "MergeRoleBlend", Source = "Value", },
-				},
-			},
-				Mark = TextPlus {
-				Inputs = {
-					Width = Input { Value = 3840, },
-					Height = Input { Value = 2160, },
-					UseFrameFormatSettings = Input { Value = 0, },
-					StyledText = Input { Value = "ClimbGroup", },
-					Font = Input { Value = "Montserrat", },
-					Style = Input { Value = "ExtraBold", },
-					Size = Input { Value = 0.02963, },
-					CharacterSpacing = Input { Value = 1, },
-					Center = Input { Value = { 0.44844, 0.30463 }, },
-					HorizontalLeftCenterRight = Input { Value = -1, },
-					HorizontalJustificationNew = Input { Value = 3, },
-					VerticalTopCenterBottom = Input { Value = 0, },
-					VerticalJustificationNew = Input { Value = 3, },
-					Red1 = Input { Value = 0.909804, },
-					Green1 = Input { Value = 0.443137, },
-					Blue1 = Input { Value = 0.164706, },
-					Alpha1 = Input { Value = 1, },
-				},
-			},
-				MergeMarkBlend = BezierSpline {
-				SplineColor = { Red = 232, Green = 113, Blue = 42 },
-				KeyFrames = {
-					[8] = { 0, RH = { 9.92, 1 } },
-					[20] = { 1, LH = { 11.6, 1 } }
-				}
-			},
 				MergeMark = Merge {
-				Inputs = {
-					Background = Input { SourceOp = "MergeRole", Source = "Output", },
-					Foreground = Input { SourceOp = "Mark", Source = "Output", },
-					Blend = Input { SourceOp = "MergeMarkBlend", Source = "Value", },
+					Inputs = {
+						Background = Input { SourceOp = "MergeSlab", Source = "Output", },
+						Foreground = Input { SourceOp = "MarkSize", Source = "Output", },
+						Center = Input { Value = { 0.492708, 0.225926 }, Expression = "Point(0.492708, 0.225926-0.007407*(1-(1-(1-min(max((time-3)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-3)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
 				},
-			}
+				FirstName = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "FIRST NAME", },
+						Font = Input { Value = "Montserrat", },
+						Style = Input { Value = "Black", },
+						Size = Input { Value = 0.052379, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.073438, 0.229167 }, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 1, },
+						Green1 = Input { Value = 1, },
+						Blue1 = Input { Value = 1, },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				MergeFirst = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergeMark", Source = "Output", },
+						Foreground = Input { SourceOp = "FirstName", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-5)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-5)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				LastName = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "LAST NAME", },
+						Font = Input { Value = "Montserrat", },
+						Style = Input { Value = "Black", },
+						Size = Input { Value = 0.052379, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.073438, 0.168981 }, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 1, },
+						Green1 = Input { Value = 1, },
+						Blue1 = Input { Value = 1, },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				MergeLast = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergeFirst", Source = "Output", },
+						Foreground = Input { SourceOp = "LastName", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-7)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-7)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				RoleText = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "Role, Company", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold Italic", },
+						Size = Input { Value = 0.025715, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.073958, 0.101852 }, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 0.94902, Expression = "iif(Canvas.Variant == 0, 0.94902, iif(Canvas.Variant == 1, 0.94902, 1))", },
+						Green1 = Input { Value = 0.682353, Expression = "iif(Canvas.Variant == 0, 0.682353, iif(Canvas.Variant == 1, 0.682353, 1))", },
+						Blue1 = Input { Value = 0.52549, Expression = "iif(Canvas.Variant == 0, 0.52549, iif(Canvas.Variant == 1, 0.52549, 1))", },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				MergeRole = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergeLast", Source = "Output", },
+						Foreground = Input { SourceOp = "RoleText", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-9)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-9)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
 			},
 		},
 	},
-	ActiveTool = "Climb_LowerThird_Festival"
+	ActiveTool = "ClimbGroup_Lower_Third_Festival"
 }
