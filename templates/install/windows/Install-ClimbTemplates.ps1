@@ -12,6 +12,8 @@
         LibreOffice copies into ...\LibreOffice.
       - Video (unless -SkipVideo): DaVinci Resolve titles and LUT, Premiere Pro LUT,
         and the rest of the video kit into ...\Video.
+      - ONLYOFFICE Desktop Editors: templates added to its Templates list, and a start-up
+        task that puts them back after an ONLYOFFICE update.
       - Active Setup entry, so Set-ClimbTemplatesUser.ps1 runs once for each person
         at their next sign-in and points Office at the shared templates.
 
@@ -82,6 +84,18 @@ try {
     Copy-Tree (Join-Path $Payload 'themes') (Join-Path $Dest 'Themes')
     Copy-Tree (Join-Path $Payload 'libreoffice') (Join-Path $Dest 'LibreOffice')
     Copy-Item -Path (Join-Path $PSScriptRoot 'Set-ClimbTemplatesUser.ps1') -Destination $Dest -Force
+
+    # ONLYOFFICE Desktop Editors: add now, and again at each start-up in case an update removed them
+    $OnlyOffice = Join-Path $Dest 'Add-ClimbOnlyOffice.ps1'
+    Copy-Item -Path (Join-Path $PSScriptRoot 'Add-ClimbOnlyOffice.ps1') -Destination $OnlyOffice -Force
+    try {
+        & $OnlyOffice -Action Add -Source (Join-Path $Dest 'Office')
+        $TaskAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument ('-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}" -Action Ensure' -f $OnlyOffice)
+        Register-ScheduledTask -TaskName 'Climb templates for ONLYOFFICE' -TaskPath '\Climb\' -Action $TaskAction `
+            -Trigger (New-ScheduledTaskTrigger -AtStartup) -Principal (New-ScheduledTaskPrincipal -UserId 'SYSTEM' -RunLevel Highest) `
+            -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries) -Force | Out-Null
+    }
+    catch { Write-Warning "ONLYOFFICE step skipped: $_" }
 
     # Video
     if (-not $SkipVideo) {

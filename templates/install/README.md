@@ -19,12 +19,38 @@ The 4K motion clips (600 MB) are a separate download, `climb-video-motion-v1.zip
 | Fonts | `C:\Windows\Fonts` | `/Library/Fonts` | `/usr/local/share/fonts/climb` |
 | Office templates | `C:\ProgramData\Climb\Templates\Office\<Brand>`, set as each person's Workgroup templates folder | `/Library/Application Support/Microsoft/Office365/User Content.localized/Templates.localized` | `/opt/climb-templates/Office` |
 | Office themes | each person's `Document Themes` folder | `.../User Content.localized/Themes.localized` | `/opt/climb-templates/Themes` |
+| ONLYOFFICE | `converter\templates\<language>\Climb` in its program folder | the same folder inside `ONLYOFFICE.app` | `/opt/onlyoffice/desktopeditors/converter/templates/<language>/Climb` |
 | LibreOffice | `C:\ProgramData\Climb\Templates\LibreOffice` | `/Library/Application Support/Climb/Templates/LibreOffice` | linked into each person's LibreOffice template folder, one folder per brand |
 | Resolve titles | `C:\ProgramData\Blackmagic Design\DaVinci Resolve\Fusion\Templates` | `/Library/Application Support/Blackmagic Design/DaVinci Resolve/Fusion/Templates` | `~/.local/share/DaVinciResolve/Fusion/Templates` |
 | LUT | Resolve `Support\LUT\Climb` and Premiere `Adobe\Common\LUTs\Creative` | Resolve `LUT/Climb` and Premiere `Adobe/Common/LUTs/Creative` | `/opt/resolve/LUT/Climb` |
 | Premiere sequences, stills, captions | `C:\ProgramData\Climb\Templates\Video` | `/Library/Application Support/Climb/Templates/Video` | `/opt/climb-templates/Video` |
 
 The Resolve titles come with their logo PNGs, which go in `Fusion/Templates/Edit/Titles/<Brand>/` next to the titles: the Lower Third Festival and End Card load them from there, because Resolve cannot read images from inside a `.drfx`. The Resolve project and render presets are in `payload/video/resolve-presets/`; import them in Resolve (Project Settings and Deliver page, the ... menu, Import Preset).
+
+## ONLYOFFICE
+
+The installers add the Word, Excel and PowerPoint templates to the Templates list on the ONLYOFFICE Desktop Editors start screen (version 8.2 or later), in a folder per brand. ONLYOFFICE keeps that list inside its own program folder, so an ONLYOFFICE update can remove the templates. The installers put them back:
+
+- Windows: a start-up task, `\Climb\Climb templates for ONLYOFFICE`, runs `Add-ClimbOnlyOffice.ps1 -Action Ensure`.
+- macOS: a LaunchDaemon, `com.climb-uk.templates.onlyoffice`, runs `climb-onlyoffice.sh ensure` whenever `ONLYOFFICE.app` changes. On macOS 13 and later, writing inside another app needs App Management permission. If the log says the copy failed, give your mobile device management (MDM) agent App Management in a privacy (PPPC) profile, or have people use File, Open on the templates in `/Library/Application Support/Climb/Templates/Office`.
+- Linux: deb and rpm upgrades leave the templates alone. The Snap and Flatpak builds are read-only, so people using those open the templates with File, Open from `/opt/climb-templates/Office`.
+
+If ONLYOFFICE is installed after the templates, run the helper on its own: `Add-ClimbOnlyOffice.ps1` (Windows, as admin; the start-up task also does this at the next restart) or `sudo "<install folder>/climb-onlyoffice.sh" add "<install folder>/Office"` (macOS, Linux).
+
+ONLYOFFICE uses the fonts installed by this package, so nothing else is needed.
+
+## Other office apps
+
+These apps open the `.dotx`, `.xltx` and `.potx` files but have no folder an installer can fill, so each person adds the templates once. The files are in the `Office` folder of the install (paths in the table above).
+
+| App | How to add the templates |
+| --- | --- |
+| Collabora Office | Built on LibreOffice: File, Templates, Manage, Import, and pick the brand folder in the `LibreOffice` install folder. |
+| WPS Office | Open a template file. WPS starts a new document from it. To keep it in WPS, use Save As and pick the WPS template file type. |
+| SoftMaker Office and FreeOffice | Open a template file, then Save As in the TextMaker, PlanMaker or Presentations template format, into the template folder shown in Settings, Files. |
+| Apple Pages, Numbers and Keynote | Open a template file, then File, Save as Template, Add to Template Chooser. If Keynote will not open the `.potx`, rename a copy to `.pptx` first. |
+| Google Docs, Sheets and Slides | Upload the files to Drive and open them with Google Docs, Sheets or Slides. An admin can then add them to the organisation's template gallery (Template gallery, Submit template). Montserrat and Open Sans are Google Fonts, so the type comes through. |
+| Microsoft 365 on the web and mobile | A SharePoint admin can upload the templates to an organisation assets library set up as an Office template library, so they show in Word, Excel and PowerPoint on every device. |
 
 Skip the video files with `-SkipVideo` (Windows) or `--skip-video` (macOS, Linux).
 
@@ -73,4 +99,4 @@ Open Word, File, New and check the brand folder is there, then start a document 
 
 ## Tested
 
-The Linux and macOS scripts were run against a test folder, and every PowerShell script parses cleanly. None of them has been run yet on a managed Windows PC, a Mac or a real Intune or Jamf tenant. Try them on one test device before you roll them out widely.
+The Linux and macOS scripts, including the ONLYOFFICE step, were run against a test folder; `Add-ClimbOnlyOffice.ps1` was run under PowerShell 7 against a test folder; and every PowerShell script parses cleanly. The ONLYOFFICE template folder comes from the ONLYOFFICE Desktop Editors source code, not from a run in the app. The steps for the other office apps have not been tried. None of them has been run yet on a managed Windows PC, a Mac or a real Intune or Jamf tenant. Try them on one test device before you roll them out widely.

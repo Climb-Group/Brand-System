@@ -7,6 +7,7 @@
 #   LibreOffice: a folder per brand linked into each person's template folder
 #                (~/.config/libreoffice/4/user/template) for every home in /home,
 #                and in /etc/skel for new accounts
+#   ONLYOFFICE -> templates added to the Desktop Editors Templates list (deb/rpm install)
 #   Resolve    -> titles into each person's ~/.local/share/DaVinciResolve/Fusion/Templates,
 #                 LUT into /opt/resolve/LUT/Climb when Resolve is installed
 # As a normal user (just you): fonts in ~/.local/share/fonts/climb, templates copied
@@ -86,7 +87,8 @@ if [ -n "$ROOT" ] || [ "$(id -u)" -eq 0 ]; then
       cp "$PAYLOAD"/video/luts/*.cube "$ROOT/opt/resolve/LUT/Climb/"
     fi
   fi
-  cp "$HERE/uninstall-climb-templates.sh" "$DEST/"
+  cp "$HERE/uninstall-climb-templates.sh" "$HERE/climb-onlyoffice.sh" "$DEST/"
+  "$HERE/climb-onlyoffice.sh" add "$DEST/Office" || echo "ONLYOFFICE step skipped" >&2
   echo "$VERSION" > "$DEST/VERSION"
   chmod -R a+rX "$DEST"
   # Every existing person, and new accounts through /etc/skel
@@ -108,4 +110,5 @@ else
 fi
 
 echo "Done. In LibreOffice: File, New, Templates, then pick a brand folder."
+echo "In ONLYOFFICE: Templates on the start screen (as root install only)."
 exit 0

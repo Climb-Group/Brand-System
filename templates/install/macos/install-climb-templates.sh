@@ -7,6 +7,8 @@
 #   Fonts      -> /Library/Fonts
 #   Office     -> /Library/Application Support/Microsoft/Office365/User Content.localized/
 #                 Templates.localized and Themes.localized (all users, Office 16.x)
+#   ONLYOFFICE -> templates added to the Desktop Editors Templates list, plus a LaunchDaemon
+#                 that adds them back after an ONLYOFFICE update
 #   Everything -> /Library/Application Support/Climb/Templates (incl. LibreOffice and video kit)
 #   Video      -> DaVinci Resolve titles and LUT, Premiere Pro LUT (skip with --skip-video,
 #                 or put skip-video in Jamf parameter 4)
@@ -69,6 +71,37 @@ cp "$PAYLOAD"/themes/*.thmx "$MSO/Themes.localized/"
 cp "$PAYLOAD/themes/Theme Colors/"*.xml "$MSO/Themes.localized/Theme Colors/"
 cp "$PAYLOAD/themes/Theme Fonts/"*.xml "$MSO/Themes.localized/Theme Fonts/"
 
+# ONLYOFFICE Desktop Editors: add now, and again whenever the app is replaced by an update
+cp "$HERE/climb-onlyoffice.sh" "$DEST/"
+chmod 755 "$DEST/climb-onlyoffice.sh"
+"$DEST/climb-onlyoffice.sh" add "$DEST/Office" || echo "ONLYOFFICE step skipped" >&2
+DAEMON="$ROOT/Library/LaunchDaemons/com.climb-uk.templates.onlyoffice.plist"
+mkdir -p "$(dirname "$DAEMON")"
+cat > "$DAEMON" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.climb-uk.templates.onlyoffice</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Library/Application Support/Climb/Templates/climb-onlyoffice.sh</string>
+    <string>ensure</string>
+    <string>/Library/Application Support/Climb/Templates/Office</string>
+  </array>
+  <key>WatchPaths</key><array><string>/Applications/ONLYOFFICE.app</string></array>
+  <key>RunAtLoad</key><true/>
+</dict>
+</plist>
+PLIST
+chmod 644 "$DAEMON"
+if [ -z "$ROOT" ]; then
+  chown root:wheel "$DAEMON"
+  launchctl bootout system "$DAEMON" >/dev/null 2>&1 || true
+  launchctl bootstrap system "$DAEMON" || echo "Could not load the ONLYOFFICE LaunchDaemon" >&2
+fi
+
 # Video
 if [ "$SKIP_VIDEO" -eq 0 ] && [ -d "$PAYLOAD/video" ]; then
   copy_tree "$PAYLOAD/video" "$DEST/Video"
@@ -93,4 +126,5 @@ if [ -z "$ROOT" ]; then
 fi
 
 echo "Done. Quit and reopen Office to see the templates under File, New from Template."
+echo "In ONLYOFFICE: Templates on the start screen."
 exit 0
