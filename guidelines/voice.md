@@ -16,7 +16,7 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **No emojis, no exclamation marks, no em or en dashes.** Use full stops, commas and colons. Let design and photography carry the energy.
 - **Names.** Never "Climb" on its own. Write **ClimbUK** (the brand and the festival), **ClimbGroup** (the company name, for legal lines and corporate pieces) or the edition: **Climb27**, **Climb26**. The app is the **ClimbGroup Event App**. Never "Climb UK" with a space, and never "CLIMBUK" in running text.
 - **No numbers we have not published.** No audience sizes, attendance claims or counts of partners or meetings. Figures from a past edition appear only as ClimbUK publishes them, cited to that edition ("at Climb26").
-- **No promises we cannot keep.** No guarantees, and never a promised number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine: "Find investors with real deal flow", never "meet investors". Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- **No promises we cannot keep.** No guarantees, and never a promised number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine: "Find investors looking for real deal flow", never "meet investors". Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
 - **Scarcity only when it is true.** Ticket releases really do close, so name the release, its price and its state (open now, next, final), and say the price goes up when it is gone. No invented scarcity, no "last few" unless it is so, no "premier", no superlatives we cannot prove, no trademark symbols in copy. Prices are round numbers people remember: 250, not 252.
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
@@ -54,7 +54,7 @@ Good copy is easy to read for everyone, including people reading in a second lan
 | fractional leaders (they take responsibility for a function) | consultants (who give advice). They are different people. |
 | advisers (the advice) and professional services firms (who implement it) | one blurred group |
 | fellow founders, peers one step ahead | other founders |
-| find investors with real deal flow, investors here to find their next deal | meet investors, cheque books, a seat on the stage |
+| find investors looking for real deal flow, investors here to find their next deal | meet investors, cheque books, a seat on the stage |
 | why your team should come | can I bring the team? |
 
 Drop "with your eyes open", "in their patch", "at least three" and "unmatched". Every heading carries a benefit: "Why Climb27?" alone says nothing.
@@ -135,7 +135,7 @@ What every audience can hear:
 | --- | --- | --- |
 | Join thousands of founders at the UK's premier startup event! | Size claim, superlative, exclamation mark | Two days with the founders, investors and advisers who move businesses forward. |
 | Climb is back - and bigger than ever | "Climb" alone, a dash, a size claim | Climb27 is here. Your business, on a bigger stage. |
-| Guaranteed meetings with 50+ investors | Guarantee, number, promised access | Find investors with real deal flow. |
+| Guaranteed meetings with 50+ investors | Guarantee, number, promised access | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
 | Exhibit and reach thousands of attendees | Audience size | Put your team in front of the businesses that buy what you do. |
 | Our booking platform makes it easy | Talks about the tool | Book your meetings in the event app before you arrive. |

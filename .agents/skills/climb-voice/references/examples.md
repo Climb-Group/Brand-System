@@ -23,7 +23,7 @@
 | --- | --- | --- |
 | Join thousands of founders at the UK's premier startup event! | Size claim, unsupported superlative, exclamation mark | Two days with the founders, investors and advisers who move businesses forward. |
 | Climb is back - and bigger than ever | Bare "Climb", dash, size claim | Climb27 is here. Your business, on a bigger stage. |
-| Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors with real deal flow. |
+| Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
 | Location TBC, coming soon | Hedge words, venue hint | (Leave the venue out until the announcement. Sell the experience.) |
 | Exhibit and reach thousands of attendees | Audience size | Put your team in front of the businesses that buy what you do. |
@@ -33,7 +33,7 @@
 
 | Before | Problem | After |
 | --- | --- | --- |
-| Raising? Meet investors with your eyes open | Reads as a warning | Raising? Find investors with real deal flow |
+| Raising? Meet investors with your eyes open | Reads as a warning | Raising? Find investors looking for real deal flow |
 | Investors who came to meet you. | Over-promises, and puts the founder at the centre | Investors here to find their next deal. |
 | Investors: cheque books, portfolio experience and a seat on the stage. They attend to meet companies, not to speak. | Jargon, and an offer investors do not want | Investors: capital and portfolio experience. They come for deal flow: companies already trading. |
 | Advisers: the hard-won detail, shared in roundtables and workshops. Looking for clients with a live problem and a budget to solve it. | Budget line is not needed; reads like professional services firms | Advisers: the hard-won detail, shared in roundtables, on stages and in workshops. They give the advice; professional services firms implement it. |
