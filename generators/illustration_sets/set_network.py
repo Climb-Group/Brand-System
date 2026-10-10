@@ -112,15 +112,21 @@ def build(k):
         return right + layer(cover, 1) + layer(left, 2) + burst
 
     def _thumbs_up():
-        # A side-on fist: the back of the hand as a tone block, the thumb standing up from it, four curled fingers
-        # stacked down the front and a cuff at the wrist. Each part sits on its own layer so outlines never cross;
-        # the thumb rises from behind the back of the hand.
-        body = [rrect(70, 88, 66, 92, 16, fill="tone")]
-        thumb = [capsule((98, 104), (108, 34), 13, fill="tone")]
-        fingers = [capsule((114, y), (148, y), 10.5, fill="tone") for y in (100, 121, 142, 163)]
-        cuff = [rrect(40, 92, 34, 88, 6, fill="ink")]
-        s = layer(thumb, 0) + solid_(body, 1) + [st for i, f in enumerate(fingers) for st in solid_([f], 3 + 2 * i)]
-        s += layer(cuff, 12)
+        # One closed hand-drawn outline: the thumb up, the top of the fist, four rounded finger tips down the front
+        # (each a little shorter than the one above) and the heel of the hand back to the cuff. Short creases from
+        # each gap between fingers, kept inside the outline.
+        tips = [(146, 92), (144, 112), (141, 132), (137, 152)]
+        front = []
+        for cx, y0 in tips:
+            front += [(cx - 4 + 10 * math.sin(math.pi * i / 10), y0 + 10 - 10 * math.cos(math.pi * i / 10))
+                      for i in range(11)]
+        outline = ([(80, 102), (86, 90), (92, 72), (96, 56), (101, 45), (109, 42), (116, 47), (118, 62),
+                    (116, 80), (114, 92)] + front + [(118, 174), (98, 178), (84, 172), (80, 164)])
+        s = [curve(*outline, closed=True, fill="tone", double=True),
+             rrect(40, 94, 40, 86, 6, fill="ink"),
+             line((52, 104), (52, 170), knock=True, w=0.7)]
+        s += [curve((cx - 4.5, y0 + 20), (cx - 12, y0 + 20.5), (cx - 20, y0 + 22), w=0.8)
+              for cx, y0 in tips[:3]]
         s = turn(s, -6, (100, 110))
         return s + sparkle(160, 46, 9) + sparkle(42, 54, 6, w=0.8)
 
