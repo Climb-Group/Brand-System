@@ -34,6 +34,10 @@ import illustrations as I  # noqa: E402
 import motifs as M  # noqa: E402
 import poster_kit as P  # noqa: E402
 
+sys.path.insert(0, str(HERE))
+import reactions as R  # noqa: E402
+import shapes as S  # noqa: E402
+
 DB, CH, OR, TI, LG, WH = F.DB, F.CH, F.OR, F.TI, F.LG, F.WH
 OR_TEXT = "#C55308"      # color.orange.text: small orange text and accents on white (4.6:1)
 OR_DEEP = "#8D4419"      # color.orange.deep: AAA orange on white (7.06:1)
@@ -153,39 +157,60 @@ def theme_image(brand, mode, scale, label):
     add("%s_teams-theme_image-%s_%s" % (brand.lower(), mode, label), w, h, p, copy, scale=scale, ground=ground)
 
 
-# ---------------------------------------------------------------- Branded meeting reaction
-
-def reaction_master():
-    """400x400 transparent master of the li monogram reaction: a Dark Brown disc with the orange li and a ring of
-    Climb Orange. Scaled to 100x100 for the static reaction and composed frame by frame for the sprite."""
-    w = h = 400
-    mono = C.logo("ClimbUK", "icon-monogram")
-    disc = ('<div class="abs" style="left:14px;top:14px;width:372px;height:372px;border-radius:50%%;background:%s;'
-            'overflow:hidden"><img src="%s" style="width:372px;height:372px;display:block" alt=""></div>'
-            '<div class="abs" style="left:14px;top:14px;width:336px;height:336px;border-radius:50%%;'
-            'border:18px solid %s"></div>' % (DB, mono, OR))
-    add("reaction_li_master_400", w, h, [disc], transparent=True)
-    chev = F.svg(w, h, M.ascent(w, h, w * 0.5 - 150, h * 0.5 + 120, 300, steps=3, kind="chevrons"))
-    add("reaction_chevrons_master_400", w, h, [chev], transparent=True)
-
-
 # ---------------------------------------------------------------- Organisation backgrounds
 
-def bg_photo(brand, i, photo, pos):
-    """Photo background: a Climb26 photo softly blurred like a shallow depth of field, a Dark Brown vignette, the
-    logo top left on the darkest corner and the sticker bottom left. The centre stays calm for the person."""
+SEED = {"ClimbUK": 1, "ClimbGroup": 2, "Climb27": 3}
+SHAPE_SETS = ["funky", "wavy", "simple", "shapes", "pop", "stickers", "photo-cards"]
+NOTES = []
+
+
+def bg_shapes(brand, kind):
+    """Graphic background in the Climb26 call background style: blobs and marks over the edges, the middle calm for
+    the person, the logo top left in whichever variant reads on the shape under it. photo-cards and stickers add
+    tilted Climb26 photo cards and house drawings as accents; photos never fill the frame."""
     w, h = 3840, 2160
-    name = "%s_teams-bg_photo-%d_%dx%d" % (brand.lower(), i, w, h)
-    K = P.Kit(C, name)
+    name = "%s_teams-bg_%s_%dx%d" % (brand.lower(), kind, w, h)
     b = B[brand]
-    vignette = ("radial-gradient(ellipse 70%% 75%% at 50%% 55%%, rgba(%s,.30) 0%%, rgba(%s,.55) 70%%, rgba(%s,.85) 100%%),"
-                "linear-gradient(135deg, rgba(%s,.85) 0%%, rgba(%s,0) 32%%)" % ((DB_RGB,) * 5))
-    p = [K.pic(photo, 0, 0, w, h, pos=pos, blur=16, fade=vignette)]
-    p.append(P.glow(w, h, w, h, w * 0.4, 0.32))
-    p.append(P.sticker(b["sticker"], 160, h - 260, 66, rot=-4))
-    p.append(F.grain_layer(w, h, 40 + i, 0.05))
-    p.append(F.logo_img(C, brand, "reversed-dark", w * 0.04, h * 0.06, w * 0.15))
-    add(name, w, h, p, [b["sticker"]], group="Backgrounds")
+    seed = SEED[brand]
+    field, spec = S.LAYOUTS["funky" if kind == "photo-cards" else kind](seed + (10 if kind == "photo-cards" else 0))
+    p = ['<svg class="abs" style="left:0;top:0" viewBox="0 0 %d %d" width="%d" height="%d">%s%s</svg>'
+         % (w, h, w, h, field.body(), S.marks(field, spec if kind != "photo-cards" else spec[:6]))]
+    K = P.Kit(C, name)
+    copy = []
+    if kind == "photo-cards":
+        cards = b["cards"]
+        p.append(K.pic(cards[0], 2900, 120, 820, 560, rot=6, radius=28, shadow=True, frame="14px solid #FFFFFF"))
+        p.append(K.pic(cards[1], 3020, 1240, 700, 480, rot=-5, radius=28, shadow=True, frame="14px solid #FFFFFF"))
+        p.append(K.pic(cards[2], 150, 1300, 760, 520, rot=-4, radius=28, shadow=True, frame="14px solid #FFFFFF"))
+        p.append(P.sticker(b["sticker"], 260, 1220, 60, rot=-5))
+        copy.append(b["sticker"])
+    elif kind == "stickers":
+        drawings = [b["hero"], "sparkles", "tickets", "star", "megaphone", "party-popper"]
+        spots = [(3080, 1380, 680, 8), (140, 1000, 500, -12), (2700, 90, 420, 14), (520, 1620, 400, -8),
+                 (2150, 40, 300, 18), (2350, 1720, 340, -16)]
+        for d, (x, y, sz, r) in zip(drawings, spots):
+            ink = S.mark_colour(field, (x + sz / 2) / S.K, (y + sz / 2) / S.K)
+            p.append(I.place(d, x, y, sz, rotate=r, weight=1.2, ink=ink, ground=field.under((x + sz / 2) / S.K, (y + sz / 2) / S.K)))
+        p.append(K.pic(b["cards"][0], 2860, 520, 640, 460, rot=7, radius=24, shadow=True, frame="12px solid #FFFFFF"))
+        p.append(P.sticker(b["sticker"], 180, 1900, 60, rot=-4))
+        copy.append(b["sticker"])
+    elif kind in ("funky", "pop"):
+        p.append(P.sticker(b["sticker"], 160, 1960, 58, rot=-4, tone="brown" if kind == "pop" else "orange"))
+        copy.append(b["sticker"])
+    p.append(F.grain_layer(w, h, 80 + seed, 0.04))
+    under = field.uniform(*S.LOGO)
+    if under is None:
+        NOTES.append("%s: logo sits over more than one colour" % name)
+        under = field.under(S.LOGO[0], S.LOGO[1])
+    variant = S.ON.get(under, (None, "reversed-dark"))[1]
+    p.append(F.logo_img(C, brand, variant, w * 0.04, h * 0.06, w * 0.15))
+    calm = max(field.calm_share(*S.PERSON, c) for c in (S.TONE, S.CH, S.WH, S.OR, S.DB))
+    if calm < 0.75:
+        NOTES.append("%s: the person zone is only %d%% one colour" % (name, calm * 100))
+    ground = {S.CH: "charcoal", S.TONE: "charcoal", S.WH: "white", S.OR: "orange", S.DB: "dark-brown"}[field.ground]
+    a = add(name, w, h, p, copy, group="Backgrounds", ground=ground)
+    if field.ground == S.TONE:
+        a["extra_css"] += ".canvas{background:linear-gradient(%s,%s),%s !important}" % (S.TONE_CSS, S.TONE_CSS, S.CH)
 
 
 def bg_calm(brand, mode):
@@ -290,9 +315,8 @@ def build_pages(build):
             theme_logo(brand, mode, build)
             theme_image(brand, mode, 1, "1440x810")
             theme_image(brand, mode, 3840 / 1440, "3840x2160")
-        for i, photo in enumerate(B[brand]["photos"], 1):
-            pos = "50% 40%"
-            bg_photo(brand, i, photo, pos)
+        for kind in SHAPE_SETS:
+            bg_shapes(brand, kind)
         bg_calm(brand, "dark")
         bg_calm(brand, "light")
         bg_frosted(brand, "corner")
@@ -300,7 +324,7 @@ def build_pages(build):
         # Organisation theme logos: shown in the navigation bar, scaled to fit 200x48.
         wordmark(brand, "reversed-dark", 200, 48, "%s_m365-logo-default_200x48" % brand.lower())
         wordmark(brand, "mono-white", 200, 48, "%s_m365-logo-alternative_200x48" % brand.lower())
-    reaction_master()
+    R.pages(lambda name, w, h, parts, transparent=False: add(name, w, h, parts, transparent=transparent), I)
     for key, drawing, _, _ in TILES:
         for s in (60, 120, 240):
             tile(key, drawing, s, "m365-tile_%s_%dx%d" % (key, s, s))
@@ -370,47 +394,6 @@ def min_svg(src, dst):
     svg = re.sub(r"\s+", " ", svg)
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(svg, encoding="utf-8")
-
-
-def sprite(master, chev, dst):
-    """Animated reaction: a vertical PNG sprite, 100 px wide, 51 frames of 100x100 (5100 px high), 24 fps. Frames
-    0 to 9 fade in, the climb peaks at frame 23 (the key moment) and frames 41 to 50 fade out."""
-    disc = Image.open(master).convert("RGBA")
-    rungs = Image.open(chev).convert("RGBA")
-    sheet = Image.new("RGBA", (100, 5100), (0, 0, 0, 0))
-
-    def ease(t):
-        return 1 - (1 - t) ** 3
-
-    for f in range(51):
-        if f < 10:
-            alpha, scale = ease((f + 1) / 10), 0.5 + 0.55 * ease((f + 1) / 10)
-        elif f < 41:
-            alpha = 1.0
-            scale = 1.0 + 0.12 * math.exp(-((f - 23) / 4.0) ** 2)
-        else:
-            alpha, scale = 1 - ease((f - 40) / 10), 1.0 - 0.2 * ease((f - 40) / 10)
-        frame = Image.new("RGBA", (400, 400), (0, 0, 0, 0))
-        # Rungs climb out from behind the disc between frames 10 and 36, highest and brightest at frame 23.
-        if 10 <= f < 41:
-            t = min((f - 10) / 13.0, 1.0)
-            rise = int(118 * ease(t))
-            op = max(0.0, 1 - max(0, f - 23) / 15.0)
-            r = rungs.resize((170, 170), Image.LANCZOS)
-            r.putalpha(r.getchannel("A").point(lambda v: int(v * op)))
-            frame.alpha_composite(r, (115, 150 - rise))
-        s = int(400 * min(scale, 1.0) * 0.72)
-        d = disc.resize((s, s), Image.LANCZOS)
-        frame.alpha_composite(d, ((400 - s) // 2, 400 - s - 12 - (int(400 * 0.72) - s) // 2))
-        if scale > 1.0:
-            k = int(400 * scale)
-            frame = frame.resize((k, k), Image.LANCZOS).crop(((k - 400) // 2, (k - 400) // 2,
-                                                              (k - 400) // 2 + 400, (k - 400) // 2 + 400))
-        frame = frame.resize((100, 100), Image.LANCZOS)
-        frame.putalpha(frame.getchannel("A").point(lambda v: int(v * alpha)))
-        sheet.alpha_composite(frame, (0, f * 100))
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    sheet.save(dst, "PNG", optimize=True)
 
 
 def teams_app(out, png):
@@ -495,11 +478,12 @@ def save(build):
         dst = out / "teams-backgrounds" / brand / (f.stem.replace("_call-bg_", "_teams-bg_") + ".jpg")
         save_jpeg(f, dst, quality=88)
         report.append((dst, dst.stat().st_size, None))
-    # Reaction.
-    r = out / "teams-themes" / "reaction"
-    r.mkdir(parents=True, exist_ok=True)
-    Image.open(png / "reaction_li_master_400.png").resize((100, 100), Image.LANCZOS).save(r / "climb_reaction_static_100x100.png", optimize=True)
-    sprite(png / "reaction_li_master_400.png", png / "reaction_chevrons_master_400.png", r / "climb_reaction_animated_100x5100.png")
+    # Branded reactions: Like, Heart, Applause, Laugh and Surprised, in the orange and dark sets.
+    old = out / "teams-themes" / "reaction"
+    if old.exists():
+        shutil.rmtree(old)
+    for f in R.compose(png, out / "teams-themes" / "reactions"):
+        report.append((f, f.stat().st_size, None))
     # App tiles.
     at = out / "app-tiles"
     for f in sorted(png.glob("m365-tile_*.png")):
@@ -517,6 +501,8 @@ def save(build):
                              ("entra_favicon_32x32", "climbuk_favicon_32x32.png", 5 * 1024)]:
         n = save_png(png / (src + ".png"), e / name, limit=limit - 1)
         report.append((e / name, n, limit))
+    for n in NOTES:
+        print("[m365] LAYOUT " + n)
     bad = [(p, n, l) for p, n, l in report if l and n >= l]
     for p, n, l in bad:
         print("[m365] OVER LIMIT %s: %d bytes (limit %d)" % (p.relative_to(ROOT), n, l))

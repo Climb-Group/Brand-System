@@ -1,6 +1,6 @@
 # Microsoft 365 and Teams Premium branding
 
-Everything needed to brand Microsoft 365 for ClimbUK, ClimbGroup and Climb27: Teams Premium meeting themes, organisation meeting backgrounds, a branded meeting reaction, the Microsoft 365 organisation theme, app launcher tiles (Odoo included), a Teams app for Odoo, and the Microsoft 365 sign-in page.
+Everything needed to brand Microsoft 365 for ClimbUK, ClimbGroup and Climb27: Teams Premium meeting themes, organisation meeting backgrounds, branded meeting reactions, the Microsoft 365 organisation theme, app launcher tiles (Odoo included), a Teams app for Odoo, and the Microsoft 365 sign-in page.
 
 Sizes and limits were checked against Microsoft's documentation on 10 October 2026. The build checks every file against its upload limit.
 
@@ -9,8 +9,8 @@ Sizes and limits were checked against Microsoft's documentation on 10 October 20
 | Folder | What it holds |
 | --- | --- |
 | `teams-themes/<Brand>/` | Meeting theme logo (dark and light, 800x800 PNG) and theme image (dark and light, 1440x810 JPG plus a 3840x2160 JPG) |
-| `teams-themes/reaction/` | Branded meeting reaction: static 100x100 PNG and an animated 100x5100 PNG sprite (51 frames, 24 fps) |
-| `teams-backgrounds/<Brand>/` | 12 meeting backgrounds per brand, 36 in all, 3840x2160: 4 photo, 2 calm (dark and light), 4 festival layouts and 2 frosted glass (transparent PNG) |
+| `teams-themes/reactions/<set>/` | Branded reactions for all five slots (Like, Heart, Applause, Laugh, Surprised) in two sets, `orange` (Climb Orange disc, Dark Brown drawing) and `dark` (Dark Brown disc ringed in Climb Orange, orange drawing): a static 100x100 PNG and an animated 100x5100 sprite (51 frames, 24 fps) for each |
+| `teams-backgrounds/<Brand>/` | 15 meeting backgrounds per brand, 45 in all, 3840x2160: 7 graphic shape layouts in the style of the Climb26 call backgrounds (funky, wavy, simple, shapes, pop, stickers, photo-cards), 2 calm (dark and light), 4 festival layouts and 2 frosted glass (transparent PNG) |
 | `org-theme/` | Navigation bar logos per brand: default (full colour reversed) and alternative (one-colour white), as SVG and as 200x48 PNG, all under 10 KB |
 | `app-tiles/` | App launcher tiles at 60x60 (the upload size), 120x120 and 240x240: Odoo, climb-uk.com, Brand centre, Tickets, Media kit and a plain li monogram tile |
 | `teams-app-odoo/`, `teams-app-odoo.zip` | A Teams app that opens Odoo in a personal tab: manifest, 192x192 colour icon (mark inside the 120x120 safe area) and 32x32 white outline icon |
@@ -42,7 +42,7 @@ Teams admin center > **Meetings** > **Customization policies** > open or add a p
 1. **Logo:** dark theme `teams-themes/<Brand>/<brand>_theme-logo-dark_800x800.png`, light theme `..._theme-logo-light_800x800.png`. Limit: PNG or JPEG, at least 576x576, 5 MB.
 2. **Images:** dark theme `..._theme-image-dark_1440x810.jpg`, light theme `..._theme-image-light_1440x810.jpg` (the 3840x2160 files fit too and stay sharp on 4K screens). Limit: 1024x574 to 3840x2160, 5 MB.
 3. **Color:** `#E8712A`.
-4. **Reactions** (optional): `teams-themes/reaction/climb_reaction_static_100x100.png` and `climb_reaction_animated_100x5100.png`.
+4. **Custom reactions:** select **Upload** next to each of Like, Heart, Applause, Laugh and Surprised. On **Static reaction** upload `teams-themes/reactions/<set>/<reaction>_static_100x100.png`, select **Next**, on **Animated reaction** upload `<reaction>_animated_100x5100.png`, select **Save**. Use one set per theme: `dark` suits the ClimbUK and ClimbGroup themes, `orange` the Climb27 theme. The drawings match their slot names, as Microsoft asks; **Revert** puts back the default.
 5. **Preview**, **Apply**, turn **Currently active** on, **Save**.
 
 A policy holds up to five themes. Suggested set-up: one policy per team, for example "ClimbUK" (ClimbUK theme), "ClimbGroup" (ClimbGroup theme) and "Climb27 team" (Climb27 theme), then assign each policy to its group (**Assign policies to users and groups**, or `Grant-CsTeamsMeetingBrandingPolicy` in PowerShell). The images must be uploaded in the admin center; PowerShell only assigns the policies. Only Teams Premium organisers can start a themed meeting, everyone who joins sees it, and the images do not show on mobile.
@@ -51,7 +51,7 @@ A policy holds up to five themes. Suggested set-up: one policy per team, for exa
 
 Same policy > **Meeting backgrounds** > turn on **Use background images from my organization** > **+Add**, then **Save**.
 
-Upload any of the 36 files in `teams-backgrounds/` (up to 50 per policy; 360x360 to 3840x2160, PNG or JPEG). A good everyday set per policy: the two calm backgrounds, two photo backgrounds, one festival layout and one frosted glass. The `frosted-*` files are transparent PNGs: Teams blurs the person's own room through the clear areas and keeps the logo sharp.
+Upload any of the 45 files in `teams-backgrounds/` (up to 50 per policy; 360x360 to 3840x2160, PNG or JPEG). A brand's own 15 fit in one policy with room to spare. The shape layouts carry the energy; photos appear only as tilted photo cards at the edges. For quieter calls there are the two calm backgrounds and the frosted glass pair. The `frosted-*` files are transparent PNGs: Teams blurs the person's own room through the clear areas and keeps the logo sharp.
 
 Every background keeps the middle of the frame calm for the person and puts the logo top left. Teams mirrors your own preview, so the logo reads backwards to you and the right way round to everyone else.
 
@@ -107,7 +107,7 @@ The sign-in box sits in the middle of the page, so the background is darkest the
 python3 templates/m365/_build/build_m365.py            # HTML in build/m365, finished files in templates/m365
 ```
 
-Needs Python 3 with Pillow, Node with Playwright and Chromium (as `generators/render.mjs`). The script lays out each piece as HTML from the tokens, logo masters, Climb26 candid photos and house illustrations, renders it, then saves it at the size and file-size limit of its upload slot (JPEG quality steps down until a file fits). The four festival backgrounds per brand come from the asset catalogue (`generators/catalogue.py`, the `call-bg` set). Copy is checked with the climb-voice checker.
+Needs Python 3 with Pillow, Node with Playwright and Chromium (as `generators/render.mjs`). The script lays out each piece as HTML from the tokens, logo masters, Climb26 candid photos and house illustrations, renders it, then saves it at the size and file-size limit of its upload slot (JPEG quality steps down until a file fits). The shape layouts are in `_build/shapes.py`: blobs in Climb Orange, Charcoal and a ground tone (White at 12 percent over Charcoal) with cut marks, a colour map that picks the mark and logo colour that reads on each shape, and a check that the middle of the frame stays one colour for the person. Reactions are composed frame by frame in `_build/reactions.py` (fade in on frames 0 to 9, key moment at frame 23, fade out on 41 to 50). The four festival backgrounds per brand come from the asset catalogue (`generators/catalogue.py`, the `call-bg` set). Copy is checked with the climb-voice checker.
 
 ## Rules it follows
 
