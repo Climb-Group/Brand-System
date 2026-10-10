@@ -24,6 +24,8 @@ One motif family per piece: The Ascent (rising steps and chevrons), Contours (to
 
 Festival devices, two or three per piece: the orange word and the italic word, the short orange rule, stickers tilted -3 to -4 degrees, ticket cards with stub notches, photo cards and walls, lineups and marquees, cut edges and glow, photo fades to Dark Brown.
 
+Outline numerals: giant numbers in Montserrat ExtraBold (800) with no fill and a Climb Orange stroke of about 1% of the size (4px at 380px, never under 2px), letter spacing -0.04em. Use them for section numbers 01 to 10 (decorative and hidden from screen readers, with the real heading in text beside them) and the odd big stat. One size per view, numbers only. On web pages use the classes climb-outline-num, climb-outline-num-sm, climb-numbered and climb-outline-marquee. Call the guide tool with the ui topic for the full rules.
+
 ## Making an asset
 
 1. Call the surface tool for size, safe zone, format and preset.
