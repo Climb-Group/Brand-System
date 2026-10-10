@@ -1,9 +1,10 @@
 """Builds the brand guidelines book (16:9 slides) for ClimbUK, ClimbGroup and Climb27 as HTML, ready for render.mjs."""
 import os
+import re
 import sys
 
 import motifs
-from brands import BRANDS, COMMON
+from brands import BRANDS, COMMON, contact
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 P = "assets/photos/"
@@ -13,6 +14,18 @@ W, H = 1920, 1080
 def logo(b, variant, h=None, w=None, style=""):
     size = ("height:%dpx;" % h if h else "") + ("width:%dpx;" % w if w else "")
     return '<img src="assets/logos/%s/%s_%s.svg" style="%s%s" alt="%s logo">' % (b, b, variant, size, style, b)
+
+
+# Clear space around a logo is the height of the large C in Climb, as a share of the logo's height.
+CLEAR_C = {"ClimbUK": 1.0, "ClimbGroup": 0.83, "Climb27": 1.0}
+CLEAR_C_LOCKUP = {"ClimbUK": 0.70, "ClimbGroup": 0.58, "Climb27": 0.715}
+
+
+def logo_aspect(b, variant):
+    """Width over height of a logo master, read from its viewBox."""
+    head = open(os.path.join(HERE, "assets/logos/%s/%s_%s.svg" % (b, b, variant))).read(400)
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', head).group(1).split()]
+    return vb[2] / vb[3]
 
 
 def svg(inner, w=W, h=H, style="position:absolute;inset:0"):
@@ -74,7 +87,7 @@ def cover(bk):
             + '<div style="position:absolute;left:120px;top:150px">%s</div>' % logo(b, "reversed-dark", h=96)
             + '<div style="position:absolute;left:120px;top:330px;width:1050px">'
               '<div class="eb" style="font-size:26px;margin-bottom:34px">%s</div>'
-              '<div class="h" style="font-size:132px">%s</div>'
+              '<div class="h" style="font-size:118px">%s</div>'
               '<p class="lead" style="margin-top:40px;max-width:900px;color:var(--lg)">%s</p></div>'
             % (B["cover_eyebrow"], B["cover_h"], B["cover_sub"])
         )
@@ -84,7 +97,7 @@ def cover(bk):
     inner = (
         photo(B["cover_photo"], "fade-hero", pos)
         + '<div class="glow"></div>'
-        + '<div style="position:absolute;left:120px;top:96px">%s</div>' % logo(b, "reversed-dark", h=104)
+        + '<div style="position:absolute;left:120px;top:104px">%s</div>' % logo(b, "reversed-dark", h=96)
         + '<div style="position:absolute;right:120px;top:110px"><span class="sticker" style="font-size:30px">%s</span></div>' % B["cover_sticker"]
         + '<div style="position:absolute;left:120px;bottom:130px;width:1500px">'
           '<div class="eb" style="font-size:26px;margin-bottom:34px">%s</div>'
@@ -101,16 +114,16 @@ SECTIONS = [
     ("02", "Logo", "climb_recap_playlist.jpg", 'ONE MARK. <em>EVERY</em> <span class="o">STAGE</span>.'),
     ("03", "Colour", "climb_awards_trophies.jpg", 'ORANGE <em>LEADS</em>. IT NEVER <span class="o">FLOODS</span>.'),
     ("04", "Type", "climb_consultants_expert.jpg", 'TYPE DOES THE <span class="o">SHOUTING</span>.'),
-    ("05", "Graphics", "climb_drinks_reception.jpg", 'CLIMBING, <em>STAGES</em> AND <span class="o">STICKERS</span>.'),
-    ("06", "Photography", "climb_recap_04.jpg", 'REAL <em>PEOPLE</em>. REAL <span class="o">LIGHT</span>.'),
-    ("07", "Motion and digital", "climb_recap_06.jpg", 'RISE. <em>SETTLE</em>. <span class="o">SPRING</span>.'),
+    ("05", "Graphics", "climb_drinks_reception.jpg", 'LADDERS, <em>STAGES</em> AND <span class="o">STICKERS</span>.'),
+    ("06", "Photography", "climb_band_stage.jpg", 'REAL <em>PEOPLE</em>. REAL <span class="o">LIGHT</span>.'),
+    ("07", "Motion and digital", "climb_isn_investors_hero.jpg", 'RISE. <em>SETTLE</em>. <span class="o">SPRING</span>.'),
     ("08", "Voice", "climb_isn_founders_hero.jpg", 'HEADLINE <em>ENERGY</em>. ADVISER <span class="o">DISCIPLINE</span>.'),
     ("09", "Out in the world", "climb_expo_floor.jpg", 'PRINT IT. <em>FILM</em> IT. <span class="o">SHARE</span> IT.'),
-    ("10", "Everyone", "climb_recap_02.jpg", 'BUILT FOR <span class="o">EVERYONE</span> IN THE <em>ROOM</em>.'),
+    ("10", "Everyone", "climb_crowd_wide.jpg", 'BUILT FOR <span class="o">EVERYONE</span> IN THE <em>ROOM</em>.'),
 ]
 
 
-GROUP_PHOTOS = {1: "climb_isn_founders_hero.jpg", 7: "climb_recap_07.jpg"}
+GROUP_PHOTOS = {1: "climb_isn_founders_hero.jpg", 7: "climb_awards_winners.jpg"}
 
 
 def divider(bk, idx):
@@ -122,7 +135,7 @@ def divider(bk, idx):
     inner = (
         photo(ph, "fade-brown" if left else "fade-brown-r", "center 35%")
         + '<div class="glow%s"></div>' % ("" if left else " tl")
-        + '<div style="position:absolute;%s:120px;top:110px;font:800 380px/0.8 Montserrat;color:transparent;-webkit-text-stroke:4px var(--o);letter-spacing:-.04em">%s</div>' % ("left" if left else "right", n)
+        + '<div class="numo" aria-hidden="true" style="position:absolute;%s:120px;top:110px;font-size:380px">%s</div>' % ("left" if left else "right", n)
         + '<div style="position:absolute;%s:120px;bottom:150px;width:1250px;%s">'
           '<div class="eb" style="font-size:26px;margin-bottom:30px;%s">%s</div>'
           '<div class="h" style="font-size:118px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'
@@ -132,22 +145,30 @@ def divider(bk, idx):
 
 
 def contents(bk):
-    b = bk.b
-    names = [s[1] for s in SECTIONS]
-    sizes = [96, 96, 80, 80, 68, 68, 58, 58, 50, 50]
-    rows = []
+    """The contents: the ten sections as steps on one rising line, outline numerals above, names below."""
+    x0, y0, step_w, rise = 120, 860, 168, 56
+    line = ["%d,%d" % (x0, y0)]
+    stops = ""
     for i, (n, nm, *_r) in enumerate(SECTIONS):
-        rows.append('<span style="font-size:%dpx;white-space:nowrap"><span class="o" style="font-size:.42em;vertical-align:.9em;margin-right:.25em">%s</span>%s</span>' % (sizes[i], n, nm.upper()))
-    sep = '<span class="o" style="font-size:60px;margin:0 22px">/</span>'
-    poster = sep.join(rows).replace('</span><span class="o" style="font-size:60px', '</span> <span class="o" style="font-size:60px')
+        x, y = x0 + i * step_w, y0 - i * rise
+        line += ["%d,%d" % (x + step_w, y)]
+        if i < len(SECTIONS) - 1:
+            line += ["%d,%d" % (x + step_w, y - rise)]
+        stops += ('<div style="position:absolute;left:%dpx;top:%dpx;width:%dpx">'
+                  '<div class="numo" aria-hidden="true" style="font-size:88px;-webkit-text-stroke-width:2.5px;position:absolute;left:16px;bottom:18px">%s</div>'
+                  '<div class="mont" style="position:absolute;left:16px;top:22px;width:%dpx;font-weight:700;font-size:18px;line-height:1.2;'
+                  'text-transform:uppercase;letter-spacing:.02em;color:#fff">%s</div></div>'
+                  % (x, y, step_w, n, step_w - 24, nm))
     inner = (
         svg(motifs.contours(W, H, seed=7, rings=13, cx=0.9, cy=0.95))
         + '<div class="glow"></div>'
-        + '<div class="pad">'
-          '<div class="eb" style="font-size:24px">The lineup</div>'
-          '<div class="h" style="margin-top:50px;line-height:1.12;max-width:1680px;white-space:normal">%s</div>'
-          '<p class="copy" style="position:absolute;bottom:0;left:0;max-width:1100px">Every section is a headline act. Start with the idea, then use the rest when you need it: '
-          'a printer needs section 09, a developer needs 07, and anyone writing a single word needs 08.</p></div>' % poster
+        + svg('<polyline points="%s" fill="none" stroke="#E8712A" stroke-width="6" stroke-linejoin="miter"/>' % " ".join(line))
+        + stops
+        + '<div style="position:absolute;left:120px;top:100px;width:1500px">'
+          '<div class="eb" style="font-size:24px">The way up</div>'
+          '<div class="h" style="font-size:96px;margin-top:30px">TEN <em>STEPS</em> TO THE <span class="o">TOP</span>.</div>'
+          '<p class="copy" style="margin-top:30px;max-width:900px">Start at the bottom with the idea and work up, or jump to the step you need: '
+          'a printer needs 09, a developer needs 07, and anyone writing a single word needs 08.</p></div>'
     )
     bk.add(bk.B["ground"], inner)
 
@@ -167,7 +188,7 @@ def family(bk):
                  '<div class="h" style="font-size:40px;margin-top:40px">%s</div>'
                  '<p class="copy" style="margin-top:16px">%s</p>%s</div>'
                  % ("border:3px solid var(--o);box-shadow:0 0 0 8px rgba(232,113,42,.18),0 30px 70px rgba(0,0,0,.4);transform:translateY(-12px)" if me else "",
-                    logo(nm, "reversed-dark", h=78), role, use,
+                    logo(nm, "reversed-dark", h=54), role, use,
                     '<span class="sticker" style="position:absolute;right:-12px;top:-24px;font-size:24px">This book</span>' if me else ""))
     inner = (
         '<div class="glow"></div>'
@@ -181,7 +202,7 @@ def family(bk):
 
 def big_idea(bk):
     inner = (
-        photo("climb_recap_05.jpg", "fade-brown", "center 30%")
+        photo("climb_isn_founders_hero.jpg", "fade-hero", "center 30%")
         + '<div class="glow"></div>'
         + '<div class="pad" style="display:flex;flex-direction:column;justify-content:center">'
           '<div class="eb" style="font-size:24px">The big idea</div>'
@@ -210,7 +231,7 @@ def five_rules(bk):
         '<div class="glow"></div>'
         + svg(motifs.ascent(W, H, 1500, 300, 220, steps=5, colour="rgba(255,255,255,.06)"))
         + '<div class="pad"><div class="eb" style="font-size:24px">The five rules</div>'
-          '<div class="h" style="font-size:96px;margin-top:30px">A FESTIVAL <em>POSTER</em><br>WITH A <span class="o">BUY BUTTON</span>.</div>'
+          '<div class="h" style="font-size:96px;margin-top:30px">A FESTIVAL <em>POSTER</em><br>WITH A CLEAR NEXT <span class="o">STEP</span>.</div>'
           '<div class="grid" style="grid-template-columns:repeat(5,1fr);gap:48px;margin-top:80px">%s</div></div>' % html
     )
     bk.add(bk.B["ground"], inner)
@@ -221,7 +242,7 @@ def logo_master(bk):
     inner = (
         '<div class="glow"></div><div class="glow tl" style="opacity:.6"></div>'
         + svg(motifs.contours(W, H, seed=11, rings=12, cx=1.02, cy=1.1))
-        + '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">%s</div>' % logo(b, "reversed-dark", w=1180)
+        + '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">%s</div>' % logo(b, "reversed-dark", h=170)
         + '<div style="position:absolute;left:120px;top:100px"><div class="eb" style="font-size:24px">The master</div></div>'
         + '<p class="copy" style="position:absolute;left:120px;bottom:130px;max-width:900px">'
           '<b>Reversed on dark is the default.</b> Climb Orange "Climb" with White on Dark Brown, Charcoal and dark photography. '
@@ -244,7 +265,7 @@ def logo_variants(bk):
     html = "".join(
         '<div><div style="background:%s;border-radius:14px;height:205px;display:flex;align-items:center;justify-content:center;%s">%s</div>'
         '<div class="h" style="font-size:28px;margin-top:22px">%s</div><p class="small" style="margin-top:6px">%s</p></div>'
-        % (bg, "border:1.5px solid rgba(255,255,255,.12)" if bg in ("var(--db)", "var(--ch)") else "", logo(b, v, w=380), t, d)
+        % (bg, "border:1.5px solid rgba(255,255,255,.12)" if bg in ("var(--db)", "var(--ch)") else "", logo(b, v, h=76 if "lockup" in v else 62), t, d)
         for v, bg, t, d in tiles)
     inner = (
         '<div class="pad"><div class="eb" style="font-size:24px">Which logo, where</div>'
@@ -256,23 +277,25 @@ def logo_variants(bk):
 
 def logo_space(bk):
     b = bk.b
+    w = 640
+    c = round(w / logo_aspect(b, "reversed-dark") * CLEAR_C[b])
     inner = (
         '<div class="pad" style="display:grid;grid-template-columns:1.25fr 1fr;gap:90px;align-items:center">'
         '<div style="position:relative;background:var(--db);border-radius:14px;height:640px;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,.1)">'
-        '<div style="position:relative;padding:100px;outline:3px dashed rgba(242,174,134,.75);outline-offset:-3px">%s'
-        '<div style="position:absolute;left:0;top:0;width:100px;height:100px;background:rgba(232,113,42,.28)"></div>'
-        '<div style="position:absolute;right:0;bottom:0;width:100px;height:100px;background:rgba(232,113,42,.28)"></div>'
-        '<span class="mont" style="position:absolute;left:18px;top:28px;font-weight:800;font-size:30px;color:var(--o)">l</span>'
-        '<span class="mont" style="position:absolute;right:20px;bottom:28px;font-weight:800;font-size:30px;color:var(--o)">l</span></div>'
-        '<span class="sticker" style="position:absolute;left:40px;bottom:36px;font-size:24px">Clear space = height of the l in Climb</span></div>'
+        '<div style="position:relative;padding:%dpx;outline:3px dashed rgba(242,174,134,.75);outline-offset:-3px">%s'
+        '<div style="position:absolute;left:0;top:0;width:%dpx;height:%dpx;background:rgba(232,113,42,.28)"></div>'
+        '<div style="position:absolute;right:0;bottom:0;width:%dpx;height:%dpx;background:rgba(232,113,42,.28)"></div>'
+        '<span class="mont" style="position:absolute;left:0;top:0;width:%dpx;line-height:%dpx;text-align:center;font-weight:800;font-size:40px;color:var(--o)">C</span>'
+        '<span class="mont" style="position:absolute;right:0;bottom:0;width:%dpx;line-height:%dpx;text-align:center;font-weight:800;font-size:40px;color:var(--o)">C</span></div>'
+        '<span class="sticker" style="position:absolute;left:40px;bottom:30px;font-size:24px">Clear space = height of the C in Climb</span></div>'
         '<div><div class="eb" style="font-size:24px">Room to breathe</div>'
         '<div class="h" style="font-size:80px;margin-top:26px">GIVE IT <em>SPACE</em>. GIVE IT <span class="o">SIZE</span>.</div>'
         '<ul class="list copy" style="margin-top:44px">'
-        '<li><b>Clear space</b> on every side equals the height of the l in Climb, the (R) mark included. Nothing else goes inside it.</li>'
+        '<li><b>Clear space</b> on every side equals the height of the large C in Climb, the (R) mark included. Nothing else goes inside it, and that includes the edge of a tile, card or page.</li>'
         '<li><b>Wordmark</b> at least 120px wide on screen and 30mm in print.</li>'
         '<li><b>Tagline lockup</b> at least 240px or 60mm, so the line stays readable.</li>'
         '<li><b>Below that,</b> switch to the square tile (64px and up) or the monogram (down to 16px).</li></ul></div></div>'
-        % logo(b, "reversed-dark", w=640)
+        % (c, logo(b, "reversed-dark", w=w), c, c, c, c, c, c, c, c)
     )
     bk.add(bk.B["ground"], inner)
 
@@ -286,7 +309,7 @@ def logo_icons(bk):
           '<div class="h" style="font-size:80px;margin-top:26px">SMALL SPACES, <em>BIG</em> <span class="o">PRESENCE</span>.</div>'
           '<ul class="list copy" style="margin-top:44px">'
           '<li><b>The stacked tile</b> is the social avatar and any square 64px or larger.</li>'
-          '<li><b>The l! monogram</b> is the favicon, the app icon and anything under 64px. It is the same mark for every brand in the family.</li>'
+          '<li><b>The li monogram</b> is the favicon, the app icon and anything under 64px. It is the same mark for every brand in the family.</li>'
           '<li><b>Embroidery and laser marking</b> use the tile or the monogram, never the long wordmark.</li></ul></div>'
           '<div style="display:flex;gap:60px;align-items:flex-end;justify-content:center">'
           '<div style="text-align:center">%s<p class="small" style="margin-top:20px">Stacked tile</p></div>'
@@ -304,17 +327,18 @@ def logo_donts(bk):
     b = bk.b
     L = "assets/logos/%s/%s_" % (b, b)
     items = [
-        ('<img src="%sreversed-dark.svg" style="width:330px;transform:scaleX(1.45)">' % L, "var(--db)", "Stretch or squash it"),
-        ('<img src="%sreversed-dark.svg" style="width:330px;transform:rotate(-12deg)">' % L, "var(--db)", "Rotate or tilt it"),
-        ('<img src="%sreversed-dark.svg" style="width:330px;filter:hue-rotate(150deg) saturate(1.6)">' % L, "var(--db)", "Recolour it"),
-        ('<img src="%sreversed-dark.svg" style="width:330px;filter:drop-shadow(0 0 18px #F2AE86) drop-shadow(8px 10px 0 #000)">' % L, "var(--db)", "Add glows or shadows"),
-        ('<img src="%sfull-colour-light.svg" style="width:330px">' % L, "var(--o)", "Full colour on orange"),
-        ('<div class="ph" style="background-image:url(%sclimb_recap_07.jpg);border-radius:14px"></div><img src="%sreversed-dark.svg" style="width:330px;position:relative">' % (P, L), "var(--db)", "Busy part of a photo"),
+        ('<img src="%sreversed-dark.svg" style="width:290px;transform:scaleX(1.45)">' % L, "var(--db)", "Stretch or squash it"),
+        ('<img src="%sreversed-dark.svg" style="width:290px;transform:rotate(-12deg)">' % L, "var(--db)", "Rotate or tilt it"),
+        ('<img src="%sreversed-dark.svg" style="width:290px;filter:hue-rotate(150deg) saturate(1.6)">' % L, "var(--db)", "Recolour it"),
+        ('<img src="%sreversed-dark.svg" style="width:290px;filter:drop-shadow(0 0 18px #F2AE86) drop-shadow(8px 10px 0 #000)">' % L, "var(--db)", "Add glows or shadows"),
+        ('<img src="%sfull-colour-light.svg" style="width:290px">' % L, "var(--o)", "Full colour on orange"),
+        ('<div class="ph" style="background-image:url(%sclimb_recap_07.jpg);border-radius:14px"></div><img src="%sreversed-dark.svg" style="width:290px;position:relative">' % (P, L), "var(--db)", "Busy part of a photo"),
     ]
     html = "".join(
-        '<div><div style="position:relative;background:%s;border-radius:14px;height:205px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1.5px solid rgba(255,255,255,.12)">%s'
-        '<div style="position:absolute;right:18px;top:14px;width:58px;height:58px;border-radius:50%%;background:var(--db);border:3px solid var(--o);display:flex;align-items:center;justify-content:center;font:800 40px/1 Montserrat;color:var(--o)">\u00d7</div></div>'
-        '<div class="h" style="font-size:28px;margin-top:22px">%s</div></div>' % (bg, el, t)
+        '<div><div style="position:relative;background:%s;border-radius:14px;height:205px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1.5px solid rgba(255,255,255,.12)">%s</div>'
+        '<div style="display:flex;align-items:center;gap:16px;margin-top:20px">'
+        '<div style="flex:none;width:44px;height:44px;border-radius:50%%;background:var(--db);border:3px solid var(--o);display:flex;align-items:center;justify-content:center;font:800 30px/1 Montserrat;color:var(--o)" aria-hidden="true">\u00d7</div>'
+        '<div class="h" style="font-size:28px">%s</div></div></div>' % (bg, el, t)
         for el, bg, t in items)
     inner = (
         '<div class="pad"><div class="eb" style="font-size:24px">Hands off</div>'
@@ -335,11 +359,11 @@ def edition_mark(bk):
           '<li><b>Climb27 leads</b> on posters, tickets, socials, signs and screens for this edition.</li>'
           '<li><b>ClimbUK sits quieter:</b> smaller, in a corner or the footer, in one tone if the piece is busy.</li>'
           '<li><b>Dates go next to the mark,</b> never inside it: 30 June and 1 July 2027.</li></ul></div>'
-          '<div class="ticket" style="padding:70px 70px 56px">'
-          '%s<div class="h" style="font-size:44px;margin-top:40px">YOUR BUSINESS.<br><em>BIGGER</em> <span class="o">STAGE</span>.</div>'
-          '<div class="tear" style="margin:46px -70px 40px"><div class="notch" style="left:-23px;top:-24px"></div><div class="notch" style="right:-23px;top:-24px"></div></div>'
+          '<div class="ticket" style="padding:84px 84px 56px">'
+          '%s<div class="h" style="font-size:44px;margin-top:100px">YOUR BUSINESS.<br><em>BIGGER</em> <span class="o">STAGE</span>.</div>'
+          '<div class="tear" style="margin:46px -84px 40px"><div class="notch" style="left:-23px;top:-24px"></div><div class="notch" style="right:-23px;top:-24px"></div></div>'
           '<div style="display:flex;justify-content:space-between;align-items:center"><div class="mont" style="font-weight:700;font-size:26px">30 June and 1 July 2027</div>%s</div></div></div>'
-        % (logo("Climb27", "reversed-dark", w=560), logo("ClimbUK", "mono-white", h=34))
+        % (logo("Climb27", "reversed-dark", w=400), logo("ClimbUK", "mono-white", h=34))
     )
     bk.add("", inner)
 
@@ -490,10 +514,10 @@ def motifs_slide(bk):
     tiles = [
         ("The Ascent", "Steps and chevrons: dividers, corners, progress, wayfinding.",
          motifs.ascent(w, h, 50, 240, 150, steps=4, colour="#E8712A") + motifs.ascent(w, h, 360, 240, 170, steps=5, kind="chevrons")),
-        ("Contours", "A climbing map: quiet fields on dark grounds, merch and walls.", motifs.contours(w, h, seed=4, rings=11, cx=0.75, cy=0.7)),
+        ("Contours", "A map of the way up: quiet fields on dark grounds, merch and walls.", motifs.contours(w, h, seed=4, rings=11, cx=0.75, cy=0.7)),
         ("Stage Light", "Beams and glow: heroes, screens, video and Main Stage Moments.", None),
         ("Connections", "Dots finding each other: Find Your People and partner pieces.", motifs.connections(w, h, seed=5, dots=26, region=(0.05, 0.08, 0.95, 0.92))),
-        ("Peak and slabs", "A summit line and angled corner slabs: covers, name cards and decks.",
+        ("Peak and slabs", "A rising line and angled corner slabs: covers, name cards and decks.",
          motifs.slabs(w, h, corners=("tl",), length=w * 0.45, thick=h * 0.12) + motifs.peak(w, h, base=0.88, summit=(0.55, 0.35), seed=2, colour="#FFFFFF", opacity=0.5)),
         ("Highlight bar", "A solid orange bar behind one word: the poster version of the orange word.", None),
     ]
@@ -593,31 +617,31 @@ def illustrations(bk, names):
 
 def photo_shoot(bk):
     tiles = ["climb_awards_winners.jpg", "climb_recap_05.jpg", "climb_recap_02.jpg", "climb_band_stage.jpg", "climb_recap_04.jpg",
-             "climb_isn_founders_hero.jpg", "climb_drinks_reception.jpg", "climb_consultants_expert.jpg"]
-    wall = ('<div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:10px;position:absolute;right:0;top:0;width:1060px;height:1080px">'
+             "climb_isn_founders_hero.jpg", "climb_drinks_reception.jpg", "climb_consultants_expert.jpg", "climb_expo_floor.jpg"]
+    wall = ('<div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:10px;position:absolute;right:0;top:0;width:1060px;height:960px">'
             '<div style="grid-column:1/3;grid-row:1/3;background:url(%s%s) center/cover"></div>' % (P, tiles[0])
             + "".join('<div style="background:url(%s%s) center/cover"></div>' % (P, t) for t in tiles[1:])
             + '</div>')
     inner = (
         wall
         + '<div style="position:absolute;left:0;top:0;bottom:0;width:980px;background:linear-gradient(90deg,var(--db) 78%,rgba(30,15,5,0))"></div>'
-        + '<div class="pad" style="right:auto;width:780px">'
+        + '<div class="pad" style="right:auto;width:630px">'
           '<div class="eb" style="font-size:24px">What to shoot</div>'
           '<div class="h" style="font-size:80px;margin-top:22px">THE <em>REASON</em> TO <span class="o">COME</span>.</div>'
-          '<ul class="list copy" style="margin-top:40px">'
+          '<ul class="list copy" style="margin-top:36px;font-size:22px">'
           '<li><b>Joy and connection:</b> laughing, leaning in, handshakes mid-conversation.</li>'
           '<li><b>Main Stage Moments:</b> the gesture, the crowd looking up, the band, the awards walk-up.</li>'
           '<li><b>Find Your People:</b> close conversations, speed networking tables, roundtables in full flow.</li>'
           '<li><b>Texture:</b> orange lanyards, badges, drinks being poured, trophies, after party lights.</li>'
           '<li><b>For every wide,</b> three mediums and five close-ups.</li></ul></div>'
-        + '<span class="sticker" style="position:absolute;left:1000px;top:640px;font-size:28px">Dense beats sparse</span>'
+        + '<span class="sticker" style="position:absolute;left:1000px;top:590px;font-size:28px">Dense beats sparse</span>'
     )
     bk.add("", inner)
 
 
 def photo_fades(bk):
-    fades = [("fade-brown", "Brown", "Statements and story bands", "climb_recap_02.jpg", 'BUSINESS WITH A <span class="o">PARTY</span>'),
-             ("fade-heat", "Heat", "Selling moments: a line, two buttons", "climb_crowd_wide.jpg", 'GET YOUR <span class="o">TICKET</span>'),
+    fades = [("fade-brown", "Brown", "Statements and story bands", "climb_isn_founders_hero.jpg", 'BUSINESS WITH A <span class="o">PARTY</span>'),
+             ("fade-heat", "Heat", "Ticket moments: a line, two buttons", "climb_crowd_wide.jpg", 'GET YOUR <span class="o">TICKET</span>'),
              ("fade-orange", "Orange", "One offer on an orange section", "climb_awards_trophies.jpg", 'BRINGING A <span style="color:var(--db)">TEAM</span>?')]
     html = "".join(
         '<div><div style="position:relative;height:520px;border-radius:14px;overflow:hidden">'
@@ -636,8 +660,10 @@ def photo_fades(bk):
 
 def photo_rules(bk):
     inner = (
-        photo("climb_recap_07.jpg", "fade-brown-r", "center 30%")
-        + '<div class="pad" style="left:auto;width:900px">'
+        '<div style="position:absolute;left:0;top:0;bottom:0;width:900px;overflow:hidden">'
+        + photo("climb_awards_winners.jpg", "", "center 30%")
+        + '<div class="layer" style="background:linear-gradient(90deg,rgba(30,15,5,0) 55%,var(--db)),linear-gradient(180deg,rgba(30,15,5,0) 72%,var(--db) 90%)"></div></div>'
+        + '<div class="pad" style="left:auto;width:820px">'
           '<div class="eb" style="font-size:24px;justify-content:flex-end">Editing and care</div>'
           '<div class="h" style="font-size:80px;margin-top:22px;text-align:right">WARM. <em>BRIGHT</em>. <span class="o">TRUE</span>.</div>'
           '<ul class="list copy" style="margin-top:40px">'
@@ -745,7 +771,7 @@ def tickets(bk):
     inner = (
         '<div class="glow"></div>'
         + '<div class="pad" style="display:grid;grid-template-columns:640px 1fr;gap:90px">'
-          '<div><div class="eb" style="font-size:24px">Selling tickets</div>'
+          '<div><div class="eb" style="font-size:24px">Ticket pages</div>'
           '<div class="h" style="font-size:76px;margin-top:22px">SHOW WHY <em>NOW</em> IS <span class="o">CHEAPEST</span>.</div>'
           '<ul class="list copy" style="margin-top:36px">'
           '<li><b>A way to buy</b> is never more than two scrolls away.</li>'
@@ -762,7 +788,7 @@ def tickets(bk):
 def themes27(bk):
     inner = (
         '<div style="position:absolute;left:0;top:0;bottom:0;width:960px;overflow:hidden">'
-        + photo("climb_recap_05.jpg", "fade-bottom", "center 30%")
+        + photo("climb_awards_winners.jpg", "fade-bottom", "center 30%")
         + '<div style="position:absolute;left:100px;right:80px;bottom:120px"><div class="eb" style="font-size:24px">Theme one</div>'
           '<div class="h" style="font-size:104px;margin-top:20px">FIND YOUR <span class="o">PEOPLE</span></div>'
           '<p class="lead" style="margin-top:20px">The people you meet are the reason to come. Close conversations, the right rooms, the community that sends each other work.</p></div></div>'
@@ -781,14 +807,14 @@ def share_kit(bk):
     def tile(role, line, ph, rot):
         return ('<div style="position:relative;width:330px;height:430px;flex:none;border-radius:14px;overflow:hidden;transform:rotate(%sdeg);box-shadow:0 30px 70px rgba(0,0,0,.5)">'
                 '<div class="ph" style="background-image:url(%s%s);background-position:center 25%%;bottom:40%%"></div>'
-                '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,0) 25%%,var(--db) 58%%)"></div>'
-                '<div style="position:absolute;left:22px;top:20px">%s</div>'
-                '<div style="position:absolute;left:24px;right:20px;top:200px"><span class="sticker" style="font-size:15px">%s</span>'
+                '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,0) 12%%,rgba(30,15,5,.9) 40%%,var(--db) 50%%)"></div>'
+                '<div style="position:absolute;left:42px;top:42px">%s</div>'
+                '<div style="position:absolute;left:30px;right:24px;top:190px"><span class="sticker" style="font-size:15px">%s</span>'
                 '<div class="h" style="font-size:34px;margin-top:16px">%s</div>'
                 '<div style="font-size:15px;margin-top:10px;color:var(--tint)">Your name, Company</div></div>'
-                '<div style="position:absolute;left:20px;right:20px;bottom:18px;display:flex;align-items:center;justify-content:space-between;background:var(--ch);border-radius:10px;padding:10px 12px">'
-                '%s<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase">climb-uk.com</span></div></div>'
-                % (rot, P, ph, logo("Climb27", "reversed-dark", h=30), role, line, logo("Climb27", "reversed-dark", h=20)))
+                '<div style="position:absolute;left:20px;right:20px;bottom:18px;display:flex;align-items:center;justify-content:flex-end;background:var(--ch);border-radius:10px;padding:10px 12px">'
+                '<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase">climb-uk.com</span></div></div>'
+                % (rot, P, ph, logo("Climb27", "reversed-dark", h=28), role, line))
     inner = (
         '<div class="glow"></div>'
         + '<div class="pad" style="display:grid;grid-template-columns:580px 1fr;gap:40px">'
@@ -834,7 +860,7 @@ def documents(bk):
             return ('<div style="position:relative;width:400px;height:566px;border-radius:6px;overflow:hidden;background:var(--db);box-shadow:0 30px 70px rgba(0,0,0,.55);transform:rotate(-3deg)">'
                     '<div class="ph" style="background-image:url(%sclimb_expo_floor.jpg);bottom:45%%"></div>'
                     '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,.2),var(--db) 56%%)"></div>'
-                    '%s<div style="position:absolute;left:28px;top:24px">%s</div>'
+                    '%s<div style="position:absolute;left:40px;top:40px">%s</div>'
                     '<div style="position:absolute;left:28px;right:28px;top:330px"><span class="sticker" style="font-size:14px">Partners</span>'
                     '<div class="h" style="font-size:40px;margin-top:14px">PARTNER<br><span class="o">PROPOSAL</span></div>'
                     '<div style="font-size:14px;margin-top:12px;color:var(--lg)">Climb27. 30 June and 1 July 2027.</div></div></div>'
@@ -884,7 +910,7 @@ def signature(bk):
         '<div style="font-size:20px;margin-top:16px;color:var(--deep);text-decoration:underline;font-weight:600">Book a meeting with me</div>'
         '<div style="font-size:18px;margin-top:14px">T: 0000 000 0000 | climb-uk.com</div></div>'
         '<div style="text-align:right">%s'
-        '<div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">%s</div></div></div>'
+        '<div style="display:flex;gap:8px;margin-top:34px;justify-content:flex-end">%s</div></div></div>'
         '<div style="margin-top:30px;height:150px;border-radius:10px;overflow:hidden;position:relative">'
         '<div class="ph" style="background-image:url(%sclimb_crowd_wide.jpg)"></div><div class="layer fade-heat"></div>'
         '<div class="h" style="position:absolute;left:30px;top:30px;font-size:40px">SEE YOU AT <span class="o">CLIMB27</span></div>'
@@ -909,7 +935,7 @@ def voice_lines(bk):
         + '<div class="pad"><div class="eb" style="font-size:24px">The voice in four lines</div>'
           '<div class="h" style="font-size:96px;margin-top:22px">EXCITING <em>AND</em> <span class="o">USEFUL</span>.</div>'
           '<div class="grid" style="grid-template-columns:repeat(4,1fr);gap:56px;margin-top:70px">%s</div></div>' % html
-        + '<div style="position:absolute;left:0;right:0;bottom:110px;white-space:nowrap;font:800 italic 92px/1 Montserrat;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,174,134,.35);transform:translateX(-260px)">'
+        + '<div style="position:absolute;left:0;right:0;bottom:130px;white-space:nowrap;font:800 italic 92px/1 Montserrat Outline,Montserrat;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,174,134,.35);transform:translateX(-260px)">'
           'Find your people. Then do business with them. Iconic moments. Real advice. No fluff.</div>'
     )
     bk.add(bk.B["ground"], inner)
@@ -942,7 +968,7 @@ def voice_rules(bk):
 
 def rewrites(bk):
     rows = [("Join thousands of founders at the UK's premier startup event!", "Two days with the founders, investors and advisers who move businesses forward."),
-            ("Guaranteed meetings with 50+ investors", "Find investors with real deal flow."),
+            ("Guaranteed meetings with 50+ investors", "Find investors looking for real deal flow."),
             ("Hear inspiring stories from successful entrepreneurs", "Learn how they grew, and what you can do about it on Monday."),
             ("Exhibit and reach thousands of attendees", "Put your team in front of the businesses that buy what you do."),
             ("Our booking platform makes it easy", "Book your meetings in the event app before you arrive.")]
@@ -963,7 +989,7 @@ def rewrites(bk):
 def words(bk):
     rows = [("agenda", "programme, for the schedule"), ("Affiliate Programme", "referral scheme"), ("public sector", "councils"),
             ("connect you with", "introduce you to, matched"), ("fractional leaders", "consultants, when they lead a function"),
-            ("fellow founders, peers one step ahead", "other founders"), ("find investors with real deal flow", "meet investors, cheque books"),
+            ("fellow founders, peers one step ahead", "other founders"), ("find investors looking for real deal flow", "meet investors, cheque books"),
             ("why your team should come", "can I bring the team?")]
     html = "".join('<div style="display:grid;grid-template-columns:1fr 1fr;padding:15px 0;border-bottom:1.5px solid rgba(255,255,255,.1)">'
                    '<div class="mont" style="font-weight:700;font-size:26px;color:#fff">%s</div><div style="font-size:24px;color:rgba(255,255,255,.65);text-decoration:line-through;text-decoration-color:var(--o)">%s</div></div>' % (a, b) for a, b in rows)
@@ -1015,20 +1041,33 @@ def print_merch(bk):
         '<li><b>PDF/X-4</b> with fonts embedded, images at 300ppi at final size, 3mm bleed and a 5mm safe zone.</li>'
         '<li><b>Two-colour jobs</b> print Pantone 158 with Black 4 or 419. Big dark areas use rich Dark Brown, not plain black.</li>'
         '<li><b>One finish per piece:</b> soft-touch, spot UV on one line, copper or orange foil, or a deboss.</li>'
-        '<li><b>Garments</b> are Dark Brown, Charcoal or black. Orange is for crew, so they are easy to find.</li>'
+        '<li><b>Garments</b> are Dark Brown, Charcoal, black or White. Orange is for crew, so they are easy to find.</li>'
         '<li><b>Signs:</b> 40mm cap height to read at 10m, 80mm at 20m. Chevrons point the way people turn.</li></ul></div>'
         '<div style="position:relative">'
-        '<div style="position:absolute;left:40px;top:40px;width:330px;height:470px;background:var(--db);border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-4deg);overflow:hidden">'
+        '<div style="position:absolute;left:-10px;top:500px;width:250px;height:356px;background:var(--db);border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-5deg);z-index:2;overflow:hidden">'
         '<div class="ph" style="background-image:url(%sclimb_band_stage.jpg);bottom:40%%"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,0) 20%%,var(--db) 60%%)"></div>'
-        '<div style="position:absolute;left:22px;top:20px">%s</div>'
-        '<div class="h" style="position:absolute;left:24px;bottom:60px;font-size:40px">%s</div>'
-        '<div style="position:absolute;left:24px;bottom:26px;font:700 14px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
-        '<div style="position:absolute;right:30px;top:0;width:360px;height:420px;border-radius:30px 30px 10px 10px;background:var(--ch);box-shadow:0 30px 70px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transform:rotate(3deg)">%s'
-        '<span class="sticker" style="position:absolute;right:-20px;top:30px;font-size:22px">Tote</span></div>'
-        '<div style="position:absolute;left:120px;bottom:20px;width:560px;height:96px;border-radius:12px;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 30px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
-        '<p class="small" style="position:absolute;left:120px;bottom:-30px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
-        % (P, logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "icon", w=200, style="border-radius:20px"),
-           logo(b, "mono-white", h=40), logo(b, "mono-white", h=40))
+        '<div style="position:absolute;left:32px;top:32px">%s</div>'
+        '<div class="h" style="position:absolute;left:32px;bottom:56px;font-size:32px">%s</div>'
+        '<div style="position:absolute;left:32px;bottom:26px;font:700 13px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
+        # Totes: a white canvas bag in Dark Brown and orange, a Dark Brown bag in orange and White. Two colours each.
+        '<div style="position:absolute;left:440px;top:150px;width:330px;height:380px;transform:rotate(6deg)">'
+        '<div style="position:absolute;left:62px;top:-104px;width:206px;height:150px;border:16px solid var(--o);border-bottom:0;border-radius:110px 110px 0 0"></div>'
+        '<div style="position:absolute;inset:0;background:var(--db);border-radius:6px 6px 14px 14px;box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.06);overflow:hidden">'
+        '<div style="position:absolute;left:-30px;right:-30px;top:30px;font:italic 800 96px/0.86 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.04em;white-space:nowrap;transform:rotate(-8deg)">TOP TOP TOP<br>TOP TOP TOP<br>TOP TOP TOP</div>'
+        '<div class="h" style="position:absolute;left:30px;bottom:74px;font-size:46px;line-height:.95;color:#fff">SEE YOU<br>AT THE <em class="o">TOP</em>.</div>'
+        '<div style="position:absolute;left:30px;bottom:30px">%s</div></div></div>'
+        '<div style="position:absolute;left:30px;top:120px;width:380px;height:440px;transform:rotate(-3deg)">'
+        '<div style="position:absolute;left:78px;top:-118px;width:224px;height:166px;border:18px solid var(--lg);border-bottom:0;border-radius:120px 120px 0 0"></div>'
+        '<div style="position:absolute;inset:0;background:var(--w);border-radius:6px 6px 16px 16px;box-shadow:0 34px 80px rgba(0,0,0,.65);overflow:hidden">'
+        '<div style="position:absolute;left:-40px;top:22px;font:800 64px/0.9 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.03em;white-space:nowrap">FIND YOUR PEOPLE FIND<br>YOUR PEOPLE FIND YOUR<br>PEOPLE FIND YOUR PEOPLE</div>'
+        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em class="o">PEOPLE</em>.</div>'
+        '<img src="assets/illus/high-five.svg" style="position:absolute;right:20px;top:196px;width:132px;height:132px;transform:rotate(10deg);--doodle-ground:var(--w)">'
+        '<div style="position:absolute;left:34px;bottom:26px">%s</div></div>'
+        '<span class="sticker" style="position:absolute;right:-26px;top:-20px;font-size:22px;transform:rotate(6deg)">Tote</span></div>'
+        '<div style="position:absolute;left:280px;bottom:60px;width:500px;height:110px;border-radius:12px;z-index:1;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
+        '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
+        % (P, logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
+           logo(b, "mono-white", h=32), logo(b, "mono-white", h=32))
     )
     bk.add(bk.B["ground"], inner)
 
@@ -1059,23 +1098,24 @@ def video(bk):
 def partners(bk):
     b = bk.b
     lead = "ClimbUK" if b != "Climb27" else "Climb27"
+    c = round(66 * CLEAR_C[lead])  # clear space: the C height, around the card edge and either side of the rule
     inner = (
         '<div class="glow"></div>'
         + '<div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:100px">'
           '<div><div class="eb" style="font-size:24px">Press and partners</div>'
           '<div class="h" style="font-size:80px;margin-top:22px">SIDE BY <em>SIDE</em>. NEVER <span class="o">MERGED</span>.</div>'
           '<ul class="list copy" style="margin-top:36px">'
-          '<li><b>Lockup:</b> equal optical height, a 1px rule between, clear space of the l height either side.</li>'
+          '<li><b>Lockup:</b> equal optical height, a 1px rule between, clear space of the C height either side.</li>'
           '<li><b>Partner-led pieces</b> put us on the right. Our pieces put us on the left.</li>'
           '<li><b>On our pieces</b> partner logos sit in one tone, so no brand shouts over another.</li>'
           '<li><b>Never</b> merge the logos, recolour a partner logo in our orange, or promise numbers.</li></ul></div>'
           '<div style="padding-top:60px">'
-          '<div class="card" style="height:260px;display:flex;align-items:center;justify-content:center;gap:56px">'
-          '<div class="mont" style="font-weight:800;font-size:46px;color:#fff;letter-spacing:.02em;border:3px solid rgba(255,255,255,.6);padding:16px 26px;border-radius:10px">PARTNER</div>'
-          '<div style="width:2px;height:110px;background:rgba(255,255,255,.3)"></div>%s</div>'
+          '<div class="card" style="display:inline-flex;align-items:center;padding:%dpx;gap:%dpx">'
+          '<div class="mont" style="font-weight:800;font-size:38px;line-height:1;color:#fff;letter-spacing:.02em;border:3px solid rgba(255,255,255,.6);padding:11px 20px;border-radius:8px">PARTNER</div>'
+          '<div style="width:1px;height:96px;background:rgba(255,255,255,.4)"></div>%s</div>'
           '<div class="h" style="font-size:34px;margin-top:50px">LINES PARTNERS MAY USE</div>'
           '<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:24px">%s</div></div></div>'
-        % (logo(lead, "reversed-dark", h=70),
+        % (c, c, logo(lead, "reversed-dark", h=66),
            "".join('<span class="tag" style="font-size:20px;color:var(--tint)">%s</span>' % t for t in
                    ["In partnership with ClimbUK", "Official partner of Climb27", "Headline partner of Climb27", "Speaking at Climb27", "Exhibiting at Climb27"]))
     )
@@ -1111,12 +1151,16 @@ def downloads(bk):
           '<div class="eb" style="font-size:24px">The downloads</div>'
           '<div class="h" style="font-size:84px;margin-top:22px">EVERYTHING YOU NEED IS IN THE <span class="o">MEDIA KIT</span>.</div>'
           '<ul class="list copy" style="margin-top:40px;columns:2;column-gap:60px">%s</ul>'
-          '<div class="card" style="margin-top:50px;padding:36px 40px;display:flex;gap:60px;align-items:center">'
-          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Press and partnerships</div>'
-          '<div class="mont" style="font-weight:700;font-size:30px;margin-top:10px">%s</div><div class="mont" style="font-weight:700;font-size:30px;margin-top:4px">%s</div></div>'
+          '<div class="card" style="margin-top:50px;padding:36px 40px;display:flex;gap:60px;align-items:center;width:1440px">'
+          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Press and brand support</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:10px;white-space:nowrap">%s</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:4px;white-space:nowrap">%s</div></div>'
+          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Partnerships</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:10px;white-space:nowrap">%s</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:4px;visibility:hidden">-</div></div>'
           '<span class="btn" style="font-size:24px;margin-left:auto">Visit %s</span></div>'
           '<p class="small" style="margin-top:24px">Ask the brand team for anything new rather than making your own, so every piece stays consistent.</p></div>'
-        % ("".join("<li>%s</li>" % k for k in kit), COMMON["email"], COMMON["phone"], COMMON["web"])
+        % ("".join("<li>%s</li>" % k for k in kit), contact(bk.b)[0], COMMON["phone"], contact(bk.b)[1], COMMON["web"])
     )
     bk.add(bk.B["ground"], inner)
 
@@ -1124,13 +1168,14 @@ def downloads(bk):
 def back_cover(bk):
     b, B = bk.b, bk.B
     inner = (
-        photo({"ClimbUK": "climb_recap_05.jpg", "Climb27": "climb_crowd_wide.jpg"}.get(b, "climb_awards_winners.jpg"), "fade-hero", "center 35%")
+        photo({"ClimbUK": "climb_crowd_wide.jpg", "Climb27": "climb_band_stage.jpg"}.get(b, "climb_awards_winners.jpg"), "fade-hero", "center 35%")
+        + '<div class="layer" style="background:rgba(30,15,5,.66)"></div>'
         + '<div class="glow"></div>'
         + '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">'
           '<div class="h" style="font-size:150px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div>'
-          '<div style="margin-top:80px">%s</div>'
-          '<div class="mont" style="margin-top:40px;font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;color:var(--tint)">%s</div></div>'
-        % (B["closing_h"], logo(b, "tagline-lockup-reversed", w=620), COMMON["web"])
+          '<div style="margin-top:150px">%s</div>'
+          '<div class="mont" style="margin-top:130px;font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;color:var(--tint)">%s</div></div>'
+        % (B["closing_h"], logo(b, "tagline-lockup-reversed", h=150), COMMON["web"])
     )
     bk.add("", inner, foot=False)
 

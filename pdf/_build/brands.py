@@ -1,12 +1,17 @@
 """Per-brand settings for the brand PDFs. Copy follows the ClimbUK voice guide."""
 
 COMMON = dict(
-    email="queries@climb-uk.com",
     phone="+44 113 541 2999",
     web="climb-uk.com",
     dates="30 June and 1 July 2027",
     tagline="The Festival for Business Growth",
 )
+
+
+def contact(brand):
+    """Press and brand support, then partnerships. ClimbGroup pieces use the company domain."""
+    domain = "climb-group.com" if brand == "ClimbGroup" else "climb-uk.com"
+    return "marketing@" + domain, "partnerships@" + domain
 
 BRANDS = {
     "ClimbUK": dict(
