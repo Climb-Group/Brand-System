@@ -577,7 +577,7 @@ def signature_html(sig, logos):
             '<div class="climb-sig-brand"><img class="climb-on-dark" src="%s" alt="ClimbUK"><img class="climb-on-light" src="%s" alt="ClimbUK">'
             '<div class="climb-sig-icons">%s</div></div></div>'
             '<p class="climb-sig-note">To help us respond quickly, non-sales enquiries go through our <a href="#">Helpdesk</a> before email. '
-            'For partnerships, email <a href="#">partners@climb-uk.com</a>; for exhibiting, <a href="#">exhibitors@climb-uk.com</a>.</p>'
+            'For partnerships, email <a href="#">partnerships@climb-uk.com</a>; for exhibiting, <a href="#">exhibitors@climb-uk.com</a>.</p>'
             '<a href="#"><img class="climb-sig-banner" src="%s" width="720" alt="Climb27. Your business. Bigger stage. Get your ticket."></a>'
             '<p class="climb-sig-legal">This email and any attachments are confidential and meant only for the person they are addressed to. '
             'If it reached you by mistake, please tell the sender and delete it.</p></div>'

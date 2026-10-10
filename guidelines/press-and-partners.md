@@ -72,4 +72,6 @@ Every partner, speaker and exhibitor gets a share kit:
 
 ## Contact
 
-Press and partnership enquiries: queries@climb-uk.com, +44 113 541 2999. Partnerships: book a call at climb-uk.com/appointment/3.
+Press and brand support: marketing@climb-uk.com (for ClimbGroup, marketing@climb-group.com), +44 113 541 2999.
+
+Partnerships: partnerships@climb-uk.com (for ClimbGroup, partnerships@climb-group.com), or book a call at climb-uk.com/appointment/3.
