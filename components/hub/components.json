@@ -36,32 +36,38 @@
   "id": "Tags"
  },
  {
+  "name": "Outline numerals",
+  "group": "Festival devices",
+  "subtitle": "Giant outlined numbers for section numbers and big stats",
+  "id": "OutlineNumerals"
+ },
+ {
   "name": "Ticket card",
-  "group": "Selling",
+  "group": "Tickets and stands",
   "subtitle": "The glass ticket with stub notches, highlighted and on orange",
   "id": "TicketCard"
  },
  {
   "name": "Offer cards",
-  "group": "Selling",
+  "group": "Tickets and stands",
   "subtitle": "Ticket offers: the pick, the rest, and a closed release",
   "id": "OfferCards"
  },
  {
   "name": "Release ladder",
-  "group": "Selling",
+  "group": "Tickets and stands",
   "subtitle": "Price releases as rising steps: past, now and next",
   "id": "ReleaseLadder"
  },
  {
   "name": "Stand cards",
-  "group": "Selling",
+  "group": "Tickets and stands",
   "subtitle": "Exhibition stands with an outlined floor plan and stock",
   "id": "StandCards"
  },
  {
   "name": "Group offer",
-  "group": "Selling",
+  "group": "Tickets and stands",
   "subtitle": "The orange band for teams and groups",
   "id": "GroupOffer"
  },

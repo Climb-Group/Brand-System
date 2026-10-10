@@ -28,7 +28,7 @@ Use as written. Shorten only by cutting whole sentences.
 
 - Download the masters from the media kit, never from a search engine. SVG for print and web, PNG at 2048px for anything that cannot take SVG.
 - Reversed (White and Climb Orange) on dark or photo backgrounds, full colour on white, mono when the publication prints in one colour.
-- Clear space is the height of the "l" in Climb on every side, around the whole logo. Minimum width 120px on screen, 30mm in print.
+- Clear space is the height of the large "C" in Climb on every side, around the whole logo. Minimum width 120px on screen, 30mm in print.
 - Do not recolour, outline, stretch, add a shadow, or set the logo on a busy part of a photo.
 
 ## Photos and video for press
@@ -44,7 +44,7 @@ Use as written. Shorten only by cutting whole sentences.
 
 ## Co-branding with partners
 
-- **Lockup:** the partner logo and the ClimbUK logo side by side at equal optical height, separated by a 1px rule in the ground's quiet line colour, with clear space of the "l" height between each logo and the rule. ClimbUK sits on the right on partner-led pieces and on the left on ClimbUK-led pieces.
+- **Lockup:** the partner logo and the ClimbUK logo side by side at equal optical height, separated by a 1px rule in the ground's quiet line colour, with clear space of the "C" height between each logo and the rule. ClimbUK sits on the right on partner-led pieces and on the left on ClimbUK-led pieces.
 - **Lines partners may use:** "In partnership with ClimbUK", "Official partner of Climb27", "Headline partner of Climb27" (headline partners only), "Speaking at Climb27", "Exhibiting at Climb27".
 - **On ClimbUK pieces,** partner logos appear in one tone (White on dark, Charcoal or grey on light) so no brand shouts over another; headline partners may appear in full colour in their own slot.
 - **Never:** merge the logos into one mark, put ClimbUK colours on a partner logo, imply ClimbUK endorses a product, or promise attendees anything ClimbUK has not.
@@ -72,4 +72,6 @@ Every partner, speaker and exhibitor gets a share kit:
 
 ## Contact
 
-Press and partnership enquiries: queries@climb-uk.com, +44 113 541 2999. Partnerships: book a call at climb-uk.com/appointment/3.
+Press and brand support: marketing@climb-uk.com (for ClimbGroup, marketing@climb-group.com), +44 113 541 2999.
+
+Partnerships: partnerships@climb-uk.com (for ClimbGroup, partnerships@climb-group.com), or book a call at climb-uk.com/appointment/3.

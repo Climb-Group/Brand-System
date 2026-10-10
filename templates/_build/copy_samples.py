@@ -24,7 +24,7 @@ COPY = {
         sub="Festivals, programmes and the communities that keep growing between them.",
         date="Company presentation",
         end="Thank {you}",
-        end_line="queries@climb-group.com",
+        end_line="marketing@climb-group.com",
     ),
     "Climb27": dict(
         eyebrow="Climb27",
@@ -137,7 +137,7 @@ def slides(b):
         sph(t, "title", None, "What happens on the {day}")
         sph(t, None, 1, ["Main stage moments from founders who have done it",
                          "Roundtables where you bring the problem and leave with a plan",
-                         "Speed networking with investors who have real deal flow",
+                         "Speed networking with investors looking for real deal flow",
                          "An after party that keeps the conversation going"])
 
     @s("Two columns (light)")
@@ -146,7 +146,7 @@ def slides(b):
         sph(t, "title", None, "Two ways to get {more} from it")
         sph(t, "body", 16, "For founders")
         sph(t, "body", 17, "For partners")
-        sph(t, None, 1, ["Learn from people a few steps ahead", "Find investors with real deal flow",
+        sph(t, None, 1, ["Learn from people a few steps ahead", "Find investors looking for real deal flow",
                          "Leave with follow-ups that matter"])
         sph(t, None, 2, ["Put your brand in front of the people you want to reach",
                          "Host a roundtable on the problem you solve", "Meet the room, not just the stand"])

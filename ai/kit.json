@@ -196,7 +196,7 @@
         "properties": {
           "topic": {
             "type": "string",
-            "description": "What you need, for example 'selling tickets', 'lower thirds', 'rewrites'.",
+            "description": "What you need, for example 'ticket pages', 'lower thirds', 'rewrites'.",
             "maxLength": 120
           },
           "document": {

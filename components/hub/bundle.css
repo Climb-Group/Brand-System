@@ -54,3 +54,14 @@
 @keyframes climb-demo-spring{from{transform:scale(1)}to{transform:scale(1.18) translateY(-6px)}}
 @keyframes climb-demo-drift{from{transform:translateX(-3rem)}to{transform:translateX(12rem)}}
 @media (prefers-reduced-motion: reduce){.m-rise,.m-spring,.m-pulse,.m-drift{animation:none}}
+.climb-outline-num{display:block;margin:0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:normal;font-size:clamp(7.5rem,22vw,23.75rem);line-height:.8;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:4px var(--climb-orange)}
+.climb-outline-num-sm{font-size:clamp(4rem,9vw,7.5rem);-webkit-text-stroke-width:2px}
+.climb-p1 .climb-outline-num,.climb-p2 .climb-outline-num{-webkit-text-stroke-color:var(--orange-text)}
+.climb-p4 .climb-outline-num{-webkit-text-stroke-color:var(--white)}
+@supports not (-webkit-text-stroke:1px){.climb-outline-num{color:var(--climb-orange)}}
+@media (forced-colors:active){.climb-outline-num{color:CanvasText;-webkit-text-stroke:0}}
+[data-climb-size="aaa"] .climb-outline-num-sm{color:currentColor;-webkit-text-stroke:0}
+.climb-numbered{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1.5rem 2.5rem}
+.climb-numbered .climb-statement{margin-bottom:0}
+.climb-stats{display:flex;flex-wrap:wrap;gap:2rem 4rem}
+.climb-stat-label{margin:.75rem 0 0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}.climb-outline-marquee{margin:0;overflow:hidden;white-space:nowrap;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:italic;font-size:clamp(3rem,7vw,5.75rem);line-height:1;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,174,134,.35)}

@@ -53,7 +53,7 @@ Sizes in pixels unless marked. Video, photo and screen work is 4K by default (RA
 
 | Item | Print area | Notes |
 | --- | --- | --- |
-| T-shirt, hoodie | chest 100mm, back 300x400mm | Dark garments. Contours or one display line on the back |
+| T-shirt, hoodie | chest 100mm, back 300x400mm | Dark Brown, Charcoal, black or White garments (158 and White on dark, 158 and Dark Brown on White). Contours or one display line on the back |
 | Tote | 350x350mm | Pattern all-over or one line |
 | Cap, beanie | 60x40mm embroidery | Square icon only |
 | Bottle, mug | wrap 200x80mm | Contours wrap |

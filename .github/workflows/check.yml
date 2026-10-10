@@ -30,5 +30,7 @@ jobs:
           if echo "Guaranteed meetings with 50+ investors!" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -; then
             echo "The checker let banned copy through"; exit 1
           fi
+      - name: Copy on every generated asset passes the voice checker
+        run: python3 generators/catalogue.py "$RUNNER_TEMP/assets"
       - name: No em or en dashes in text files
         run: python3 tools/check_dashes.py

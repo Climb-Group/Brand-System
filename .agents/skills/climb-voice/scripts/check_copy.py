@@ -36,16 +36,17 @@ ALWAYS = [
     (r"\bclinic(?!ian)", "clinics are roundtables or workshops"),
     (r"keynote", "big moments, not keynotes: name the format instead"),
     # Sales and partner review of the Climb27 pages, October 2026.
-    (r"eyes open", "reads as a warning: 'Find investors with real deal flow'"),
+    (r"eyes open", "reads as a warning: 'Find investors looking for real deal flow'"),
     (r"\bin (their|your|our) patch\b", "slang: say 'across their region' or name the place"),
     (r"cheque\s?books?", "jargon: say what investors want, deal flow"),
     (r"seat on the stage", "investors come to meet companies; do not offer them the stage"),
     (r"budget to solve it", "not needed: drop the budget line"),
     (r"\bat least three\b", "say 'follow-ups that matter', not 'at least three'"),
     (r"referral (scheme|programme|program)|doubling down on referrals", "it is the affiliate programme"),
-    (r"\bmeet (the )?investors\b|ready to invest", "reads as a promised meeting: 'Find investors with real deal flow', 'Investors here to find their next deal'"),
+    (r"\bmeet (the )?investors\b|ready to invest", "reads as a promised meeting: 'Find investors looking for real deal flow', 'Investors here to find their next deal'"),
     (r"\b(un)?matched\b", "say 'brought to you' or 'connect'; never 'matched' or 'unmatched'"),
     (r"about \d+\s*% of tickets", "do not quote a release's share of tickets: name its state"),
+    (r"\bbuy (button|now)\b", "sounds like selling: name the next step ('Get your ticket'), or say 'call to action' or 'the main button'"),
 ]
 
 # Case-sensitive rules.

@@ -369,7 +369,7 @@ def speaker_announcement(C):
 
 BANNER_LINES = [
     # photo, panel colour, line with the emphasis word in [[ ]]
-    ("climb_crowd_wide", "brown", "Meet the [[investors]] who back businesses like yours"),
+    ("climb_crowd_wide", "brown", "Find [[investors]] looking for real deal flow"),
     ("climb_consultants_expert", "orange", "[[Main stage moments]], roundtables and Investor Speed Networking"),
     ("climb_drinks_reception", "brown", "Two days with the [[people]] who move businesses forward"),
 ]

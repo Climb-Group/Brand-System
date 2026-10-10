@@ -20,7 +20,7 @@ brand has the same set of variants.
 | `<Brand>_mono-dark.svg` | One-colour Charcoal on light backgrounds: single-colour print, embossing, partner listings |
 | `<Brand>_mono-white.svg` | One-colour white on dark, orange or busy photo backgrounds |
 | `<Brand>_icon.svg` | Square tile with the stacked wordmark: social avatars and anything 64px or larger |
-| `<Brand>_icon-monogram.svg` | The l! monogram: favicons, app icons and anything under 64px. The mark is the same for every brand |
+| `<Brand>_icon-monogram.svg` | The li monogram: favicons, app icons and anything under 64px. The mark is the same for every brand |
 | `<Brand>_tagline-lockup.svg` | Wordmark with "The Festival for Business Growth", for light backgrounds |
 | `<Brand>_tagline-lockup-reversed.svg` | The same lockup for Dark Brown, Charcoal and dark photography |
 | `PNG/<Brand>_<variant>_{512,1024,2048}.png` | Raster exports, named by pixel width. Use the SVG wherever the software accepts it |
@@ -31,7 +31,9 @@ Each contact sheet marks every pairing as PASS or FAIL against the 3:1 contrast 
 
 ## Clear space and minimum size
 
-- **Clear space:** keep a clear margin around the whole logo, ® included, equal to the height of the "l" in Climb.
+- **Clear space:** keep a clear margin around the whole logo, ® included, equal to the height of the large "C" in Climb.
+  As a share of logo height that is about 1.0 for the ClimbUK and Climb27 wordmarks and 0.83 for ClimbGroup;
+  for the tagline lockups it is 0.70 (ClimbUK), 0.715 (Climb27) and 0.58 (ClimbGroup).
   Nothing else (text, other logos, image edges) goes inside it.
 - **Minimum sizes:**
   - Wordmarks: 120px wide on screen, 30mm in print.

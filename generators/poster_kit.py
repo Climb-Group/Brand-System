@@ -751,7 +751,7 @@ def badge(C):
 
 
 def lanyard(C):
-    """900x20mm at 300 dpi: the l! monogram, the wordmark and the drawings repeating along the strap."""
+    """900x20mm at 300 dpi: the li monogram, the wordmark and the drawings repeating along the strap."""
     w, h = 10630, 236
     name = "climb27_lanyard-strap_repeat_%dx%d" % (w, h)
     word_h = 104

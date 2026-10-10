@@ -144,6 +144,17 @@ def text(x, y, size, default, slot="label", width=None, rotate=0, colour="ground
     return dict(text=default, x=x, y=y, size=size, slot=slot, width=width, rotate=rotate, colour=colour, weight=weight)
 
 
+def layer(strokes, n):
+    """Put strokes on layer n (see inner): higher layers are drawn on top of everything below."""
+    return [dict(s, layer=n) for s in strokes]
+
+
+def solid(strokes, n):
+    """Strokes on layer n + 1 over a ground cover of their closed shapes on layer n, so they hide what is behind."""
+    cover = [dict(s, fill="ground", ink=False, knock=False, double=False) for s in strokes if s.get("closed")]
+    return layer(cover, n) + layer(strokes, n + 1)
+
+
 def turn(strokes, deg, c=(100, 100)):
     """Rotate a group of strokes (text items included) about c."""
     out = []
@@ -362,18 +373,22 @@ def _scallop(a, b, bumps, depth):
 
 
 def _handshake():
-    # Right hand: palm and back as a tone, three finger tips wrapping over the left hand, cuff in solid orange.
-    right = [poly((112, 86), (138, 79), (160, 84), (160, 130), (134, 132), (118, 124), fill="tone", ink=False),
-             curve((162, 84), (140, 78), (120, 82), (106, 90)),
-             rrect(84, 92, 40, 13, 6.5, fill="ground"), rrect(80, 106, 42, 13, 6.5, fill="ground"),
-             rrect(84, 120, 36, 13, 6.5, fill="ground"),
-             curve((122, 112), (132, 126), (146, 132), (162, 132)),
-             rrect(160, 74, 26, 66, 6, fill="ink")]
-    # Left hand: wrist from the left, thumb lying across the top of the grip, palm underneath.
-    left = [curve((40, 86), (60, 80), (80, 82), (96, 80), (112, 76), (122, 80), (116, 88), (98, 92)),
-            curve((40, 130), (64, 138), (90, 140), (112, 134)),
+    # Two hands shaking, seen from the side. The left hand (tone) reaches in from the left; its fingers curl under
+    # the right hand and show below it. The right hand (orange) comes from the right, its fingers wrapping over the
+    # back of the left hand. The left thumb lies on top of the right hand. Layers keep every overlap clean.
+    left = [poly((40, 84), (70, 80), (98, 82), (122, 88), (130, 110), (122, 132), (96, 138), (66, 136), (40, 132),
+                 fill="tone"),
             rrect(14, 76, 26, 66, 6, fill="ink")]
-    s = turn(left + right, -6, (100, 108))
+    under = [rrect(108, 126, 40, 13, 6.5, fill="tone")]
+    right = [poly((160, 82), (136, 78), (114, 84), (104, 96), (108, 124), (126, 132), (160, 130), fill="ink",
+                  ink=False),
+             rrect(78, 90, 46, 13, 6.5, fill="ink"), rrect(74, 104, 48, 13, 6.5, fill="ink"),
+             rrect(78, 118, 42, 13, 6.5, fill="ink"),
+             rrect(160, 74, 26, 66, 6, fill="ink")]
+    gaps = [line((108, 103.5), (80, 103.5), knock=True, w=0.6), line((108, 117.5), (82, 117.5), knock=True, w=0.6)]
+    thumb = [curve((62, 86), (84, 78), (110, 74), (124, 76), (127, 82), (122, 88), (100, 92), (74, 96),
+                   closed=True, fill="tone")]
+    s = turn(layer(left, 0) + layer(under, 0) + solid(right, 1) + layer(gaps, 2) + solid(thumb, 3), -6, (100, 108))
     s += sparkle(100, 40, 9) + [line((70, 52), (78, 62), w=0.85), line((130, 52), (122, 62), w=0.85)]
     return s
 
@@ -436,9 +451,11 @@ def _spotlight():
             rrect(56, 48, 14, 28, 4, fill="ink")]
     stand = [circle(103, 62, 6, w=0.9), line((103, 68), (103, 150)), line((76, 190), (103, 150), (130, 190)),
              line((103, 150), (103, 192), w=0.8)]
-    beam = [line((150, 46), (198, 116), dash=(9, 7), w=0.8), line((146, 92), (170, 168), dash=(9, 7), w=0.8),
-            line((152, 68), (188, 148), w=0.6, dash=(3, 9))]
-    return turn(lamp, 24, (103, 62)) + stand + beam
+    # The beam is drawn in the lamp's own frame, fanning out from the lens, and turns with it, so the dashes
+    # always follow the direction the light points.
+    beam = [line((150, 40), (190, 26), dash=(9, 7), w=0.8), line((150, 84), (194, 102), dash=(9, 7), w=0.8),
+            line((154, 62), (196, 62), w=0.6, dash=(3, 9))]
+    return turn(lamp + beam, 24, (103, 62)) + stand
 
 
 def _megaphone():
@@ -702,10 +719,20 @@ def inner(name, seed=0, label=None, weight=1.0, misregister=(0, 0)):
     builder = DRAWINGS[name][0]
     rnd = random.Random("%s-%d" % (name, seed))
     ink, ground = "currentColor", "var(--doodle-ground,%s)" % GROUND
-    tones, fills, lines, knocks, texts = [], [], [], [], []
     sw = STROKE * weight
     mx, my = misregister
-    for s in builder():
+    strokes = builder()
+    # A stroke with layer=n (default 0) is drawn after every lower layer, tones, fills and line included, so a
+    # front shape with a ground fill hides what is behind it: links pass over and under, hands overlap.
+    groups = []
+    for n in sorted({s.get("layer", 0) for s in strokes}):
+        groups.append(_layer([s for s in strokes if s.get("layer", 0) == n], rnd, label, ink, ground, sw, mx, my))
+    return '<g style="stroke-linecap:round;stroke-linejoin:round">%s</g>' % "".join(groups)
+
+
+def _layer(strokes, rnd, label, ink, ground, sw, mx, my):
+    tones, fills, lines, knocks, texts = [], [], [], [], []
+    for s in strokes:
         if "text" in s:
             texts.append(_text_svg(s, label, ink, ground))
             continue
@@ -731,8 +758,7 @@ def inner(name, seed=0, label=None, weight=1.0, misregister=(0, 0)):
                 el = '<path d="%s" style="fill:none;stroke:%s;stroke-width:%.2f"%s/>' % (
                     _d(pts, s["closed"]), colour, width, dash)
             (knocks if s["knock"] else lines).append(el)
-    return ('<g style="stroke-linecap:round;stroke-linejoin:round">%s%s%s%s%s</g>'
-            % ("".join(tones), "".join(fills), "".join(lines), "".join(knocks), "".join(texts)))
+    return "".join(tones) + "".join(fills) + "".join(lines) + "".join(knocks) + "".join(texts)
 
 
 def svg(name, seed=0, label=None, weight=1.0, ink=None, ground=None, cls="doodle", style="", title=None):

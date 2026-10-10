@@ -98,7 +98,7 @@ The outline icons are made by `social-icons/build_social_icons.mjs` (run it with
 `festival_kit.py` builds the templates that came out of the Climb26 design review (ideas carried into our own style, no artwork copied). `catalogue.assets()` calls it, so the copy checker and the manifest cover it like any other asset. It adds three finishing marks to `motifs.py`:
 
 - `slabs()`: angled Climb Orange corner slabs whose cut edge runs at the Ascent chevron slope (`CHEVRON_SLOPE`, 0.9). One or two corners, never four.
-- `peak()`: one contour line that walks in from the edge, climbs a shoulder to a summit and drops away at the chevron slope. Used quietly (White at 16 percent) behind the table numbers.
+- `peak()`: one contour line that walks in from the edge, rises in steps to a high point and drops away at the chevron slope. Used quietly (White at 16 percent) behind the table numbers.
 - `grain()`: fine film grain from an SVG `feTurbulence` filter at low opacity, for flat dark grounds on screens and print. Kept off social tiles and email.
 
 Devices it shares across the kit:

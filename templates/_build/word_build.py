@@ -457,7 +457,7 @@ def cover_doc(b, kind):
     doc.add_paragraph("Heading two for a topic", style="Heading 2")
     for t in ("Main stage moments from founders who have done it",
               "Roundtables where you bring the problem and leave with a plan",
-              "Speed networking with investors who have real deal flow"):
+              "Speed networking with investors looking for real deal flow"):
         doc.add_paragraph(t, style="List Bullet")
     doc.add_paragraph("Heading three for a detail", style="Heading 3")
     doc.add_paragraph("Use the Callout style for the one thing the reader must not miss: a deadline, a decision or the next "
@@ -552,7 +552,7 @@ def press_release(b):
                       % b, style="List Bullet")
     doc.add_paragraph("Images: link to the press photo pack, with photographer credits.", style="List Bullet")
     doc.add_paragraph("Media contact", style="Heading 3")
-    doc.add_paragraph("[Name], [Role]\n[email address], [phone number]")
+    doc.add_paragraph("[Name], [Role]\n%s, [phone number]" % B.BRANDS[b]["email"])
     return doc
 
 

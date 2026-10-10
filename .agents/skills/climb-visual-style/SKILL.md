@@ -10,7 +10,7 @@ metadata:
 
 # ClimbUK visual style
 
-**A festival poster with a buy button on it.** Full festival: fun, punchy, exciting. Real crowds under stage light, huge uppercase type with one word in orange and one in italic, stickers slapped on, logos and names drifting past, and Climb Orange that glows. Never a corporate conference look. The reference point for ambition is Slush (the atmosphere, never the formats or the artwork); the reference for feel is the Climb27 homepage and the affiliate page (climb-uk.com; original motif vectors in `reference/motifs/`).
+**A festival poster with a clear next step.** Full festival: fun, punchy, exciting. Real crowds under stage light, huge uppercase type with one word in orange and one in italic, stickers slapped on, logos and names drifting past, and Climb Orange that glows. Never a corporate conference look. The reference point for ambition is Slush (the atmosphere, never the formats or the artwork); the reference for feel is the Climb27 homepage and the affiliate page (climb-uk.com; original motif vectors in `reference/motifs/`).
 
 All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_tokens.scss`). Never type a hex value that is not in that file. `#EC752A` is retired: if you find it, replace it with `#E8712A`.
 
@@ -45,10 +45,10 @@ The baseline is WCAG 2.2 AA, with AAA wherever it is small and easy. Every colou
 
 ## Graphic language
 
-The motifs all come from the idea of climbing and of a stage. Use one motif family per piece, in Climb Orange or as a tone of the ground (for example white at 8 to 16 percent opacity on Dark Brown). Motifs are decoration: never put meaning only in a motif, and keep text off busy pattern areas.
+The motifs all come from the Investor Ladder (a business climbing rung by rung to its next investor) and from the stage, never from sport climbing or mountains. Use one motif family per piece, in Climb Orange or as a tone of the ground (for example white at 8 to 16 percent opacity on Dark Brown). Motifs are decoration: never put meaning only in a motif, and keep text off busy pattern areas.
 
-- **The Ascent.** Rising steps and stacked chevrons that read as upward progress. Use as dividers, corner marks, progress bars, frame edges.
-- **Contours.** Topographic contour lines, as on a climbing map. Use as large, quiet background fields on dark grounds, on merch and on wall graphics.
+- **The Ascent.** Rising steps and stacked chevrons: the rungs of the Investor Ladder, read as upward progress. Use as dividers, corner marks, progress bars, frame edges.
+- **Contours.** Flowing contour rings spreading out from one point, like growth moving out from a business at the centre. Never drawn as a map or a mountain. Use as large, quiet background fields on dark grounds, on merch and on wall graphics.
 - **Stage Light.** Soft beams and glows of Climb Orange and Orange Tint cutting across a dark ground. Use for Main Stage Moments, screens, video and hero images.
 - **Connections.** Dots joined by fine lines, people finding each other. Use for Find Your People, networking, partner and audience pieces.
 - **Highlight bar.** A solid Climb Orange bar behind or under one word of a headline: the poster and slide version of the orange word.
@@ -69,7 +69,8 @@ These carry the energy. Use two or three per piece, not all of them at once.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
 - **Cut edges and glow:** a diagonal top edge from one section into the next; an orange stage-light glow in a dark corner; orange glows (not grey shadows) under orange buttons.
 - **Photo fades:** a full-width photo faded to Dark Brown on the words' side (or Climb Orange on an orange section), the photo showing through on the other, ending solid so it runs into the next section. Recipes in `guidelines/photography.md`.
-- **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Selling tickets".
+- **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Ticket pages".
+- **Outline numerals:** giant numbers in Montserrat ExtraBold (800) with no fill and a Climb Orange stroke of about 1% of the size (4px at 380px, never under 2px), letter spacing -0.04em. For section numbers 01 to 10 (decorative, `aria-hidden`, with the real heading in text beside them) and the odd big stat. One size per view, numbers only. Rules in `guidelines/ui.md`, "Outline numerals"; web classes `climb-outline-num`, `climb-outline-num-sm`, `climb-numbered`, `climb-outline-marquee`.
 - **Pull links:** a small uppercase line at the foot of a section with a down arrow, handing the reader on.
 
 Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); print colours (Pantone, CMYK, RAL) in `print.md`. On the web, all of these are ready-made as live components in `components/hub/` and as website blocks in the website module.
@@ -98,8 +99,8 @@ See `references/elements.md` for how each motif is built and scaled.
 
 - Use the master files only, never a re-drawn or re-coloured copy. Variants: full colour, full colour for Light Grey grounds, reversed (dark grounds, the default), mono dark, mono white, and a tagline lockup with "The Festival for Business Growth" (no dates or places baked in).
 - Wordmark colours: Climb Orange `#E8712A` and Charcoal `#242322` on light grounds; Climb Orange and White on dark grounds. On Light Grey use the grey-ground variant (Orange Large on Grey `#D5641E`).
-- Square icons: the l! monogram for favicons, app icons and anything under 64px; the stacked tile ("Climb / UK", "Climb / Group", "Climb / 27") for social avatars and larger squares.
-- Clear space: the height of the "l" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
+- Square icons: the li monogram for favicons, app icons and anything under 64px; the stacked tile ("Climb / UK", "Climb / Group", "Climb / 27") for social avatars and larger squares.
+- Clear space: the height of the large "C" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
 - Never stretch, rotate, outline, add effects, or set the logo on a busy part of a photo. On photos, sit it on the darkened area or use the filter.
 - ClimbUK is the brand on the poster. ClimbGroup appears as the organisation (footers, legal, corporate decks). An edition mark (Climb27) leads on event pieces, with ClimbUK as the endorsement.
 
@@ -115,7 +116,8 @@ See `references/elements.md` for how each motif is built and scaled.
 
 - Every colour is a token. No `#EC752A`.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
+- Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
-- On a sales page a way to buy is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
+- On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.

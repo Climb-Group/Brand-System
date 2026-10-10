@@ -374,10 +374,40 @@ def components(S):
         "The live label (`climb-live`) adds a pulsing orange dot. Use it only for something that is happening now: tickets on sale, "
         "a live stream, doors open. The pulse stops under reduced motion.")
 
-    # ---------------------------------------------------------------- Selling
+    photo = blob("climb_awards_winners.jpg")
+    add("Outline numerals", "Festival devices", "Giant outlined numbers for section numbers and big stats", 1480,
+        '<div>'
+        '<section class="s_climb_kit climb-p3 pt96 pb96" style="background:linear-gradient(90deg,rgba(30,15,5,.96) 35%%,rgba(30,15,5,.7)),url(%s) center/cover;">'
+        '<div class="container"><div class="climb-numbered"><p class="climb-outline-num" aria-hidden="true">05</p>'
+        '<div><p class="climb-eyebrow">Chapter five</p><h2 class="climb-statement"><em>Real</em> <span class="climb-accent">photos</span></h2></div></div></div></section>'
+        % photo
+        + wrap_ground('<div class="climb-numbered"><p class="climb-outline-num climb-outline-num-sm" aria-hidden="true">01</p>'
+                      '<h3 class="climb-statement climb-statement-sm">Find your <span class="climb-accent">people</span></h3></div>'
+                      '<div class="climb-numbered pt32"><p class="climb-outline-num climb-outline-num-sm" aria-hidden="true">02</p>'
+                      '<h3 class="climb-statement climb-statement-sm">Grow your <em>business</em></h3></div>')
+        + wrap_ground('<div class="climb-stats"><div><p class="climb-outline-num climb-outline-num-sm">2</p><p class="climb-stat-label">Days of business growth</p></div>'
+                      '<div><p class="climb-outline-num climb-outline-num-sm">27</p><p class="climb-stat-label">The next edition</p></div></div>', theme="alt")
+        + '<section class="s_climb_kit climb-p3 pt48 pb48"><p class="climb-outline-marquee" aria-hidden="true">Find your people / Grow your business / Find your people</p></section>'
+        '</div>',
+        "Outline numerals are giant numbers drawn as an orange outline with no fill. They number chapters and sections and carry the "
+        "odd big stat, like a festival poster.\n\n"
+        "- `climb-outline-num`: Montserrat ExtraBold (800), upright, tabular figures, letter spacing -0.04em, line height 0.8, no fill "
+        "and a Climb Orange stroke of about 1% of the size (4px at 380px). `climb-outline-num-sm` is the stat size with a 2px stroke. "
+        "Never go below a 2px stroke.\n"
+        "- Best on a dark ground or over a photo on a Dark Brown fade. On White or Light Grey the stroke turns to the darker text orange; "
+        "on Climb Orange it turns White.\n"
+        "- Section numbers are two digits (01 to 10) and decorative: mark them `aria-hidden` and put the real heading in text beside them "
+        "(`climb-numbered` lines them up).\n"
+        "- A stat number stays readable text with its label underneath in words. With `data-climb-size=\"aaa\"` the stat fills solid.\n"
+        "- Use one size of outline numeral per view. Never outline words or headlines with it; the only outlined words are the quiet marquee.\n"
+        "- `climb-outline-marquee`: a giant italic uppercase line in Orange Tint at 35% with a 2px stroke, running off the edge behind a "
+        "section. Decorative only, so `aria-hidden`, and never the only place the words appear.\n"
+        "- In design apps: same font, weight and tracking, fill none, stroke Climb Orange centred at about 1% of the point size.")
+
+    # ---------------------------------------------------------------- Tickets and stands
     ticket = pick(S["s_climb_hero_ticket"], ".climb-ticket")
     partner = pick(S["s_climb_ticket_band"], ".climb-ticket")
-    add("Ticket card", "Selling", "The glass ticket with stub notches, highlighted and on orange", 640,
+    add("Ticket card", "Tickets and stands", "The glass ticket with stub notches, highlighted and on orange", 640,
         '<div>' + wrap_ground('<div class="row g-5 align-items-start"><div class="col-lg-6">%s</div></div>' % ticket) +
         '<section class="s_climb_kit climb-p4 climb-glow pt48 pb48"><div class="container"><div class="row"><div class="col-lg-6">%s</div></div></div></section></div>'
         % partner,
@@ -387,7 +417,7 @@ def components(S):
         "- `climb-levels` lists packages with a note on the right (passes, sizes).")
 
     offers = pick(S["s_climb_tickets"], ".climb-offers")
-    add("Offer cards", "Selling", "Ticket offers: the pick, the rest, and a closed release", 620,
+    add("Offer cards", "Tickets and stands", "Ticket offers: the pick, the rest, and a closed release", 620,
         wrap_ground(offers, "alt"),
         "Offer cards sit side by side so people can compare. One is highlighted, the rest are equal.\n\n"
         "- `climb-offer-hl` is the offer to pick: orange edge, glow, lifted, a filled kicker.\n"
@@ -396,7 +426,7 @@ def components(S):
         "- Prices always say inc VAT. No false scarcity: never write last few, hurry or selling fast.")
 
     ladder = pick(S["s_climb_ticket_ladder"], ".climb-ladder")
-    add("Release ladder", "Selling", "Price releases as rising steps: past, now and next", 520,
+    add("Release ladder", "Tickets and stands", "Price releases as rising steps: past, now and next", 520,
         wrap_ground(ladder),
         "The release ladder shows that the price rises with every release, and where today sits on it.\n\n"
         "- Each `climb-ladder-step` sets `--climb-step` (1, 2, 3 ...) so its cap rises.\n"
@@ -405,14 +435,14 @@ def components(S):
         "- On phones the ladder turns into a vertical rail.")
 
     stands = pick(S["s_climb_stands"], ".climb-offers")
-    add("Stand cards", "Selling", "Exhibition stands with an outlined floor plan and stock", 600,
+    add("Stand cards", "Tickets and stands", "Exhibition stands with an outlined floor plan and stock", 600,
         wrap_ground(stands),
-        "Stand cards sell exhibition space. The outlined plan (`climb-plan-1`, `-2`, `-4`) shows the footprint at a glance.\n\n"
+        "Stand cards show the exhibition space. The outlined plan (`climb-plan-1`, `-2`, `-4`) shows the footprint at a glance.\n\n"
         "- `climb-left` shows stock left, from live stock only. A sold-out stand uses `is-soldout`.\n"
         "- Name, size, what is included, price inc VAT, one button.")
 
     team = pick(S["s_climb_tickets"], ".climb-team")
-    add("Group offer", "Selling", "The orange band for teams and groups", 260,
+    add("Group offer", "Tickets and stands", "The orange band for teams and groups", 260,
         wrap_ground(team, "alt"),
         "The group offer is one orange band under the ticket offers: bring the team, one line, one Dark Brown button.")
 
@@ -454,7 +484,7 @@ def components(S):
         ("s_climb_hero", "Hero", "Full-bleed stage photo with the poster line", 820,
          "The hero opens a page: a full-bleed Climb26 stage photo faded from the left, an eyebrow, one display line, a lead, two buttons and the pull link."),
         ("s_climb_hero_ticket", "Hero with ticket", "The hero with a glass ticket to pick up", 820,
-         "The hero with a ticket adds the glass ticket card on the right, for pages whose job is to sell one ticket."),
+         "The hero with a ticket adds the glass ticket card on the right, for pages built around one ticket."),
         ("s_climb_moments", "Moments", "Statement, lead and three moment cards", 1000,
          "Moments sells the feeling: one statement with an italic word, a lead, three moment cards and two buttons."),
         ("s_climb_photo_wall", "Photo wall", "A mosaic of Climb26 photos and two quotes", 1300,
@@ -462,7 +492,7 @@ def components(S):
         ("s_climb_ticket_band", "Ticket band", "Climb Orange band with a Dark Brown ticket", 640,
          "The ticket band is the partner pitch on Climb Orange: one big line, a lead, one button and a Dark Brown ticket listing the packages."),
         ("s_climb_tickets", "Tickets", "Offers, the release ladder, the group offer and the pull link", 1500,
-         "The tickets section is the order on a sales page: the offers, the release ladder, the group offer and a pull link for anyone still choosing."),
+         "The tickets section is the order on a ticket page: the offers, the release ladder, the group offer and a pull link for anyone still choosing."),
         ("s_climb_ticket_ladder", "Ticket ladder section", "The release ladder on its own", 520,
          "The release ladder as its own section, for a pricing page or under a hero."),
         ("s_climb_stands", "Stands", "Exhibition stands with plans and stock", 760,
@@ -475,9 +505,9 @@ def components(S):
         ("s_climb_audiences", "Audience chooser", "Four audience cards on Charcoal", 760,
          "The audience chooser asks what brings you to ClimbUK and routes each audience to its own page."),
         ("s_climb_moment", "Moment", "A big photo with a sticker and one line", 640,
-         "Moment is one photo, one sticker, one line and one button. Use it to sell a single thing, like the ClimbAwards."),
+         "Moment is one photo, one sticker, one line and one button. Use it to put one thing in the spotlight, like the ClimbAwards."),
         ("s_climb_close", "Close", "Climb Orange close with the last question", 560,
-         "The close ends every sales page on Climb Orange: the last question, the dates and the buy button in Dark Brown."),
+         "The close ends every ticket page on Climb Orange: the last question, the dates and one clear next step in Dark Brown."),
         ("s_climb_divider", "Divider", "Rising chevrons between two sections", 200,
          "The divider is a low band of rising chevrons between two sections. Match its preset to the section above."),
     ]:
@@ -494,8 +524,8 @@ def components(S):
         wrap_ground('<div class="climb-logos">%s</div>' % logo_rows),
         "Use the reversed logo on Dark Brown, Charcoal and photos; the full-colour logo on White and Light Grey; the mono logos "
         "on Climb Orange. This preview switches with the theme toggle.\n\n"
-        "- Clear space: the height of the l! monogram's dot on every side.\n- Minimum width: 120px on screen, 30mm in print.\n"
-        "- The l! monogram is for favicons and app icons; the stacked tile is for social avatars.\n- Never recolour, stretch, outline or "
+        "- Clear space: the height of the large C in Climb on every side.\n- Minimum width: 120px on screen, 30mm in print.\n"
+        "- The li monogram is for favicons and app icons; the stacked tile is for social avatars.\n- Never recolour, stretch, outline or "
         "put the logo on a busy part of a photo.")
 
     icons = "".join('<a href="#" class="climb-social" aria-label="%s">%s</a>' % (n.title(), glyph(n))
@@ -547,7 +577,7 @@ def signature_html(sig, logos):
             '<div class="climb-sig-brand"><img class="climb-on-dark" src="%s" alt="ClimbUK"><img class="climb-on-light" src="%s" alt="ClimbUK">'
             '<div class="climb-sig-icons">%s</div></div></div>'
             '<p class="climb-sig-note">To help us respond quickly, non-sales enquiries go through our <a href="#">Helpdesk</a> before email. '
-            'For partnerships, email <a href="#">partners@climb-uk.com</a>; for exhibiting, <a href="#">exhibitors@climb-uk.com</a>.</p>'
+            'For partnerships, email <a href="#">partnerships@climb-uk.com</a>; for exhibiting, <a href="#">exhibitors@climb-uk.com</a>.</p>'
             '<a href="#"><img class="climb-sig-banner" src="%s" width="720" alt="Climb27. Your business. Bigger stage. Get your ticket."></a>'
             '<p class="climb-sig-legal">This email and any attachments are confidential and meant only for the person they are addressed to. '
             'If it reached you by mistake, please tell the sender and delete it.</p></div>'
@@ -604,6 +634,18 @@ EXTRA_CSS = """
 @keyframes climb-demo-spring{from{transform:scale(1)}to{transform:scale(1.18) translateY(-6px)}}
 @keyframes climb-demo-drift{from{transform:translateX(-3rem)}to{transform:translateX(12rem)}}
 @media (prefers-reduced-motion: reduce){.m-rise,.m-spring,.m-pulse,.m-drift{animation:none}}
+.climb-outline-num{display:block;margin:0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:normal;font-size:clamp(7.5rem,22vw,23.75rem);line-height:.8;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:4px var(--climb-orange)}
+.climb-outline-num-sm{font-size:clamp(4rem,9vw,7.5rem);-webkit-text-stroke-width:2px}
+.climb-p1 .climb-outline-num,.climb-p2 .climb-outline-num{-webkit-text-stroke-color:var(--orange-text)}
+.climb-p4 .climb-outline-num{-webkit-text-stroke-color:var(--white)}
+@supports not (-webkit-text-stroke:1px){.climb-outline-num{color:var(--climb-orange)}}
+@media (forced-colors:active){.climb-outline-num{color:CanvasText;-webkit-text-stroke:0}}
+[data-climb-size="aaa"] .climb-outline-num-sm{color:currentColor;-webkit-text-stroke:0}
+.climb-numbered{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1.5rem 2.5rem}
+.climb-numbered .climb-statement{margin-bottom:0}
+.climb-stats{display:flex;flex-wrap:wrap;gap:2rem 4rem}
+.climb-stat-label{margin:.75rem 0 0;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.climb-outline-marquee{margin:0;overflow:hidden;white-space:nowrap;font-family:var(--climb-font-family-display,Montserrat,sans-serif);font-weight:800;font-style:italic;font-size:clamp(3rem,7vw,5.75rem);line-height:1;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,174,134,.35)}
 """
 
 

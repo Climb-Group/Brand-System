@@ -25,7 +25,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **Never "Climb" on its own.** Write ClimbUK (the brand on the poster), ClimbGroup (the company name, for legal lines and corporate pieces; never explain how it relates to ClimbUK in copy), or the edition: Climb27, Climb26. The app is the "ClimbGroup Event App". The Investor Ladder Ltd appears only in legal and invoice text.
 - **Venue embargo.** Until ClimbUK announces it, public copy names no venue, city area, venue type or size, and does not hint ("somewhere new" and the word "venue" are both banned). After the announcement, use the line in the announcement brief. The checker takes `--announced` to switch, and loads the names it must catch from a private rules file (see the script).
 - **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them.
-- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors with real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
 - **Scarcity only when it is true.** Ticket releases really do close, so say so: name the release, its price and its state ("Open now", "Next", "Final"), and that the price goes up when the release is gone. Never invent scarcity: no "sold out", "last few" or "selling fast" unless the shop says so, and no "premier", unsupported superlatives or trademark symbols. Do not quote the share of tickets in a release ("about 5% of tickets").
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
@@ -58,7 +58,7 @@ From the sales and partner review of the Climb27 pages (October 2026). The check
 | advisers (the advice) and professional services firms (who implement it) | one blurred group | Keep the two roles clear. |
 | fellow founders, peers who are one step ahead | other founders | They have been through what the reader is going through. "Learned the expensive way" is fine with this framing. |
 | investors, advisers, fellow founders, partners | buyers, as the reason scaling companies come | We cannot show buyers in the room yet. Name the people we can show. |
-| find investors with real deal flow, investors here to find their next deal | meet investors, investors ready to invest, chequebooks, a seat on the stage, investors who came to meet you | "Find" keeps it from reading as a promised meeting. |
+| find investors looking for real deal flow, investors here to find their next deal | meet investors, investors ready to invest, chequebooks, a seat on the stage, investors who came to meet you | "Find" keeps it from reading as a promised meeting. |
 | why the team should come | can I bring the team? | Lead with the benefit, then the team offer. |
 | the community, people referring each other | a crowd, an audience | ClimbUK is a community that shares experience and sends each other work. |
 
@@ -75,6 +75,16 @@ Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "an
 - **Be specific about who is in the room.** Name the kinds of people and what they bring, for this audience. A list that would fit any event is too generic.
 - **Prices people remember.** Round, steady steps: £250, not £252. Each release step should feel like a sensible jump.
 - **End every page well.** The last section and the footer are a real closing line in the voice with one next step, not a leftover label. Partner calls to action say what they are for: "Interested in partnering? Book a call with the team."
+
+## Where the name comes from
+
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+
+ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
+
+- "Climb" and "climbing" are fine when the business meaning is clear in the same line: climbing the Investor Ladder, the next rung for your business.
+- Never use climbing-sport words or images: ropes, walls, harnesses, belays, outdoor gear, "climbers" for attendees, or a photo or icon of rock or wall climbing.
+- When a piece leads on "climb" with nothing around it, add the business words: growth, investors, the next stage.
 
 ## Words and lines we own
 
