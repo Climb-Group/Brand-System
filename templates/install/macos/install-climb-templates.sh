@@ -75,6 +75,12 @@ if [ "$SKIP_VIDEO" -eq 0 ] && [ -d "$PAYLOAD/video" ]; then
   RESOLVE="$ROOT/Library/Application Support/Blackmagic Design/DaVinci Resolve"
   mkdir -p "$RESOLVE/Fusion/Templates" "$RESOLVE/LUT/Climb" "$ROOT/Library/Application Support/Adobe/Common/LUTs/Creative"
   cp "$PAYLOAD"/video/resolve/*.drfx "$RESOLVE/Fusion/Templates/"
+  # the logo titles load their PNGs from Templates:/Edit/Titles/<Brand>/ (Resolve cannot read images inside a .drfx)
+  for d in "$PAYLOAD"/video/resolve/*/; do
+    b="$(basename "$d")"
+    mkdir -p "$RESOLVE/Fusion/Templates/Edit/Titles/$b"
+    cp "$d"*.png "$RESOLVE/Fusion/Templates/Edit/Titles/$b/"
+  done
   cp "$PAYLOAD"/video/luts/*.cube "$RESOLVE/LUT/Climb/"
   cp "$PAYLOAD"/video/luts/*.cube "$ROOT/Library/Application Support/Adobe/Common/LUTs/Creative/"
   echo "Video: Resolve titles, Resolve LUT and Premiere LUT installed"

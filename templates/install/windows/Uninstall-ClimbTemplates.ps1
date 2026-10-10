@@ -27,6 +27,7 @@ foreach ($f in $fonts) {
 # Video
 foreach ($b in 'ClimbUK', 'ClimbGroup', 'Climb27') {
     Remove-Item -Path (Join-Path $env:ProgramData "Blackmagic Design\DaVinci Resolve\Fusion\Templates\$($b)_Titles.drfx") -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path (Join-Path $env:ProgramData "Blackmagic Design\DaVinci Resolve\Fusion\Templates\Edit\Titles\$b") -Recurse -Force -ErrorAction SilentlyContinue
 }
 Remove-Item -Path (Join-Path $env:ProgramData 'Blackmagic Design\DaVinci Resolve\Support\LUT\Climb') -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path (Join-Path $env:ProgramFiles 'Adobe\Common\LUTs\Creative\Climb_Grade_v1.cube') -Force -ErrorAction SilentlyContinue

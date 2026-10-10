@@ -12,6 +12,7 @@ clean_user() {
   for b in $BRANDS; do
     rm -rf "$home/.config/libreoffice/4/user/template/$b"
     rm -f "$home/.local/share/DaVinciResolve/Fusion/Templates/${b}_Titles.drfx"
+    rm -rf "$home/.local/share/DaVinciResolve/Fusion/Templates/Edit/Titles/$b"
   done
 }
 

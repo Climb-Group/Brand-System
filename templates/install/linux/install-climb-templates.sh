@@ -55,6 +55,11 @@ setup_user() {
     local fusion="$home/.local/share/DaVinciResolve/Fusion/Templates"
     mkdir -p "$fusion"
     cp "$PAYLOAD"/video/resolve/*.drfx "$fusion/"
+    # the logo titles load their PNGs from Templates:/Edit/Titles/<Brand>/
+    for d in "$PAYLOAD"/video/resolve/*/; do
+      mkdir -p "$fusion/Edit/Titles/$(basename "$d")"
+      cp "$d"*.png "$fusion/Edit/Titles/$(basename "$d")/"
+    done
   fi
   if [ -n "$owner" ]; then
     chown -R "$owner" "$home/.config/libreoffice" 2>/dev/null || true

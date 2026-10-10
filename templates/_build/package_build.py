@@ -55,6 +55,10 @@ def entries():
     for b in BRANDS:
         for p in files(os.path.join(video, b, "davinci-resolve"), skip=("setting-files",)):
             yield p, "video/resolve/" + os.path.basename(p)
+        # the logo titles load these from Fusion's Templates:/Edit/Titles/<Brand>/ (not from inside the .drfx)
+        for p in files(os.path.join(video, b, "davinci-resolve", "setting-files")):
+            if p.endswith(".png"):
+                yield p, "video/resolve/%s/%s" % (b, os.path.basename(p))
         for p in files(os.path.join(video, b, "premiere-pro")):
             yield p, "video/premiere/" + os.path.basename(p)
         for p in files(os.path.join(video, b, "stills")):
@@ -62,6 +66,8 @@ def entries():
     for p in files(os.path.join(video, "_shared", "luts")):
         if p.endswith(".cube"):
             yield p, "video/luts/" + os.path.basename(p)
+    for p in files(os.path.join(video, "_shared", "resolve-presets")):
+        yield p, "video/resolve-presets/" + os.path.basename(p)
     for p in files(os.path.join(video, "_shared", "captions")):
         yield p, "video/captions/" + os.path.basename(p)
     for p in files(os.path.join(video, "_shared", "stills")):

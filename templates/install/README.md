@@ -24,6 +24,8 @@ The 4K motion clips (600 MB) are a separate download, `climb-video-motion-v1.zip
 | LUT | Resolve `Support\LUT\Climb` and Premiere `Adobe\Common\LUTs\Creative` | Resolve `LUT/Climb` and Premiere `Adobe/Common/LUTs/Creative` | `/opt/resolve/LUT/Climb` |
 | Premiere sequences, stills, captions | `C:\ProgramData\Climb\Templates\Video` | `/Library/Application Support/Climb/Templates/Video` | `/opt/climb-templates/Video` |
 
+The Resolve titles come with their logo PNGs, which go in `Fusion/Templates/Edit/Titles/<Brand>/` next to the titles: the Lower Third Festival and End Card load them from there, because Resolve cannot read images from inside a `.drfx`. The Resolve project and render presets are in `payload/video/resolve-presets/`; import them in Resolve (Project Settings and Deliver page, the ... menu, Import Preset).
+
 Skip the video files with `-SkipVideo` (Windows) or `--skip-video` (macOS, Linux).
 
 ## Windows with Intune

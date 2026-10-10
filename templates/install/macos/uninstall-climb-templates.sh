@@ -19,6 +19,7 @@ for f in "$DEST"/Fonts/*.ttf; do
 done
 for b in ClimbUK ClimbGroup Climb27; do
   rm -f "$MSO/Templates.localized/${b}_"* "$MSO/Themes.localized/$b.thmx" "$RESOLVE/Fusion/Templates/${b}_Titles.drfx"
+  rm -rf "$RESOLVE/Fusion/Templates/Edit/Titles/$b"
 done
 rm -f "$MSO/Themes.localized/Theme Colors/Climb.xml" "$MSO/Themes.localized/Theme Fonts/Climb.xml"
 rm -rf "$RESOLVE/LUT/Climb"

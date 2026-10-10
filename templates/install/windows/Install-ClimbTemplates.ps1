@@ -92,6 +92,12 @@ try {
         $PremiereLut = Join-Path $env:ProgramFiles 'Adobe\Common\LUTs\Creative'
         New-Item -ItemType Directory -Force -Path $ResolveTemplates, $ResolveLut, $PremiereLut | Out-Null
         Copy-Item -Path (Join-Path $Video 'resolve\*.drfx') -Destination $ResolveTemplates -Force
+        # The logo titles load their PNGs from Templates:/Edit/Titles/<Brand>/ (Resolve cannot read images inside a .drfx)
+        Get-ChildItem -Path (Join-Path $Video 'resolve') -Directory | ForEach-Object {
+            $t = Join-Path $ResolveTemplates ("Edit\Titles\" + $_.Name)
+            New-Item -ItemType Directory -Force -Path $t | Out-Null
+            Copy-Item -Path (Join-Path $_.FullName '*.png') -Destination $t -Force
+        }
         Copy-Item -Path (Join-Path $Video 'luts\*.cube') -Destination $ResolveLut -Force
         Copy-Item -Path (Join-Path $Video 'luts\*.cube') -Destination $PremiereLut -Force
         Write-Output "Video: Resolve titles, Resolve LUT and Premiere LUT installed"

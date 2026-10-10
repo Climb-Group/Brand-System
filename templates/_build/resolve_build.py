@@ -32,11 +32,11 @@ LINE_HEIGHT = {"Montserrat": 1.219, "Open Sans": 1.362}
 
 BRANDS = {
     "ClimbUK": dict(url="CLIMB-UK.COM", line="FIND YOUR PEOPLE",
-                    title=("NOT A CONFERENCE.", "A FESTIVAL.")),
+                    title=("FIND YOUR", "PEOPLE.")),
     "ClimbGroup": dict(url="CLIMB-GROUP.COM", line="FIND YOUR PEOPLE",
-                       title=("BUSINESS GROWTH", "WITH A PARTY.")),
+                       title=("BUILT FOR UK", "GROWTH.")),
     "Climb27": dict(url="CLIMB-UK.COM", line="30 JUNE AND 1 JULY 2027",
-                    title=("YOUR BUSINESS.", "BIGGER STAGE.")),
+                    title=("YOUR BIGGER", "STAGE.")),
 }
 
 
@@ -352,13 +352,13 @@ def title_card(T, brand):
     rise_in(m, "MergeRule", "Canvas", "Rule", 0, (256 + 128) / W, 1 - 612 / H, rise=16 / H)
     text(m, "Line1", l1, "Montserrat", "Black", 260, T["white"], 252, 830)
     rise_in(m, "MergeLine1", "MergeRule", "Line1", 3)
-    # the orange line; white on the Climb Orange ground (never orange on orange)
+    # the one orange word (brand rule: one orange word per headline); white on the Climb Orange ground
     text(m, "Line2", l2, "Montserrat", "Black", 260, None, 252, 1100,
          var_rgb=[T["orange"], T["orange"], T["white"], T["orange"]])
     rise_in(m, "MergeLine2", "MergeLine1", "Line2", 6)
     m.output = "MergeLine2"
     m.control("Line1", "StyledText", "Line 1", default=l1)
-    m.control("Line2", "StyledText", "Line 2 (orange)", default=l2)
+    m.control("Line2", "StyledText", "Line 2 (one orange word)", default=l2)
     m.colour_control("Line1", "Line 1 colour", T["white"], prefix="1")
     return m
 
