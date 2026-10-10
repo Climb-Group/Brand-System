@@ -942,7 +942,7 @@ def voice_rules(bk):
 
 def rewrites(bk):
     rows = [("Join thousands of founders at the UK's premier startup event!", "Two days with the founders, investors and advisers who move businesses forward."),
-            ("Guaranteed meetings with 50+ investors", "Find investors with real deal flow."),
+            ("Guaranteed meetings with 50+ investors", "Find investors looking for real deal flow."),
             ("Hear inspiring stories from successful entrepreneurs", "Learn how they grew, and what you can do about it on Monday."),
             ("Exhibit and reach thousands of attendees", "Put your team in front of the businesses that buy what you do."),
             ("Our booking platform makes it easy", "Book your meetings in the event app before you arrive.")]
@@ -963,7 +963,7 @@ def rewrites(bk):
 def words(bk):
     rows = [("agenda", "programme, for the schedule"), ("Affiliate Programme", "referral scheme"), ("public sector", "councils"),
             ("connect you with", "introduce you to, matched"), ("fractional leaders", "consultants, when they lead a function"),
-            ("fellow founders, peers one step ahead", "other founders"), ("find investors with real deal flow", "meet investors, cheque books"),
+            ("fellow founders, peers one step ahead", "other founders"), ("find investors looking for real deal flow", "meet investors, cheque books"),
             ("why your team should come", "can I bring the team?")]
     html = "".join('<div style="display:grid;grid-template-columns:1fr 1fr;padding:15px 0;border-bottom:1.5px solid rgba(255,255,255,.1)">'
                    '<div class="mont" style="font-weight:700;font-size:26px;color:#fff">%s</div><div style="font-size:24px;color:rgba(255,255,255,.65);text-decoration:line-through;text-decoration-color:var(--o)">%s</div></div>' % (a, b) for a, b in rows)
