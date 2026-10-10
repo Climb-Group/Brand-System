@@ -114,7 +114,7 @@ SECTIONS = [
     ("02", "Logo", "climb_recap_playlist.jpg", 'ONE MARK. <em>EVERY</em> <span class="o">STAGE</span>.'),
     ("03", "Colour", "climb_awards_trophies.jpg", 'ORANGE <em>LEADS</em>. IT NEVER <span class="o">FLOODS</span>.'),
     ("04", "Type", "climb_consultants_expert.jpg", 'TYPE DOES THE <span class="o">SHOUTING</span>.'),
-    ("05", "Graphics", "climb_drinks_reception.jpg", 'CLIMBING, <em>STAGES</em> AND <span class="o">STICKERS</span>.'),
+    ("05", "Graphics", "climb_drinks_reception.jpg", 'LADDERS, <em>STAGES</em> AND <span class="o">STICKERS</span>.'),
     ("06", "Photography", "climb_band_stage.jpg", 'REAL <em>PEOPLE</em>. REAL <span class="o">LIGHT</span>.'),
     ("07", "Motion and digital", "climb_isn_investors_hero.jpg", 'RISE. <em>SETTLE</em>. <span class="o">SPRING</span>.'),
     ("08", "Voice", "climb_isn_founders_hero.jpg", 'HEADLINE <em>ENERGY</em>. ADVISER <span class="o">DISCIPLINE</span>.'),
@@ -514,10 +514,10 @@ def motifs_slide(bk):
     tiles = [
         ("The Ascent", "Steps and chevrons: dividers, corners, progress, wayfinding.",
          motifs.ascent(w, h, 50, 240, 150, steps=4, colour="#E8712A") + motifs.ascent(w, h, 360, 240, 170, steps=5, kind="chevrons")),
-        ("Contours", "A climbing map: quiet fields on dark grounds, merch and walls.", motifs.contours(w, h, seed=4, rings=11, cx=0.75, cy=0.7)),
+        ("Contours", "A map of the way up: quiet fields on dark grounds, merch and walls.", motifs.contours(w, h, seed=4, rings=11, cx=0.75, cy=0.7)),
         ("Stage Light", "Beams and glow: heroes, screens, video and Main Stage Moments.", None),
         ("Connections", "Dots finding each other: Find Your People and partner pieces.", motifs.connections(w, h, seed=5, dots=26, region=(0.05, 0.08, 0.95, 0.92))),
-        ("Peak and slabs", "A summit line and angled corner slabs: covers, name cards and decks.",
+        ("Peak and slabs", "A rising line and angled corner slabs: covers, name cards and decks.",
          motifs.slabs(w, h, corners=("tl",), length=w * 0.45, thick=h * 0.12) + motifs.peak(w, h, base=0.88, summit=(0.55, 0.35), seed=2, colour="#FFFFFF", opacity=0.5)),
         ("Highlight bar", "A solid orange bar behind one word: the poster version of the orange word.", None),
     ]
@@ -1051,7 +1051,7 @@ def print_merch(bk):
         '<div style="position:absolute;left:32px;bottom:26px;font:700 13px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
         # Totes: a white canvas bag in Dark Brown and orange, a Dark Brown bag in orange and White. Two colours each.
         '<div style="position:absolute;left:440px;top:150px;width:330px;height:380px;transform:rotate(6deg)">'
-        '<div style="position:absolute;left:62px;top:-104px;width:206px;height:150px;border:16px solid var(--ch);border-bottom:0;border-radius:110px 110px 0 0"></div>'
+        '<div style="position:absolute;left:62px;top:-104px;width:206px;height:150px;border:16px solid var(--o);border-bottom:0;border-radius:110px 110px 0 0"></div>'
         '<div style="position:absolute;inset:0;background:var(--db);border-radius:6px 6px 14px 14px;box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.06);overflow:hidden">'
         '<div style="position:absolute;left:-30px;right:-30px;top:30px;font:italic 800 96px/0.86 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.04em;white-space:nowrap;transform:rotate(-8deg)">TOP TOP TOP<br>TOP TOP TOP<br>TOP TOP TOP</div>'
         '<div class="h" style="position:absolute;left:30px;bottom:74px;font-size:46px;line-height:.95;color:#fff">SEE YOU<br>AT THE <em class="o">TOP</em>.</div>'
