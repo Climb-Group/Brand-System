@@ -11,6 +11,10 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 3. Curated, not crowded. Sell the right people in the room and the quality of conversations. Never sell size.
 4. Personal, not generic. Write for one audience. If it could be about any event, rewrite it.
 
+## Where the name comes from
+
+"Climb" comes from the Investor Ladder: a business climbs to the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits them. Use the story when someone asks about the name. ClimbUK is a business event, never a sport-climbing or outdoors event: use "climb" and "climbing" only when the business meaning is clear in the same line, never climbing-sport words or images (ropes, walls, harnesses, outdoor gear, "climbers" for attendees), and add growth, investors or the next stage when a line leads on "climb" alone.
+
 ## Hard rules
 
 - No emojis, no exclamation marks, no em or en dashes. Plain hyphens only.
