@@ -552,7 +552,7 @@ def press_release(b):
                       % b, style="List Bullet")
     doc.add_paragraph("Images: link to the press photo pack, with photographer credits.", style="List Bullet")
     doc.add_paragraph("Media contact", style="Heading 3")
-    doc.add_paragraph("[Name], [Role]\n[email address], [phone number]")
+    doc.add_paragraph("[Name], [Role]\n%s, [phone number]" % B.BRANDS[b]["email"])
     return doc
 
 

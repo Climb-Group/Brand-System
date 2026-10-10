@@ -24,7 +24,7 @@ COPY = {
         sub="Festivals, programmes and the communities that keep growing between them.",
         date="Company presentation",
         end="Thank {you}",
-        end_line="queries@climb-group.com",
+        end_line="marketing@climb-group.com",
     ),
     "Climb27": dict(
         eyebrow="Climb27",

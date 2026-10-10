@@ -35,11 +35,11 @@ LEGAL = ("The Investor Ladder Limited trading as ClimbGroup. Registered in Engla
          "Chesterton, Bicester, OX26 1TD.")
 
 BRANDS = {
-    "ClimbUK": dict(url="climb-uk.com", email="queries@climb-group.com",
+    "ClimbUK": dict(url="climb-uk.com", email="marketing@climb-uk.com",
                     line="The Festival for Business Growth", edition=None),
-    "ClimbGroup": dict(url="climb-group.com", email="queries@climb-group.com",
+    "ClimbGroup": dict(url="climb-group.com", email="marketing@climb-group.com",
                        line="The Festival for Business Growth", edition=None),
-    "Climb27": dict(url="climb-uk.com", email="queries@climb-group.com",
+    "Climb27": dict(url="climb-uk.com", email="marketing@climb-uk.com",
                     line="The Festival for Business Growth", edition="30 June and 1 July 2027"),
 }
 
