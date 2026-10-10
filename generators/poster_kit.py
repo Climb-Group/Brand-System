@@ -578,33 +578,41 @@ def see_you(C):
 PACKS = {
     # key: display lines, hero drawing, ghosts and extras, crisp photo, second photo, glow corner
     "find-your-people": dict(lines=["*Find* your", "[[people]]."], hero="bubbles",
-                             extras=["coffee", "handshake", "people"], photo="climb_awards_winners",
+                             extras=["coffee", "handshake", "people"], photo="climb_crowd_wide",
                              photo2="climb_drinks_reception"),
     "main-stage-moments": dict(lines=["Main *stage*", "[[moments]]."], hero="microphone",
                                extras=["spotlight", "trophy", "record"], photo="climb_band_stage",
                                photo2="climb_awards_trophies"),
     "bigger-stage": dict(lines=["Your *business*.", "Bigger [[stage]]."], hero="rocket",
-                         extras=["chart", "megaphone", "summit"], photo="climb_crowd_wide", photo2="climb_expo_floor"),
+                         extras=["chart", "megaphone", "summit"], photo="climb_stage_region", photo2="climb_expo_floor"),
 }
 
 
+def _cut_photo(K, photo, w, ph, yl, yr, pos, top=0):
+    """The photo full bleed above a diagonal from (0, yl) to (w, yr), fading into Dark Brown towards the cut, with
+    a soft dark band at the top for the logo. top starts the photo lower (stories keep the logo on plain ground). Nothing below the cut, so stickers and drawings never sit on a face."""
+    clip = "polygon(0 0,%dpx 0,%dpx %dpx,0 %dpx)" % (w, w, yr - top, yl - top)
+    return ('<div class="abs" style="left:0;top:%dpx;width:%dpx;height:%dpx;clip-path:%s">%s</div>'
+            % (top, w, ph - top, clip, K.pic(photo, 0, 0, w, ph - top, pos=pos,
+                                  fade="linear-gradient(to bottom, rgba(%s,.75) 0%%, rgba(%s,0) 24%%, rgba(%s,0) 60%%, rgba(%s,.9) 100%%)"
+                                  % (DB_RGB, DB_RGB, DB_RGB, DB_RGB))))
+
+
 def pack_post(C, key):
-    """1080x1350 at 2x: photo on top under a Dark Brown fade, the hero drawing breaking out of it, the line below,
-    the ticket at the foot."""
+    """1080x1350 at 2x: the photo runs full bleed across the top, fades into Dark Brown and ends on an orange
+    diagonal slab. The dates and the hero drawing sit under the slab, the line below, the ticket at the foot."""
     w, h = 1080, 1350
     P = PACKS[key]
     name = "climb27_post_%s_%dx%d" % (key, w * 2, h * 2)
     K = Kit(C, name, 2)
-    ph = 780
-    p = [K.pic(P["photo2"], 0, 0, w, ph, pos="center", duo=True, blur=5,
-               fade="linear-gradient(to bottom, rgba(%s,.75) 0%%, rgba(%s,.35) 40%%, rgba(%s,1) 98%%)" % (DB_RGB, DB_RGB, DB_RGB)),
-         glow(w, h, w, 0, 640, 0.42)]
+    yl, yr = 690, 590
+    p = [_cut_photo(K, P["photo"], w, yl, yl, yr, "center 30%"),
+         slab_poly([(0, yl - 4), (w, yr - 4), (w, yr + 14), (0, yl + 14)], OR),
+         glow(w, h, w, h, 620, 0.3)]
     p.append(F.logo_img(C, "Climb27", "reversed-dark", 64, 64, 280))
-    p.append(K.pic(P["photo"], 290, 150, 760, 507, pos="center 30%", rot=4, radius=22, shadow=True))
-    p.append(hero(P["hero"], 40, 360, 360, rot=-8,
-                  ghosts=[(0.1, -0.62, 0.45, 16, 0.25), (-0.05, 0.75, 0.32, -18, 0.18)]))
-    p.append(sticker(C.DATES, 60, 650, 30, rot=4, side="right"))
-    p.append(head(P["lines"], 64, 790, 130, 952, rule_on=False, sub=C.TAGLINE + ".", sub_size=32))
+    p.append(hero(P["hero"], 860, 625, 150, rot=-8, ghosts=[(-0.7, 0.2, 0.5, 16, 0.2)]))
+    p.append(sticker(C.DATES, 64, 716, 28, rot=-3))
+    p.append(head(P["lines"], 64, 800, 130, 952, rule_on=False, sub=C.TAGLINE + ".", sub_size=32))
     p.append(date_ticket(C, 64, h - 64 - 130, 952, 130, uid="pp", stub_text=URL,
                          main='<div class="lab" style="font-size:30px;color:#fff;letter-spacing:.06em">Get your ticket</div>'))
     copy = [C.DATES, plain(" ".join(P["lines"])), C.TAGLINE, "Get your ticket", URL]
@@ -612,21 +620,21 @@ def pack_post(C, key):
 
 
 def pack_story(C, key):
-    """1080x1920 at 2x. Nothing in the top 250 or the bottom 340. A tilted photo card in the middle, the drawing
-    bursting out of its corner, the line under it."""
+    """1080x1920 at 2x. Nothing in the top 250 or the bottom 340. The logo sits on plain ground, the photo runs
+    full bleed under it and ends on an orange diagonal slab; the dates and the drawing sit under it, the line below."""
     w, h = 1080, 1920
     P = PACKS[key]
     name = "climb27_story_%s_%dx%d" % (key, w * 2, h * 2)
     K = Kit(C, name, 2)
-    p = [K.pic(P["photo2"], 0, 0, w, h, pos="center", duo=True, blur=6,
-               fade="linear-gradient(to bottom, rgba(%s,.9) 0%%, rgba(%s,.55) 40%%, rgba(%s,.95) 75%%)" % (DB_RGB, DB_RGB, DB_RGB)),
-         glow(w, h, 0, 520, 760, 0.42)]
+    yl, yr = 930, 800
+    p = [_cut_photo(K, P["photo"], w, yl, yl, yr, "center 35%", top=400),
+         glow(w, h, 0, 300, 700, 0.35),
+         slab_poly([(0, yl - 4), (w, yr - 4), (w, yr + 16), (0, yl + 16)], OR),
+         glow(w, h, w, h, 760, 0.3)]
     p.append(F.logo_img(C, "Climb27", "reversed-dark", 90, 280, 300))
-    cw, chh = 780, 520
-    p.append(K.pic(P["photo"], 110, 520, cw, chh, pos="center 30%", rot=-4, radius=22, shadow=True))
-    p.append(hero(P["hero"], 640, 330, 380, rot=-10, ghosts=[(-0.55, 0.15, 0.55, 18, 0.25), (-1.4, -0.1, 0.4, -14, 0.16)]))
-    p.append(sticker(C.DATES, 90, 1010, 32, rot=-5))
-    p.append(head(P["lines"], 90, 1075, 128, 900, rule_on=True, sub=C.TAGLINE + ".", sub_size=32))
+    p.append(hero(P["hero"], 830, 840, 170, rot=-10, ghosts=[(-0.75, 0.25, 0.5, 18, 0.2)]))
+    p.append(sticker(C.DATES, 90, 962, 30, rot=-3))
+    p.append(head(P["lines"], 90, 1050, 128, 900, rule_on=True, sub=C.TAGLINE + ".", sub_size=32))
     p.append(scatter(P["extras"], (40, h - 320, w - 40, h - 30), 3, (190, 230), seed=8, opacity=(0.16, 0.26)))
     p.append(date_ticket(C, 90, h - 340 - 116, 900, 116, uid="ps", stub_text=URL,
                          main='<div class="lab" style="font-size:30px;color:#fff;letter-spacing:.06em">Get your ticket</div>'))
