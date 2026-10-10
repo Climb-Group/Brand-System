@@ -3,7 +3,7 @@ import os
 import sys
 
 import motifs
-from brands import BRANDS, COMMON
+from brands import BRANDS, COMMON, contact
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 P = "assets/photos/"
@@ -115,8 +115,8 @@ def build(b):
     html = (
         '<section class="a4 %s">%s<div class="rules">%s</div>'
         '<div class="name"><div class="k">Get the<br>name right</div>%s</div>'
-        '<div class="bot"><div>%s</div><div><b>%s</b> &nbsp;|&nbsp; %s &nbsp;|&nbsp; <b>%s</b></div></div></section>'
-        % (ground, hero, "".join(cards), naming, logo(b, "tagline-lockup-reversed", h=30), COMMON["email"], COMMON["phone"], COMMON["web"])
+        '<div class="bot"><div>%s</div><div style="text-align:right">Press <b>%s</b> &nbsp;|&nbsp; Partners <b>%s</b><br>%s &nbsp;|&nbsp; <b>%s</b></div></div></section>'
+        % (ground, hero, "".join(cards), naming, logo(b, "tagline-lockup-reversed", h=30), *contact(b), COMMON["phone"], COMMON["web"])
     )
     title = "%s key rules" % b
     doc = ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>%s</title>'

@@ -4,7 +4,7 @@ import re
 import sys
 
 import motifs
-from brands import BRANDS, COMMON
+from brands import BRANDS, COMMON, contact
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 P = "assets/photos/"
@@ -1151,12 +1151,16 @@ def downloads(bk):
           '<div class="eb" style="font-size:24px">The downloads</div>'
           '<div class="h" style="font-size:84px;margin-top:22px">EVERYTHING YOU NEED IS IN THE <span class="o">MEDIA KIT</span>.</div>'
           '<ul class="list copy" style="margin-top:40px;columns:2;column-gap:60px">%s</ul>'
-          '<div class="card" style="margin-top:50px;padding:36px 40px;display:flex;gap:60px;align-items:center">'
-          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Press and partnerships</div>'
-          '<div class="mont" style="font-weight:700;font-size:30px;margin-top:10px">%s</div><div class="mont" style="font-weight:700;font-size:30px;margin-top:4px">%s</div></div>'
+          '<div class="card" style="margin-top:50px;padding:36px 40px;display:flex;gap:60px;align-items:center;width:1440px">'
+          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Press and brand support</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:10px;white-space:nowrap">%s</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:4px;white-space:nowrap">%s</div></div>'
+          '<div><div class="mont" style="font-weight:700;font-size:18px;letter-spacing:.16em;color:var(--tint);text-transform:uppercase">Partnerships</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:10px;white-space:nowrap">%s</div>'
+          '<div class="mont" style="font-weight:700;font-size:28px;margin-top:4px;visibility:hidden">-</div></div>'
           '<span class="btn" style="font-size:24px;margin-left:auto">Visit %s</span></div>'
           '<p class="small" style="margin-top:24px">Ask the brand team for anything new rather than making your own, so every piece stays consistent.</p></div>'
-        % ("".join("<li>%s</li>" % k for k in kit), COMMON["email"], COMMON["phone"], COMMON["web"])
+        % ("".join("<li>%s</li>" % k for k in kit), contact(bk.b)[0], COMMON["phone"], contact(bk.b)[1], COMMON["web"])
     )
     bk.add(bk.B["ground"], inner)
 
