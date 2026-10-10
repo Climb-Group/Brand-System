@@ -16,7 +16,7 @@
 
 .PARAMETER Source
     Folder holding <Brand>\*.dotx, *.xltx and *.potx. Defaults to
-    C:\ProgramData\Climb\Templates\Office.
+    C:\ProgramData\Climb\Templates\Office, or payload\office when run from the unzipped package.
 #>
 [CmdletBinding()]
 param(
@@ -24,6 +24,18 @@ param(
     [string]$Action = 'Add',
     [string]$Source = (Join-Path $env:ProgramData 'Climb\Templates\Office')
 )
+
+if ($Action -ne 'Remove') {
+    if (-not $PSBoundParameters.ContainsKey('Source') -and -not (Test-Path (Join-Path $Source 'ClimbUK'))) {
+        # run from the unzipped package
+        $pkg = Join-Path (Split-Path -Parent $PSScriptRoot) 'payload\office'
+        if (Test-Path (Join-Path $pkg 'ClimbUK')) { $Source = $pkg }
+    }
+    if (-not (Get-ChildItem -Path $Source -Filter '*.dotx' -Recurse -ErrorAction SilentlyContinue)) {
+        Write-Error "No templates found in '$Source'. Give the folder that holds ClimbUK, ClimbGroup and Climb27."
+        exit 2
+    }
+}
 
 $Status = 0
 $Apps = @(

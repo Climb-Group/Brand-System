@@ -35,7 +35,7 @@ The installers add the Word, Excel and PowerPoint templates to the Templates lis
 - macOS: a LaunchDaemon, `com.climb-uk.templates.onlyoffice`, runs `climb-onlyoffice.sh ensure` whenever `ONLYOFFICE.app` changes. On macOS 13 and later, writing inside another app needs App Management permission. If the log says the copy failed, give your mobile device management (MDM) agent App Management in a privacy (PPPC) profile, or have people use File, Open on the templates in `/Library/Application Support/Climb/Templates/Office`.
 - Linux: deb and rpm upgrades leave the templates alone. The Snap and Flatpak builds are read-only, so people using those open the templates with File, Open from `/opt/climb-templates/Office`.
 
-If ONLYOFFICE is installed after the templates, run the helper on its own: `Add-ClimbOnlyOffice.ps1` (Windows, as admin; the start-up task also does this at the next restart) or `sudo "<install folder>/climb-onlyoffice.sh" add "<install folder>/Office"` (macOS, Linux).
+If ONLYOFFICE is installed after the templates, run the helper on its own, from the unzipped package or the install folder: `windows\Add-ClimbOnlyOffice.ps1` as admin (the start-up task also does this at the next restart), or `sudo ./macos/climb-onlyoffice.sh` or `sudo ./linux/climb-onlyoffice.sh`. To take them out again, add `remove` (macOS, Linux) or `-Action Remove` (Windows).
 
 ONLYOFFICE uses the fonts installed by this package, so nothing else is needed.
 

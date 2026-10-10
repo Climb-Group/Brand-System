@@ -1,7 +1,9 @@
 #!/bin/bash
 # Add the Climb templates to the ONLYOFFICE Desktop Editors Templates list, or remove them.
 #
-#   climb-onlyoffice.sh add SOURCE   SOURCE is the folder holding <Brand>/*.dotx .xltx .potx
+#   climb-onlyoffice.sh [add] [SOURCE]   SOURCE is the folder holding <Brand>/*.dotx .xltx .potx;
+#                                        by default the installed copy, or payload/office
+#                                        when run from the unzipped package
 #   climb-onlyoffice.sh ensure SOURCE   add only where they are missing (after an update)
 #   climb-onlyoffice.sh remove
 #
@@ -18,6 +20,17 @@ set -uo pipefail
 ROOT="${CLIMB_TEST_ROOT:-}"
 ACTION="${1:-add}"
 SRC="${2:-}"
+HERE="$(cd "$(dirname "$0")" && pwd)"
+if [ "$ACTION" != remove ] && [ -z "$SRC" ]; then
+  for c in "$ROOT/Library/Application Support/Climb/Templates/Office" "$HERE/Office" "$HERE/../payload/office"; do
+    if [ -d "$c/ClimbUK" ]; then SRC="$c"; break; fi
+  done
+fi
+case "$ACTION" in add|ensure|remove) ;; *) echo "Usage: $0 [add|ensure|remove] [SOURCE]" >&2; exit 2 ;; esac
+if [ "$ACTION" != remove ] && ! ls "$SRC"/*/*.dotx >/dev/null 2>&1; then
+  echo "No templates found in '${SRC:-(none)}'. Give the folder that holds ClimbUK, ClimbGroup and Climb27." >&2
+  exit 2
+fi
 FOUND=0
 STATUS=0
 
