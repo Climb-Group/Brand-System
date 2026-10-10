@@ -53,8 +53,11 @@ async function flattenGradients(page, cap) {
   }
   await page.evaluate((shots) => shots.forEach((s, i) => {
     const el = document.querySelector('[data-gi="' + i + '"]');
+    // The half-resolution capture has a soft edge pixel; bleed it 3px past the box so the edge never lets
+    // the photo underneath show through as a seam. The element's own clip trims the bleed.
+    const B = 3;
     el.style.setProperty('background', s
-      ? 'url(' + s.url + ') ' + s.dx + 'px ' + s.dy + 'px / ' + s.w + 'px ' + s.h + 'px no-repeat border-box'
+      ? 'url(' + s.url + ') ' + (s.dx - B) + 'px ' + (s.dy - B) + 'px / ' + (s.w + 2 * B) + 'px ' + (s.h + 2 * B) + 'px no-repeat border-box'
       : 'none', 'important');
   }), shots);
   return n;

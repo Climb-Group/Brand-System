@@ -6,7 +6,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 PACK="$(cd "$HERE/../.." && pwd)"
 cd "$HERE"
 rm -rf assets && mkdir -p assets/fonts assets/logos assets/photos assets/illus assets/social
-cp "$PACK"/fonts/*.woff2 "$PACK"/generators/fonts/*.woff2 assets/fonts/
+cp "$PACK"/fonts/*.woff2 "$PACK"/generators/fonts/*.woff2 fonts/*.woff2 assets/fonts/
 for b in ClimbUK ClimbGroup Climb27; do mkdir -p "assets/logos/$b"; cp "$PACK/logos/$b"/*.svg "assets/logos/$b/"; done
 cp "$PACK"/photos/*.jpg assets/photos/
 cp "$PACK"/illustrations/*.svg assets/illus/

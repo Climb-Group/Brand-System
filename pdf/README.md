@@ -7,7 +7,7 @@ Shareable PDFs for each brand (ClimbUK, ClimbGroup, Climb27), built from `guidel
 | `one-page/<brand>_key-rules.pdf` | The key rules everyone must follow: logo, colour, type, voice, photography, accessibility and naming | A4, one page |
 | `guidelines/<brand>_brand-guidelines.pdf` | The full brand book: ten sections, from the big idea to print, video, partners and accessibility | 16:9 slides, 1920x1080 |
 
-The ClimbGroup editions use Charcoal grounds and the slab and peak marks, with pages on contracts, documents, decks and email signatures. The Climb27 editions add the themes, the edition mark, ticket selling and the share kit.
+The ClimbGroup editions use Charcoal grounds and the slab and peak marks, with pages on contracts, documents, decks and email signatures. The Climb27 editions add the themes, the edition mark, ticket pages and the share kit.
 
 ## Rebuild
 
@@ -18,5 +18,7 @@ pdf/_build/build.sh
 Needs Python 3 and Node with Playwright (Chromium). The script copies the fonts, logos, photos and illustrations from this pack, writes one HTML file per PDF, prints them to PDF and moves them into `one-page/` and `guidelines/`.
 
 - Copy lives in `pdf/_build/brands.py` (per brand) and `book.py` / `keyrules.py` (shared pages). It follows the climb-voice skill; run its checker on any new line.
+- Outline numerals and marquees use `pdf/_build/fonts/montserrat-800-outline*.woff2`: Montserrat ExtraBold with its overlapping contours merged, so the stroke draws no stray lines inside the letters. `python3 pdf/_build/outline_font.py` remakes them (needs fontTools, skia-pathops and brotli).
+- The renderer bakes CSS gradients into images before printing, because several PDF viewers cannot draw the gradient shadings Chromium writes.
 - Colours and sizes come from the tokens. If a token changes (for example the orange), rebuild.
 - The PDFs are public: no repository paths, internal notes or vendor tool names.
