@@ -1041,19 +1041,32 @@ def print_merch(bk):
         '<li><b>PDF/X-4</b> with fonts embedded, images at 300ppi at final size, 3mm bleed and a 5mm safe zone.</li>'
         '<li><b>Two-colour jobs</b> print Pantone 158 with Black 4 or 419. Big dark areas use rich Dark Brown, not plain black.</li>'
         '<li><b>One finish per piece:</b> soft-touch, spot UV on one line, copper or orange foil, or a deboss.</li>'
-        '<li><b>Garments</b> are Dark Brown, Charcoal or black. Orange is for crew, so they are easy to find.</li>'
+        '<li><b>Garments</b> are Dark Brown, Charcoal, black or White. Orange is for crew, so they are easy to find.</li>'
         '<li><b>Signs:</b> 40mm cap height to read at 10m, 80mm at 20m. Chevrons point the way people turn.</li></ul></div>'
         '<div style="position:relative">'
-        '<div style="position:absolute;left:40px;top:40px;width:330px;height:470px;background:var(--db);border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-4deg);overflow:hidden">'
+        '<div style="position:absolute;left:-10px;top:500px;width:250px;height:356px;background:var(--db);border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-5deg);z-index:2;overflow:hidden">'
         '<div class="ph" style="background-image:url(%sclimb_band_stage.jpg);bottom:40%%"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,0) 20%%,var(--db) 60%%)"></div>'
-        '<div style="position:absolute;left:42px;top:42px">%s</div>'
-        '<div class="h" style="position:absolute;left:42px;bottom:64px;font-size:40px">%s</div>'
-        '<div style="position:absolute;left:34px;bottom:30px;font:700 14px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
-        '<div style="position:absolute;right:30px;top:0;width:360px;height:420px;border-radius:30px 30px 10px 10px;background:var(--ch);box-shadow:0 30px 70px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transform:rotate(3deg)">%s'
-        '<span class="sticker" style="position:absolute;right:-20px;top:30px;font-size:22px">Tote</span></div>'
-        '<div style="position:absolute;left:120px;bottom:20px;width:560px;height:110px;border-radius:12px;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
-        '<p class="small" style="position:absolute;left:120px;bottom:-30px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
-        % (P, logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "icon", w=200, style="border-radius:20px"),
+        '<div style="position:absolute;left:32px;top:32px">%s</div>'
+        '<div class="h" style="position:absolute;left:32px;bottom:56px;font-size:32px">%s</div>'
+        '<div style="position:absolute;left:32px;bottom:26px;font:700 13px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
+        # Totes: a white canvas bag in Dark Brown and orange, a Dark Brown bag in orange and White. Two colours each.
+        '<div style="position:absolute;left:440px;top:150px;width:330px;height:380px;transform:rotate(6deg)">'
+        '<div style="position:absolute;left:62px;top:-104px;width:206px;height:150px;border:16px solid var(--ch);border-bottom:0;border-radius:110px 110px 0 0"></div>'
+        '<div style="position:absolute;inset:0;background:var(--db);border-radius:6px 6px 14px 14px;box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.06);overflow:hidden">'
+        '<div style="position:absolute;left:-30px;right:-30px;top:30px;font:italic 800 96px/0.86 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.04em;white-space:nowrap;transform:rotate(-8deg)">TOP TOP TOP<br>TOP TOP TOP<br>TOP TOP TOP</div>'
+        '<div class="h" style="position:absolute;left:30px;bottom:74px;font-size:46px;line-height:.95;color:#fff">SEE YOU<br>AT THE <em class="o">TOP</em>.</div>'
+        '<div style="position:absolute;left:30px;bottom:30px">%s</div></div></div>'
+        '<div style="position:absolute;left:30px;top:120px;width:380px;height:440px;transform:rotate(-3deg)">'
+        '<div style="position:absolute;left:78px;top:-118px;width:224px;height:166px;border:18px solid var(--lg);border-bottom:0;border-radius:120px 120px 0 0"></div>'
+        '<div style="position:absolute;inset:0;background:var(--w);border-radius:6px 6px 16px 16px;box-shadow:0 34px 80px rgba(0,0,0,.65);overflow:hidden">'
+        '<div style="position:absolute;left:-40px;top:22px;font:800 64px/0.9 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.03em;white-space:nowrap">FIND YOUR PEOPLE FIND<br>YOUR PEOPLE FIND YOUR<br>PEOPLE FIND YOUR PEOPLE</div>'
+        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em class="o">PEOPLE</em>.</div>'
+        '<img src="assets/illus/high-five.svg" style="position:absolute;right:20px;top:196px;width:132px;height:132px;transform:rotate(10deg);--doodle-ground:var(--w)">'
+        '<div style="position:absolute;left:34px;bottom:26px">%s</div></div>'
+        '<span class="sticker" style="position:absolute;right:-26px;top:-20px;font-size:22px;transform:rotate(6deg)">Tote</span></div>'
+        '<div style="position:absolute;left:280px;bottom:60px;width:500px;height:110px;border-radius:12px;z-index:1;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
+        '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
+        % (P, logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
            logo(b, "mono-white", h=32), logo(b, "mono-white", h=32))
     )
     bk.add(bk.B["ground"], inner)
@@ -1085,6 +1098,7 @@ def video(bk):
 def partners(bk):
     b = bk.b
     lead = "ClimbUK" if b != "Climb27" else "Climb27"
+    c = round(66 * CLEAR_C[lead])  # clear space: the C height, around the card edge and either side of the rule
     inner = (
         '<div class="glow"></div>'
         + '<div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:100px">'
@@ -1096,12 +1110,12 @@ def partners(bk):
           '<li><b>On our pieces</b> partner logos sit in one tone, so no brand shouts over another.</li>'
           '<li><b>Never</b> merge the logos, recolour a partner logo in our orange, or promise numbers.</li></ul></div>'
           '<div style="padding-top:60px">'
-          '<div class="card" style="height:260px;display:flex;align-items:center;justify-content:center;gap:56px">'
-          '<div class="mont" style="font-weight:800;font-size:46px;color:#fff;letter-spacing:.02em;border:3px solid rgba(255,255,255,.6);padding:16px 26px;border-radius:10px">PARTNER</div>'
-          '<div style="width:2px;height:110px;background:rgba(255,255,255,.3)"></div>%s</div>'
+          '<div class="card" style="display:inline-flex;align-items:center;padding:%dpx;gap:%dpx">'
+          '<div class="mont" style="font-weight:800;font-size:38px;line-height:1;color:#fff;letter-spacing:.02em;border:3px solid rgba(255,255,255,.6);padding:11px 20px;border-radius:8px">PARTNER</div>'
+          '<div style="width:1px;height:96px;background:rgba(255,255,255,.4)"></div>%s</div>'
           '<div class="h" style="font-size:34px;margin-top:50px">LINES PARTNERS MAY USE</div>'
           '<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:24px">%s</div></div></div>'
-        % (logo(lead, "reversed-dark", h=48),
+        % (c, c, logo(lead, "reversed-dark", h=66),
            "".join('<span class="tag" style="font-size:20px;color:var(--tint)">%s</span>' % t for t in
                    ["In partnership with ClimbUK", "Official partner of Climb27", "Headline partner of Climb27", "Speaking at Climb27", "Exhibiting at Climb27"]))
     )
