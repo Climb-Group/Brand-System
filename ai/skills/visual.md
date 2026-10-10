@@ -2,7 +2,7 @@
 
 Use this skill whenever you design, lay out, recolour, describe or review anything made to be seen for ClimbUK, ClimbGroup or Climb27: web sections, emails, social graphics, slides, documents, video, wallpapers, call backgrounds, print, merch, signage and stage screens. Pair it with the voice skill for any words on the piece.
 
-A festival poster with a buy button on it: full festival, fun, punchy, exciting. Never a corporate conference look.
+A festival poster with a clear next step: full festival, fun, punchy, exciting. Never a corporate conference look.
 
 ## The five rules
 

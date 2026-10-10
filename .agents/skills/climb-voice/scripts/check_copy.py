@@ -46,6 +46,7 @@ ALWAYS = [
     (r"\bmeet (the )?investors\b|ready to invest", "reads as a promised meeting: 'Find investors looking for real deal flow', 'Investors here to find their next deal'"),
     (r"\b(un)?matched\b", "say 'brought to you' or 'connect'; never 'matched' or 'unmatched'"),
     (r"about \d+\s*% of tickets", "do not quote a release's share of tickets: name its state"),
+    (r"\bbuy (button|now)\b", "sounds like selling: name the next step ('Get your ticket'), or say 'call to action' or 'the main button'"),
 ]
 
 # Case-sensitive rules.

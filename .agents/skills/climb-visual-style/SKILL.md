@@ -10,7 +10,7 @@ metadata:
 
 # ClimbUK visual style
 
-**A festival poster with a buy button on it.** Full festival: fun, punchy, exciting. Real crowds under stage light, huge uppercase type with one word in orange and one in italic, stickers slapped on, logos and names drifting past, and Climb Orange that glows. Never a corporate conference look. The reference point for ambition is Slush (the atmosphere, never the formats or the artwork); the reference for feel is the Climb27 homepage and the affiliate page (climb-uk.com; original motif vectors in `reference/motifs/`).
+**A festival poster with a clear next step.** Full festival: fun, punchy, exciting. Real crowds under stage light, huge uppercase type with one word in orange and one in italic, stickers slapped on, logos and names drifting past, and Climb Orange that glows. Never a corporate conference look. The reference point for ambition is Slush (the atmosphere, never the formats or the artwork); the reference for feel is the Climb27 homepage and the affiliate page (climb-uk.com; original motif vectors in `reference/motifs/`).
 
 All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_tokens.scss`). Never type a hex value that is not in that file. `#EC752A` is retired: if you find it, replace it with `#E8712A`.
 

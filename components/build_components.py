@@ -507,7 +507,7 @@ def components(S):
         ("s_climb_moment", "Moment", "A big photo with a sticker and one line", 640,
          "Moment is one photo, one sticker, one line and one button. Use it to sell a single thing, like the ClimbAwards."),
         ("s_climb_close", "Close", "Climb Orange close with the last question", 560,
-         "The close ends every sales page on Climb Orange: the last question, the dates and the buy button in Dark Brown."),
+         "The close ends every sales page on Climb Orange: the last question, the dates and the main button in Dark Brown."),
         ("s_climb_divider", "Divider", "Rising chevrons between two sections", 200,
          "The divider is a low band of rising chevrons between two sections. Match its preset to the section above."),
     ]:
