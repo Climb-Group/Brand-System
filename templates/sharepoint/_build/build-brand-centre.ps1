@@ -19,6 +19,10 @@ Changes to the tenant and the existing site are opt in:
                   sets the site logo, the extended header with its background, and the footer
   -SetNavigation  adds the brand book menus to the top navigation (existing links stay)
   -SetHomePage    makes brand.aspx (-BrandPageName) the site home page; the old home page stays in Site Pages
+  -RegisterOfficeLibraries
+                  shares the site read only with everyone in the organisation (Microsoft 365 requires it), then
+                  registers Brand templates and Brand Office fonts as organisation asset libraries, so the templates
+                  show in Word, Excel and PowerPoint. Needs a SharePoint Administrator.
   -Publish        publishes the new pages (otherwise they stay as drafts only editors see)
 
 Needs PowerShell 7.4 or later and PnP.PowerShell 3 (Install-Module PnP.PowerShell -Scope CurrentUser), plus an
@@ -43,7 +47,8 @@ param(
     [switch]$Publish,
     [switch]$SetHomePage,
     [switch]$SetNavigation,
-    [switch]$SetSiteLook
+    [switch]$SetSiteLook,
+    [switch]$RegisterOfficeLibraries
 )
 $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
@@ -122,25 +127,41 @@ if ($InstallApp) {
     }
 }
 
-# 6. The brand book page.
+# 6. The brand book page. A brand.aspx this script made earlier without the web part (because the app was not
+# installed yet) is still empty, so the web part is added to it; any other page with that name is left alone.
 $made = @()
-if (PageExists $BrandPageName) {
+$brandPage = $null
+try { $brandPage = Get-PnPPage -Identity $BrandPageName -ErrorAction Stop } catch { $brandPage = $null }
+$hasBook = $brandPage -and @($brandPage.Controls | Where-Object { "$($_.WebPartId)" -eq $webPartId }).Count -gt 0
+if ($hasBook) {
+    Write-Host "$BrandPageName.aspx already shows the brand book"
+}
+elseif ($brandPage -and @($brandPage.Controls).Count -gt 0) {
     Write-Warning "Skipped $BrandPageName.aspx: a page with that name already exists. Nothing on it was changed."
 }
 else {
-    Add-PnPPage -Name $BrandPageName -LayoutType Home | Out-Null
-    Set-PnPPage -Identity $BrandPageName -Title "Brand centre" -ThumbnailUrl "$rel/$img/banners/climbuk_sharepoint-banner_home_1920x1080.jpg" | Out-Null
-    Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
+    if (-not $brandPage) {
+        Add-PnPPage -Name $BrandPageName -LayoutType Home | Out-Null
+        Set-PnPPage -Identity $BrandPageName -Title "Brand centre" -ThumbnailUrl "$rel/$img/banners/climbuk_sharepoint-banner_home_1920x1080.jpg" | Out-Null
+        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
+    }
+    elseif (@($brandPage.Sections).Count -eq 0) {
+        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
+    }
     try {
         Add-PnPPageWebPart -Page $BrandPageName -Component $webPartId -Section 1 -Column 1 `
             -WebPartProperties @{ page = "index"; bookUrl = "" } | Out-Null
+        $hasBook = $true
+        $made += $BrandPageName
+        Write-Host "Built $BrandPageName.aspx with the brand book"
     }
     catch {
-        Write-Warning "Built $BrandPageName.aspx without the brand book: the web part is not installed yet. Run once with -InstallApp, then delete $BrandPageName.aspx by hand and run again."
+        Write-Warning "$BrandPageName.aspx has no brand book yet: the web part is not available on this site. If you just ran -InstallApp, wait a few minutes for the app catalog to deploy it, then run the script again. Otherwise run it once with -InstallApp."
     }
-    if ($Publish) { Set-PnPPage -Identity $BrandPageName -Publish | Out-Null }
-    $made += $BrandPageName
-    Write-Host "Built $BrandPageName.aspx"
+}
+if ($Publish -and $hasBook) {
+    Set-PnPPage -Identity $BrandPageName -Publish | Out-Null
+    Write-Host "Published $BrandPageName.aspx"
 }
 
 # 7. The plain SharePoint pages, only when asked.
@@ -195,19 +216,50 @@ if ($SetSiteLook) {
     Write-Host "Set the site logo, header and footer"
 }
 if ($SetNavigation) {
+    # Safe to run again: a menu or link that is already there is reused, not added twice. Links are added as external
+    # so SharePoint does not check them against the page's draft or published state.
+    function NavNode([string]$title, [string]$url, $parent) {
+        $existing = if ($parent) { (Get-PnPNavigationNode -Id $parent.Id).Children } else { Get-PnPNavigationNode -Location TopNavigationBar }
+        $found = @($existing | Where-Object { $_.Title -eq $title })[0]
+        if ($found) { return $found }
+        if ($parent) {
+            return Add-PnPNavigationNode -Location TopNavigationBar -Title $title -Url $url -Parent $parent.Id -External
+        }
+        return Add-PnPNavigationNode -Location TopNavigationBar -Title $title -Url $url -External
+    }
     $brandUrl = "$SiteUrl/SitePages/$BrandPageName.aspx"
     foreach ($g in $data.booknav) {
-        $parent = Add-PnPNavigationNode -Location TopNavigationBar -Title $g.label -Url "http://linkless.header/"
+        $parent = NavNode $g.label "http://linkless.header/" $null
         foreach ($l in $g.links) {
-            Add-PnPNavigationNode -Location TopNavigationBar -Title $l.title -Url "$($brandUrl)?brandpage=$($l.page)" -Parent $parent.Id | Out-Null
+            NavNode $l.title "$($brandUrl)?brandpage=$($l.page)" $parent | Out-Null
         }
     }
-    $files = Add-PnPNavigationNode -Location TopNavigationBar -Title "Files" -Url "http://linkless.header/"
-    Add-PnPNavigationNode -Location TopNavigationBar -Title "Marketing content" -Url $MarketingContentUrl -Parent $files.Id | Out-Null
-    Add-PnPNavigationNode -Location TopNavigationBar -Title "Photo library" -Url $PhotoLibraryUrl -Parent $files.Id | Out-Null
-    Add-PnPNavigationNode -Location TopNavigationBar -Title "Brand guidelines (PDF)" -Url "$SiteUrl/BrandFiles" -Parent $files.Id | Out-Null
-    Add-PnPNavigationNode -Location TopNavigationBar -Title "Office templates" -Url "$SiteUrl/BrandTemplates" -Parent $files.Id | Out-Null
+    $files = NavNode "Files" "http://linkless.header/" $null
+    NavNode "Marketing content" $MarketingContentUrl $files | Out-Null
+    NavNode "Photo library" $PhotoLibraryUrl $files | Out-Null
+    NavNode "Brand guidelines (PDF)" "$SiteUrl/BrandFiles" $files | Out-Null
+    NavNode "Office templates" "$SiteUrl/BrandTemplates" $files | Out-Null
     Write-Host "Added the brand book menus and a Files menu to the top navigation"
+}
+if ($RegisterOfficeLibraries) {
+    # Microsoft 365 only serves organisation asset libraries that everyone in the organisation can read, so the site
+    # is shared with "Everyone except external users" as visitors (read only) first.
+    $everyone = "c:0-.f|rolemanager|spo-grid-all-users/$(Get-PnPTenantId)"
+    $visitors = Get-PnPGroup -AssociatedVisitorGroup
+    if (-not (@(Get-PnPGroupMember -Group $visitors) | Where-Object { $_.LoginName -eq $everyone })) {
+        Add-PnPGroupMember -Group $visitors -LoginName $everyone | Out-Null
+        Write-Host "Shared the site with everyone in the organisation, read only"
+    }
+    foreach ($lib in @(@{U = "BrandTemplates"; T = "OfficeTemplateLibrary" }, @{U = "BrandOfficeFonts"; T = "OfficeFontLibrary" })) {
+        try {
+            Add-PnPOrgAssetsLibrary -LibraryUrl "$SiteUrl/$($lib.U)" -OrgAssetType $lib.T -CdnType Public | Out-Null
+            Write-Host "Registered $($lib.U) as an organisation asset library"
+        }
+        catch {
+            if ($_.Exception.Message -match "already") { Write-Host "$($lib.U) is already registered" }
+            else { Write-Warning "Could not register $($lib.U): $($_.Exception.Message)" }
+        }
+    }
 }
 if ($SetHomePage) {
     Set-PnPHomePage -RootFolderRelativeUrl "SitePages/$BrandPageName.aspx" | Out-Null
@@ -217,5 +269,4 @@ if ($SetHomePage) {
 Write-Host ""
 Write-Host "Done. Built: $($made -join ', ')"
 if ($TextPages) { Write-Host "Next: add the Hero web part to $HomePageName.aspx and a Quick links row to each page (README.md)." }
-Write-Host "A SharePoint admin registers the template library so it shows in Word, Excel and PowerPoint:"
-Write-Host "  Add-PnPOrgAssetsLibrary -LibraryUrl $SiteUrl/BrandTemplates -OrgAssetType OfficeTemplateLibrary"
+if (-not $RegisterOfficeLibraries) { Write-Host "To show the templates in Word, Excel and PowerPoint, run again with -RegisterOfficeLibraries as a SharePoint Administrator." }

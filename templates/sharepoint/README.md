@@ -67,7 +67,7 @@ When `brand.aspx` looks right, run the script again with the switches. Pages tha
 ./build-brand-centre.ps1 -SiteUrl https://<tenant>.sharepoint.com/sites/<brand-center-site> -ClientId <client id> `
   -MarketingContentUrl https://<tenant>.sharepoint.com/sites/<marketing-content-site> `
   -PhotoLibraryUrl https://<tenant>.sharepoint.com/sites/<photo-site> -PackPath ~/Brand-System `
-  -Publish -SetSiteLook -SetNavigation -SetHomePage
+  -Publish -SetSiteLook -SetNavigation -SetHomePage -RegisterOfficeLibraries
 ```
 
 | Switch | What it changes |
@@ -77,6 +77,7 @@ When `brand.aspx` looks right, run the script again with the switches. Pages tha
 | `-SetSiteLook` | Adds the **ClimbUK** theme to the tenant (Orange Text `#C55308` with white text, 4.55:1) and applies it to this site, then sets the site logo, the extended header with the contour background, and the footer with the tagline and wordmark |
 | `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the top navigation. Existing links stay: remove the old ones by hand when you are happy |
 | `-SetHomePage` | Makes `brand.aspx` the site home page. The old home page stays in Site Pages, unchanged |
+| `-RegisterOfficeLibraries` | Shares the site read only with everyone in the organisation (Microsoft 365 only serves organisation asset libraries everyone can read), then registers **Brand templates** and **Brand Office fonts**, so the templates show under the organisation tab in Word, Excel and PowerPoint. Needs a SharePoint Administrator |
 | `-TextPages` | Also builds the twelve plain SharePoint pages from earlier (`brand-centre.aspx`, `our-brand.aspx` and so on). Not needed for the brand book |
 
 ### 4. The plain pages (only with -TextPages)
@@ -117,7 +118,7 @@ For an AAA version, make a second theme named **ClimbUK AAA** with Deep Orange `
 
 **Images.** If the brand center has an image library, add `banners/`, `quick-link-tiles/` and `section-backgrounds/` to it, so anyone building a page in Microsoft 365 can pick them.
 
-**Register the Office libraries.** This makes the templates show under the organisation tab in Word, Excel and PowerPoint, and lets PowerPoint for the web use the brand fonts. Run it as a SharePoint or Global Administrator, in the same PowerShell 7 with PnP. It signs in to the admin centre with the same app, then registers both libraries on the brand center site (all organisation asset libraries must be on that site):
+**Register the Office libraries.** `-RegisterOfficeLibraries` in step 3 does this. To do it by hand instead: first share the site with **Everyone except external users** as visitors (Microsoft 365 refuses a library that not everyone can read), then run the commands below. This makes the templates show under the organisation tab in Word, Excel and PowerPoint, and lets PowerPoint for the web use the brand fonts. Run it as a SharePoint or Global Administrator, in the same PowerShell 7 with PnP. It signs in to the admin centre with the same app, then registers both libraries on the brand center site (all organisation asset libraries must be on that site):
 
 ```powershell
 Connect-PnPOnline -Url https://<tenant>-admin.sharepoint.com -Interactive -ClientId <client id>
@@ -140,7 +141,8 @@ Both fonts are open source, so hosting them publicly is allowed by their licence
 
 ## Common problems
 
-- **brand.aspx is empty or says the web part is missing.** The web part is not installed yet. Run the script once with `-InstallApp` as an administrator, delete `brand.aspx` by hand, then run the script again.
+- **brand.aspx is empty or says the web part is missing.** The web part is not installed yet. Run the script once with `-InstallApp` as an administrator, wait a few minutes, then run it again: it adds the brand book to the empty page it made earlier.
+- **Everyone except external users needs read permission.** Registering an Office library needs the whole organisation to be able to read it. Use `-RegisterOfficeLibraries`, which shares the site read only first.
 - **The brand book says it could not be loaded.** The brand book folder is missing from Site Assets > BrandCentre > book. Run the script again; it uploads the folder every time.
 - **Fonts, pictures or the live previews do not show.** The brand book loads its styles, scripts and pictures from Site Assets on this site. If your tenant limits script sources, add this site to the trusted script sources in the SharePoint admin centre.
 - **A page was skipped.** A page with that name already exists. The script left it alone. Rename or delete the old page by hand if you want the new one, then run the script again.
