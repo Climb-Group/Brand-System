@@ -101,7 +101,7 @@ def path_bboxes(paths, w, h):
 
 
 def build_monogram(w, h, paths):
-    """The shared l! mark (the 'l' and the stencilled 'i' of Climb), orange on a Dark Brown tile."""
+    """The shared li mark (the 'l' and the stencilled 'i' of Climb), orange on a Dark Brown tile."""
     climb = [p for p in paths if p[1] == "climb"]
     cb = bbox(climb, w, h)
     picked = [p for p, b in zip(climb, path_bboxes(climb, w, h))
@@ -114,7 +114,7 @@ def build_monogram(w, h, paths):
     ty = (size - mb[3] * k) / 2 - mb[1] * k
     body = (f'<rect width="{size}" height="{size}" fill="{BROWN}"/>'
             + group(picked, None, ORANGE, f"translate({tx:.2f} {ty:.2f}) scale({k:.5f})"))
-    return svg_doc((0, 0, size, size), body, "<title>Climb l! monogram</title>")
+    return svg_doc((0, 0, size, size), body, "<title>Climb li monogram</title>")
 
 
 def build_tagline(brand, w, h, paths, c1, c2, label):

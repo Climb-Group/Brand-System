@@ -77,7 +77,7 @@ Under `prefers-reduced-motion: reduce`: no translation, scale, spring, parallax,
 
 ## Motion graphics and animation
 
-- **Logo reveal (sting):** the l! mark rises into place (`rise-large`, `stage`), the wordmark wipes in upward behind it, then one Climb Orange contour ring draws around it. 3 seconds; 5 seconds with the tagline. Ends on the static master.
+- **Logo reveal (sting):** the li mark rises into place (`rise-large`, `stage`), the wordmark wipes in upward behind it, then one Climb Orange contour ring draws around it. 3 seconds; 5 seconds with the tagline. Ends on the static master.
 - **Kinetic type:** one line at a time, Montserrat Black, each word rising with a 60ms stagger, held at least 1.5 seconds per line (long enough to read twice). The orange word turns orange, or the highlight bar wipes in under it, after the line lands.
 - **Backgrounds:** Contours drift (0.5% scale breathing over 8 seconds), Stage Light beams sweep slowly (10 to 20 seconds per pass), Connections draw line by line. Always loopable and seamless.
 - **Transitions between scenes:** a hard cut, an upward wipe, or an Ascent chevron wipe. No cross-dissolves longer than 8 frames, no spins, no flashy presets.

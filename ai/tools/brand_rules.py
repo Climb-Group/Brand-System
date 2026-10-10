@@ -433,7 +433,7 @@ def pick_logo(brand="climbuk", ground="dark", width_px=0, use="", tagline=False,
     reasons = []
     if any(word in use_key for word in ("favicon", "app icon", "browser")) or (0 < width < 64):
         variant = "icon-monogram"
-        reasons.append("Favicons, app icons and anything under 64px use the l! monogram.")
+        reasons.append("Favicons, app icons and anything under 64px use the li monogram.")
     elif any(word in use_key for word in ("avatar", "profile", "square")):
         variant = "icon"
         reasons.append("Social avatars and squares of 64px or more use the stacked tile.")

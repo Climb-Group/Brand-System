@@ -524,8 +524,8 @@ def components(S):
         wrap_ground('<div class="climb-logos">%s</div>' % logo_rows),
         "Use the reversed logo on Dark Brown, Charcoal and photos; the full-colour logo on White and Light Grey; the mono logos "
         "on Climb Orange. This preview switches with the theme toggle.\n\n"
-        "- Clear space: the height of the l! monogram's dot on every side.\n- Minimum width: 120px on screen, 30mm in print.\n"
-        "- The l! monogram is for favicons and app icons; the stacked tile is for social avatars.\n- Never recolour, stretch, outline or "
+        "- Clear space: the height of the large "C" in Climb on every side.\n- Minimum width: 120px on screen, 30mm in print.\n"
+        "- The li monogram is for favicons and app icons; the stacked tile is for social avatars.\n- Never recolour, stretch, outline or "
         "put the logo on a busy part of a photo.")
 
     icons = "".join('<a href="#" class="climb-social" aria-label="%s">%s</a>' % (n.title(), glyph(n))
