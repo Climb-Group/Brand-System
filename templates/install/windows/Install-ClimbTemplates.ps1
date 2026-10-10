@@ -36,7 +36,7 @@ if (-not (Test-Path $Payload)) { $Payload = Join-Path $PSScriptRoot 'payload' }
 if (-not (Test-Path $Payload)) { throw "Payload folder not found next to $PSScriptRoot" }
 
 $Version = (Get-Content -Path (Join-Path $PackageRoot 'VERSION') -ErrorAction SilentlyContinue | Select-Object -First 1)
-if (-not $Version) { $Version = '1.0.0' }
+if (-not $Version) { $Version = '@VERSION@' }  # filled in by _build/package_build.py
 $Version = $Version.Trim()
 
 $Dest = Join-Path $env:ProgramData 'Climb\Templates'
