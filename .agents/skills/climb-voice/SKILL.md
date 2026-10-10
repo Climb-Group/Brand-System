@@ -76,6 +76,16 @@ Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "an
 - **Prices people remember.** Round, steady steps: £250, not £252. Each release step should feel like a sensible jump.
 - **End every page well.** The last section and the footer are a real closing line in the voice with one next step, not a leftover label. Partner calls to action say what they are for: "Interested in partnering? Book a call with the team."
 
+## Where the name comes from
+
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+
+ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
+
+- "Climb" and "climbing" are fine when the business meaning is clear in the same line: climbing the Investor Ladder, the next rung for your business.
+- Never use climbing-sport words or images: ropes, walls, harnesses, belays, outdoor gear, "climbers" for attendees, or a photo or icon of rock or wall climbing.
+- When a piece leads on "climb" with nothing around it, add the business words: growth, investors, the next stage.
+
 ## Words and lines we own
 
 - Company tagline: **The Festival for Business Growth.** "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.

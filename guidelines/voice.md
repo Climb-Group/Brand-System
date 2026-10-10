@@ -35,6 +35,16 @@ Good copy is easy to read for everyone, including people reading in a second lan
 - **Keep the glossary up to date.** Whenever text goes on the website, including blog posts, news, newsletters and text a client or partner supplied that is published word for word, check it for terms a newcomer may not know. Add any that are missing to the glossary, each with a one or two sentence definition in this voice. Supplied text keeps its own wording; the glossary does the explaining.
 - **Links say where they go.** The link text names the destination or the action: "See the Climb27 lineup", "Read the partner terms". Never "Click here", "Read more", "Learn more", "Find out more", "More info" or a bare "here". If a link opens a new tab, say so.
 
+## Where the name comes from
+
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+
+ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
+
+- "Climb" and "climbing" are fine when the business meaning is clear in the same line: climbing the Investor Ladder, the next rung for your business.
+- Never use climbing-sport words or images: ropes, walls, harnesses, belays, outdoor gear, "climbers" for attendees, or a photo or icon of rock or wall climbing.
+- When a piece leads on "climb" with nothing around it, add the business words: growth, investors, the next stage.
+
 ## Words and lines we own
 
 - Tagline: **The Festival for Business Growth.**
