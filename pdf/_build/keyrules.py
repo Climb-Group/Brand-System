@@ -50,7 +50,7 @@ def card(n, title, items, vis=""):
 def build(b):
     B = BRANDS[b]
     ground = B["ground"]
-    hero_photo = {"ClimbUK": "climb_crowd_wide.jpg", "ClimbGroup": "climb_recap_03.jpg", "Climb27": "media_02.jpg"}[b]
+    hero_photo = {"ClimbUK": "climb_crowd_wide.jpg", "ClimbGroup": "climb_recap_03.jpg", "Climb27": "joy_02.jpg"}[b]
     hero = (
         '<div class="hero"><div class="ph" style="background-image:url(%s%s);background-position:center 35%%"></div>'
         '<div class="layer fade-hero"></div><div class="glow"></div>'
