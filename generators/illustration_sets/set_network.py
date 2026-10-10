@@ -6,6 +6,7 @@ def build(k):
     """k is the illustrations module. Return {name: (builder_fn, "what it says")}."""
     line, curve, arc, circle, rrect, poly, text, turn, shift, sparkle = (k.line, k.curve, k.arc, k.circle, k.rrect,
                                                                          k.poly, k.text, k.turn, k.shift, k.sparkle)
+    layer, solid_ = k.layer, k.solid
 
     # ------------------------------------------------------------ helpers
 
@@ -101,21 +102,25 @@ def build(k):
         return s
 
     def _high_five():
-        left = turn(shift(hand(fill="tone", knock_lines=False), 0, 0, 0.8), -14, (100, 150))
-        left = shift(mirror(left), -46, 14)
-        right = shift(turn(shift(hand(), 0, 0, 0.8), -14, (100, 150)), 46, 14)
-        burst = [line((100, 30), (100, 12)), line((80, 36), (70, 22), w=0.9), line((120, 36), (130, 22), w=0.9)]
-        return left + right + burst
+        # Two hands meeting palm to palm. The right hand sits behind; the left hand is in front, its ground fill
+        # hiding the right hand where they touch, so the palms read as pressed together, not laid over each other.
+        left = turn(shift(hand(fill="tone", knock_lines=False), 0, 0, 0.8), -12, (100, 150))
+        left = shift(mirror(left), -36, 12)
+        right = shift(turn(shift(hand(), 0, 0, 0.8), -12, (100, 150)), 36, 12)
+        cover = [dict(st, fill="ground", ink=False) for st in left if st["closed"]]
+        burst = [line((100, 26), (100, 8)), line((78, 32), (68, 18), w=0.9), line((122, 32), (132, 18), w=0.9)]
+        return right + layer(cover, 1) + layer(left, 2) + burst
 
     def _thumbs_up():
-        thumb = k._catmull([(84, 98), (94, 74), (98, 48), (104, 34), (114, 34), (120, 46), (118, 70), (116, 90)])
-        knuckles = k._scallop((150, 92), (150, 174), 4, -13)
-        fist = thumb + [(150, 90)] + knuckles + [(92, 176), (82, 168)]
-        s = [poly(*fist, double=True),
-             rrect(40, 94, 40, 86, 6, fill="ink"),
-             line((52, 104), (52, 170), knock=True, w=0.7),
-             line((148, 112.5), (126, 112.5), w=0.8), line((148, 133), (128, 133), w=0.8),
-             line((148, 153.5), (130, 153.5), w=0.8)]
+        # A side-on fist: the back of the hand as a tone block, the thumb standing up from it, four curled fingers
+        # stacked down the front and a cuff at the wrist. Each part sits on its own layer so outlines never cross;
+        # the thumb rises from behind the back of the hand.
+        body = [rrect(70, 88, 66, 92, 16, fill="tone")]
+        thumb = [capsule((98, 104), (108, 34), 13, fill="tone")]
+        fingers = [capsule((114, y), (148, y), 10.5, fill="tone") for y in (100, 121, 142, 163)]
+        cuff = [rrect(40, 92, 34, 88, 6, fill="ink")]
+        s = layer(thumb, 0) + solid_(body, 1) + [st for i, f in enumerate(fingers) for st in solid_([f], 3 + 2 * i)]
+        s += layer(cuff, 12)
         s = turn(s, -6, (100, 110))
         return s + sparkle(160, 46, 9) + sparkle(42, 54, 6, w=0.8)
 
@@ -167,12 +172,35 @@ def build(k):
         return turn(s, -6, (100, 100))
 
     def _chain_link():
-        s = [rrect(14, 76, 104, 48, 24, fill="ink"), rrect(30, 90, 72, 20, 10, fill="ground", ink=False),
-             rrect(82, 76, 104, 48, 24, double=True),
-             rrect(98, 90, 72, 20, 10, w=0.8)]
+        # Two links that really interlock: each pill is split into a top and a bottom half so the links can pass
+        # over and under each other. A runs over B at the top and B runs over A at the bottom, with a cut in the
+        # ground colour wherever one link crosses in front of the other.
+        def half(x, y, wd, ht, t, top=True, grow=0.0):
+            mid, ro = y + ht / 2, ht / 2 + grow
+            ri = ht / 2 - t - grow
+            lx, rx = x + ht / 2, x + wd - ht / 2
+            sign = -1 if top else 1
+            k0 = -3 if not grow else 2  # the halves overlap along the arc at the seam; a cut stops short of it
+            def side(r):
+                pts = [(lx - r * math.cos(math.pi * i / 24), mid + sign * r * math.sin(math.pi * i / 24))
+                       for i in range(k0, 13)]
+                pts += [(rx + r * math.sin(math.pi * i / 24), mid + sign * r * math.cos(math.pi * i / 24))
+                        for i in range(0, 13 - k0)]
+                return pts
+            return side(ro) + side(ri)[::-1]
+
+        A, B, T = (20, 76, 102, 48), (78, 76, 102, 48), 14
+        gap = dict(fill="ground", ink=False, amp=0)
+        solid = dict(fill="ink", ink=False, amp=0)
+        s = [poly(*half(*B, T, top=True), **solid),
+             poly(*half(*A, T, top=True, grow=3.5), **gap), poly(*half(*A, T, top=True), **solid),
+             poly(*half(*A, T, top=False), **solid),
+             poly(*half(*B, T, top=False, grow=3.5), **gap), poly(*half(*B, T, top=False), **solid)]
+        s = [poly(*half(*A, T, top=True), fill="tone", ink=False, amp=0.3),
+             poly(*half(*A, T, top=False), fill="tone", ink=False, amp=0.3)] + s
         s = turn(s, -35, (100, 100))
-        return s + [line((150, 40), (162, 28), w=0.9), line((160, 54), (176, 50), w=0.8),
-                    line((50, 160), (38, 172), w=0.9), line((40, 146), (24, 150), w=0.8)]
+        return s + [line((162, 30), (172, 18), w=0.9), line((174, 44), (188, 40), w=0.8),
+                    line((36, 170), (26, 182), w=0.9), line((24, 154), (10, 158), w=0.8)]
 
     def _wifi():
         c = (100, 158)
