@@ -436,9 +436,11 @@ def _spotlight():
             rrect(56, 48, 14, 28, 4, fill="ink")]
     stand = [circle(103, 62, 6, w=0.9), line((103, 68), (103, 150)), line((76, 190), (103, 150), (130, 190)),
              line((103, 150), (103, 192), w=0.8)]
-    beam = [line((150, 46), (198, 116), dash=(9, 7), w=0.8), line((146, 92), (170, 168), dash=(9, 7), w=0.8),
-            line((152, 68), (188, 148), w=0.6, dash=(3, 9))]
-    return turn(lamp, 24, (103, 62)) + stand + beam
+    # The beam is drawn in the lamp's own frame, fanning out from the lens, and turns with it, so the dashes
+    # always follow the direction the light points.
+    beam = [line((150, 40), (190, 26), dash=(9, 7), w=0.8), line((150, 84), (194, 102), dash=(9, 7), w=0.8),
+            line((154, 62), (196, 62), w=0.6, dash=(3, 9))]
+    return turn(lamp + beam, 24, (103, 62)) + stand
 
 
 def _megaphone():
