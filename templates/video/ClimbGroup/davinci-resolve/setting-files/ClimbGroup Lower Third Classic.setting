@@ -1,0 +1,209 @@
+{
+	Tools = ordered() {
+		Climb_LowerThird_Classic = MacroOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput { SourceOp = "NameText", Source = "StyledText", Name = "Name", Default = "First name Last name", },
+				Input2 = InstanceInput { SourceOp = "RoleText", Source = "StyledText", Name = "Role and company", Default = "Role, Company", },
+				Input3 = InstanceInput { SourceOp = "Bar", Source = "Width", Name = "Bar width", },
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput { SourceOp = "MergeRole", Source = "Output", },
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Canvas = Background {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					TopLeftRed = Input { Value = 0, },
+					TopLeftGreen = Input { Value = 0, },
+					TopLeftBlue = Input { Value = 0, },
+					TopLeftAlpha = Input { Value = 0, },
+				},
+			},
+				Bar = Background {
+				Inputs = {
+					Width = Input { Value = 1720, },
+					Height = Input { Value = 300, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					TopLeftRed = Input { Value = 0.1, },
+					TopLeftGreen = Input { Value = 0.05, },
+					TopLeftBlue = Input { Value = 0.016667, },
+					TopLeftAlpha = Input { Value = 0.85, },
+				},
+			},
+				MergeBarBlend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0, RH = { 1.6, 1 } },
+					[10] = { 1, LH = { 3, 1 } }
+				}
+			},
+				MergeBar = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "Canvas", Source = "Output", },
+					Foreground = Input { SourceOp = "Bar", Source = "Output", },
+					Center = Input { Value = { 0.27396, 0.1713 }, },
+					Blend = Input { SourceOp = "MergeBarBlend", Source = "Value", },
+				},
+			},
+				Rule = Background {
+				Inputs = {
+					Width = Input { Value = 12, },
+					Height = Input { Value = 300, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					TopLeftRed = Input { Value = 0.909804, },
+					TopLeftGreen = Input { Value = 0.443137, },
+					TopLeftBlue = Input { Value = 0.164706, },
+					TopLeftAlpha = Input { Value = 1, },
+				},
+			},
+				MergeRuleBlend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[2] = { 0, RH = { 3.6, 1 } },
+					[12] = { 1, LH = { 5, 1 } }
+				}
+			},
+				MergeRule = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "MergeBar", Source = "Output", },
+					Foreground = Input { SourceOp = "Rule", Source = "Output", },
+					Center = Input { Value = { 0.05156, 0.1713 }, },
+					Blend = Input { SourceOp = "MergeRuleBlend", Source = "Value", },
+				},
+			},
+				NameText = TextPlus {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					StyledText = Input { Value = "First name Last name", },
+					Font = Input { Value = "Montserrat", },
+					Style = Input { Value = "Bold", },
+					Size = Input { Value = 0.04815, },
+					CharacterSpacing = Input { Value = 1, },
+					Center = Input { Value = { 0.06875, 0.19167 }, },
+					HorizontalLeftCenterRight = Input { Value = -1, },
+					HorizontalJustificationNew = Input { Value = 3, },
+					VerticalTopCenterBottom = Input { Value = 0, },
+					VerticalJustificationNew = Input { Value = 3, },
+					Red1 = Input { Value = 1, },
+					Green1 = Input { Value = 1, },
+					Blue1 = Input { Value = 1, },
+					Alpha1 = Input { Value = 1, },
+				},
+			},
+				NameRiseX = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0.5, RH = { 3.52, 0.5 } },
+					[22] = { 0.5, LH = { 6.6, 0.5 } }
+				}
+			},
+				NameRiseY = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[4] = { 0.485185, RH = { 6.88, 0.5 } },
+					[22] = { 0.5, LH = { 9.4, 0.5 } }
+				}
+			},
+				NameRisePath = XYPath {
+				ShowKeyPoints = false,
+				DrawMode = "ModifyOnly",
+				Inputs = {
+					X = Input { SourceOp = "NameRiseX", Source = "Value", },
+					Y = Input { SourceOp = "NameRiseY", Source = "Value", },
+				},
+			},
+				NameRise = Transform {
+				Inputs = {
+					Input = Input { SourceOp = "NameText", Source = "Output", },
+					Center = Input { SourceOp = "NameRisePath", Source = "Value", },
+				},
+			},
+				MergeNameBlend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[4] = { 0, RH = { 5.92, 1 } },
+					[16] = { 1, LH = { 7.6, 1 } }
+				}
+			},
+				MergeName = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "MergeRule", Source = "Output", },
+					Foreground = Input { SourceOp = "NameRise", Source = "Output", },
+					Blend = Input { SourceOp = "MergeNameBlend", Source = "Value", },
+				},
+			},
+				RoleText = TextPlus {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					StyledText = Input { Value = "Role, Company", },
+					Font = Input { Value = "Open Sans", },
+					Style = Input { Value = "Regular", },
+					Size = Input { Value = 0.02778, },
+					CharacterSpacing = Input { Value = 1, },
+					Center = Input { Value = { 0.06927, 0.14167 }, },
+					HorizontalLeftCenterRight = Input { Value = -1, },
+					HorizontalJustificationNew = Input { Value = 3, },
+					VerticalTopCenterBottom = Input { Value = 0, },
+					VerticalJustificationNew = Input { Value = 3, },
+					Red1 = Input { Value = 0.913725, },
+					Green1 = Input { Value = 0.913725, },
+					Blue1 = Input { Value = 0.913725, },
+					Alpha1 = Input { Value = 1, },
+				},
+			},
+				RoleRiseX = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0.5, RH = { 3.84, 0.5 } },
+					[24] = { 0.5, LH = { 7.2, 0.5 } }
+				}
+			},
+				RoleRiseY = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[6] = { 0.485185, RH = { 8.88, 0.5 } },
+					[24] = { 0.5, LH = { 11.4, 0.5 } }
+				}
+			},
+				RoleRisePath = XYPath {
+				ShowKeyPoints = false,
+				DrawMode = "ModifyOnly",
+				Inputs = {
+					X = Input { SourceOp = "RoleRiseX", Source = "Value", },
+					Y = Input { SourceOp = "RoleRiseY", Source = "Value", },
+				},
+			},
+				RoleRise = Transform {
+				Inputs = {
+					Input = Input { SourceOp = "RoleText", Source = "Output", },
+					Center = Input { SourceOp = "RoleRisePath", Source = "Value", },
+				},
+			},
+				MergeRoleBlend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[6] = { 0, RH = { 7.92, 1 } },
+					[18] = { 1, LH = { 9.6, 1 } }
+				}
+			},
+				MergeRole = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "MergeName", Source = "Output", },
+					Foreground = Input { SourceOp = "RoleRise", Source = "Output", },
+					Blend = Input { SourceOp = "MergeRoleBlend", Source = "Value", },
+				},
+			}
+			},
+		},
+	},
+	ActiveTool = "Climb_LowerThird_Classic"
+}

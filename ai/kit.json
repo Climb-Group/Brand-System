@@ -1,0 +1,300 @@
+{
+  "version": "1.0",
+  "tools": [
+    {
+      "key": "check_copy",
+      "name": "climb_brand_check_copy",
+      "progress": "Checking the copy against the brand rules",
+      "description": "Check public copy for ClimbUK, ClimbGroup or Climb27 against the brand's hard rules (banned words, dashes, exclamation marks, emojis, promises, scarcity, vendor names, venue embargo, vague link text) and return problems, hints and the reading level. Call it on every piece of public copy before you offer it.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The full text to check, exactly as it will be published.",
+            "maxLength": 20000
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    {
+      "key": "check_colours",
+      "name": "climb_brand_check_colours",
+      "progress": "Checking colour contrast",
+      "description": "Measure WCAG 2.2 contrast between a text or icon colour and its background, say whether it passes AA and AAA, whether both colours are brand tokens, and which preset belongs to that background. Colours can be hex (#E8712A), token names (color.brand.orange) or names (Climb Orange).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "foreground": {
+            "type": "string",
+            "description": "Text or icon colour.",
+            "maxLength": 60
+          },
+          "background": {
+            "type": "string",
+            "description": "Background colour.",
+            "maxLength": 60
+          },
+          "size": {
+            "type": "string",
+            "description": "normal (body text), large (24px or 19px bold and up) or non-text (icons, borders).",
+            "maxLength": 20,
+            "enum": [
+              "normal",
+              "large",
+              "non-text"
+            ]
+          }
+        },
+        "required": [
+          "foreground",
+          "background"
+        ]
+      }
+    },
+    {
+      "key": "palette",
+      "name": "climb_brand_palette",
+      "progress": "Reading the brand palette",
+      "description": "Get the brand's five colour presets (White, Light Grey, Dark Brown, Climb Orange, Charcoal) with the text, heading, link, accent and button colours each allows, the Dark, Light, AAA Dark and AAA Light themes, and the colour rules. Give a ground to get only its preset.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ground": {
+            "type": "string",
+            "description": "Optional ground colour as hex, token or name.",
+            "maxLength": 60
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "key": "tokens",
+      "name": "climb_brand_tokens",
+      "progress": "Looking up brand tokens",
+      "description": "Look up design tokens: colour, font, type sizes, spacing, radius, shadow, motion (durations, easing), layout (breakpoints, targets), print (Pantone, CMYK, RAL), contrast limits, presets and themes. Returns token names, values and usage notes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string",
+            "description": "Token group or prefix, for example color, type, motion.easing, print, theme.aaa-dark.",
+            "maxLength": 60
+          },
+          "query": {
+            "type": "string",
+            "description": "Optional words to filter by, for example 'button' or 'link'.",
+            "maxLength": 100
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "key": "logo",
+      "name": "climb_brand_logo",
+      "progress": "Choosing the logo",
+      "description": "Pick the right logo master for ClimbUK, ClimbGroup or Climb27 on a given ground, size and use, and return the variant, file names and the logo rules.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "ClimbUK, ClimbGroup or Climb27.",
+            "maxLength": 20
+          },
+          "ground": {
+            "type": "string",
+            "description": "dark, white, light grey, orange or photo.",
+            "maxLength": 40
+          },
+          "width_px": {
+            "type": "integer",
+            "description": "Width the logo will show at, in pixels, if known."
+          },
+          "use": {
+            "type": "string",
+            "description": "What it is for, for example favicon, social avatar, email header, slide.",
+            "maxLength": 100
+          },
+          "tagline": {
+            "type": "boolean",
+            "description": "True for the tagline lockup."
+          },
+          "colours": {
+            "type": "integer",
+            "description": "1 when only one ink or colour is available."
+          }
+        },
+        "required": [
+          "brand"
+        ]
+      }
+    },
+    {
+      "key": "surface",
+      "name": "climb_brand_surface",
+      "progress": "Looking up the surface size",
+      "description": "Get the size, safe zone, preset and notes for a surface: social posts and banners, email, video call backgrounds, wallpapers, slides, stage screens, print, merch and signage. Leave surface empty for the full list.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "surface": {
+            "type": "string",
+            "description": "For example 'LinkedIn post', 'roller banner', 'Zoom background'.",
+            "maxLength": 100
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "key": "audience",
+      "name": "climb_brand_audience",
+      "progress": "Reading the audience brief",
+      "description": "Get an audience's needs, tone note, page and headline (scaling companies, professional services, founders seeking investment, universities, investors, public sector, advisers, fractional leaders, incubators and accelerators). Leave audience empty for all of them.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "audience": {
+            "type": "string",
+            "description": "The audience, in plain words.",
+            "maxLength": 100
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "key": "channel",
+      "name": "climb_brand_channel",
+      "progress": "Reading the channel guide",
+      "description": "Get a channel's job, shape and call to action style (LinkedIn, Instagram, TikTok, X, Facebook, email, web page section, partner share kit, print, screens) and the UTM rule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "The channel, in plain words.",
+            "maxLength": 60
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "key": "guide",
+      "name": "climb_brand_guide",
+      "progress": "Reading the brand guidelines",
+      "description": "Read sections of the brand guidelines by topic: voice, examples and rewrites, visual style, motifs, UI, motion, photography, video, print, signatures, press and partners, accessibility. Leave topic empty for the list of sections.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string",
+            "description": "What you need, for example 'selling tickets', 'lower thirds', 'rewrites'.",
+            "maxLength": 120
+          },
+          "document": {
+            "type": "string",
+            "description": "Optional document: voice, audiences, channels, examples, visual-style, elements, surfaces, ui, motion, photography, video, print, signatures, press-and-partners, public-voice, accessibility.",
+            "maxLength": 40
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "skills": [
+    {
+      "key": "voice",
+      "name": "ClimbUK: Brand voice",
+      "when": "Write or edit any words the public, customers, partners or attendees will read for ClimbUK, ClimbGroup or Climb27.",
+      "instructions": "skills/voice.md",
+      "tools": [
+        "check_copy",
+        "audience",
+        "channel",
+        "guide"
+      ]
+    },
+    {
+      "key": "review",
+      "name": "ClimbUK: Copy review",
+      "when": "Check, proof, fix or make on-brand text for ClimbUK, ClimbGroup or Climb27, including supplied text.",
+      "instructions": "skills/review.md",
+      "tools": [
+        "check_copy",
+        "guide"
+      ]
+    },
+    {
+      "key": "visual",
+      "name": "ClimbUK: Visual style",
+      "when": "Design, lay out, recolour or review anything visual for ClimbUK, ClimbGroup or Climb27.",
+      "instructions": "skills/visual.md",
+      "tools": [
+        "palette",
+        "tokens",
+        "check_colours",
+        "surface",
+        "logo",
+        "guide"
+      ]
+    },
+    {
+      "key": "logos",
+      "name": "ClimbUK: Logos",
+      "when": "Choose and place the right ClimbUK, ClimbGroup or Climb27 logo file.",
+      "instructions": "skills/logos.md",
+      "tools": [
+        "logo",
+        "palette"
+      ]
+    },
+    {
+      "key": "accessibility",
+      "name": "ClimbUK: Accessibility",
+      "when": "Make or review brand work so it meets WCAG 2.2 AA, and AAA where the brand adopts it.",
+      "instructions": "skills/accessibility.md",
+      "tools": [
+        "check_colours",
+        "check_copy",
+        "palette",
+        "guide"
+      ]
+    },
+    {
+      "key": "campaigns",
+      "name": "ClimbUK: Campaigns and channels",
+      "when": "Plan or write campaigns, social posts, emails, newsletters, ads and partner share kits.",
+      "instructions": "skills/campaigns.md",
+      "tools": [
+        "channel",
+        "audience",
+        "surface",
+        "check_copy"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "key": "brand-studio",
+      "name": "ClimbUK Brand Studio",
+      "subtitle": "Writes, reviews and designs to the ClimbUK brand.",
+      "instructions": "agents/brand-studio.md",
+      "skills": [
+        "voice",
+        "review",
+        "visual",
+        "logos",
+        "accessibility",
+        "campaigns"
+      ]
+    }
+  ]
+}

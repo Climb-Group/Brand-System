@@ -1,0 +1,182 @@
+{
+	Tools = ordered() {
+		Climb_Title = MacroOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput { SourceOp = "Line1", Source = "StyledText", Name = "Line 1 (White)", Default = "NOT A CONFERENCE.", },
+				Input2 = InstanceInput { SourceOp = "Line2", Source = "StyledText", Name = "Line 2 (Climb Orange)", Default = "A FESTIVAL.", },
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput { SourceOp = "MergeLine2", Source = "Output", },
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Canvas = Background {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					TopLeftRed = Input { Value = 0, },
+					TopLeftGreen = Input { Value = 0, },
+					TopLeftBlue = Input { Value = 0, },
+					TopLeftAlpha = Input { Value = 0, },
+				},
+			},
+				Rule = Background {
+				Inputs = {
+					Width = Input { Value = 256, },
+					Height = Input { Value = 24, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					TopLeftRed = Input { Value = 0.909804, },
+					TopLeftGreen = Input { Value = 0.443137, },
+					TopLeftBlue = Input { Value = 0.164706, },
+					TopLeftAlpha = Input { Value = 1, },
+				},
+			},
+				MergeRuleBlend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0, RH = { 1.6, 1 } },
+					[10] = { 1, LH = { 3, 1 } }
+				}
+			},
+				MergeRule = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "Canvas", Source = "Output", },
+					Foreground = Input { SourceOp = "Rule", Source = "Output", },
+					Center = Input { Value = { 0.1, 0.71667 }, },
+					Blend = Input { SourceOp = "MergeRuleBlend", Source = "Value", },
+				},
+			},
+				Line1 = TextPlus {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					StyledText = Input { Value = "NOT A CONFERENCE.", },
+					Font = Input { Value = "Montserrat", },
+					Style = Input { Value = "Black", },
+					Size = Input { Value = 0.12037, },
+					CharacterSpacing = Input { Value = 1, },
+					Center = Input { Value = { 0.06563, 0.61574 }, },
+					HorizontalLeftCenterRight = Input { Value = -1, },
+					HorizontalJustificationNew = Input { Value = 3, },
+					VerticalTopCenterBottom = Input { Value = 0, },
+					VerticalJustificationNew = Input { Value = 3, },
+					Red1 = Input { Value = 1, },
+					Green1 = Input { Value = 1, },
+					Blue1 = Input { Value = 1, },
+					Alpha1 = Input { Value = 1, },
+				},
+			},
+				Line1RiseX = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0.5, RH = { 3.36, 0.5 } },
+					[21] = { 0.5, LH = { 6.3, 0.5 } }
+				}
+			},
+				Line1RiseY = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[3] = { 0.455556, RH = { 5.88, 0.5 } },
+					[21] = { 0.5, LH = { 8.4, 0.5 } }
+				}
+			},
+				Line1RisePath = XYPath {
+				ShowKeyPoints = false,
+				DrawMode = "ModifyOnly",
+				Inputs = {
+					X = Input { SourceOp = "Line1RiseX", Source = "Value", },
+					Y = Input { SourceOp = "Line1RiseY", Source = "Value", },
+				},
+			},
+				Line1Rise = Transform {
+				Inputs = {
+					Input = Input { SourceOp = "Line1", Source = "Output", },
+					Center = Input { SourceOp = "Line1RisePath", Source = "Value", },
+				},
+			},
+				MergeLine1Blend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[3] = { 0, RH = { 4.92, 1 } },
+					[15] = { 1, LH = { 6.6, 1 } }
+				}
+			},
+				MergeLine1 = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "MergeRule", Source = "Output", },
+					Foreground = Input { SourceOp = "Line1Rise", Source = "Output", },
+					Blend = Input { SourceOp = "MergeLine1Blend", Source = "Value", },
+				},
+			},
+				Line2 = TextPlus {
+				Inputs = {
+					Width = Input { Value = 3840, },
+					Height = Input { Value = 2160, },
+					UseFrameFormatSettings = Input { Value = 0, },
+					StyledText = Input { Value = "A FESTIVAL.", },
+					Font = Input { Value = "Montserrat", },
+					Style = Input { Value = "Black", },
+					Size = Input { Value = 0.12037, },
+					CharacterSpacing = Input { Value = 1, },
+					Center = Input { Value = { 0.06563, 0.49074 }, },
+					HorizontalLeftCenterRight = Input { Value = -1, },
+					HorizontalJustificationNew = Input { Value = 3, },
+					VerticalTopCenterBottom = Input { Value = 0, },
+					VerticalJustificationNew = Input { Value = 3, },
+					Red1 = Input { Value = 0.909804, },
+					Green1 = Input { Value = 0.443137, },
+					Blue1 = Input { Value = 0.164706, },
+					Alpha1 = Input { Value = 1, },
+				},
+			},
+				Line2RiseX = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[0] = { 0.5, RH = { 4, 0.5 } },
+					[25] = { 0.5, LH = { 7.5, 0.5 } }
+				}
+			},
+				Line2RiseY = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[7] = { 0.455556, RH = { 9.88, 0.5 } },
+					[25] = { 0.5, LH = { 12.4, 0.5 } }
+				}
+			},
+				Line2RisePath = XYPath {
+				ShowKeyPoints = false,
+				DrawMode = "ModifyOnly",
+				Inputs = {
+					X = Input { SourceOp = "Line2RiseX", Source = "Value", },
+					Y = Input { SourceOp = "Line2RiseY", Source = "Value", },
+				},
+			},
+				Line2Rise = Transform {
+				Inputs = {
+					Input = Input { SourceOp = "Line2", Source = "Output", },
+					Center = Input { SourceOp = "Line2RisePath", Source = "Value", },
+				},
+			},
+				MergeLine2Blend = BezierSpline {
+				SplineColor = { Red = 232, Green = 113, Blue = 42 },
+				KeyFrames = {
+					[7] = { 0, RH = { 8.92, 1 } },
+					[19] = { 1, LH = { 10.6, 1 } }
+				}
+			},
+				MergeLine2 = Merge {
+				Inputs = {
+					Background = Input { SourceOp = "MergeLine1", Source = "Output", },
+					Foreground = Input { SourceOp = "Line2Rise", Source = "Output", },
+					Blend = Input { SourceOp = "MergeLine2Blend", Source = "Value", },
+				},
+			}
+			},
+		},
+	},
+	ActiveTool = "Climb_Title"
+}

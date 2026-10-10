@@ -1,0 +1,205 @@
+<title>ClimbUK AAA Demos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;1,800&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one column of demo panels on the brand's Dark Brown ground; each panel compares Today against AAA side by side. */
+:root {
+  color-scheme: dark;
+  --ground: #1E0F05;
+  --card: #242322;
+  --ink: #FFFFFF;
+  --muted: #E9E9E9;
+  --orange: #E8712A;
+  --tint: #F2AE86;
+  --white: #FFFFFF;
+  --grey: #E9E9E9;
+  --charcoal: #242322;
+  --slate: #4D5B7C;
+  --slate-aaa: #404C68;
+  --deep: #8D4419;
+  --rule: rgba(255, 255, 255, .16);
+  --display: Montserrat, Arial, sans-serif;
+  --body: "Open Sans", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; padding-inline: 16px; padding-block: 32px 64px; }
+main { max-width: 1120px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.05; }
+h1 em, h2 em { color: var(--orange); font-style: italic; }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.1; }
+.eyebrow { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--tint); margin: 0 0 8px; }
+.intro { color: var(--muted); max-width: 62ch; margin: 12px 0 0; }
+.rule { width: 56px; height: 4px; background: var(--orange); border: 0; margin: 16px 0 0; }
+section { display: grid; gap: 20px; }
+.lead { color: var(--muted); max-width: 70ch; margin: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { font: 700 14px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid var(--tint); background: transparent; color: var(--tint); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--tint); color: var(--ground); }
+.chip:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--tint); outline-offset: 3px; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+.panel { border-radius: 14px; padding: 24px; min-width: 0; border: 1px solid var(--rule); }
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; background: var(--orange); color: var(--white); }
+.tag.aaa { background: var(--tint); color: var(--ground); }
+.specs { font-size: 13px; font-variant-numeric: tabular-nums; opacity: .85; }
+/* Sample grounds */
+.g-dark { background: var(--ground); color: var(--white); }
+.g-dark .s-eyebrow { color: var(--orange); }
+.g-dark.aaa .s-eyebrow { color: var(--tint); }
+.g-dark a { color: var(--tint); }
+.g-light { background: var(--white); color: var(--slate); }
+.g-light h3 { color: var(--charcoal); }
+.g-light .s-eyebrow { color: #C55308; }
+.g-light a { color: #A94B12; }
+.g-light.aaa { color: var(--slate-aaa); }
+.g-light.aaa .s-eyebrow, .g-light.aaa a { color: var(--deep); }
+.g-light .specs { color: var(--charcoal); }
+.s-eyebrow { font: 700 12px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; }
+.sample h3 { font-size: 1.5rem; line-height: 1.05; margin-bottom: 14px; }
+/* Today: what most body copy does now */
+.today p { font-size: 16px; line-height: 1.35; margin: 0 0 .75em; max-width: none; }
+.today small { font-size: 11px; line-height: 1.2; display: block; }
+/* AAA: WCAG 1.4.8 Visual Presentation */
+.aaa .s-eyebrow { font-size: 14px; }
+.aaa h3 { line-height: 1.25; }
+.aaa p { font-size: 18px; line-height: 1.6; margin: 0 0 1.6em; max-width: 66ch; letter-spacing: .01em; }
+.aaa small { font-size: 15px; line-height: 1.5; display: block; }
+/* E12 demo */
+.viewport { position: relative; height: 380px; overflow-y: auto; border-radius: 14px; background: var(--white); color: var(--slate-aaa); border: 1px solid var(--rule); }
+.viewport.padded { scroll-padding-top: 88px; }
+.site-head { position: sticky; top: 0; z-index: 2; height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; background: var(--ground); color: var(--white); box-shadow: 0 8px 24px rgba(30, 15, 5, .35); }
+.site-head b { font-family: var(--display); font-weight: 800; letter-spacing: -.01em; }
+.site-head span { font: 700 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--tint); }
+.page { padding: 20px 20px 240px; display: grid; gap: 28px; }
+.page h3 { color: var(--charcoal); font-size: 1.25rem; }
+.page p { margin: 6px 0 0; }
+.page a { display: inline-flex; align-items: center; min-height: 44px; color: var(--deep); font-weight: 700; }
+.page a:focus-visible { outline: 3px solid var(--ground); outline-offset: 3px; }
+.page a.hit { outline: 3px solid var(--ground); outline-offset: 3px; }
+.result { min-height: 1.6em; font-weight: 600; color: var(--tint); margin: 0; }
+.legend { color: var(--muted); font-size: 14px; margin: 0; max-width: 70ch; }
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<main>
+  <header>
+    <p class="eyebrow">WCAG 2.2 AAA, items E9 and E12</p>
+    <h1>Two changes to <em>see</em> before you decide</h1>
+    <hr class="rule">
+    <p class="intro">Each demo shows the website today next to the AAA version. Switch the ground to check both light and dark sections.</p>
+  </header>
+
+  <section aria-labelledby="e9-title">
+    <div>
+      <p class="eyebrow">E9 &middot; 1.4.8 Visual presentation</p>
+      <h2 id="e9-title">Line spacing and <em>line length</em></h2>
+    </div>
+    <p class="lead">AAA asks for body text with line spacing of at least 1.5, paragraph gaps at least 1.5 times that, lines under 80 characters, no justified text and no tiny print. Headlines are exempt and keep their tight poster look.</p>
+    <div class="controls" role="group" aria-label="Section ground">
+      <button class="chip" type="button" id="g-dark" aria-pressed="true">Dark ground</button>
+      <button class="chip" type="button" id="g-light" aria-pressed="false">Light ground</button>
+    </div>
+    <div class="pair">
+      <article class="panel sample today g-dark" aria-labelledby="t-today">
+        <div class="panel-head"><span class="tag" id="t-today">Today</span><span class="specs">16px &middot; line 1.35 &middot; gap 0.75em &middot; full width &middot; 11px small print</span></div>
+        <p class="s-eyebrow">For partners</p>
+        <h3>Meet the right people</h3>
+        <p>Climb27 brings growing businesses, investors and the people who back them into one place for two days. Partners get delegate passes, a stage moment and a stand where the conversations happen.</p>
+        <p>Book meetings before you arrive through the event app, then spend the day in rooms built for business. <a href="#e9-title">See partner packages</a></p>
+        <small>Packages are limited and allocated in order of booking.</small>
+      </article>
+      <article class="panel sample aaa g-dark" aria-labelledby="t-aaa">
+        <div class="panel-head"><span class="tag aaa" id="t-aaa">AAA</span><span class="specs">18px &middot; line 1.6 &middot; gap 1.6em &middot; 66 characters max &middot; 15px small print</span></div>
+        <p class="s-eyebrow">For partners</p>
+        <h3>Meet the right people</h3>
+        <p>Climb27 brings growing businesses, investors and the people who back them into one place for two days. Partners get delegate passes, a stage moment and a stand where the conversations happen.</p>
+        <p>Book meetings before you arrive through the event app, then spend the day in rooms built for business. <a href="#e9-title">See partner packages</a></p>
+        <small>Packages are limited and allocated in order of booking.</small>
+      </article>
+    </div>
+    <p class="legend">The AAA block ships as the <b>climb-aaa</b> section class and the <b>aaa-type-*</b> tokens, so it can be switched on per section rather than everywhere.</p>
+  </section>
+
+  <section aria-labelledby="e12-title">
+    <div>
+      <p class="eyebrow">E12 &middot; 2.4.12 Focus not obscured</p>
+      <h2 id="e12-title">Nothing hides under the <em>sticky</em> header</h2>
+    </div>
+    <p class="lead">When someone tabs to a link or follows a jump link, the browser scrolls it to the very top of the window, which is right where the sticky header sits. The fix tells the browser to stop that far below the top. It changes nothing for mouse users scrolling normally.</p>
+    <div class="controls" role="group" aria-label="Header offset">
+      <button class="chip" type="button" id="pad-off" aria-pressed="true">Today</button>
+      <button class="chip" type="button" id="pad-on" aria-pressed="false">With the fix</button>
+    </div>
+    <div class="controls">
+      <button class="chip" type="button" id="jump">Jump to tickets</button>
+      <button class="chip" type="button" id="tab">Tab to the next link</button>
+      <button class="chip" type="button" id="reset">Back to top</button>
+    </div>
+    <p class="result" id="result" role="status" aria-live="polite"></p>
+    <div class="viewport" id="viewport" tabindex="-1" aria-label="Example page with a sticky header">
+      <div class="site-head"><b>ClimbUK</b><span>Sticky header</span></div>
+      <div class="page">
+        <div><h3>Main stage moments</h3><p>Two days of talks from founders who have done it.</p><a href="#">See the lineup</a></div>
+        <div><h3>Find your people</h3><p>Partner meetings, roundtables and the after party.</p><a href="#">Book meetings</a></div>
+        <div id="tickets"><h3>Tickets</h3><p>Early bird prices rise with every release.</p><a href="#">Get your ticket</a></div>
+        <div><h3>Exhibit</h3><p>Stands sell in order of booking.</p><a href="#">See the stands</a></div>
+        <div><h3>Partner</h3><p>Meetings with the right people.</p><a href="#">Partner with ClimbUK</a></div>
+      </div>
+    </div>
+    <p class="legend">In the website this is one line, <b>scroll-padding-top</b> set to the header height, already added to the brand stylesheet.</p>
+  </section>
+
+  <footer>Reply in the thread with E9 yes or no. E12 is in place, and this demo shows what it changes.</footer>
+</main>
+
+<script>
+(function () {
+  var samples = document.querySelectorAll('.sample');
+  function ground(dark) {
+    samples.forEach(function (s) { s.classList.toggle('g-dark', dark); s.classList.toggle('g-light', !dark); });
+    document.getElementById('g-dark').setAttribute('aria-pressed', String(dark));
+    document.getElementById('g-light').setAttribute('aria-pressed', String(!dark));
+  }
+  document.getElementById('g-dark').addEventListener('click', function () { ground(true); });
+  document.getElementById('g-light').addEventListener('click', function () { ground(false); });
+
+  var vp = document.getElementById('viewport');
+  var result = document.getElementById('result');
+  var links = Array.prototype.slice.call(vp.querySelectorAll('.page a'));
+  var idx = -1;
+  links.forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+  function padded(on) {
+    vp.classList.toggle('padded', on);
+    document.getElementById('pad-on').setAttribute('aria-pressed', String(on));
+    document.getElementById('pad-off').setAttribute('aria-pressed', String(!on));
+    vp.scrollTop = 0; idx = -1; result.textContent = '';
+  }
+  function report(el) {
+    var head = vp.querySelector('.site-head').getBoundingClientRect();
+    var r = el.getBoundingClientRect();
+    var hidden = r.top < head.bottom - 2;
+    result.textContent = hidden ? 'Hidden: the header covers it.' : 'Visible: it sits below the header.';
+  }
+  document.getElementById('pad-off').addEventListener('click', function () { padded(false); });
+  document.getElementById('pad-on').addEventListener('click', function () { padded(true); });
+  document.getElementById('jump').addEventListener('click', function () {
+    var t = document.getElementById('tickets');
+    t.scrollIntoView({ block: 'start' });
+    setTimeout(function () { report(t.querySelector('h3')); }, 60);
+  });
+  document.getElementById('tab').addEventListener('click', function () {
+    links.forEach(function (a) { a.classList.remove('hit'); });
+    idx = (idx + 1) % links.length;
+    var a = links[idx];
+    a.classList.add('hit');
+    var top = a.offsetTop - (vp.classList.contains('padded') ? 88 : 0);
+    var view = vp.scrollTop;
+    if (a.offsetTop < view + (vp.classList.contains('padded') ? 88 : 0) || a.offsetTop + a.offsetHeight > view + vp.clientHeight) { vp.scrollTop = top; }
+    else if (idx === 0) { vp.scrollTop = top; }
+    setTimeout(function () { report(a); }, 60);
+  });
+  document.getElementById('reset').addEventListener('click', function () { vp.scrollTop = 0; idx = -1; result.textContent = ''; links.forEach(function (a) { a.classList.remove('hit'); }); });
+})();
+</script>

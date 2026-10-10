@@ -1,0 +1,9 @@
+# Build intermediates
+_art/
+_preview/
+_video_tmp/
+prev_*/
+# Motion clips ship as a release download (see video/README.md)
+video/_shared/motion/
+video/*/motion/
+__pycache__/

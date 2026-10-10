@@ -1,0 +1,14 @@
+1
+00:00:01,000 --> 00:00:03,600
+Captions sit at the bottom of the frame,
+two lines at most.
+
+2
+00:00:03,800 --> 00:00:06,400
+Open Sans Semibold, White,
+on a Dark Brown box at 70 percent.
+
+3
+00:00:06,600 --> 00:00:09,000
+No more than 42 characters a line,
+and never words the speaker did not say.

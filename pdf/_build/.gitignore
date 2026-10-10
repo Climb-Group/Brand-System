@@ -1,0 +1,5 @@
+assets/
+*.html
+motifs.py
+__pycache__/
+png/

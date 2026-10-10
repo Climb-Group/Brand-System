@@ -1,0 +1,103 @@
+<!-- 44px variant (WCAG 2.2 AAA 2.5.5 target size): social icons at 44 by 44 for touch screens. The 24px version stays the default for dense layouts. -->
+<!--
+  ClimbUK email signature, Climb27 campaign version. Vendor neutral: paste the table below into any signature
+  tool or mail client that accepts HTML, and map the placeholders to that tool's own fields.
+
+  Placeholders
+    {Name} {Role} {Phone} {Mobile} {Email}      per person
+    {Booking link}                              the person's meeting booking page
+    {Facebook URL} {X URL} {Bluesky URL} {Instagram URL} {LinkedIn URL}
+    {Campaign link}                             the page the banner points at this month
+    {Hosted URL}                                where the image files are served, for example
+                                                https://www.climb-uk.com/climb_website_brand/static/src/img/signature
+  Drop the T: or M: part when a person has no such number.
+
+  Images (all @2x, shown at half their pixel size so they stay sharp on high density screens)
+    Wordmark   logo_climbuk_full-colour-light@2x.png (light) and logo_climbuk_reversed-dark@2x.png (dark), 140 wide
+    Icons      icon_<name>_orange_outline@2x.png, 24x24. Other colours: _charcoal_outline, _white_outline
+    Banner     <brand>_email-banner_<key>_1440x410.jpg from the asset catalogue, shown 720x205.
+               Swap the file and {Campaign link} together for each campaign; the alt text is the banner headline.
+
+  Colour choice (light first, dark override)
+    Most clients show a signature on White, so the inline colours are preset 1: name and headings Charcoal
+    #242322, body text Body Slate #4A5878 (7.1:1 on White), links #8D4419 underlined (7.06:1 on White).
+    Climb Orange #E8712A is too light for small text on White (3.1:1), so it is used only for the outline icons
+    (3.1:1 on White, 5.1:1 on Charcoal: passes the 3:1 rule for graphics on both).
+    Clients that honour the dark colour scheme get the style block below: body text Light Grey #E9E9E9, name
+    White, links Climb Orange #E8712A (5.1:1 on Charcoal), and the reversed wordmark. Clients that ignore it and
+    invert colours on their own still get readable text, because every inline pair is a plain dark on light pair.
+
+  Text is live text, never an image. Fonts fall back to Arial where Montserrat and Open Sans are not installed.
+-->
+<style>
+  @media (prefers-color-scheme: dark) {
+    .sig-text { color: #E9E9E9 !important; }
+    .sig-name { color: #FFFFFF !important; }
+    .sig-link { color: #E8712A !important; }
+    .sig-muted { color: #E9E9E9 !important; }
+    .sig-logo-light { display: none !important; }
+    .sig-logo-dark { display: block !important; max-height: none !important; overflow: visible !important; }
+  }
+  @media screen and (max-width: 600px) {
+    .sig-col { display: block !important; width: 100% !important; text-align: left !important; padding: 0 0 12px 0 !important; }
+    .sig-right { float: none !important; }
+    .sig-banner { width: 100% !important; height: auto !important; }
+  }
+</style>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;width:100%;max-width:720px;">
+  <tr>
+    <td style="padding:0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;width:100%;">
+        <tr>
+          <!-- Left column: sign-off, name, role, booking link, numbers, email and website -->
+          <td class="sig-col" valign="top" style="padding:0 16px 0 0;vertical-align:top;">
+            <p class="sig-text" style="margin:0 0 14px 0;font-family:'Open Sans',Arial,sans-serif;font-size:14px;line-height:1.5;color:#4A5878;">Kind regards,</p>
+            <p class="sig-name" style="margin:0 0 2px 0;font-family:Montserrat,Arial,sans-serif;font-weight:700;font-size:16px;line-height:1.3;color:#242322;">{Name}</p>
+            <p class="sig-text" style="margin:0 0 6px 0;font-family:'Open Sans',Arial,sans-serif;font-size:13px;line-height:1.5;color:#4A5878;">{Role}</p>
+            <p style="margin:0 0 8px 0;font-family:'Open Sans',Arial,sans-serif;font-size:13px;line-height:1.5;"><a class="sig-link" href="{Booking link}" style="color:#8D4419;font-weight:600;text-decoration:underline;">Book a meeting with me</a></p>
+            <p class="sig-text" style="margin:0;font-family:'Open Sans',Arial,sans-serif;font-size:13px;line-height:1.6;color:#4A5878;">
+              <span class="sig-name" style="font-weight:700;color:#242322;">T:</span> <a class="sig-text" href="tel:{Phone}" style="color:#4A5878;text-decoration:none;">{Phone}</a>&nbsp;&nbsp;
+              <span class="sig-name" style="font-weight:700;color:#242322;">M:</span> <a class="sig-text" href="tel:{Mobile}" style="color:#4A5878;text-decoration:none;">{Mobile}</a><br>
+              <a class="sig-link" href="mailto:{Email}" style="color:#8D4419;text-decoration:underline;">{Email}</a>&nbsp;|&nbsp;<a class="sig-link" href="https://www.climb-uk.com" style="color:#8D4419;text-decoration:underline;">climb-uk.com</a>
+            </p>
+          </td>
+          <!-- Right column: wordmark, then the outline icon row -->
+          <td class="sig-col" valign="bottom" align="right" width="244" style="padding:0;vertical-align:bottom;text-align:right;width:244px;">
+            <table class="sig-right" role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="border-collapse:collapse;">
+              <tr>
+                <td colspan="5" style="padding:0 0 10px 0;">
+                  <a href="https://www.climb-uk.com"><img class="sig-logo-light" src="{Hosted URL}/logo_climbuk_full-colour-light@2x.png" width="140" height="26" alt="ClimbUK" style="display:block;width:140px;height:26px;border:0;"><img class="sig-logo-dark" src="{Hosted URL}/logo_climbuk_reversed-dark@2x.png" width="140" height="26" alt="ClimbUK" style="display:none;width:140px;height:26px;max-height:0;overflow:hidden;border:0;"></a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0 6px 0 0;"><a href="{Facebook URL}"><img src="{Hosted URL}/icon_facebook_orange_outline@3x.png" width="44" height="44" alt="ClimbUK on Facebook" style="display:block;border:0;"></a></td>
+                <td style="padding:0 6px 0 0;"><a href="{X URL}"><img src="{Hosted URL}/icon_x_orange_outline@3x.png" width="44" height="44" alt="ClimbUK on X" style="display:block;border:0;"></a></td>
+                <td style="padding:0 6px 0 0;"><a href="{Bluesky URL}"><img src="{Hosted URL}/icon_bluesky_orange_outline@3x.png" width="44" height="44" alt="ClimbUK on Bluesky" style="display:block;border:0;"></a></td>
+                <td style="padding:0 6px 0 0;"><a href="{Instagram URL}"><img src="{Hosted URL}/icon_instagram_orange_outline@3x.png" width="44" height="44" alt="ClimbUK on Instagram" style="display:block;border:0;"></a></td>
+                <td style="padding:0;"><a href="{LinkedIn URL}"><img src="{Hosted URL}/icon_linkedin_orange_outline@3x.png" width="44" height="44" alt="ClimbUK on LinkedIn" style="display:block;border:0;"></a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <!-- Notice line -->
+    <td class="sig-text" style="padding:14px 0 12px 0;font-family:'Open Sans',Arial,sans-serif;font-style:italic;font-size:13px;line-height:1.5;color:#4A5878;">
+      To help us respond quickly, non-sales enquiries go through our Helpdesk before email. For partnerships, email <a class="sig-link" href="mailto:partners@climb-uk.com" style="color:#8D4419;text-decoration:underline;white-space:nowrap;">partners@climb-uk.com</a>; for exhibiting, <a class="sig-link" href="mailto:exhibitors@climb-uk.com" style="color:#8D4419;text-decoration:underline;white-space:nowrap;">exhibitors@climb-uk.com</a>.
+    </td>
+  </tr>
+  <tr>
+    <!-- Campaign banner: 1440x410 file shown at 720x205 -->
+    <td style="padding:0;">
+      <a href="{Campaign link}"><img class="sig-banner" src="{Hosted URL}/climb27_email-banner_bigger-stage-dark_1440x410.jpg" width="720" height="205" alt="Your business. Bigger stage. Climb27, 30 June and 1 July 2027." style="display:block;width:100%;max-width:720px;height:auto;border:0;"></a>
+    </td>
+  </tr>
+  <tr>
+    <!-- Confidentiality line -->
+    <td class="sig-muted" style="padding:10px 0 0 0;font-family:'Open Sans',Arial,sans-serif;font-size:13px;line-height:1.5;color:#4A5878;">
+      This email and any attachments are confidential and meant only for the person they are addressed to. If it reached you by mistake, please tell the sender and delete it.
+    </td>
+  </tr>
+</table>

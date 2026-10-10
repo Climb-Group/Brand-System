@@ -1,0 +1,108 @@
+/* ClimbUK brand PDFs: shared styles. Values follow brand.tokens.json. */
+@font-face{font-family:Montserrat;font-weight:600;src:url(assets/fonts/montserrat-latin-600-normal.woff2)}
+@font-face{font-family:Montserrat;font-weight:700;src:url(assets/fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:Montserrat;font-weight:800;src:url(assets/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:Montserrat;font-weight:700;font-style:italic;src:url(assets/fonts/montserrat-latin-700-italic.woff2)}
+@font-face{font-family:Montserrat;font-weight:800;font-style:italic;src:url(assets/fonts/montserrat-latin-800-italic.woff2)}
+@font-face{font-family:'Open Sans';font-weight:400;src:url(assets/fonts/open-sans-latin-400-normal.woff2)}
+@font-face{font-family:'Open Sans';font-weight:600;src:url(assets/fonts/open-sans-latin-600-normal.woff2)}
+@font-face{font-family:'Open Sans';font-weight:600;font-style:italic;src:url(assets/fonts/open-sans-latin-600-italic.woff2)}
+@font-face{font-family:'Open Sans';font-weight:700;src:url(assets/fonts/open-sans-latin-700-normal.woff2)}
+
+:root{
+  --o:#E8712A; --ot:#C55308; --tint:#F2AE86; --deep:#8D4419; --db:#1E0F05; --ch:#242322;
+  --lg:#E9E9E9; --slate:#4A5878; --w:#FFFFFF;
+  --ink:30,15,5; --or:232,113,42;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--db)}
+body{font-family:'Open Sans',Arial,sans-serif;color:var(--w);-webkit-print-color-adjust:exact;print-color-adjust:exact;
+  font-kerning:normal;text-rendering:geometricPrecision}
+img{display:block}
+
+/* ---------- type ---------- */
+.h{font-family:Montserrat,Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:.95;letter-spacing:-.018em;color:var(--w)}
+.h em,.h i{font-style:italic}
+.o{color:var(--o)}
+.tint{color:var(--tint)}
+.bar{background:var(--o);color:var(--w);padding:0 .14em;margin:0 -.04em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.eb{font-family:Montserrat;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--tint);display:flex;align-items:center;gap:.9em}
+.eb::before{content:"";flex:none;width:2.9em;height:.27em;border-radius:.14em;background:var(--o)}
+.eb.plain::before{display:none}
+.mont{font-family:Montserrat}
+
+/* ---------- festival devices ---------- */
+.sticker{display:inline-block;font-family:Montserrat;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+  background:var(--o);color:var(--db);border-radius:10px;padding:.32em .7em .3em;transform:rotate(-4deg);
+  box-shadow:0 10px 26px rgba(0,0,0,.35);white-space:nowrap}
+.sticker.dark{background:var(--db);color:var(--w)}
+.sticker.white{background:var(--w);color:var(--db)}
+.tag{display:inline-block;font-family:Montserrat;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  border:2px solid currentColor;border-radius:999px;padding:.35em .9em}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:Montserrat;font-weight:700;border-radius:999px;
+  background:var(--o);color:var(--w);padding:.7em 1.4em;white-space:nowrap;box-shadow:0 12px 34px rgba(var(--or),.42)}
+.btn.ghost{background:transparent;border:3px solid var(--w);box-shadow:none}
+.btn.brown{background:var(--db);box-shadow:none}
+.rule{width:96px;height:9px;border-radius:5px;background:var(--o)}
+.ticket{position:relative;background:rgba(36,35,34,.92);border:1.5px solid rgba(255,255,255,.14);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.45),0 0 0 6px rgba(var(--or),.18)}
+.ticket .notch{position:absolute;width:44px;height:44px;border-radius:50%;background:var(--db)}
+.ticket .tear{position:relative;border-top:3px dashed rgba(255,255,255,.22)}
+
+/* ---------- slides ---------- */
+.s{width:1920px;height:1080px;position:relative;overflow:hidden;break-after:page;page-break-after:always;background:var(--db)}
+.s:last-child{break-after:auto;page-break-after:auto}
+.s.ch{background:var(--ch)}
+.s.or{background:var(--o)}
+.s.wh{background:var(--w);color:var(--slate)}
+.s.gr{background:var(--lg);color:#404C68}
+.s.wh .h,.s.gr .h{color:var(--ch)}
+.s.wh .eb{color:var(--deep)} .s.gr .eb{color:#7A3B16}
+.s.or .eb{color:var(--db)} .s.or .eb::before{background:var(--db)}
+.layer{position:absolute;inset:0}
+.ph{position:absolute;inset:0;background-size:cover;background-position:center}
+.glow{position:absolute;inset:0;background:radial-gradient(1150px 640px at 94% 112%,rgba(var(--or),.55),rgba(var(--or),0) 64%)}
+.glow.tl{background:radial-gradient(900px 560px at 4% -8%,rgba(var(--or),.42),rgba(var(--or),0) 64%)}
+.glow.white{background:radial-gradient(900px 520px at 6% -6%,rgba(255,255,255,.26),rgba(255,255,255,0) 62%),radial-gradient(900px 600px at 100% 110%,rgba(var(--ink),.28),rgba(var(--ink),0) 64%)}
+.fade-hero{background:linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),.15) 40%,rgba(var(--ink),.97)),
+  linear-gradient(100deg,rgba(var(--ink),.94),rgba(var(--ink),.72) 45%,rgba(var(--ink),.25)),
+  radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.28),rgba(var(--or),0) 60%)}
+.fade-brown{background:linear-gradient(90deg,rgba(var(--ink),.9),rgba(var(--ink),.6) 55%,rgba(var(--ink),.45)),
+  linear-gradient(180deg,rgba(var(--ink),.5),rgba(var(--ink),.2) 50%,rgba(var(--ink),1))}
+.fade-brown-r{background:linear-gradient(270deg,rgba(var(--ink),.92),rgba(var(--ink),.62) 55%,rgba(var(--ink),.4)),
+  linear-gradient(180deg,rgba(var(--ink),.45),rgba(var(--ink),.15) 50%,rgba(var(--ink),.95))}
+.fade-heat{background:linear-gradient(90deg,rgba(var(--ink),.92),rgba(var(--ink),.7) 45%,rgba(var(--or),.35)),
+  radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.55),rgba(var(--or),0) 60%),
+  linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%,rgba(var(--ink),.7))}
+.fade-orange{background:linear-gradient(90deg,rgba(var(--or),.97),rgba(var(--or),.9) 50%,rgba(var(--or),.5)),
+  radial-gradient(640px 320px at 10% 0%,rgba(255,255,255,.2),rgba(255,255,255,0) 60%)}
+.fade-card{background:linear-gradient(180deg,rgba(var(--ink),.88),rgba(var(--ink),.55) 30%,rgba(var(--ink),.38) 50%,rgba(var(--ink),.94))}
+.fade-bottom{background:linear-gradient(180deg,rgba(var(--ink),.1) 0%,rgba(var(--ink),.25) 30%,rgba(var(--ink),.88) 56%,rgba(var(--ink),.97) 72%)}
+
+.pad{position:absolute;left:120px;right:120px;top:100px;bottom:120px}
+.foot{position:absolute;left:120px;right:120px;bottom:46px;display:flex;align-items:center;justify-content:space-between;
+  font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.foot img{height:30px}
+.foot .pg{display:flex;gap:22px;align-items:center}
+.foot .pg b{color:var(--o)}
+.s.wh .foot,.s.gr .foot{color:#595959}
+.s.wh .foot .pg b,.s.gr .foot .pg b{color:var(--deep)}
+.s.or .foot{color:var(--db)} .s.or .foot .pg b{color:var(--db)}
+
+.lead{font-size:31px;line-height:1.45;color:var(--w)}
+.copy{font-size:24px;line-height:1.55;color:var(--lg)}
+.s.wh .copy,.s.gr .copy,.s.wh .lead,.s.gr .lead{color:inherit}
+.copy b,.lead b{color:var(--w);font-weight:700}
+.s.wh .copy b,.s.gr .copy b{color:var(--ch)}
+.small{font-size:20px;line-height:1.5;color:rgba(255,255,255,.78)}
+.s.wh .small{color:#555}
+.card{background:var(--ch);border-radius:14px;border:1.5px solid rgba(255,255,255,.08)}
+.s.ch .card{background:#2f2d2b}
+.s.wh .card{background:#fff;border:0;box-shadow:0 4px 12px rgba(var(--ink),.1),0 2px 4px rgba(var(--ink),.06)}
+.grid{display:grid;gap:28px}
+.num{font-family:Montserrat;font-weight:800;color:var(--o);line-height:1}
+.list{list-style:none}
+.list li{position:relative;padding-left:42px;margin-bottom:16px}
+.list li::before{content:"";position:absolute;left:0;top:.42em;width:16px;height:16px;border-right:5px solid var(--o);border-top:5px solid var(--o);transform:rotate(45deg) translate(-3px,3px)}
+.list.no li::before{border:0;content:"\00D7";transform:none;top:-.18em;left:2px;width:auto;height:auto;color:var(--o);font:800 1.4em/1 Montserrat}
+.chev{display:inline-block;width:.5em;height:.5em;border-right:.14em solid var(--o);border-top:.14em solid var(--o);transform:rotate(45deg);margin:0 .3em .08em 0}

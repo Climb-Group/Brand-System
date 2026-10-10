@@ -1,0 +1,34 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tokens meet their contrast pairs and generated files are current
+        run: python3 tokens/build_tokens.py --check
+      - name: Token tests
+        run: python3 -m unittest discover -s tokens/tests
+      - name: AI kit tests
+        run: python3 -m unittest discover -s ai/tests
+      - name: Copy checker passes good copy and fails banned copy
+        run: |
+          echo "Get your Climb27 ticket" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -
+          if echo "Guaranteed meetings with 50+ investors!" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -; then
+            echo "The checker let banned copy through"; exit 1
+          fi
+      - name: No em or en dashes in text files
+        run: python3 tools/check_dashes.py

@@ -1,0 +1,782 @@
+[
+  {
+    "file": "icon_linkedin_orange_circle",
+    "label": "LinkedIn",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_linkedin_orange_square",
+    "label": "LinkedIn",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_linkedin_dark_circle",
+    "label": "LinkedIn",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_linkedin_dark_square",
+    "label": "LinkedIn",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_linkedin_charcoal_circle",
+    "label": "LinkedIn",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_linkedin_charcoal_square",
+    "label": "LinkedIn",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_linkedin_mono-dark",
+    "label": "LinkedIn",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_linkedin_mono-white",
+    "label": "LinkedIn",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_instagram_orange_circle",
+    "label": "Instagram",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_instagram_orange_square",
+    "label": "Instagram",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_instagram_dark_circle",
+    "label": "Instagram",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_instagram_dark_square",
+    "label": "Instagram",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_instagram_charcoal_circle",
+    "label": "Instagram",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_instagram_charcoal_square",
+    "label": "Instagram",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_instagram_mono-dark",
+    "label": "Instagram",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_instagram_mono-white",
+    "label": "Instagram",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_tiktok_orange_circle",
+    "label": "TikTok",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tiktok_orange_square",
+    "label": "TikTok",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tiktok_dark_circle",
+    "label": "TikTok",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tiktok_dark_square",
+    "label": "TikTok",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tiktok_charcoal_circle",
+    "label": "TikTok",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tiktok_charcoal_square",
+    "label": "TikTok",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tiktok_mono-dark",
+    "label": "TikTok",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_tiktok_mono-white",
+    "label": "TikTok",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_x_orange_circle",
+    "label": "X",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_x_orange_square",
+    "label": "X",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_x_dark_circle",
+    "label": "X",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_x_dark_square",
+    "label": "X",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_x_charcoal_circle",
+    "label": "X",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_x_charcoal_square",
+    "label": "X",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_x_mono-dark",
+    "label": "X",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_x_mono-white",
+    "label": "X",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_facebook_orange_circle",
+    "label": "Facebook",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_facebook_orange_square",
+    "label": "Facebook",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_facebook_dark_circle",
+    "label": "Facebook",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_facebook_dark_square",
+    "label": "Facebook",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_facebook_charcoal_circle",
+    "label": "Facebook",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_facebook_charcoal_square",
+    "label": "Facebook",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_facebook_mono-dark",
+    "label": "Facebook",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_facebook_mono-white",
+    "label": "Facebook",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_youtube_orange_circle",
+    "label": "YouTube",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_youtube_orange_square",
+    "label": "YouTube",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_youtube_dark_circle",
+    "label": "YouTube",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_youtube_dark_square",
+    "label": "YouTube",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_youtube_charcoal_circle",
+    "label": "YouTube",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_youtube_charcoal_square",
+    "label": "YouTube",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_youtube_mono-dark",
+    "label": "YouTube",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_youtube_mono-white",
+    "label": "YouTube",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_website_orange_circle",
+    "label": "Website",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_website_orange_square",
+    "label": "Website",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_website_dark_circle",
+    "label": "Website",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_website_dark_square",
+    "label": "Website",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_website_charcoal_circle",
+    "label": "Website",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_website_charcoal_square",
+    "label": "Website",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_website_mono-dark",
+    "label": "Website",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_website_mono-white",
+    "label": "Website",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_email_orange_circle",
+    "label": "Email",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_email_orange_square",
+    "label": "Email",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_email_dark_circle",
+    "label": "Email",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_email_dark_square",
+    "label": "Email",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_email_charcoal_circle",
+    "label": "Email",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_email_charcoal_square",
+    "label": "Email",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_email_mono-dark",
+    "label": "Email",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_email_mono-white",
+    "label": "Email",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_phone_orange_circle",
+    "label": "Phone",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_phone_orange_square",
+    "label": "Phone",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_phone_dark_circle",
+    "label": "Phone",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_phone_dark_square",
+    "label": "Phone",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_phone_charcoal_circle",
+    "label": "Phone",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_phone_charcoal_square",
+    "label": "Phone",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_phone_mono-dark",
+    "label": "Phone",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_phone_mono-white",
+    "label": "Phone",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_book_orange_circle",
+    "label": "Book a meeting",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_book_orange_square",
+    "label": "Book a meeting",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_book_dark_circle",
+    "label": "Book a meeting",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_book_dark_square",
+    "label": "Book a meeting",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_book_charcoal_circle",
+    "label": "Book a meeting",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_book_charcoal_square",
+    "label": "Book a meeting",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_book_mono-dark",
+    "label": "Book a meeting",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_book_mono-white",
+    "label": "Book a meeting",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_tickets_orange_circle",
+    "label": "Tickets",
+    "scheme": "orange",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tickets_orange_square",
+    "label": "Tickets",
+    "scheme": "orange",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tickets_dark_circle",
+    "label": "Tickets",
+    "scheme": "dark",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tickets_dark_square",
+    "label": "Tickets",
+    "scheme": "dark",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tickets_charcoal_circle",
+    "label": "Tickets",
+    "scheme": "charcoal",
+    "shape": "circle"
+  },
+  {
+    "file": "icon_tickets_charcoal_square",
+    "label": "Tickets",
+    "scheme": "charcoal",
+    "shape": "square"
+  },
+  {
+    "file": "icon_tickets_mono-dark",
+    "label": "Tickets",
+    "scheme": "mono-dark",
+    "shape": "plain"
+  },
+  {
+    "file": "icon_tickets_mono-white",
+    "label": "Tickets",
+    "scheme": "mono-white",
+    "shape": "plain"
+  },
+  {
+    "file": "button_tickets_orange",
+    "label": "Get your Climb27 ticket",
+    "scheme": "orange",
+    "shape": "pill"
+  },
+  {
+    "file": "button_tickets_dark",
+    "label": "Get your Climb27 ticket",
+    "scheme": "dark",
+    "shape": "pill"
+  },
+  {
+    "file": "button_meeting_orange",
+    "label": "Book a meeting with me",
+    "scheme": "orange",
+    "shape": "pill"
+  },
+  {
+    "file": "button_meeting_dark",
+    "label": "Book a meeting with me",
+    "scheme": "dark",
+    "shape": "pill"
+  },
+  {
+    "file": "button_partner_orange",
+    "label": "Partner with ClimbUK",
+    "scheme": "orange",
+    "shape": "pill"
+  },
+  {
+    "file": "button_partner_dark",
+    "label": "Partner with ClimbUK",
+    "scheme": "dark",
+    "shape": "pill"
+  },
+  {
+    "file": "button_see-you_orange",
+    "label": "See you at Climb27",
+    "scheme": "orange",
+    "shape": "pill"
+  },
+  {
+    "file": "button_see-you_dark",
+    "label": "See you at Climb27",
+    "scheme": "dark",
+    "shape": "pill"
+  },
+  {
+    "file": "sticker_climb27-dates",
+    "label": "Climb27, 30 June and 1 July 2027",
+    "scheme": "orange",
+    "shape": "sticker"
+  },
+  {
+    "file": "icon_facebook_orange_outline",
+    "label": "Facebook",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_facebook_white_outline",
+    "label": "Facebook",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_facebook_charcoal_outline",
+    "label": "Facebook",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_x_orange_outline",
+    "label": "X",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_x_white_outline",
+    "label": "X",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_x_charcoal_outline",
+    "label": "X",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_bluesky_orange_outline",
+    "label": "Bluesky",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_bluesky_white_outline",
+    "label": "Bluesky",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_bluesky_charcoal_outline",
+    "label": "Bluesky",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_instagram_orange_outline",
+    "label": "Instagram",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_instagram_white_outline",
+    "label": "Instagram",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_instagram_charcoal_outline",
+    "label": "Instagram",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_linkedin_orange_outline",
+    "label": "LinkedIn",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_linkedin_white_outline",
+    "label": "LinkedIn",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_linkedin_charcoal_outline",
+    "label": "LinkedIn",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_tiktok_orange_outline",
+    "label": "TikTok",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_tiktok_white_outline",
+    "label": "TikTok",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_tiktok_charcoal_outline",
+    "label": "TikTok",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_youtube_orange_outline",
+    "label": "YouTube",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_youtube_white_outline",
+    "label": "YouTube",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_youtube_charcoal_outline",
+    "label": "YouTube",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_email_orange_outline",
+    "label": "Email",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_email_white_outline",
+    "label": "Email",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_email_charcoal_outline",
+    "label": "Email",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_phone_orange_outline",
+    "label": "Phone",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_phone_white_outline",
+    "label": "Phone",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_phone_charcoal_outline",
+    "label": "Phone",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_website_orange_outline",
+    "label": "Website",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_website_white_outline",
+    "label": "Website",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_website_charcoal_outline",
+    "label": "Website",
+    "scheme": "charcoal",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_book_orange_outline",
+    "label": "Book a meeting",
+    "scheme": "orange",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_book_white_outline",
+    "label": "Book a meeting",
+    "scheme": "white",
+    "shape": "outline"
+  },
+  {
+    "file": "icon_book_charcoal_outline",
+    "label": "Book a meeting",
+    "scheme": "charcoal",
+    "shape": "outline"
+  }
+]

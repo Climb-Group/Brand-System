@@ -1,0 +1,212 @@
+[
+ {
+  "name": "Presets",
+  "group": "Foundations",
+  "subtitle": "The five grounds, each with its own text, link and button colours",
+  "id": "Presets"
+ },
+ {
+  "name": "Headline",
+  "group": "Foundations",
+  "subtitle": "Uppercase display lines with one orange word and one italic word",
+  "id": "Headline"
+ },
+ {
+  "name": "Button",
+  "group": "Actions",
+  "subtitle": "Pill buttons with a spring hover, one primary per view, and the pull link",
+  "id": "Button"
+ },
+ {
+  "name": "Eyebrow",
+  "group": "Foundations",
+  "subtitle": "Small uppercase labels and the orange rule",
+  "id": "Eyebrow"
+ },
+ {
+  "name": "Sticker",
+  "group": "Festival devices",
+  "subtitle": "Tilted stickers that pin to a card or photo corner",
+  "id": "Sticker"
+ },
+ {
+  "name": "Tags",
+  "group": "Festival devices",
+  "subtitle": "Outlined tags for formats and topics, and the live label",
+  "id": "Tags"
+ },
+ {
+  "name": "Ticket card",
+  "group": "Selling",
+  "subtitle": "The glass ticket with stub notches, highlighted and on orange",
+  "id": "TicketCard"
+ },
+ {
+  "name": "Offer cards",
+  "group": "Selling",
+  "subtitle": "Ticket offers: the pick, the rest, and a closed release",
+  "id": "OfferCards"
+ },
+ {
+  "name": "Release ladder",
+  "group": "Selling",
+  "subtitle": "Price releases as rising steps: past, now and next",
+  "id": "ReleaseLadder"
+ },
+ {
+  "name": "Stand cards",
+  "group": "Selling",
+  "subtitle": "Exhibition stands with an outlined floor plan and stock",
+  "id": "StandCards"
+ },
+ {
+  "name": "Group offer",
+  "group": "Selling",
+  "subtitle": "The orange band for teams and groups",
+  "id": "GroupOffer"
+ },
+ {
+  "name": "Moment card",
+  "group": "Cards",
+  "subtitle": "Photo cards for the big moments",
+  "id": "MomentCard"
+ },
+ {
+  "name": "Audience card",
+  "group": "Cards",
+  "subtitle": "Photo cards that route each audience to its page",
+  "id": "AudienceCard"
+ },
+ {
+  "name": "Quote",
+  "group": "Cards",
+  "subtitle": "Testimonials from named, real people",
+  "id": "Quote"
+ },
+ {
+  "name": "Lineup",
+  "group": "Cards",
+  "subtitle": "A festival poster lineup of names in three sizes",
+  "id": "Lineup"
+ },
+ {
+  "name": "Photo fade",
+  "group": "Sections",
+  "subtitle": "Brown, Heat and Orange fades over Climb26 photos",
+  "id": "PhotoFade"
+ },
+ {
+  "name": "Hero",
+  "group": "Sections",
+  "subtitle": "Full-bleed stage photo with the poster line",
+  "id": "Hero"
+ },
+ {
+  "name": "Hero with ticket",
+  "group": "Sections",
+  "subtitle": "The hero with a glass ticket to pick up",
+  "id": "HeroWithTicket"
+ },
+ {
+  "name": "Moments",
+  "group": "Sections",
+  "subtitle": "Statement, lead and three moment cards",
+  "id": "Moments"
+ },
+ {
+  "name": "Photo wall",
+  "group": "Sections",
+  "subtitle": "A mosaic of Climb26 photos and two quotes",
+  "id": "PhotoWall"
+ },
+ {
+  "name": "Ticket band",
+  "group": "Sections",
+  "subtitle": "Climb Orange band with a Dark Brown ticket",
+  "id": "TicketBand"
+ },
+ {
+  "name": "Tickets",
+  "group": "Sections",
+  "subtitle": "Offers, the release ladder, the group offer and the pull link",
+  "id": "Tickets"
+ },
+ {
+  "name": "Ticket ladder section",
+  "group": "Sections",
+  "subtitle": "The release ladder on its own",
+  "id": "TicketLadderSection"
+ },
+ {
+  "name": "Stands",
+  "group": "Sections",
+  "subtitle": "Exhibition stands with plans and stock",
+  "id": "Stands"
+ },
+ {
+  "name": "Speaker lineup",
+  "group": "Sections",
+  "subtitle": "Apply to speak, with the poster lineup",
+  "id": "SpeakerLineup"
+ },
+ {
+  "name": "Logo marquee",
+  "group": "Sections",
+  "subtitle": "Rows of partner logos drifting past",
+  "id": "LogoMarquee"
+ },
+ {
+  "name": "Audience chooser",
+  "group": "Sections",
+  "subtitle": "Four audience cards on Charcoal",
+  "id": "AudienceChooser"
+ },
+ {
+  "name": "Moment",
+  "group": "Sections",
+  "subtitle": "A big photo with a sticker and one line",
+  "id": "Moment"
+ },
+ {
+  "name": "Close",
+  "group": "Sections",
+  "subtitle": "Climb Orange close with the last question",
+  "id": "Close"
+ },
+ {
+  "name": "Divider",
+  "group": "Sections",
+  "subtitle": "Rising chevrons between two sections",
+  "id": "Divider"
+ },
+ {
+  "name": "Logo",
+  "group": "Brand",
+  "subtitle": "The right logo for the theme: reversed on dark, full colour on light",
+  "id": "Logo"
+ },
+ {
+  "name": "Social icons",
+  "group": "Brand",
+  "subtitle": "Round icon buttons for socials and contact",
+  "id": "SocialIcons"
+ },
+ {
+  "name": "Email signature",
+  "group": "Brand",
+  "subtitle": "The full signature block: contact, logo and icons, notice, photo banner, legal line",
+  "id": "EmailSignature"
+ },
+ {
+  "name": "Elevation",
+  "group": "Foundations",
+  "subtitle": "Shadows and glows from flat to floating",
+  "id": "Elevation"
+ },
+ {
+  "name": "Motion",
+  "group": "Foundations",
+  "subtitle": "Rise, spring and the marquee drift",
+  "id": "Motion"
+ }
+]
