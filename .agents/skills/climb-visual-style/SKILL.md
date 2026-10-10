@@ -118,6 +118,6 @@ See `references/elements.md` for how each motif is built and scaled.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
-- On a sales page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
+- On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.
