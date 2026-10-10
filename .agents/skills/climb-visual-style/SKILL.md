@@ -45,10 +45,10 @@ The baseline is WCAG 2.2 AA, with AAA wherever it is small and easy. Every colou
 
 ## Graphic language
 
-The motifs all come from the idea of climbing and of a stage. Use one motif family per piece, in Climb Orange or as a tone of the ground (for example white at 8 to 16 percent opacity on Dark Brown). Motifs are decoration: never put meaning only in a motif, and keep text off busy pattern areas.
+The motifs all come from the Investor Ladder (a business climbing rung by rung to its next investor) and from the stage, never from sport climbing or mountains. Use one motif family per piece, in Climb Orange or as a tone of the ground (for example white at 8 to 16 percent opacity on Dark Brown). Motifs are decoration: never put meaning only in a motif, and keep text off busy pattern areas.
 
-- **The Ascent.** Rising steps and stacked chevrons that read as upward progress. Use as dividers, corner marks, progress bars, frame edges.
-- **Contours.** Topographic contour lines, as on a climbing map. Use as large, quiet background fields on dark grounds, on merch and on wall graphics.
+- **The Ascent.** Rising steps and stacked chevrons: the rungs of the Investor Ladder, read as upward progress. Use as dividers, corner marks, progress bars, frame edges.
+- **Contours.** Flowing contour rings spreading out from one point, like growth moving out from a business at the centre. Never drawn as a map or a mountain. Use as large, quiet background fields on dark grounds, on merch and on wall graphics.
 - **Stage Light.** Soft beams and glows of Climb Orange and Orange Tint cutting across a dark ground. Use for Main Stage Moments, screens, video and hero images.
 - **Connections.** Dots joined by fine lines, people finding each other. Use for Find Your People, networking, partner and audience pieces.
 - **Highlight bar.** A solid Climb Orange bar behind or under one word of a headline: the poster and slide version of the orange word.

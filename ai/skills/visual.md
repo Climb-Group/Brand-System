@@ -20,7 +20,7 @@ Call the palette tool for the five presets (White, Light Grey, Dark Brown, Climb
 
 ## Graphic language
 
-One motif family per piece: The Ascent (rising steps and chevrons), Contours (topographic lines), Stage Light (orange beams and glow), Connections (dots and fine lines), or the Highlight bar (an orange bar behind one word). Motifs are decoration: never carry meaning only in a motif, and keep text off busy pattern areas.
+One motif family per piece: The Ascent (rising steps and chevrons, the rungs of the Investor Ladder), Contours (flowing rings that spread out like growth, never a map or a mountain), Stage Light (orange beams and glow), Connections (dots and fine lines), or the Highlight bar (an orange bar behind one word). Motifs are decoration: never carry meaning only in a motif, and keep text off busy pattern areas.
 
 Festival devices, two or three per piece: the orange word and the italic word, the short orange rule, stickers tilted -3 to -4 degrees, ticket cards with stub notches, photo cards and walls, lineups and marquees, cut edges and glow, photo fades to Dark Brown.
 
