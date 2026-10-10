@@ -334,18 +334,24 @@ def desktop(C, brand, i, motif, w, h):
     p, copy = [], []
     logo_at = (w * 0.86, h * 0.89)
     if motif == "stage-light":  # photo led
-        p.append(K.pic(B["photos"][0], w * 0.3, 0, w * 0.7, h, pos="center 35%", duo=True, blur=10 * u,
-                       fade=fade("to left", 10, 95, 0.0, 1)))
-        p.append(glow(w, h, w, 0, w * 0.55, 0.5))
-        cw = w * 0.3
-        p.append(K.pic(B["photos"][1], w * 0.47, h * 0.14, cw, cw * 0.62, pos="center 40%", rot=-4, radius=14 * u,
-                       shadow=True))
-        cw2 = w * 0.24
-        p.append(K.pic(B["photos"][2], w * 0.66, h * 0.45, cw2, cw2 * 0.66, pos="center 35%", rot=5, radius=14 * u,
-                       shadow=True))
-        p.append(sticker(B["sticker"], w * 0.455, h * 0.115, 30 * u, rot=-6))
-        p.append(hero(B["heroes"][0], w * 0.565, h * 0.56, w * 0.13, rot=-6,
-                      ghosts=[(-0.65, -0.2, 0.7, 14, 0.25), (-1.05, 0.35, 0.5, -18, 0.16)]))
+        # A crisp photo runs off the right edge, cut on a diagonal with an orange slab along the cut; no taller or
+        # wider than its source, fading into Dark Brown at the foot where it is shorter than the screen.
+        src = C.PHOTOS / (B["photos"][1] + ".jpg")
+        sw, sh = _jpeg_size(src)
+        ph = min(h, sh)
+        x0, skew = w * 0.36, w * 0.12
+        pw = min(w - x0, sw)
+        x0 = w - pw
+        clip = "polygon(%.0fpx 0,%.0fpx 0,%.0fpx %.0fpx,0 %.0fpx)" % (skew, pw, pw, h, h)
+        p.append('<div class="abs" style="left:%.0fpx;top:0;width:%.0fpx;height:%.0fpx;clip-path:%s">%s</div>'
+                 % (x0, pw, h, clip, K.pic(B["photos"][1], 0, 0, pw, ph, pos="center 40%",
+                                           fade="linear-gradient(to bottom, rgba(%s,0) 55%%, rgba(%s,.85) 100%%)"
+                                           % (DB_RGB, DB_RGB))))
+        p.append(slab_poly([(x0 - 14 * u, h), (x0 + skew - 14 * u, 0), (x0 + skew + 4 * u, 0), (x0 + 4 * u, h)], OR))
+        p.append(glow(w, h, 0, h, w * 0.5, 0.35))
+        p.append(sticker(B["sticker"], w * 0.24, h * 0.2, 30 * u, rot=-6))
+        p.append(hero(B["heroes"][0], w * 0.24, h * 0.42, w * 0.12, rot=-6,
+                      ghosts=[(0.35, -0.75, 0.5, 14, 0.2), (-0.1, 1.1, 0.45, -18, 0.14)]))
         copy.append(B["sticker"])
     elif motif == "contours":  # type led
         p.append(F.svg(w, h, M.contours(w, h, seed=21, rings=13, dark=True, marker=True, cx=1.0, cy=1.05)))
@@ -397,14 +403,16 @@ def phone(C, brand, i, motif, w, h):
     logo_w = w * 0.3
     logo_xy = ((w - logo_w) / 2, h * 0.815)
     if motif == "stage-light":
-        p.append(K.pic(B["photos"][0], 0, h * 0.2, w, h * 0.8, pos="center", duo=True, blur=8 * u,
-                       fade="linear-gradient(to bottom, rgba(%s,1) 0%%, rgba(%s,.2) 30%%, rgba(%s,.5) 75%%, rgba(%s,1) 100%%)"
-                       % (DB_RGB, DB_RGB, DB_RGB, DB_RGB)))
+        # The photo full width between two diagonals, an orange slab along the lower cut; the drawing and the
+        # sticker sit on plain Dark Brown under it, clear of every face.
+        y0, y1, d = h * 0.24, h * 0.56, h * 0.05
+        clip = "polygon(0 %.0fpx,%.0fpx 0,%.0fpx %.0fpx,0 %.0fpx)" % (d, w, w, y1 - y0 - d, y1 - y0)
+        p.append('<div class="abs" style="left:0;top:%.0fpx;width:%.0fpx;height:%.0fpx;clip-path:%s">%s</div>'
+                 % (y0, w, y1 - y0, clip, K.pic(B["photos"][1], 0, 0, w, y1 - y0, pos="center 40%")))
+        p.append(slab_poly([(0, y1 - 4 * u), (w, y1 - d - 4 * u), (w, y1 - d + 14 * u), (0, y1 + 14 * u)], OR))
         p.append(glow(w, h, w, h * 0.22, w * 0.9, 0.4))
-        p.append(K.pic(B["photos"][1], w * 0.08, h * 0.31, w * 0.76, w * 0.5, pos="center 40%", rot=-5, radius=18 * u, shadow=True))
-        p.append(K.pic(B["photos"][2], w * 0.26, h * 0.5, w * 0.66, w * 0.44, pos="center 35%", rot=5, radius=18 * u, shadow=True))
-        p.append(sticker(B["sticker"], w * 0.06, h * 0.293, 40 * u, rot=-6))
-        p.append(hero(B["heroes"][0], w * 0.04, h * 0.6, w * 0.34, rot=-8, ghosts=[(1.9, -0.95, 0.45, 18, 0.2)]))
+        p.append(sticker(B["sticker"], w * 0.06, y1 + 40 * u, 40 * u, rot=-4))
+        p.append(hero(B["heroes"][0], w * 0.56, y1 + 20 * u, w * 0.3, rot=-8, ghosts=[(-0.9, 0.55, 0.45, 18, 0.2)]))
         copy.append(B["sticker"])
     elif motif == "contours":
         p.append(F.svg(w, h, M.contours(w, h, seed=31, rings=12, dark=True, marker=True, cx=0.9, cy=0.92)))
