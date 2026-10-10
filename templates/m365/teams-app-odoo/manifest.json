@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "1.0.0",
+  "id": "5f0b6f2e-6a1d-4c27-9b0e-27c1a1b2c327",
+  "developer": {
+    "name": "ClimbGroup",
+    "websiteUrl": "https://www.climb-uk.com",
+    "privacyUrl": "https://www.climb-uk.com/privacy",
+    "termsOfUseUrl": "https://www.climb-uk.com/terms"
+  },
+  "name": {
+    "short": "Odoo",
+    "full": "Odoo for ClimbUK"
+  },
+  "description": {
+    "short": "Contacts, events, tickets and the website in one place.",
+    "full": "Opens our Odoo business system in Teams: contacts, events, tickets, website and accounts."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#1E0F05",
+  "staticTabs": [
+    {
+      "entityId": "odoo",
+      "name": "Odoo",
+      "contentUrl": "https://www.climb-uk.com/odoo",
+      "websiteUrl": "https://www.climb-uk.com/odoo",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "permissions": [
+    "identity"
+  ],
+  "validDomains": [
+    "www.climb-uk.com",
+    "climb-uk.com"
+  ]
+}
