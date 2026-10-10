@@ -116,7 +116,7 @@ See `references/elements.md` for how each motif is built and scaled.
 
 - Every colour is a token. No `#EC752A`.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
-- Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list.
+- Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
 - On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.

@@ -51,6 +51,7 @@ Elevation says what floats above what. Grounds stay flat (colour and photos do t
 - Secondary: a 2px outline pill, White on dark grounds and Dark Brown on light ones, filling solid on hover.
 - Pull link: the small uppercase tracked link at the foot of a section with a down arrow, handing the reader to the next section ("This is what it looked like last time").
 - Text link actions: underlined, with an arrow (U+2192) after the label for "go somewhere" links.
+- In a row of cards, every button sits on the same line at the bottom of its card, whatever the text above (see Offer cards).
 - Labels are verbs, as in the Voice section: "Get your ticket", "Become a partner", "See what you get". No "Click here", no "Submit".
 
 ## Forms
@@ -94,7 +95,8 @@ The page sells, so every page has a path to a ticket. The festival sections make
 
 **Offer cards.** Outlined cards side by side (four across on wide screens, one on phones, the picked-out one first).
 - Each card: an optional pill kicker ("For you", "Add this"), the name, a big price with "inc VAT", one line of what it includes, one full-width button.
-- One card is picked out: Climb Orange outline, a soft orange ring and glow, an 8px lift, a filled kicker and the only filled button. The rest have outline buttons.
+- One card is picked out: Climb Orange outline, a soft orange ring and glow, a filled kicker and the only filled button. The rest have outline buttons. It is never raised above the others at rest: that would knock its button off the row's line.
+- **Buttons in a row line up.** Cards in a row are the same height, and each card is a column with its button pushed to the bottom (`margin-top: auto`), so every button in the row sits on one shared line however much text is above it. Keep at least 24px (`space-5`) between the text and the button.
 - Release pricing shows "Full price" with the old price struck through, and "199 left at this price" in a soft orange pill.
 - **Sold out** (only when the shop says so) keeps the card in place: dashed outline, price struck through, kicker and button both say "Sold out", the button is disabled. Never hide a sold-out option; it proves demand.
 

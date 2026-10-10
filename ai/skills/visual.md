@@ -30,7 +30,7 @@ Outline numerals: giant numbers in Montserrat ExtraBold (800) with no fill and a
 
 1. Call the surface tool for size, safe zone, format and preset.
 2. Lay out: ground or photo, one display line, one or two devices or one motif, the logo in its corner (call the logo tool), one call to action if the surface has one.
-   Put buttons in their own block (a p or .climb-ctas row) with at least 24px (space-5) above any list or paragraph. Never place a button straight against a list.
+   Put buttons in their own block (a p or .climb-ctas row) with at least 24px (space-5) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
 3. Write the words with the voice skill and the check copy tool.
 4. Check contrast, safe zone, logo clear space, and the file name: <brand>_<surface>_<variant>_<size>.<ext>.
 5. Default resolution is 4K for video, photo and screens. Never upscale.
