@@ -40,7 +40,7 @@ BRANDS = {
         ground="ch",          # Charcoal
         role="The company name",
         role_line="ClimbGroup is the company name: contracts, invoices, legal lines, company documents and decks, and the ClimbGroup Event App.",
-        cover_photo="climb_isn_investors_hero.jpg",
+        cover_photo="climb_recap_03.jpg",
         cover_eyebrow="Brand guidelines",
         cover_h='EVEN THE<br><em>SMALL</em> PRINT<br>GETS A <span class="o">STAGE</span>.',
         cover_sub="The company name, dressed for the festival. How ClimbGroup looks and sounds on contracts, documents, decks and footers.",
@@ -59,7 +59,7 @@ BRANDS = {
         ground="",
         role="This year's edition",
         role_line="Climb27 is this year's edition of ClimbUK. The edition mark leads on every event piece, with ClimbUK as the endorsement.",
-        cover_photo="climb_band_stage.jpg",
+        cover_photo="media_02.jpg",
         cover_eyebrow="Edition guidelines",
         cover_h='YOUR <em>BUSINESS</em>.<br>BIGGER <span class="o">STAGE</span>.',
         cover_sub="Two days of Main Stage Moments and the people you came to meet. How every Climb27 piece looks, moves and sells.",

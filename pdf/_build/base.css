@@ -75,6 +75,9 @@ img{display:block}
   linear-gradient(180deg,rgba(var(--ink),.5),rgba(var(--ink),.25) 30%,rgba(var(--ink),.95) 55%,rgba(var(--ink),1))}
 .fade-brown-r{background:linear-gradient(270deg,rgba(var(--ink),.92),rgba(var(--ink),.7) 55%,rgba(var(--ink),.4)),
   linear-gradient(180deg,rgba(var(--ink),.45),rgba(var(--ink),.2) 30%,rgba(var(--ink),.95) 55%,rgba(var(--ink),1))}
+.fade-divider{background:linear-gradient(180deg,rgba(var(--ink),.25),rgba(var(--ink),0) 22%,rgba(var(--ink),0) 48%,rgba(var(--ink),.6) 60%,rgba(var(--ink),.9) 67%,rgba(var(--ink),.97))}
+.fade-divider-l{background:linear-gradient(90deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%)}
+.fade-divider-r{background:linear-gradient(270deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%)}
 .fade-heat{background:linear-gradient(90deg,rgba(var(--ink),.96),rgba(var(--ink),.9) 50%,rgba(var(--or),.35)),
   radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.55),rgba(var(--or),0) 60%),
   linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%,rgba(var(--ink),.95))}
