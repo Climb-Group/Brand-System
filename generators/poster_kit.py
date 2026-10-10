@@ -505,7 +505,8 @@ def facebook_cover(C, brand):
     p.append(head([HEADER_LINES[brand]], 330, 300, 74, 760, eyebrow=B["eyebrow"] if brand != "Climb27" else C.DATES))
     p.append(hero(B["heroes"][2], 1110, 150, 260, rot=-6, ghosts=[(0.55, -0.35, 0.55, 16, 0.2)]))
     p.append(F.logo_img(C, brand, "reversed-dark", 330, 150, 220))
-    p.append(scatter(B["extras"], (40, 40, 360, h - 40), 3, (110, 140), seed=6, opacity=(0.5, 0.7)))
+    # drawings stay on the ground between the photos, never over a face
+    p.append(scatter(B["extras"], (450, 30, 1060, 140), 3, (80, 100), seed=6, opacity=(0.5, 0.7)))
     p.append(sticker(B["sticker"] if brand != "Climb27" else "Get your ticket", 340, h - 110, 22, rot=-4, side="right"))
     copy = [plain(HEADER_LINES[brand]), B["eyebrow"], C.DATES, B["sticker"], "Get your ticket"]
     return asset(name, "Social", brand, w, h, p, copy, scale=2)
@@ -531,12 +532,25 @@ def youtube_banner(C, brand, tone):
         p.append(glow(w, h, w * 0.5, h * 0.62, 900, 0.4))
     else:
         p.append('<div class="abs" style="left:0;top:0;width:%dpx;height:%dpx;background:%s"></div>' % (w, h, OR))
-        p.append(scatter(B["extras"], (80, 80, w - 80, sy - 60), 6, (150, 200), seed=9, opacity=(0.18, 0.28), ink=DB))
-    # band photos left and right of the safe area, so the desktop crop still shows real people
-    for k, ph in enumerate(B["photos"][1:3]):
-        x = 60 if k == 0 else sx + sw + 60
-        p.append(K.pic(ph, x, sy, sx - 120, sh, pos="center 35%", radius=18, rot=-3 if k == 0 else 3,
-                       duo=not dark, fade=None if dark else fade("to bottom", 0, 100, 0.0, 0.25)))
+        p.append(scatter(B["extras"], (sx, 70, sx + sw, sy - 50), 5, (140, 190), seed=9, opacity=(0.18, 0.28), ink=DB))
+    # slanted photo walls run off both edges at full height, like the X header, so the desktop band shows real
+    # people either side of the safe area and the TV view reads as one poster, not cards laid on a ground
+    ground = DB_RGB if dark else OR_RGB
+    tw, skew, gap = 262, 170, 12
+    walls = [(-150, B["photos"][1:3]), (sx + sw - 20, (B["photos"] * 2)[3:6])]
+    for x0, photos in walls:
+        for k, ph in enumerate(photos):
+            x = x0 + k * (tw + gap)
+            poly = [(x + skew, 0), (x + skew + tw, 0), (x + tw, h), (x, h)]
+            p.append('<div class="abs" style="left:%.0fpx;top:0;width:%.0fpx;height:%.0fpx;clip-path:polygon(%s)">%s</div>'
+                     % (x, tw + skew, h, ",".join("%.0fpx %.0fpx" % (a - x, b) for a, b in poly),
+                        K.pic(ph, 0, 0, tw + skew, h, pos="center 35%", duo=not dark,
+                              fade="linear-gradient(to bottom, rgba(%s,.55) 0%%, rgba(%s,0) 30%%, rgba(%s,0) 70%%, rgba(%s,.7) 100%%)"
+                                   % (ground, ground, ground, ground))))
+        # the slab sits on the wall edge that faces the line
+        e = x0 + 2 * (tw + gap) - gap if x0 < sx else x0
+        d = 8 if x0 < sx else -30
+        p.append(slab_poly([(e + d, h), (e + d + skew, 0), (e + d + skew + 22, 0), (e + d + 22, h)], OR if dark else DB))
     ink = DB if not dark else WH
     p.append(head([line], sx + 60, sy + 130, 118, 1100, eyebrow=B["eyebrow"] if brand != "Climb27" else C.DATES,
                   colour=ink, sub_colour=ink, rule_on=dark))
