@@ -96,6 +96,8 @@ def cover(bk):
     pos = "center 35%" if b == "Climb27" else "center 40%"
     inner = (
         photo(B["cover_photo"], "fade-hero", pos)
+        # A soft shadow behind the headline keeps it at AA where the fade thins out.
+        + '<div class="layer" style="background:radial-gradient(1000px 340px at 32% 66%,rgba(var(--ink),.55),rgba(var(--ink),0) 70%)"></div>'
         + '<div class="glow"></div>'
         + '<div style="position:absolute;left:120px;top:104px">%s</div>' % logo(b, "reversed-dark", h=96)
         + '<div style="position:absolute;right:120px;top:110px"><span class="sticker" style="font-size:30px">%s</span></div>' % B["cover_sticker"]
@@ -123,7 +125,7 @@ SECTIONS = [
 ]
 
 
-GROUP_PHOTOS = {1: "meetings_02.jpg", 7: "vip_and_awards_02.jpg"}
+GROUP_PHOTOS = {1: "meetings_02.jpg", 7: "stage_speakers_01.jpg"}
 
 
 def divider(bk, idx):
@@ -399,7 +401,7 @@ def presets(bk):
     ps = [
         ("Dark Brown", "The default", "var(--db)", "#fff", "#fff", "var(--tint)", "var(--o)", "var(--o)", "#fff"),
         ("Charcoal", "Second dark", "var(--ch)", "var(--lg)", "#fff", "var(--tint)", "var(--o)", "var(--o)", "#fff"),
-        ("Climb Orange", "The big moment", "var(--o)", "#fff", "#fff", "#fff", "var(--db)", "var(--db)", "#fff"),
+        ("Climb Orange", "The big moment", "var(--o)", "var(--db)", "#fff", "var(--db)", "var(--db)", "var(--db)", "#fff"),
         ("White", "Long reading", "#fff", "#4A5878", "var(--ch)", "var(--deep)", "var(--o)", "var(--o)", "#fff"),
         ("Light Grey", "Quiet sections", "var(--lg)", "#404C68", "#B04902", "#7A3B16", "#D5641E", "var(--o)", "#fff"),
     ]
@@ -592,7 +594,7 @@ def lineup(bk):
     marq = " \u00b7 ".join(["Find Your People", "Main Stage Moments", "Business that feels like a festival"] * 3)
     inner = (
         '<div class="glow"></div>'
-        + '<div style="position:absolute;left:0;right:0;top:60px">%s%s</div>' % (row(marq, -120), row(marq, -620))
+        + '<div aria-hidden="true" style="position:absolute;left:0;right:0;top:60px">%s%s</div>' % (row(marq, -120), row(marq, -620))
         + '<div class="pad" style="top:300px">'
           '<div class="eb" style="font-size:24px">Lineups and marquees</div>'
           '<div class="h" style="margin-top:34px;line-height:1.12">%s</div>'
@@ -623,7 +625,7 @@ CROPS = {"outdoor_seating_01.jpg": "72% 95%/auto 200% no-repeat"}
 
 
 def photo_shoot(bk):
-    tiles = ["joy_03.jpg", "climb_recap_05.jpg", "crowds_02.jpg", "stage_speakers_02.jpg", "exhibitor_01.jpg",
+    tiles = ["climb_recap_05.jpg", "joy_01.jpg", "crowds_02.jpg", "audience_at_stage_01.jpg", "exhibitor_01.jpg",
              "food_and_vendors_01.jpg", "outdoor_seating_01.jpg", "roundtable_and_workshops_01.jpg", "climb_recap_06.jpg"]
     wall = ('<div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:10px;position:absolute;right:0;top:0;width:1060px;height:960px">'
             '<div style="grid-column:1/3;grid-row:1/3;background:url(%s%s) center/cover"></div>' % (P, tiles[0])
@@ -649,7 +651,7 @@ def photo_shoot(bk):
 def photo_fades(bk):
     fades = [("fade-brown", "Brown", "Statements and story bands", "stage_speakers_03.jpg", 'BUSINESS WITH A <span class="o">PARTY</span>'),
              ("fade-heat", "Heat", "Ticket moments: a line, two buttons", "crowds_03.jpg", 'GET YOUR <span class="o">TICKET</span>'),
-             ("fade-orange", "Orange", "One offer on an orange section", "vip_and_awards_04.jpg", 'BRINGING A <span style="color:var(--db)">TEAM</span>?')]
+             ("fade-orange", "Orange", "One offer on an orange section", "climbteam_01.jpg" if bk.b == "ClimbGroup" else "climbteam_02.jpg", 'BRINGING A <span style="color:var(--db)">TEAM</span>?')]
     html = "".join(
         '<div><div style="position:relative;height:520px;border-radius:14px;overflow:hidden">'
         '<div class="ph" style="background-image:url(%s%s)"></div><div class="layer %s"></div>'
@@ -668,7 +670,7 @@ def photo_fades(bk):
 def photo_rules(bk):
     inner = (
         '<div style="position:absolute;left:0;top:0;bottom:0;width:900px;overflow:hidden">'
-        + photo("climb_recap_01.jpg", "", "center 30%")
+        + photo("stage_speakers_02.jpg", "", "center 30%")
         + '<div class="layer" style="background:linear-gradient(90deg,rgba(30,15,5,0) 55%,var(--db)),linear-gradient(180deg,rgba(30,15,5,0) 72%,var(--db) 90%)"></div></div>'
         + '<div class="pad" style="left:auto;width:820px">'
           '<div class="eb" style="font-size:24px;justify-content:flex-end">Editing and care</div>'
@@ -795,12 +797,12 @@ def tickets(bk):
 def themes27(bk):
     inner = (
         '<div style="position:absolute;left:0;top:0;bottom:0;width:960px;overflow:hidden">'
-        + photo("audience_at_stage_03.jpg", "fade-bottom", "center 30%")
+        + photo("exhibitor_02.jpg", "fade-bottom", "center 30%")
         + '<div style="position:absolute;left:100px;right:80px;bottom:120px"><div class="eb" style="font-size:24px">Theme one</div>'
           '<div class="h" style="font-size:104px;margin-top:20px">FIND YOUR <span class="o">PEOPLE</span></div>'
           '<p class="lead" style="margin-top:20px">The people you meet are the reason to come. Close conversations, the right rooms, the community that sends each other work.</p></div></div>'
         + '<div style="position:absolute;right:0;top:0;bottom:0;width:960px;overflow:hidden">'
-        + photo("exhibitor_02.jpg", "fade-bottom", "center 30%")
+        + photo("stage_speakers_04.jpg", "fade-bottom", "center 40%")
         + '<div class="glow"></div><div style="position:absolute;left:80px;right:100px;bottom:120px"><div class="eb" style="font-size:24px">Theme two</div>'
           '<div class="h" style="font-size:104px;margin-top:20px">MAIN STAGE <em>MOMENTS</em></div>'
           '<p class="lead" style="margin-top:20px">Short, big moments: sets, announcements, awards and our own formats. Big moments, not keynotes.</p></div></div>'
@@ -820,7 +822,7 @@ def share_kit(bk):
                 '<div class="h" style="font-size:34px;margin-top:16px">%s</div>'
                 '<div style="font-size:15px;margin-top:10px;color:var(--tint)">Your name, Company</div></div>'
                 '<div style="position:absolute;left:20px;right:20px;bottom:18px;display:flex;align-items:center;justify-content:flex-end;background:var(--ch);border-radius:10px;padding:10px 12px">'
-                '<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase">climb-uk.com</span></div></div>'
+                '<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase;color:var(--db)">climb-uk.com</span></div></div>'
                 % (rot, P, ph, logo("Climb27", "reversed-dark", h=28), role, line))
     inner = (
         '<div class="glow"></div>'
@@ -833,7 +835,7 @@ def share_kit(bk):
           '<li>Lines partners may use: Official partner of Climb27, Speaking at Climb27, Exhibiting at Climb27.</li></ul></div>'
           '<div style="display:flex;gap:28px;align-items:center;justify-content:center;padding-top:60px">%s%s%s</div></div>'
         % (tile("Attendee", 'I\'M <span class="o">ATTENDING</span><br><em>CLIMB27</em>', "crowds_04.jpg", "-2"),
-           tile("Speaker", 'I\'M <span class="o">SPEAKING</span><br>AT <em>CLIMB27</em>', "stage_speakers_04.jpg", "1"),
+           tile("Speaker", 'I\'M <span class="o">SPEAKING</span><br>AT <em>CLIMB27</em>', "climb_recap_01.jpg", "1"),
            tile("Partner", 'WE\'RE <span class="o">PARTNERING</span><br>AT <em>CLIMB27</em>', "meetings_03.jpg", "3"))
     )
     bk.add("", inner)
@@ -921,7 +923,7 @@ def signature(bk):
         '<div style="margin-top:30px;height:150px;border-radius:10px;overflow:hidden;position:relative">'
         '<div class="ph" style="background-image:url(%sclimb_recap_02.jpg)"></div><div class="layer fade-heat"></div>'
         '<div class="h" style="position:absolute;left:30px;top:30px;font-size:40px">SEE YOU AT <span class="o">CLIMB27</span></div>'
-        '<span class="btn" style="position:absolute;left:30px;bottom:22px;font-size:16px;padding:8px 18px">Get your ticket</span></div>'
+        '<span class="btn" style="position:absolute;left:30px;bottom:22px;font-size:20px;padding:8px 18px">Get your ticket</span></div>'
         '<div style="font-size:14px;margin-top:18px;color:#555">This email and any attachments are confidential.</div></div></div>'
         % (logo(b, "full-colour-light", w=230),
            "".join('<span style="display:inline-block;width:34px;height:34px;border:2px solid var(--o);border-radius:8px;padding:6px">%s</span>' % open(os.path.join(HERE, "assets/social/%s.svg" % g)).read().replace('<svg ', '<svg fill="#C55308" width="18" height="18" ')
@@ -1067,13 +1069,13 @@ def print_merch(bk):
         '<div style="position:absolute;left:78px;top:-118px;width:224px;height:166px;border:18px solid var(--lg);border-bottom:0;border-radius:120px 120px 0 0"></div>'
         '<div style="position:absolute;inset:0;background:var(--w);border-radius:6px 6px 16px 16px;box-shadow:0 34px 80px rgba(0,0,0,.65);overflow:hidden">'
         '<div style="position:absolute;left:-40px;top:22px;font:800 64px/0.9 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.03em;white-space:nowrap">FIND YOUR PEOPLE FIND<br>YOUR PEOPLE FIND YOUR<br>PEOPLE FIND YOUR PEOPLE</div>'
-        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em class="o">PEOPLE</em>.</div>'
+        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em style="color:var(--ot)">PEOPLE</em>.</div>'
         '<img src="assets/illus/high-five.svg" style="position:absolute;right:20px;top:196px;width:132px;height:132px;transform:rotate(10deg);--doodle-ground:var(--w)">'
         '<div style="position:absolute;left:34px;bottom:26px">%s</div></div>'
         '<span class="sticker" style="position:absolute;right:-26px;top:-20px;font-size:22px;transform:rotate(6deg)">Tote</span></div>'
         '<div style="position:absolute;left:280px;bottom:60px;width:500px;height:110px;border-radius:12px;z-index:1;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
         '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
-        % (P, "climbteam_02.jpg" if b == "ClimbGroup" else "joy_04.jpg", logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
+        % (P, "climbteam_02.jpg" if b == "ClimbGroup" else "joy_03.jpg", logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
            logo(b, "mono-white", h=32), logo(b, "mono-white", h=32))
     )
     bk.add(bk.B["ground"], inner)
@@ -1175,7 +1177,7 @@ def downloads(bk):
 def back_cover(bk):
     b, B = bk.b, bk.B
     inner = (
-        photo({"ClimbUK": "audience_at_stage_01.jpg", "Climb27": "climb_recap_04.jpg"}.get(b, "roundtable_and_workshops_02.jpg"), "fade-ends", "center 40%")
+        photo({"ClimbUK": "climbteam_01.jpg", "Climb27": "climbteam_01.jpg"}.get(b, "roundtable_and_workshops_02.jpg"), "fade-ends", "center 30%")
         + '<div class="glow"></div>'
         + ('<div style="position:absolute;left:0;right:0;top:100px;text-align:center">'
           '<div class="h" style="font-size:124px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'

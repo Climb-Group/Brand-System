@@ -19,10 +19,15 @@ cp "$PACK"/generators/social-icons/glyphs/*.svg assets/social/
 cp "$PACK"/generators/motifs.py .
 python3 book.py
 python3 keyrules.py
+# WCAG 2.2 AA: measure every run of text against what is behind it before printing.
+CHK=$(mktemp -d)
+node contrast.cjs "$CHK" ./*.html
+python3 contrast.py "$CHK"
+rm -rf "$CHK"
 node render.cjs ./*.html
 mkdir -p ../one-page ../guidelines
 for f in *_key-rules.pdf; do mv "$f" ../one-page/; done
 for f in *_brand-guidelines.pdf; do mv "$f" ../guidelines/; done
-rm -f ./*.html motifs.py
-rm -rf assets __pycache__
+[ -n "${KEEP_HTML:-}" ] || rm -f ./*.html motifs.py
+[ -n "${KEEP_HTML:-}" ] || rm -rf assets __pycache__
 echo "PDFs written to pdf/one-page and pdf/guidelines"

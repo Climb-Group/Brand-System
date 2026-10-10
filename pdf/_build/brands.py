@@ -60,6 +60,7 @@ BRANDS = {
         role="This year's edition",
         role_line="Climb27 is this year's edition of ClimbUK. The edition mark leads on every event piece, with ClimbUK as the endorsement.",
         cover_photo="joy_02.jpg",
+        cover_size=140,
         cover_eyebrow="Edition guidelines",
         cover_h='YOUR <em>BUSINESS</em>.<br>BIGGER <span class="o">STAGE</span>.',
         cover_sub="Two days of Main Stage Moments and the people you came to meet. How every Climb27 piece looks, moves and sells.",

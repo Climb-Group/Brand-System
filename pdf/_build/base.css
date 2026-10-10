@@ -85,7 +85,7 @@ img{display:block}
   radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.55),rgba(var(--or),0) 60%),
   linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%,rgba(var(--ink),.95))}
 /* Orange holds the text side and the bottom; the rest of the photo stays clear. */
-.fade-orange{background:linear-gradient(90deg,rgba(var(--or),.95),rgba(var(--or),.7) 40%,rgba(var(--or),.15) 72%,rgba(var(--or),0)),
+.fade-orange{background:linear-gradient(90deg,rgba(var(--or),.97),rgba(var(--or),.9) 45%,rgba(var(--or),.3) 72%,rgba(var(--or),0)),
   linear-gradient(180deg,rgba(var(--or),0) 45%,rgba(var(--or),.9) 85%),
   radial-gradient(640px 320px at 10% 0%,rgba(255,255,255,.2),rgba(255,255,255,0) 60%)}
 .fade-card{background:linear-gradient(180deg,rgba(var(--ink),.95),rgba(var(--ink),.88) 26%,rgba(var(--ink),.3) 48%,rgba(var(--ink),.3) 58%,rgba(var(--ink),.95) 78%)}
@@ -93,10 +93,10 @@ img{display:block}
 
 .pad{position:absolute;left:120px;right:120px;top:100px;bottom:120px}
 .foot{position:absolute;left:120px;right:120px;bottom:46px;display:flex;align-items:center;justify-content:space-between;
-  font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .foot img{height:30px}
 .foot .pg{display:flex;gap:22px;align-items:center}
-.foot .pg b{color:var(--o)}
+.foot .pg b{color:var(--tint)}
 .s.wh .foot,.s.gr .foot{color:#595959}
 .s.wh .foot .pg b,.s.gr .foot .pg b{color:var(--deep)}
 .s.or .foot{color:var(--db)} .s.or .foot .pg b{color:var(--db)}
