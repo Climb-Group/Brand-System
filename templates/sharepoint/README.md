@@ -23,7 +23,7 @@ Everything here only adds. The script never deletes a page, a file or a link, an
 
 | Menu | Page | File |
 | --- | --- | --- |
-| Home | Brand centre | `home.aspx` |
+| Home | Brand centre | `brand-centre.aspx` (set with `-HomePageName`) |
 | Brand | Our brand, Voice, Logos, Colour and type | `our-brand.aspx`, `voice.aspx`, `logos.aspx`, `colour-and-type.aspx` |
 | Artwork | Photography, Drawings and devices, Artwork library | `photography.aspx`, `drawings-and-devices.aspx`, `artwork-library.aspx` |
 | Make | Templates, Microsoft 365 kit | `templates.aspx`, `microsoft-365.aspx` |
@@ -61,14 +61,14 @@ When the drafts look right, run the script again with the switches you want. Pag
 | --- | --- |
 | `-Publish` | Publishes the new pages |
 | `-SetNavigation` | Adds the five brand centre menus to the top navigation. Existing links stay: remove the old ones by hand when you are happy |
-| `-SetHomePage` | Makes `home.aspx` the site home page. The old home page stays in Site Pages |
+| `-SetHomePage` | Makes the new home page the site home page. The old home page stays in Site Pages, unchanged |
 | `-SetSiteLook` | Site logo, extended header with the contour background, and the footer with the tagline and wordmark |
 
 ### 4. Finish by hand
 
 The script builds the text sections. Two web parts need their pictures picked in the page editor:
 
-- **Home:** add a **Hero** web part in a full width section at the top (layout Tiles, five tiles), using the table below.
+- **Home (brand-centre.aspx):** add a **Hero** web part in a full width section at the top (layout Tiles, five tiles), using the table below.
 - **Every page:** add a **Quick links** web part (layout Filmstrip) after the opening statement, using the tiles in each page's table below.
 
 For each image, choose **Site Assets > BrandCentre** and the file named in the table.
@@ -135,7 +135,7 @@ Needs Python 3 with Pillow, and Node with Playwright and Chromium. Photos come f
 
 ## Page by page: the parts added by hand
 
-### Brand centre (`home.aspx`)
+### Brand centre (`brand-centre.aspx`)
 
 Everything that makes ClimbUK, ClimbGroup and Climb27 look and sound like themselves, in one place.
 

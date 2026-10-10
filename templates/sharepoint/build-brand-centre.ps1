@@ -9,7 +9,8 @@ deletes anything and never changes an existing page: a page whose name is alread
 Changes to the existing site are opt in:
   -SetSiteLook    site logo, extended header with its background, and the footer
   -SetNavigation  adds the brand centre menus to the top navigation (existing links stay)
-  -SetHomePage    makes the new home page the site home page
+  -SetHomePage    makes the new home page (-HomePageName, default brand-centre.aspx) the site home page;
+                  the old home page stays in Site Pages
   -Publish        publishes the new pages (otherwise they stay as drafts only editors see)
 
 Needs PowerShell 7.4 or later and PnP.PowerShell 3 (Install-Module PnP.PowerShell -Scope CurrentUser), plus an
@@ -26,6 +27,7 @@ param(
     [Parameter(Mandatory)][string]$MarketingContentUrl,
     [Parameter(Mandatory)][string]$PhotoLibraryUrl,
     [string]$PackPath,
+    [string]$HomePageName = "brand-centre",
     [string]$PackUrl = "https://github.com/Climb-Group/Brand-System/archive/refs/heads/main.zip",
     [switch]$Publish,
     [switch]$SetHomePage,
@@ -87,37 +89,38 @@ else {
 # 4. Pages.
 $made = @()
 foreach ($p in $data.pages) {
-    if (PageExists $p.slug) {
-        Write-Warning "Skipped $($p.slug).aspx: a page with that name already exists. Nothing on it was changed."
+    $name = if ($p.slug -eq "home" ) { $HomePageName } else { $p.slug }
+    if (PageExists $name) {
+        Write-Warning "Skipped $name.aspx: a page with that name already exists. Nothing on it was changed."
         continue
     }
     $banner = "$rel/$img/banners/$($p.banner)"
-    if ($p.slug -eq "home") {
-        Add-PnPPage -Name $p.slug -LayoutType Home | Out-Null
+    if ($p.slug -eq "home" ) {
+        Add-PnPPage -Name $name -LayoutType Home | Out-Null
     }
     else {
-        Add-PnPPage -Name $p.slug -LayoutType Article -HeaderLayoutType FullWidthImage | Out-Null
-        Set-PnPPage -Identity $p.slug -HeaderType Custom -ServerRelativeImageUrl $banner -TranslateX 0 -TranslateY 0 | Out-Null
+        Add-PnPPage -Name $name -LayoutType Article -HeaderLayoutType FullWidthImage | Out-Null
+        Set-PnPPage -Identity $name -HeaderType Custom -ServerRelativeImageUrl $banner -TranslateX 0 -TranslateY 0 | Out-Null
     }
-    Set-PnPPage -Identity $p.slug -Title $p.title -ThumbnailUrl $banner | Out-Null
+    Set-PnPPage -Identity $name -Title $p.title -ThumbnailUrl $banner | Out-Null
     $i = 0
     foreach ($s in $p.sections) {
         $i++
-        Add-PnPPageSection -Page $p.slug -SectionTemplate $s.layout -ZoneEmphasis $s.emphasis | Out-Null
+        Add-PnPPageSection -Page $name -SectionTemplate $s.layout -ZoneEmphasis $s.emphasis | Out-Null
         $c = 0
         foreach ($html in $s.columns) {
             $c++
-            Add-PnPPageTextPart -Page $p.slug -Section $i -Column $c -Text (Expand $html) | Out-Null
+            Add-PnPPageTextPart -Page $name -Section $i -Column $c -Text (Expand $html) | Out-Null
         }
     }
     try {
-        $item = Get-PnPListItem -List "SitePages" -Query "<View><Query><Where><Eq><FieldRef Name='FileLeafRef'/><Value Type='Text'>$($p.slug).aspx</Value></Eq></Where></Query></View>"
+        $item = Get-PnPListItem -List "SitePages" -Query "<View><Query><Where><Eq><FieldRef Name='FileLeafRef'/><Value Type='Text'>$name.aspx</Value></Eq></Where></Query></View>"
         Set-PnPListItem -List "SitePages" -Identity $item.Id -Values @{ Description = $p.description } -UpdateType SystemUpdate | Out-Null
     }
-    catch { Write-Warning "Could not set the description on $($p.slug).aspx: $($_.Exception.Message)" }
-    if ($Publish) { Set-PnPPage -Identity $p.slug -Publish | Out-Null }
-    $made += $p.slug
-    Write-Host "Built $($p.slug).aspx"
+    catch { Write-Warning "Could not set the description on $name.aspx: $($_.Exception.Message)" }
+    if ($Publish) { Set-PnPPage -Identity $name -Publish | Out-Null }
+    $made += $name
+    Write-Host "Built $name.aspx"
 }
 
 # 5. Opt in: site look, navigation, home page.
@@ -145,12 +148,12 @@ if ($SetNavigation) {
     Write-Host "Added the brand centre menus to the top navigation"
 }
 if ($SetHomePage) {
-    Set-PnPHomePage -RootFolderRelativeUrl "SitePages/home.aspx" | Out-Null
-    Write-Host "Set home.aspx as the site home page"
+    Set-PnPHomePage -RootFolderRelativeUrl "SitePages/$HomePageName.aspx" | Out-Null
+    Write-Host "Set $HomePageName.aspx as the site home page"
 }
 
 Write-Host ""
 Write-Host "Done. Built: $($made -join ', ')"
-Write-Host "Next: add the Hero web part to home.aspx and a Quick links row to each page (README.md, step 4)."
+Write-Host "Next: add the Hero web part to $HomePageName.aspx and a Quick links row to each page (README.md, step 4)."
 Write-Host "A SharePoint admin registers the template library so it shows in Word, Excel and PowerPoint:"
 Write-Host "  Add-SPOOrgAssetsLibrary -LibraryUrl $SiteUrl/BrandTemplates -OrgAssetType OfficeTemplateLibrary"
