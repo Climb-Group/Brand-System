@@ -12,6 +12,7 @@ clean_user() {
   for b in $BRANDS; do
     rm -rf "$home/.config/libreoffice/4/user/template/$b"
     rm -f "$home/.local/share/DaVinciResolve/Fusion/Templates/${b}_Titles.drfx"
+    rm -rf "$home/.local/share/DaVinciResolve/Fusion/Templates/Edit/Titles/$b"
   done
 }
 
@@ -19,6 +20,7 @@ if [ -n "$ROOT" ] || [ "$(id -u)" -eq 0 ]; then
   for home in "$ROOT"/home/* "$ROOT/etc/skel"; do
     [ -d "$home" ] && clean_user "$home"
   done
+  [ -x "$ROOT/opt/climb-templates/climb-onlyoffice.sh" ] && "$ROOT/opt/climb-templates/climb-onlyoffice.sh" remove
   rm -rf "$ROOT/usr/local/share/fonts/climb" "$ROOT/opt/climb-templates" "$ROOT/opt/resolve/LUT/Climb"
   [ -z "$ROOT" ] && command -v fc-cache >/dev/null && fc-cache -f >/dev/null
 else

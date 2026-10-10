@@ -21,7 +21,9 @@ Also here:
    - Mac: copy them to `~/Library/Group Containers/UBF8T346G9.Office/User Content/Templates`. They show under File, New from Template.
    - Microsoft 365 for the web: upload the file to OneDrive or SharePoint and open it; Save a copy for each new piece. For a whole team, an admin can publish them as organisation assets.
    - Google Docs, Sheets and Slides: upload the file and open it with Google; save it as a Google file and use Make a copy for each piece. You do not need to install the fonts there: Montserrat and Open Sans are in Google's font list.
-   - LibreOffice: File, Templates, Manage Templates, Import, and pick the files in `libreoffice/<Brand>/`.
+   - LibreOffice and Collabora Office: File, Templates, Manage Templates, Import, and pick the files in `libreoffice/<Brand>/`.
+   - ONLYOFFICE: open a `.dotx`, `.xltx` or `.potx` with File, Open; it starts a new file from it. The install package in `install/` adds them to the ONLYOFFICE Templates list for you.
+   - WPS Office, SoftMaker Office, Apple Pages, Numbers and Keynote: see "Other office apps" in `install/README.md`.
 3. **Theme (optional).** In any Office app, Design (or Page Layout), Themes, Browse for Themes, and pick the brand's `.thmx`. This puts the brand colours in every colour picker and sets Montserrat for headings and Open Sans for text in any file, not only these templates. To make the colours and fonts show in Office's lists permanently, copy `Theme Colors/Climb.xml` and `Theme Fonts/Climb.xml` into `%APPDATA%\Microsoft\Templates\Document Themes\` (Windows) or `~/Library/Group Containers/UBF8T346G9.Office/User Content/Themes/` (Mac), into the folders of the same name.
 
 ## Using them

@@ -24,9 +24,15 @@ foreach ($f in $fonts) {
     Remove-Item -Path (Join-Path $FontDir $f.Name) -Force -ErrorAction SilentlyContinue
 }
 
+# ONLYOFFICE Desktop Editors
+$OnlyOffice = Join-Path $Dest 'Add-ClimbOnlyOffice.ps1'
+if (Test-Path $OnlyOffice) { & $OnlyOffice -Action Remove }
+Unregister-ScheduledTask -TaskName 'Climb templates for ONLYOFFICE' -TaskPath '\Climb\' -Confirm:$false -ErrorAction SilentlyContinue
+
 # Video
 foreach ($b in 'ClimbUK', 'ClimbGroup', 'Climb27') {
     Remove-Item -Path (Join-Path $env:ProgramData "Blackmagic Design\DaVinci Resolve\Fusion\Templates\$($b)_Titles.drfx") -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path (Join-Path $env:ProgramData "Blackmagic Design\DaVinci Resolve\Fusion\Templates\Edit\Titles\$b") -Recurse -Force -ErrorAction SilentlyContinue
 }
 Remove-Item -Path (Join-Path $env:ProgramData 'Blackmagic Design\DaVinci Resolve\Support\LUT\Climb') -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path (Join-Path $env:ProgramFiles 'Adobe\Common\LUTs\Creative\Climb_Grade_v1.cube') -Force -ErrorAction SilentlyContinue

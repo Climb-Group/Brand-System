@@ -12,6 +12,8 @@
         LibreOffice copies into ...\LibreOffice.
       - Video (unless -SkipVideo): DaVinci Resolve titles and LUT, Premiere Pro LUT,
         and the rest of the video kit into ...\Video.
+      - ONLYOFFICE Desktop Editors: templates added to its Templates list, and a start-up
+        task that puts them back after an ONLYOFFICE update.
       - Active Setup entry, so Set-ClimbTemplatesUser.ps1 runs once for each person
         at their next sign-in and points Office at the shared templates.
 
@@ -36,7 +38,7 @@ if (-not (Test-Path $Payload)) { $Payload = Join-Path $PSScriptRoot 'payload' }
 if (-not (Test-Path $Payload)) { throw "Payload folder not found next to $PSScriptRoot" }
 
 $Version = (Get-Content -Path (Join-Path $PackageRoot 'VERSION') -ErrorAction SilentlyContinue | Select-Object -First 1)
-if (-not $Version) { $Version = '1.0.0' }
+if (-not $Version) { $Version = '@VERSION@' }  # filled in by _build/package_build.py
 $Version = $Version.Trim()
 
 $Dest = Join-Path $env:ProgramData 'Climb\Templates'
@@ -83,6 +85,18 @@ try {
     Copy-Tree (Join-Path $Payload 'libreoffice') (Join-Path $Dest 'LibreOffice')
     Copy-Item -Path (Join-Path $PSScriptRoot 'Set-ClimbTemplatesUser.ps1') -Destination $Dest -Force
 
+    # ONLYOFFICE Desktop Editors: add now, and again at each start-up in case an update removed them
+    $OnlyOffice = Join-Path $Dest 'Add-ClimbOnlyOffice.ps1'
+    Copy-Item -Path (Join-Path $PSScriptRoot 'Add-ClimbOnlyOffice.ps1') -Destination $OnlyOffice -Force
+    try {
+        & $OnlyOffice -Action Add -Source (Join-Path $Dest 'Office')
+        $TaskAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument ('-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}" -Action Ensure' -f $OnlyOffice)
+        Register-ScheduledTask -TaskName 'Climb templates for ONLYOFFICE' -TaskPath '\Climb\' -Action $TaskAction `
+            -Trigger (New-ScheduledTaskTrigger -AtStartup) -Principal (New-ScheduledTaskPrincipal -UserId 'SYSTEM' -RunLevel Highest) `
+            -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries) -Force | Out-Null
+    }
+    catch { Write-Warning "ONLYOFFICE step skipped: $_" }
+
     # Video
     if (-not $SkipVideo) {
         $Video = Join-Path $Payload 'video'
@@ -92,6 +106,12 @@ try {
         $PremiereLut = Join-Path $env:ProgramFiles 'Adobe\Common\LUTs\Creative'
         New-Item -ItemType Directory -Force -Path $ResolveTemplates, $ResolveLut, $PremiereLut | Out-Null
         Copy-Item -Path (Join-Path $Video 'resolve\*.drfx') -Destination $ResolveTemplates -Force
+        # The logo titles load their PNGs from Templates:/Edit/Titles/<Brand>/ (Resolve cannot read images inside a .drfx)
+        Get-ChildItem -Path (Join-Path $Video 'resolve') -Directory | ForEach-Object {
+            $t = Join-Path $ResolveTemplates ("Edit\Titles\" + $_.Name)
+            New-Item -ItemType Directory -Force -Path $t | Out-Null
+            Copy-Item -Path (Join-Path $_.FullName '*.png') -Destination $t -Force
+        }
         Copy-Item -Path (Join-Path $Video 'luts\*.cube') -Destination $ResolveLut -Force
         Copy-Item -Path (Join-Path $Video 'luts\*.cube') -Destination $PremiereLut -Force
         Write-Output "Video: Resolve titles, Resolve LUT and Premiere LUT installed"

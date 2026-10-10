@@ -1,0 +1,230 @@
+{
+	Tools = ordered() {
+		Climb27_End_Card = MacroOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput { SourceOp = "Canvas", Source = "Variant", Name = "Colour variant", Default = 0, },
+				Input2 = InstanceInput { SourceOp = "Line", Source = "StyledText", Name = "Line", Default = "30 JUNE AND 1 JULY 2027", },
+				Input3 = InstanceInput { SourceOp = "Url", Source = "StyledText", Name = "Web address", Default = "CLIMB-UK.COM", },
+				Input4 = InstanceInput { SourceOp = "Pill", Source = "Width", Name = "Button width", Default = 920, },
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput { SourceOp = "MergeUrl", Source = "Output", },
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Canvas = Background {
+					UserControls = ordered() {
+						Variant = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ComboControl",
+							INP_Integer = true,
+							INP_Default = 0,
+							INP_MinScale = 0,
+							INP_MaxScale = 2,
+							CC_LabelPosition = "Horizontal",
+							ICS_ControlPage = "Controls",
+							LINKS_Name = "Colour variant",
+							{ CCS_AddString = "Dark Brown", },
+							{ CCS_AddString = "Charcoal", },
+							{ CCS_AddString = "Climb Orange", },
+						},
+					},
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						Variant = Input { Value = 0, },
+						TopLeftRed = Input { Value = 0.117647, Expression = "iif(Canvas.Variant == 0, 0.117647, iif(Canvas.Variant == 1, 0.141176, 0.909804))", },
+						TopLeftGreen = Input { Value = 0.058824, Expression = "iif(Canvas.Variant == 0, 0.058824, iif(Canvas.Variant == 1, 0.137255, 0.443137))", },
+						TopLeftBlue = Input { Value = 0.019608, Expression = "iif(Canvas.Variant == 0, 0.019608, iif(Canvas.Variant == 1, 0.133333, 0.164706))", },
+						TopLeftAlpha = Input { Value = 1, },
+					},
+				},
+				LogoColour = Loader {
+					Clips = {
+						Clip {
+							ID = "Clip1",
+							Filename = "Templates:/Edit/Titles/Climb27/Climb27_tagline-lockup-reversed_2048.png",
+							FormatID = "PNGFormat",
+							StartFrame = -1,
+							LengthSetManually = true,
+							TrimIn = 0,
+							TrimOut = 0,
+							ExtendFirst = 0,
+							ExtendLast = 0,
+							Loop = 1,
+							AspectMode = 0,
+							Depth = 0,
+							TimeCode = 0,
+							GlobalStart = -2000000000,
+							GlobalEnd = 2000000000
+						}
+					},
+					Inputs = {
+					},
+				},
+				LogoWhite = Loader {
+					Clips = {
+						Clip {
+							ID = "Clip1",
+							Filename = "Templates:/Edit/Titles/Climb27/Climb27_mono-white_2048.png",
+							FormatID = "PNGFormat",
+							StartFrame = -1,
+							LengthSetManually = true,
+							TrimIn = 0,
+							TrimOut = 0,
+							ExtendFirst = 0,
+							ExtendLast = 0,
+							Loop = 1,
+							AspectMode = 0,
+							Depth = 0,
+							TimeCode = 0,
+							GlobalStart = -2000000000,
+							GlobalEnd = 2000000000
+						}
+					},
+					Inputs = {
+					},
+				},
+				LogoPick = Dissolve {
+					Inputs = {
+						Background = Input { SourceOp = "LogoColour", Source = "Output", },
+						Foreground = Input { SourceOp = "LogoWhite", Source = "Output", },
+						Mix = Input { Value = 0, Expression = "iif(Canvas.Variant == 2, 1, 0)", },
+					},
+				},
+				LogoSize = Transform {
+					Inputs = {
+						Input = Input { SourceOp = "LogoPick", Source = "Output", },
+						Size = Input { Value = 0.9375, Expression = "iif(Canvas.Variant == 2, 0.8625, 0.9375)", },
+					},
+				},
+				MergeLogo = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "Canvas", Source = "Output", },
+						Foreground = Input { SourceOp = "LogoSize", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.57963 }, Expression = "Point(0.5, 0.57963-0.022222*(1-(1-(1-min(max((time-0)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-0)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				Tagline = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "The Festival for Business Growth", },
+						Font = Input { Value = "Montserrat", },
+						Style = Input { Value = "Bold", },
+						Size = Input { Value = 0.036507, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.5, 0.486111 }, },
+						HorizontalLeftCenterRight = Input { Value = 0, },
+						HorizontalJustificationNew = Input { Value = 0, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 1, },
+						Green1 = Input { Value = 1, },
+						Blue1 = Input { Value = 1, },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				TaglineShow = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergeLogo", Source = "Output", },
+						Foreground = Input { SourceOp = "Tagline", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-1)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 0, Expression = "iif(Canvas.Variant == 2, 1, 0)*(1-(1-min(max((time-1)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				Line = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "30 JUNE AND 1 JULY 2027", },
+						Font = Input { Value = "Montserrat", },
+						Style = Input { Value = "Black", },
+						Size = Input { Value = 0.039681, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.5, 0.356481 }, },
+						HorizontalLeftCenterRight = Input { Value = 0, },
+						HorizontalJustificationNew = Input { Value = 0, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 1, },
+						Green1 = Input { Value = 1, },
+						Blue1 = Input { Value = 1, },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				MergeLine = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "TaglineShow", Source = "Output", },
+						Foreground = Input { SourceOp = "Line", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-3)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-3)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				PillRound = RectangleMask {
+					Inputs = {
+						Width = Input { Value = 1, },
+						Height = Input { Value = 1, },
+						CornerRadius = Input { Value = 1, },
+					},
+				},
+				Pill = Background {
+					Inputs = {
+						EffectMask = Input { SourceOp = "PillRound", Source = "Mask", },
+						Width = Input { Value = 920, },
+						Height = Input { Value = 180, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						TopLeftRed = Input { Value = 0.909804, Expression = "iif(Canvas.Variant == 0, 0.909804, iif(Canvas.Variant == 1, 0.909804, 1))", },
+						TopLeftGreen = Input { Value = 0.443137, Expression = "iif(Canvas.Variant == 0, 0.443137, iif(Canvas.Variant == 1, 0.443137, 1))", },
+						TopLeftBlue = Input { Value = 0.164706, Expression = "iif(Canvas.Variant == 0, 0.164706, iif(Canvas.Variant == 1, 0.164706, 1))", },
+						TopLeftAlpha = Input { Value = 1, },
+					},
+				},
+				MergePill = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergeLine", Source = "Output", },
+						Foreground = Input { SourceOp = "Pill", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.238426 }, Expression = "Point(0.5, 0.238426-0.022222*(1-(1-(1-min(max((time-5)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-5)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+				Url = TextPlus {
+					Inputs = {
+						Width = Input { Value = 3840, },
+						Height = Input { Value = 2160, },
+						UseFrameFormatSettings = Input { Value = 0, },
+						StyledText = Input { Value = "CLIMB-UK.COM", },
+						Font = Input { Value = "Montserrat", },
+						Style = Input { Value = "Black", },
+						Size = Input { Value = 0.031745, },
+						CharacterSpacing = Input { Value = 1, },
+						Center = Input { Value = { 0.5, 0.238426 }, },
+						HorizontalLeftCenterRight = Input { Value = 0, },
+						HorizontalJustificationNew = Input { Value = 0, },
+						VerticalTopCenterBottom = Input { Value = 0, },
+						VerticalJustificationNew = Input { Value = 3, },
+						Red1 = Input { Value = 1, Expression = "iif(Canvas.Variant == 0, 1, iif(Canvas.Variant == 1, 1, 0.909804))", },
+						Green1 = Input { Value = 1, Expression = "iif(Canvas.Variant == 0, 1, iif(Canvas.Variant == 1, 1, 0.443137))", },
+						Blue1 = Input { Value = 1, Expression = "iif(Canvas.Variant == 0, 1, iif(Canvas.Variant == 1, 1, 0.164706))", },
+						Alpha1 = Input { Value = 1, },
+					},
+				},
+				MergeUrl = Merge {
+					Inputs = {
+						Background = Input { SourceOp = "MergePill", Source = "Output", },
+						Foreground = Input { SourceOp = "Url", Source = "Output", },
+						Center = Input { Value = { 0.5, 0.5 }, Expression = "Point(0.5, 0.5-0.022222*(1-(1-(1-min(max((time-5)/18,0),1))^4))-0.007407*((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+						Blend = Input { Value = 1, Expression = "(1-(1-min(max((time-5)/18,0),1))^4)*(1-((1-min(max((comp.RenderEnd-time)/10,0),1))^2))", },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Climb27_End_Card"
+}

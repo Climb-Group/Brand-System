@@ -14,11 +14,19 @@ DEST="$ROOT/Library/Application Support/Climb/Templates"
 MSO="$ROOT/Library/Application Support/Microsoft/Office365/User Content.localized"
 RESOLVE="$ROOT/Library/Application Support/Blackmagic Design/DaVinci Resolve"
 
+DAEMON="$ROOT/Library/LaunchDaemons/com.climb-uk.templates.onlyoffice.plist"
+if [ -z "$ROOT" ] && [ -f "$DAEMON" ]; then
+  launchctl bootout system "$DAEMON" >/dev/null 2>&1 || true
+fi
+rm -f "$DAEMON"
+[ -f "$DEST/climb-onlyoffice.sh" ] && /bin/bash "$DEST/climb-onlyoffice.sh" remove
+
 for f in "$DEST"/Fonts/*.ttf; do
   [ -e "$f" ] && rm -f "$ROOT/Library/Fonts/$(basename "$f")"
 done
 for b in ClimbUK ClimbGroup Climb27; do
   rm -f "$MSO/Templates.localized/${b}_"* "$MSO/Themes.localized/$b.thmx" "$RESOLVE/Fusion/Templates/${b}_Titles.drfx"
+  rm -rf "$RESOLVE/Fusion/Templates/Edit/Titles/$b"
 done
 rm -f "$MSO/Themes.localized/Theme Colors/Climb.xml" "$MSO/Themes.localized/Theme Fonts/Climb.xml"
 rm -rf "$RESOLVE/LUT/Climb"

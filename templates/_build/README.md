@@ -13,7 +13,7 @@ python3 excel_build.py      # office/<Brand>/excel/*.xltx
 python3 theme_build.py      # office/_shared/office-theme/
 python3 previews_build.py   # office/previews/*.jpg and office/libreoffice/
 python3 video_build.py      # video/_shared and video/<Brand>: motion clips and stills (slow: about 8 minutes a brand)
-python3 resolve_build.py    # video/<Brand>/davinci-resolve/*.drfx
+python3 resolve_build.py    # video/<Brand>/davinci-resolve/*.drfx and setting-files/ (resolve_setup.lua tests them inside Resolve)
 python3 premiere_build.py   # video/<Brand>/premiere-pro/*.xml
 python3 lut_build.py        # video/_shared/luts/
 python3 video_previews.py   # video/previews/*.jpg
