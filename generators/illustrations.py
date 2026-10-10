@@ -373,23 +373,37 @@ def _scallop(a, b, bumps, depth):
 
 
 def _handshake():
-    # Two hands shaking, seen from the side. The left hand (tone) reaches in from the left; its fingers curl under
-    # the right hand and show below it. The right hand (orange) comes from the right, its fingers wrapping over the
-    # back of the left hand. The left thumb lies on top of the right hand. Layers keep every overlap clean.
-    left = [poly((40, 84), (70, 80), (98, 82), (122, 88), (130, 110), (122, 132), (96, 138), (66, 136), (40, 132),
-                 fill="tone"),
-            rrect(14, 76, 26, 66, 6, fill="ink")]
-    under = [rrect(108, 126, 40, 13, 6.5, fill="tone")]
-    right = [poly((160, 82), (136, 78), (114, 84), (104, 96), (108, 124), (126, 132), (160, 130), fill="ink",
-                  ink=False),
-             rrect(78, 90, 46, 13, 6.5, fill="ink"), rrect(74, 104, 48, 13, 6.5, fill="ink"),
-             rrect(78, 118, 42, 13, 6.5, fill="ink"),
-             rrect(160, 74, 26, 66, 6, fill="ink")]
-    gaps = [line((108, 103.5), (80, 103.5), knock=True, w=0.6), line((108, 117.5), (82, 117.5), knock=True, w=0.6)]
-    thumb = [curve((62, 86), (84, 78), (110, 74), (124, 76), (127, 82), (122, 88), (100, 92), (74, 96),
+    # The classic handshake: both arms come down from the top corners. The right hand's thumb lies across the top
+    # and its fingers curl round under the left hand, showing as four rounded knuckles at the lower left. The left
+    # hand's fingers run down to the lower right beneath the right hand. Laid out on a 1790 x 980 grid, then scaled.
+    def m(*pts):
+        return [(20 + x * 0.0894, 58 + y * 0.0894) for x, y in pts]
+
+    cuffs = [poly(*m((0, 340), (200, 10), (355, 100), (155, 435)), fill="ink"),
+             poly(*m((1435, 95), (1590, 0), (1790, 330), (1635, 425)), fill="ink")]
+    left = [curve(*m((385, 125), (520, 160), (700, 135), (860, 160), (1030, 300), (1240, 500), (1440, 700),
+                     (1430, 770), (1360, 790), (1280, 830), (1220, 870), (1150, 890), (1080, 920), (1010, 930),
+                     (880, 900), (640, 830), (420, 690), (305, 590), (185, 455)), closed=True, fill="tone")]
+    right = [curve(*m((1610, 440), (1530, 300), (1420, 115), (1300, 150), (1100, 125), (930, 160), (780, 250),
+                      (660, 330), (640, 410), (700, 455), (780, 430), (1030, 290), (1240, 470), (1430, 640)),
                    closed=True, fill="tone")]
-    s = turn(layer(left, 0) + layer(under, 0) + solid(right, 1) + layer(gaps, 2) + solid(thumb, 3), -6, (100, 108))
-    s += sparkle(100, 40, 9) + [line((70, 52), (78, 62), w=0.85), line((130, 52), (122, 62), w=0.85)]
+    seams = [line(*m((900, 760), (1040, 880)), w=0.8), line(*m((1040, 690), (1240, 870)), w=0.8),
+             line(*m((1175, 615), (1400, 820)), w=0.8)]
+    knuckles = []
+    for (x0, y0), (x1, y1) in (((300, 690), (390, 615)), ((450, 760), (560, 670)),
+                               ((590, 840), (690, 750)), ((700, 910), (760, 860))):
+        (ax, ay), (bx, by) = m((x0, y0), (x1, y1))
+        r = 6.2
+        ang = math.atan2(by - ay, bx - ax)
+        pts = []
+        for c, a0 in (((bx, by), ang - math.pi / 2), ((ax, ay), ang + math.pi / 2)):
+            pts += [(c[0] + r * math.cos(a0 + math.pi * i / 10), c[1] + r * math.sin(a0 + math.pi * i / 10))
+                    for i in range(11)]
+        knuckles.append(poly(*pts, fill="tone"))
+    s = (layer(left, 0) + layer(seams, 1) + solid(right, 2) + [st for i, k in enumerate(knuckles)
+                                                                for st in solid([k], 4 + 2 * i)]
+         + layer(cuffs, 20))
+    s += [line((100, 26), (100, 8)), line((80, 30), (72, 16), w=0.9), line((120, 30), (128, 16), w=0.9)]
     return s
 
 
