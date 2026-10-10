@@ -5,7 +5,7 @@ Climb26 candid photography. Each file, its candid group and the original file na
 | File | Candid group | Original |
 | --- | --- | --- |
 | photos/climb_crowd_wide.jpg | Crowds | MAF-452.jpg |
-| photos/climb_band_stage.jpg | Audience at stage | MAF-67.jpg |
+| photos/climb_band_stage.jpg | Stage Speakers | MAF-519.jpg |
 | photos/climb_awards_winners.jpg | VIP and Awards | 052A3966.jpg |
 | photos/climb_awards_trophies.jpg | VIP and Awards | 052A4120.jpg |
 | photos/climb_drinks_reception.jpg | Food and vendors | 052A2871.jpg |
