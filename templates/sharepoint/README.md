@@ -1,38 +1,40 @@
 # SharePoint brand centre
 
-A new set of pages for the brand center site in SharePoint, built from the ClimbUK brand pack: twelve pages, a top menu, page banners, quick link tiles, the site header and footer, the brand theme and the brand fonts.
+The ClimbUK brand centre on the SharePoint brand center site, looking and working like the brand centre on the website: the dark festival pages, the menus, search, the theme and text size switches, colour and type, logos, drawings, photography and the live components. One page, `brand.aspx`, shows the whole brand book full width through a small web part, and the site gets the ClimbUK theme, logo, header, footer and menus around it.
 
-Everything here only adds. The script never deletes a page, a file or a link, and it skips any page whose name is already taken. The steps that change how the existing site looks (logo, header, footer, menu, home page) only run when you ask for them.
+Everything here only adds. The script never deletes a page, a file or a link, and it skips any page whose name is already taken. The steps that change the tenant or how the existing site looks (the app, theme, logo, header, footer, menu, home page) only run when you ask for them.
 
 ## What is in this folder
 
 | Path | What it is |
 | --- | --- |
-| `build-brand-centre.ps1` | Builds the pages, uploads the images, PDFs and Office templates, and (when asked) sets the menu, home page, logo, header and footer |
-| `pages.json` | Every page, section and line of copy. The script reads it; edit it to change a page before you build |
+| `build-brand-centre.ps1` | Uploads the brand book, images, PDFs and Office templates, builds `brand.aspx`, and (when asked) installs the web part and sets the theme, menu, home page, logo, header and footer |
+| `brand-book/` | The brand book as plain files: every page, picture, font, style and script. The script uploads it to Site Assets > BrandCentre > book |
+| `app/climb-brand-page.sppkg` | The ClimbUK brand book web part, for the app catalog |
+| `brand-book-web-part/` | The web part source, with how to rebuild it |
+| `pages.json` | The brand book menus, the ClimbUK theme colours and the twelve plain pages. The script reads it |
 | `banners/` | 12 page banners, 1920x1080 JPEG under 300 KB: a festival photo with a Dark Brown fade where the page title sits |
 | `quick-link-tiles/` | 16 tiles, 1200x675 JPEG: one house drawing in orange on Dark Brown, no words (the link title is live text) |
 | `section-backgrounds/` | Contours on Dark Brown and on Charcoal, for full width sections |
 | `site/` | Site logo (li monogram, 192x192), header background (2560x164, extended header) and footer logo (transparent PNG) |
 | `brand-fonts/` | Montserrat and Open Sans as TTF, every weight and italic: for the brand center font package and for Word and PowerPoint |
 | `licences/` | The SIL Open Font License for both fonts |
-| `copy.txt` | All page copy as plain text, checked with the climb-voice copy checker (no hard-rule problems, reading grade 4) |
+| `copy.txt` | The copy of the twelve plain pages, checked with the climb-voice copy checker |
 | `_build/` | The scripts that make all of it |
 
 ## The site
 
-| Menu | Page | File |
-| --- | --- | --- |
-| Home | Brand centre | `brand-centre.aspx` (set with `-HomePageName`) |
-| Brand | Our brand, Voice, Logos, Colour and type | `our-brand.aspx`, `voice.aspx`, `logos.aspx`, `colour-and-type.aspx` |
-| Artwork | Photography, Drawings and devices, Artwork library | `photography.aspx`, `drawings-and-devices.aspx`, `artwork-library.aspx` |
-| Make | Templates, Microsoft 365 kit | `templates.aspx`, `microsoft-365.aspx` |
-| Guidelines | Guidelines | `guidelines.aspx` |
-| Get help | Get help | `get-help.aspx` |
+| Menu | Pages |
+| --- | --- |
+| Brand | Overview, Colour, Type, Logos, Drawings, Icons, Photography |
+| Build | Layout, Motion, Components, Design tokens, Templates |
+| Artwork | Social, Call backgrounds, Wallpapers, Stage and screens, Print and merch, Email |
+| Guidelines | All guidelines, Digital UI, Motion, Photography, Video, Print, merch and signage, Press and partners, Email signatures, Voice |
+| Files | Marketing content, Photo library, Brand guidelines (PDF), Office templates |
 
-Every page follows the same shape: a banner photo with the page title, a strong opening statement, the content in one to three columns, a quick links row, and a strong closing section with one next step. The **Artwork library** page and the logo, photo and drawing links point at the two marketing content sites, so the files stay where they are and the brand centre explains them.
+Every brand book page has its own address on `brand.aspx`, for example `brand.aspx?brandpage=colour` for Colour, so each one has its own link to share. The brand book also carries the same menus at the top of the page, with search and the Downloads button.
 
-Three new libraries: **Brand files** (the brand guidelines and one page rules as PDF), **Brand templates** (Word, Excel and PowerPoint templates per brand) and **Brand Office fonts** (empty until an admin publishes the fonts to it, step 5).
+Two new libraries hold the files: **Brand files** (the brand guidelines and one page rules as PDF) and **Brand templates** (Word, Excel and PowerPoint templates per brand), plus **Brand Office fonts** (empty until an admin publishes the fonts to it, step 5).
 
 ## Build it
 
@@ -40,36 +42,49 @@ Three new libraries: **Brand files** (the brand guidelines and one page rules as
 
 1. Install PowerShell 7.4 or later, then `Install-Module PnP.PowerShell -Scope CurrentUser`.
 2. Register an app for PnP sign in, as a Global Administrator or Application Administrator: `Register-PnPEntraIDAppForInteractiveLogin -ApplicationName "PnP brand centre" -Tenant <tenant>.onmicrosoft.com -Interactive`. Copy the client id it prints.
-3. Clone or download the brand pack, so the script can upload the PDFs and Office templates.
+3. Clone or download the brand pack and run every command below from its `templates/sharepoint` folder.
 4. Note the addresses of the brand center site and the two marketing content sites.
 
-### 2. Build the pages as drafts
+### 2. Install the web part and build the page
+
+Run this as a SharePoint or Global Administrator. `-InstallApp` adds the ClimbUK brand book web part to the tenant app catalog, so it is only needed the first time and whenever the web part changes.
 
 ```powershell
 ./build-brand-centre.ps1 -SiteUrl https://<tenant>.sharepoint.com/sites/<brand-center-site> -ClientId <client id> `
   -MarketingContentUrl https://<tenant>.sharepoint.com/sites/<marketing-content-site> `
-  -PhotoLibraryUrl https://<tenant>.sharepoint.com/sites/<photo-site> -PackPath ~/Brand-System
+  -PhotoLibraryUrl https://<tenant>.sharepoint.com/sites/<photo-site> -PackPath ~/Brand-System -InstallApp
 ```
 
-The pages are saved as drafts: editors can open and check them, nobody else sees them. The script prints each page it built and any it skipped.
+It uploads the brand book and the files, then builds `brand.aspx` as a draft: editors can open it, nobody else sees it. Open `https://<tenant>.sharepoint.com/sites/<brand-center-site>/SitePages/brand.aspx` to check it.
+
+If the tenant has no app catalog yet, the script says so: create it in the SharePoint admin centre under **More features > Apps > Open**, wait for it to finish, then run the command again.
 
 ### 3. Switch the site over
 
-When the drafts look right, run the script again with the switches you want. Pages that already exist are skipped, so a second run only does the switches.
+When `brand.aspx` looks right, run the script again with the switches. Pages that already exist are skipped, so a second run only does the switches (and uploads the brand book again, which is how you update it):
+
+```powershell
+./build-brand-centre.ps1 -SiteUrl https://<tenant>.sharepoint.com/sites/<brand-center-site> -ClientId <client id> `
+  -MarketingContentUrl https://<tenant>.sharepoint.com/sites/<marketing-content-site> `
+  -PhotoLibraryUrl https://<tenant>.sharepoint.com/sites/<photo-site> -PackPath ~/Brand-System `
+  -Publish -SetSiteLook -SetNavigation -SetHomePage
+```
 
 | Switch | What it changes |
 | --- | --- |
+| `-InstallApp` | Adds the ClimbUK brand book web part to the tenant app catalog and makes it available on every site |
 | `-Publish` | Publishes the new pages |
-| `-SetNavigation` | Adds the five brand centre menus to the top navigation. Existing links stay: remove the old ones by hand when you are happy |
-| `-SetHomePage` | Makes the new home page the site home page. The old home page stays in Site Pages, unchanged |
-| `-SetSiteLook` | Site logo, extended header with the contour background, and the footer with the tagline and wordmark |
+| `-SetSiteLook` | Adds the **ClimbUK** theme to the tenant (Orange Text `#C55308` with white text, 4.55:1) and applies it to this site, then sets the site logo, the extended header with the contour background, and the footer with the tagline and wordmark |
+| `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the top navigation. Existing links stay: remove the old ones by hand when you are happy |
+| `-SetHomePage` | Makes `brand.aspx` the site home page. The old home page stays in Site Pages, unchanged |
+| `-TextPages` | Also builds the twelve plain SharePoint pages from earlier (`brand-centre.aspx`, `our-brand.aspx` and so on). Not needed for the brand book |
 
-### 4. Finish by hand
+### 4. The plain pages (only with -TextPages)
 
-The script builds the text sections. Two web parts need their pictures picked in the page editor:
+The plain pages need two web parts added by hand in the page editor:
 
-- **Home (brand-centre.aspx):** add a **Hero** web part in a full width section at the top (layout Tiles, five tiles), using the table below.
-- **Every page:** add a **Quick links** web part (layout Filmstrip) after the opening statement, using the tiles in each page's table below.
+- **Home (brand-centre.aspx):** add a **Hero** web part in a full width section at the top (layout Tiles, five tiles), using the table at the end.
+- **Every page:** add a **Quick links** web part (layout Filmstrip) after the opening statement, using the tiles in each page's table at the end.
 
 For each image, choose **Site Assets > BrandCentre** and the file named in the table.
 
@@ -88,7 +103,7 @@ Open the brand center app on the site, then:
 
 Apply it in **Change the look > Font** on this site and on the marketing content sites.
 
-**Theme.** Create a theme named **ClimbUK** from these colours:
+**Theme.** `-SetSiteLook` adds the **ClimbUK** theme and applies it. To use it on other sites, pick it in **Change the look > Theme**. To make it in the brand center instead, use these colours:
 
 | Use | Colour | Why |
 | --- | --- | --- |
@@ -98,42 +113,52 @@ Apply it in **Change the look > Font** on this site and on the marketing content
 | Soft section ground | White `#FFFFFF`, accent `#C55308` | |
 | Second dark ground | Charcoal `#242322`, accent Orange Tint `#F2AE86` | For links on dark |
 
-Check the preview: strong sections should show Dark Brown with white text. If the theme tool ties strong sections to the primary colour instead, they will show `#C55308` with white text, which still passes. For an AAA version, make a second theme named **ClimbUK AAA** with Deep Orange `#8D4419` (7.06:1 with white) as the primary.
+For an AAA version, make a second theme named **ClimbUK AAA** with Deep Orange `#8D4419` (7.06:1 with white) as the primary.
 
 **Images.** If the brand center has an image library, add `banners/`, `quick-link-tiles/` and `section-backgrounds/` to it, so anyone building a page in Microsoft 365 can pick them.
 
-**Fonts in Word and PowerPoint.** So the templates show Montserrat and Open Sans on every computer without installing them, a SharePoint admin publishes the files in `brand-fonts/` to the **Brand Office fonts** library the script made on this site. All organisation asset libraries must be on the same site:
+**Register the Office libraries.** This makes the templates show under the organisation tab in Word, Excel and PowerPoint, and lets PowerPoint for the web use the brand fonts. Run it as a SharePoint or Global Administrator, in the same PowerShell 7 with PnP. It signs in to the admin centre with the same app, then registers both libraries on the brand center site (all organisation asset libraries must be on that site):
 
 ```powershell
-Add-SPOOrgAssetsLibrary -LibraryUrl https://<tenant>.sharepoint.com/sites/<brand-center-site>/BrandOfficeFonts -OrgAssetType OfficeFontLibrary -CdnType Public
+Connect-PnPOnline -Url https://<tenant>-admin.sharepoint.com -Interactive -ClientId <client id>
+Add-PnPOrgAssetsLibrary -LibraryUrl https://<tenant>.sharepoint.com/sites/<brand-center-site>/BrandTemplates -OrgAssetType OfficeTemplateLibrary
+Add-PnPOrgAssetsLibrary -LibraryUrl https://<tenant>.sharepoint.com/sites/<brand-center-site>/BrandOfficeFonts -OrgAssetType OfficeFontLibrary -CdnType Public
+Get-PnPOrgAssetsLibrary
+```
+
+The last line lists every registered library, so you can check both are there. The changes can take up to 24 hours to show in Office.
+
+**Fonts in Word and PowerPoint.** So the templates show Montserrat and Open Sans on every computer without installing them, the font files also need a font catalog in **Brand Office fonts**. The only command that builds it, `Set-SPOCustomFontCatalog`, is in the SharePoint Online Management Shell, which runs on Windows only. In Windows PowerShell:
+
+```powershell
+Install-Module Microsoft.Online.SharePoint.PowerShell -Scope CurrentUser
+Connect-SPOService -Url https://<tenant>-admin.sharepoint.com
 Set-SPOCustomFontCatalog -FontFolder <path to brand-fonts> -LibraryUrl https://<tenant>.sharepoint.com/sites/<brand-center-site>/BrandOfficeFonts
 ```
 
 Both fonts are open source, so hosting them publicly is allowed by their licence.
 
-**Templates.** Ask a SharePoint admin to register the template library, so the templates show under the organisation tab in Word, Excel and PowerPoint:
-
-```powershell
-Add-SPOOrgAssetsLibrary -LibraryUrl https://<tenant>.sharepoint.com/sites/<brand-center-site>/BrandTemplates -OrgAssetType OfficeTemplateLibrary
-```
-
 ## Common problems
 
+- **brand.aspx is empty or says the web part is missing.** The web part is not installed yet. Run the script once with `-InstallApp` as an administrator, delete `brand.aspx` by hand, then run the script again.
+- **The brand book says it could not be loaded.** The brand book folder is missing from Site Assets > BrandCentre > book. Run the script again; it uploads the folder every time.
+- **Fonts, pictures or the live previews do not show.** The brand book loads its styles, scripts and pictures from Site Assets on this site. If your tenant limits script sources, add this site to the trusted script sources in the SharePoint admin centre.
 - **A page was skipped.** A page with that name already exists. The script left it alone. Rename or delete the old page by hand if you want the new one, then run the script again.
-- **The banner looks cropped.** SharePoint crops the header to the window. Open the page, choose **Edit**, select the header and use **Set focal point**.
 - **The PDFs or templates are missing.** Run the script with `-PackPath` pointing at the brand pack folder (the one with `pdf/` and `templates/` in it).
 - **Sign in fails.** The client id must be the app from step 1, and the account needs edit rights on the brand center site.
 
-## Rebuild the artwork
+## Rebuild it
+
+The brand book comes from the brand centre's own build (`build_brand_book.py --standalone`), the same one that makes the website pages. The web part is rebuilt with Node 22 (see `brand-book-web-part/README.md`). Then, from this folder:
 
 ```bash
-python3 _build/build_sharepoint_assets.py <brand pack folder> <this folder>
-python3 _build/make_pack.py <brand pack folder> <this folder>
+python3 _build/build_sharepoint_assets.py BRAND_PACK .
+python3 _build/make_pack.py BRAND_PACK . BRAND_BOOK WEB_PART
 ```
 
 Needs Python 3 with Pillow, and Node with Playwright and Chromium. Photos come from the Climb26 candid set in the brand pack, drawings and contour shapes from the house illustrations, colours from the tokens.
 
-## Page by page: the parts added by hand
+## The plain pages: the parts added by hand
 
 ### Brand centre (`brand-centre.aspx`)
 

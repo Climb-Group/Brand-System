@@ -495,5 +495,165 @@
     }
    ]
   }
- ]
+ ],
+ "booknav": [
+  {
+   "label": "Brand",
+   "links": [
+    {
+     "page": "index",
+     "title": "Overview"
+    },
+    {
+     "page": "colour",
+     "title": "Colour"
+    },
+    {
+     "page": "type",
+     "title": "Type"
+    },
+    {
+     "page": "logos",
+     "title": "Logos"
+    },
+    {
+     "page": "illustrations",
+     "title": "Drawings"
+    },
+    {
+     "page": "icons",
+     "title": "Icons"
+    },
+    {
+     "page": "photography",
+     "title": "Photography"
+    }
+   ]
+  },
+  {
+   "label": "Build",
+   "links": [
+    {
+     "page": "layout",
+     "title": "Layout"
+    },
+    {
+     "page": "motion",
+     "title": "Motion"
+    },
+    {
+     "page": "components",
+     "title": "Components"
+    },
+    {
+     "page": "tokens",
+     "title": "Design tokens"
+    },
+    {
+     "page": "templates",
+     "title": "Templates"
+    }
+   ]
+  },
+  {
+   "label": "Artwork",
+   "links": [
+    {
+     "page": "social",
+     "title": "Social"
+    },
+    {
+     "page": "calls",
+     "title": "Call backgrounds"
+    },
+    {
+     "page": "wallpapers",
+     "title": "Wallpapers"
+    },
+    {
+     "page": "stage",
+     "title": "Stage and screens"
+    },
+    {
+     "page": "print",
+     "title": "Print and merch"
+    },
+    {
+     "page": "email",
+     "title": "Email"
+    }
+   ]
+  },
+  {
+   "label": "Guidelines",
+   "links": [
+    {
+     "page": "guidelines",
+     "title": "All guidelines"
+    },
+    {
+     "page": "guidelines-ui",
+     "title": "Digital UI"
+    },
+    {
+     "page": "guidelines-motion",
+     "title": "Motion"
+    },
+    {
+     "page": "guidelines-photography",
+     "title": "Photography"
+    },
+    {
+     "page": "guidelines-video",
+     "title": "Video"
+    },
+    {
+     "page": "guidelines-print",
+     "title": "Print, merch and signage"
+    },
+    {
+     "page": "guidelines-press-and-partners",
+     "title": "Press and partners"
+    },
+    {
+     "page": "guidelines-signatures",
+     "title": "Email signatures"
+    },
+    {
+     "page": "guidelines-voice",
+     "title": "Voice"
+    }
+   ]
+  }
+ ],
+ "theme": {
+  "name": "ClimbUK",
+  "palette": {
+   "themePrimary": "#C55308",
+   "themeLighterAlt": "#FDF8F5",
+   "themeLighter": "#F7E7DC",
+   "themeLight": "#F0D2BF",
+   "themeTertiary": "#F2AE86",
+   "themeSecondary": "#D5641E",
+   "themeDarkAlt": "#B04902",
+   "themeDark": "#8D4419",
+   "themeDarker": "#7A3B16",
+   "neutralLighterAlt": "#FBFBFB",
+   "neutralLighter": "#F6F6F6",
+   "neutralLight": "#E9E9E9",
+   "neutralQuaternaryAlt": "#E3E2E2",
+   "neutralQuaternary": "#DCDCDC",
+   "neutralTertiaryAlt": "#CFCFCE",
+   "neutralTertiary": "#A7A7A7",
+   "neutralSecondaryAlt": "#878685",
+   "neutralSecondary": "#666564",
+   "neutralPrimaryAlt": "#454443",
+   "neutralPrimary": "#242322",
+   "neutralDark": "#1E0F05",
+   "black": "#1E0F05",
+   "white": "#FFFFFF",
+   "primaryBackground": "#FFFFFF",
+   "primaryText": "#242322"
+  }
+ }
 }

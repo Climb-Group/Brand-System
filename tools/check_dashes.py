@@ -8,7 +8,7 @@ import sys
 SUFFIXES = (".md", ".py", ".mjs", ".js", ".json", ".yml", ".css", ".scss", ".html", ".svg", ".txt")
 DASHES = (chr(0x2013), chr(0x2014))
 # Third-party or generated output that carries its own text (the component CSS bundles Bootstrap).
-SKIP = ("components/hub/",)
+SKIP = ("components/hub/", "templates/sharepoint/brand-book/vendor/")
 
 
 def main():

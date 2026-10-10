@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "ClimbUK brand book",
+    "id": "05f5d231-1818-4b9c-a6c2-6f22bb68c843",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "ClimbUK",
+      "websiteUrl": "https://climb-uk.com",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.23.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "The ClimbUK brand book on a SharePoint page"
+      },
+      "longDescription": {
+        "default": "Shows the ClimbUK brand book on a SharePoint page: the menu, search, colour and type, logos, drawings, photography, live components and downloads, loaded from the brand book folder on the site."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "ClimbUK brand book",
+        "description": "Adds the ClimbUK brand book web part.",
+        "id": "c309241e-cb37-4a85-8749-37b232e8d418",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/climb-brand-page.sppkg"
+  }
+}
