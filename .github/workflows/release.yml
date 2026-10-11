@@ -1,31 +1,73 @@
 name: release
 
-# Builds the template downloads and attaches them to GitHub releases, so nobody uploads them by hand.
-# The install package (Climb-Templates-<version>.zip) is rebuilt whenever templates/ changes on main and
-# replaces the asset on the templates-v<version> release. The 4K motion clips take a long render, so they only
-# build when someone runs this workflow by hand with "motion" ticked.
+# Builds the template downloads and attaches them to GitHub releases, so nobody uploads or starts anything by hand.
+#
+# - templates: the install package (Climb-Templates-<version>.zip) is built on every push to main that changes the
+#   templates and published as the templates-v<version> release. Releases are immutable once published, so a version
+#   is released once: bump templates/install/VERSION to publish a change. The version job fails a pull request that
+#   changes the package while its version is already released.
+# - motion: the 4K motion clips (climb-video-motion.zip) are rendered on a push to main that changes what they are
+#   drawn from (the template builders, the motifs, tokens, logos or fonts), or when no motion release exists yet, and
+#   published as a new climb-video-motion-<date>-<commit> release.
+#
+# Each release is created as a draft, given its asset, then published, so a published release is never changed.
+# Running the workflow by hand rebuilds both.
 
 on:
   push:
     branches: [main]
-    paths: ["templates/**", "fonts/**", "logos/**", "tokens/**"]
+    paths:
+      - "templates/**"
+      - "generators/motifs.py"
+      - "fonts/**"
+      - "logos/**"
+      - "tokens/**"
+  # No path filter: the version job finds what changed itself, as house workflows do.
+  pull_request:
   workflow_dispatch:
-    inputs:
-      motion:
-        description: "Also render the 4K motion clips and attach climb-video-motion-v1.zip"
-        type: boolean
-        default: false
 
 permissions: {}
 
-concurrency:
-  group: release
-  cancel-in-progress: false
-
 jobs:
+  version:
+    name: templates version
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Ask for a new version when the released one would change
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          v="$(cat templates/install/VERSION)"
+          changed=$(git diff --name-only "$BASE"...HEAD -- templates fonts logos tokens | grep -v '\.md$' | head -n 20 || true)
+          if [ -z "$changed" ]; then
+            echo "Nothing in the install package changes."
+            exit 0
+          fi
+          if ! gh release view "templates-v$v" --repo "$GITHUB_REPOSITORY" --json isDraft --jq '.isDraft == false' 2>/dev/null | grep -q true; then
+            echo "templates-v$v is not released yet, so merging this publishes it."
+            exit 0
+          fi
+          echo "::error file=templates/install/VERSION::templates-v$v is already released and releases cannot change. Bump templates/install/VERSION so this change is published as a new version."
+          echo "Changed: $changed"
+          exit 1
+
   templates:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    concurrency:
+      group: release-templates
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
@@ -34,22 +76,77 @@ jobs:
           persist-credentials: false
       - name: Build the install package
         run: python3 templates/_build/package_build.py
-      - name: Attach it to the templates release
+      - name: Publish the templates release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           v="$(cat templates/install/VERSION)"
           tag="templates-v$v"
-          if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" --target "$GITHUB_SHA" --title "Climb Templates $v" \
+          draft=$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null || echo missing)
+          if [ "$draft" = false ]; then
+            echo "::notice::$tag is already published and cannot change. Bump templates/install/VERSION to publish template changes."
+            echo "$tag is already published; nothing to do. Bump \`templates/install/VERSION\` to publish template changes." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ "$draft" = missing ]; then
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --draft --title "Climb Templates $v" \
               --notes "Office, LibreOffice, ONLYOFFICE and video templates for ClimbUK, ClimbGroup and Climb27, with installers for Windows, macOS and Linux. See templates/install/README.md."
           fi
-          gh release upload "$tag" "templates/dist/Climb-Templates-$v.zip" --clobber
+          gh release upload "$tag" "templates/dist/Climb-Templates-$v.zip" --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false
+          echo "Published $tag" >> "$GITHUB_STEP_SUMMARY"
+
+  motion-plan:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      build: ${{ steps.plan.outputs.build }}
+    steps:
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          inputs='^(templates/_build/|generators/motifs\.py$|tokens/|logos/|fonts/|templates/office/_shared/fonts/)'
+          existing=$(gh release list --repo "$GITHUB_REPOSITORY" --limit 200 --json tagName,isDraft \
+            --jq '[.[] | select((.tagName | startswith("climb-video-motion-")) and (.isDraft | not))] | length')
+          if [ "$EVENT" = workflow_dispatch ]; then
+            reason="run by hand"
+          elif [ "$existing" = 0 ]; then
+            reason="no motion release exists yet"
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = 0000000000000000000000000000000000000000 ]; then
+            reason="no earlier commit to compare with"
+          elif files=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$GITHUB_SHA" --jq '.files[].filename'); then
+            if printf '%s\n' "$files" | grep -Eq "$inputs"; then
+              reason="what the clips are drawn from changed"
+            else
+              reason=""
+            fi
+          else
+            reason="the change could not be compared"
+          fi
+          if [ -n "$reason" ]; then
+            echo "Rendering the motion clips: $reason." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Nothing the motion clips are drawn from changed, so they are not rendered." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          fi
 
   motion:
-    if: github.event_name == 'workflow_dispatch' && inputs.motion
+    needs: motion-plan
+    if: needs.motion-plan.outputs.build == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 300
+    concurrency:
+      group: release-motion
+      cancel-in-progress: true
     permissions:
       contents: write
     steps:
@@ -67,14 +164,18 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Render the motion clips
         run: python3 templates/_build/video_build.py
-      - name: Zip and attach them
+      - name: Publish them as a new release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          (cd templates && zip -r -0 ../climb-video-motion-v1.zip video/*/motion)
-          tag="climb-video-motion-v1"
-          if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" --target "$GITHUB_SHA" --title "Climb video motion v1" \
-              --notes "4K 25fps motion clips (ProRes 4444 with alpha and H.264) for the video templates. Unzip next to the video kit."
+          set -euo pipefail
+          (cd templates && zip -r -0 ../climb-video-motion.zip video/*/motion)
+          tag="climb-video-motion-$(date -u +%Y-%m-%d)-${GITHUB_SHA::7}"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --draft --latest=false \
+              --title "Climb video motion $(date -u +%Y-%m-%d)" \
+              --notes "4K 25fps motion clips (ProRes 4444 with alpha and H.264) for the video templates, built from $GITHUB_SHA. Unzip next to the video kit."
           fi
-          gh release upload "$tag" climb-video-motion-v1.zip --clobber
+          gh release upload "$tag" climb-video-motion.zip --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
+          echo "Published $tag" >> "$GITHUB_STEP_SUMMARY"

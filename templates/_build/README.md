@@ -29,7 +29,9 @@ python3 video_previews.py   # video/previews/*.jpg
 
 The motion clips (`video/*/motion/`) and the install package (`templates/dist/`) are not committed. The `release` workflow builds both and attaches them to GitHub releases, so nothing is uploaded by hand:
 
-- `Climb-Templates-<version>.zip` (`python3 templates/_build/package_build.py`) is rebuilt on every push to main that changes the templates, and replaces the asset on the `templates-v<version>` release. Bump `templates/install/VERSION` for a new release.
-- `climb-video-motion-v1.zip` takes a long render, so it builds only when the workflow is run by hand with "motion" ticked (Actions, release, Run workflow).
+- `Climb-Templates-<version>.zip` (`python3 templates/_build/package_build.py`) is built on every push to main that changes the templates and published as the `templates-v<version>` release. Releases cannot change once published, so each version is released once: bump `templates/install/VERSION` in the pull request that changes the package. The `templates version` check fails a pull request that changes the package while its version is already released.
+- `climb-video-motion.zip` (`python3 templates/_build/video_build.py`, a long render) is built on a push to main that changes what the clips are drawn from (`templates/_build/`, `generators/motifs.py`, `tokens/`, `logos/` or the fonts), or when no motion release exists yet, and published as a new `climb-video-motion-<date>-<commit>` release. The newest one is current.
+
+Every release is created as a draft, given its file, then published. Nothing needs starting by hand; running the workflow from the Actions tab rebuilds both.
 
 See `templates/install/README.md`.
