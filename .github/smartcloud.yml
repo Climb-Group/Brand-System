@@ -23,6 +23,15 @@ extends:
 sync:
   exclude:
     - LICENSE
+    # No Sponsor button: the brand pack is ClimbGroup's, not a personal project.
+    - .github/FUNDING.yml
+  # The brand pack belongs to ClimbGroup, so the synced documents name
+  # ClimbGroup rather than the house defaults.
+  values:
+    ORG_NAME: ClimbGroup
+    LEGAL_HOLDER: ClimbGroup
+    PACKAGE_SCOPE: "@climbgroup"
+    CONDUCT_CONTACT: marketing@climb-uk.com
 required:
   expect: ['^brand$']
 # The brand pack's CI job (check.yml) is required on the default branch too,
