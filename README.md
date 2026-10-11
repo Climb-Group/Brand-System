@@ -70,6 +70,17 @@ Or open an assistant with the brand already loaded. The brand centre shows these
 
 None of these vendors offers a link that installs a skill for you, so each button opens the assistant with a prompt and the packages cover the rest. Rebuild the packages and links with `python3 ai/agents/build_agent_kits.py` after changing a skill; details are in `ai/README.md`.
 
+### Prompt library
+
+`ai/prompts/` holds ready-made prompts for every Microsoft 365 Copilot task type (Analyze, Ask, Assist, Catch up, Code, Create, Design, Edit, Execute, Find, Learn, Prepare, Schedule and Understand), each with the brand rules built in. One file per prompt is the source; `python3 ai/prompts/build_prompts.py` builds the rest:
+
+- `ai/prompts/dist/copilot/climbuk-prompts.csv`: import it in the Microsoft 365 admin center under Copilot, Prompts.
+- `ai/packages/cowork/`: the brand skills and the prompt library as Copilot Cowork skill uploads, and `ai/packages/climbuk-brand-plugin-m365.zip`, all three as one Cowork plugin.
+- `ai/packages/climbuk-brand-plugin.zip`: a Claude plugin with the skills and every prompt as a command.
+- `ai/prompts/dist/`: the prompts for Claude Code, Codex, Cursor, VS Code and Gemini CLI, plus `PROMPTS.md` to copy from in any other assistant.
+
+How to install each one is in `ai/prompts/README.md`.
+
 ## Rebuild the artwork
 
 ```bash

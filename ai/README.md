@@ -14,6 +14,7 @@ Skills, tools and an agent that let an AI assistant (for example the one built i
 | `agents/copilot/` | The Microsoft 365 Copilot agent: app manifest, declarative agent, instructions (8000 characters at most) and icons. |
 | `packages/` | Generated: one zip per brand skill (`climb-voice.zip`, `climb-visual-style.zip`), both together (`climbuk-brand-skills.zip`) and the Copilot agent package (`climbuk-brand-agent-m365.zip`). |
 | `open-in.json` | Generated: the "Open in" links, prompts and install commands the brand centre shows. |
+| `prompts/` | The prompt library: one file per prompt for every Copilot task type, and `build_prompts.py`, which builds the Copilot import CSV, the files for other assistants, the `climb-prompts` skill, the Cowork skill uploads and the Claude and Cowork plugins. See `prompts/README.md`. |
 | `tests/` | Unit tests for the tools, the manifest, the packages and the links. |
 
 ## The tools
@@ -61,4 +62,5 @@ No vendor offers a link that installs a skill into the assistant directly, so a 
 - Every string argument in a tool schema has a `maxLength`.
 - Text is ASCII only, with no em or en dashes.
 - After changing a brand skill, a prompt or `agents/copilot/`, run `python3 ai/agents/build_agent_kits.py` and commit what it writes; CI runs it with `--check`. `--icons` redraws the Copilot icons from the li monogram and needs Pillow.
+- After changing a brand skill or a prompt, also run `python3 ai/prompts/build_prompts.py`: the plugins and Cowork uploads carry the skills.
 - Skill front matter must be strict YAML: quote a description that holds `: ` or ` #`, or `npx skills` skips the skill.
