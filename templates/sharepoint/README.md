@@ -9,7 +9,7 @@ Everything here only adds, with one exception you ask for by name: `-ReplaceNavi
 | Path | What it is |
 | --- | --- |
 | `build-brand-centre.ps1` | Uploads the brand book, images, PDFs and Office templates, builds `brand.aspx`, and (when asked) installs the web part and sets the theme, menu, home page, logo, header and footer |
-| `brand-book/` | The brand book as plain files: every page, picture, font, style and script. The script uploads it to Site Assets > BrandCentre > book |
+| `brand-book/` | The brand book as plain files: every page, picture, font, style and script. The script uploads it to Site Assets > BrandCentre > book. Its Templates and Guidelines pages list and link the copies in Brand templates and Brand files; the other download sections link to the website |
 | `app/climb-brand-page.sppkg` | The ClimbUK brand book web part, for the app catalog |
 | `brand-book-web-part/` | The web part source, with how to rebuild it |
 | `pages.json` | The brand book menus, the ClimbUK theme colours and the twelve plain pages. The script reads it |

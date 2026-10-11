@@ -2,7 +2,7 @@
 the web part package and its source. Usage: make_pack.py PACK OUT BOOK SPFX
   BOOK  the standalone brand book (build_brand_book.py --standalone)
   SPFX  the brand book web part project (brand-book-web-part/), built with npm run build"""
-import html, json, re, shutil, sys
+import html, json, re, shutil, subprocess, sys
 from pathlib import Path
 from pages import PAGES, NAV
 
@@ -96,13 +96,14 @@ for f in PACK.glob("templates/office/_shared/fonts/*"):
     shutil.copy(f, fonts if f.suffix == ".ttf" else OUT / "licences")
 build = OUT / "_build"
 build.mkdir(exist_ok=True)
-for f in ("build_sharepoint_assets.py", "render.mjs", "pages.py", "make_pack.py", "build-brand-centre.ps1"):
+for f in ("build_sharepoint_assets.py", "render.mjs", "pages.py", "make_pack.py", "book_files.py", "build-brand-centre.ps1"):
     shutil.copy(HERE / f, build)
 shutil.rmtree(OUT / "_html", ignore_errors=True)
 
 # The brand book, the web part package and its source.
 shutil.rmtree(OUT / "brand-book", ignore_errors=True)
 shutil.copytree(BOOK, OUT / "brand-book")
+subprocess.run([sys.executable, str(HERE / "book_files.py"), str(PACK), str(OUT / "brand-book")], check=True)
 (OUT / "app").mkdir(exist_ok=True)
 shutil.copy(SPFX / "sharepoint/solution/climb-brand-page.sppkg", OUT / "app")
 src = OUT / "brand-book-web-part"
