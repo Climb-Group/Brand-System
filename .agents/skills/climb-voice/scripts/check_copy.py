@@ -46,7 +46,7 @@ ALWAYS = [
     (r"\bmeet (the )?investors\b|ready to invest", "reads as a promised meeting: 'Find investors looking for real deal flow', 'Investors here to find their next deal'"),
     (r"\b(un)?matched\b", "say 'brought to you' or 'connect'; never 'matched' or 'unmatched'"),
     (r"about \d+\s*% of tickets", "do not quote a release's share of tickets: name its state"),
-    (r"\bbuy (button|now)\b", "sounds like selling: name the next step ('Get your ticket'), or say 'call to action' or 'the main button'"),
+    (r"\bbuy (button|now)\b", "sounds like selling: label the button with the next step ('Get your ticket', 'Book now')"),
 ]
 
 # Case-sensitive rules.
@@ -93,6 +93,13 @@ VAGUE_LINK_WHY = "vague link text: say where the link goes (for example 'See the
 VAGUE_PHRASES = r"\b(click here|read more|learn more|find out more|more info(rmation)?)\b"
 # "here" alone is only a problem as the whole link text: markdown [here](...) or HTML <a ...>here</a>.
 VAGUE_HERE = r"\[\s*(here|this|this link|link)\s*\]\(|<a\b[^>]*>\s*(here|this|this link|link)\s*</a>"
+# Button and link labels that name the element instead of the action. They mean nothing to a reader.
+VAGUE_BUTTON_WHY = "vague button text: label it with the action ('Get your ticket', 'Book now'), never 'call to action' or 'the main button'"
+VAGUE_BUTTON_LABEL = r"(the )?main button|call to action|cta"
+VAGUE_BUTTON = (
+    r"\[\s*(" + VAGUE_BUTTON_LABEL + r")\s*\]\(|<(a|button)\b[^>]*>\s*(" + VAGUE_BUTTON_LABEL + r")\s*</(a|button)>"
+    r"|\b(button|label|link)\s*(text)?\s*[:=]\s*['\"]?\s*(" + VAGUE_BUTTON_LABEL + r")\b"
+)
 
 # All-caps tokens a reader already knows, or that are spelled out in the brand book.
 ABBREVIATION_ALLOWLIST = {
@@ -139,6 +146,8 @@ def check_links(text):
             problems.append(_problem(text, m, VAGUE_LINK_WHY))
     for m in re.finditer(VAGUE_HERE, text, flags=re.IGNORECASE):
         problems.append(_problem(text, m, VAGUE_LINK_WHY))
+    for m in re.finditer(VAGUE_BUTTON, text, flags=re.IGNORECASE):
+        problems.append(_problem(text, m, VAGUE_BUTTON_WHY))
     return problems
 
 

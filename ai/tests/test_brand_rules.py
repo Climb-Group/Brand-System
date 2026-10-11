@@ -70,6 +70,14 @@ class CopyTest(unittest.TestCase):
         self.assertIn("first", result["note"])
         self.assertFalse(brand_rules.call("check_copy", {"text": "Get your Climb27 ticket"})["truncated"])
 
+    def test_vague_button_text_fails(self):
+        for text in ('<button class="btn">Call to action</button>', "[The main button](/tickets)", "Button text: CTA"):
+            result = brand_rules.call("check_copy", {"text": text})
+            self.assertFalse(result["ok"], text)
+            self.assertIn("button", " ".join(p["rule"] for p in result["problems"]))
+        self.assertTrue(brand_rules.call("check_copy", {"text": "One orange call to action per view."})["ok"])
+        self.assertTrue(brand_rules.call("check_copy", {"text": '<a href="/tickets">Get your ticket</a>'})["ok"])
+
     def test_good_copy_passes(self):
         self.assertTrue(brand_rules.call("check_copy", {"text": "Get your Climb27 ticket"})["ok"])
 
