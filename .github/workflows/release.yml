@@ -1,0 +1,80 @@
+name: release
+
+# Builds the template downloads and attaches them to GitHub releases, so nobody uploads them by hand.
+# The install package (Climb-Templates-<version>.zip) is rebuilt whenever templates/ changes on main and
+# replaces the asset on the templates-v<version> release. The 4K motion clips take a long render, so they only
+# build when someone runs this workflow by hand with "motion" ticked.
+
+on:
+  push:
+    branches: [main]
+    paths: ["templates/**", "fonts/**", "logos/**", "tokens/**"]
+  workflow_dispatch:
+    inputs:
+      motion:
+        description: "Also render the 4K motion clips and attach climb-video-motion-v1.zip"
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the install package
+        run: python3 templates/_build/package_build.py
+      - name: Attach it to the templates release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="$(cat templates/install/VERSION)"
+          tag="templates-v$v"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title "Climb Templates $v" \
+              --notes "Office, LibreOffice, ONLYOFFICE and video templates for ClimbUK, ClimbGroup and Climb27, with installers for Windows, macOS and Linux. See templates/install/README.md."
+          fi
+          gh release upload "$tag" "templates/dist/Climb-Templates-$v.zip" --clobber
+
+  motion:
+    if: github.event_name == 'workflow_dispatch' && inputs.motion
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+      - name: Install ffmpeg, Pillow and Chromium
+        run: | # pinned render tool, no lockfile in this repo # zizmor: ignore[adhoc-packages]
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          python3 -m pip install Pillow
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Render the motion clips
+        run: python3 templates/_build/video_build.py
+      - name: Zip and attach them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd templates && zip -r -0 ../climb-video-motion-v1.zip video/*/motion)
+          tag="climb-video-motion-v1"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title "Climb video motion v1" \
+              --notes "4K 25fps motion clips (ProRes 4444 with alpha and H.264) for the video templates. Unzip next to the video kit."
+          fi
+          gh release upload "$tag" climb-video-motion-v1.zip --clobber

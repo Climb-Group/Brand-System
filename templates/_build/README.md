@@ -27,6 +27,9 @@ python3 video_previews.py   # video/previews/*.jpg
 | `copy_samples.py`, `word_build.py`, `excel_build.py` | the climb-voice skill; all sample copy passes `check_copy.py` |
 | `art.py`, `pptx_build.py`, `video_build.py` | the climb-visual-style skill, `guidelines/video.md` and `guidelines/motion.md` |
 
-The motion clips (`video/*/motion/`) are not committed: they are attached to a release as `climb-video-motion-v1.zip`.
+The motion clips (`video/*/motion/`) and the install package (`templates/dist/`) are not committed. The `release` workflow builds both and attaches them to GitHub releases, so nothing is uploaded by hand:
 
-The install package (`python3 templates/_build/package_build.py`, written to `templates/dist/`) is not committed either: `Climb-Templates-<version>.zip` is the second asset on the same release, next to the motion clips. See `templates/install/README.md`.
+- `Climb-Templates-<version>.zip` (`python3 templates/_build/package_build.py`) is rebuilt on every push to main that changes the templates, and replaces the asset on the `templates-v<version>` release. Bump `templates/install/VERSION` for a new release.
+- `climb-video-motion-v1.zip` takes a long render, so it builds only when the workflow is run by hand with "motion" ticked (Actions, release, Run workflow).
+
+See `templates/install/README.md`.
