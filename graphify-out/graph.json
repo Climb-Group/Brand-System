@@ -39339,10 +39339,10 @@
       "node_kind": "heading",
       "norm_label": "common problems",
       "source_file": "README.md",
-      "source_location": "L82"
+      "source_location": "L86"
     },
     {
-      "id": "readme_common_problems_125",
+      "id": "readme_common_problems_129",
       "label": "Common problems",
       "_origin": "ast",
       "community": 97,
@@ -39351,7 +39351,7 @@
       "node_kind": "heading",
       "norm_label": "common problems",
       "source_file": "README.md",
-      "source_location": "L125"
+      "source_location": "L129"
     },
     {
       "id": "readme_licence",
@@ -39363,7 +39363,7 @@
       "node_kind": "heading",
       "norm_label": "licence",
       "source_file": "README.md",
-      "source_location": "L130"
+      "source_location": "L135"
     },
     {
       "id": "readme_rebuild_the_artwork",
@@ -39375,7 +39375,7 @@
       "node_kind": "heading",
       "norm_label": "rebuild the artwork",
       "source_file": "README.md",
-      "source_location": "L69"
+      "source_location": "L73"
     },
     {
       "id": "readme_release_the_media_kit_exports",
@@ -39387,7 +39387,7 @@
       "node_kind": "heading",
       "norm_label": "release the media kit exports",
       "source_file": "README.md",
-      "source_location": "L102"
+      "source_location": "L106"
     },
     {
       "id": "readme_repository_setup_and_checks",
@@ -39399,7 +39399,7 @@
       "node_kind": "heading",
       "norm_label": "repository setup and checks",
       "source_file": "README.md",
-      "source_location": "L88"
+      "source_location": "L92"
     },
     {
       "id": "readme_set_it_up_once",
@@ -39411,7 +39411,7 @@
       "node_kind": "heading",
       "norm_label": "set it up once",
       "source_file": "README.md",
-      "source_location": "L115"
+      "source_location": "L119"
     },
     {
       "id": "readme_use_the_brand_in_an_ai_assistant",
@@ -39447,7 +39447,7 @@
       "node_kind": "heading",
       "norm_label": "what it cannot build",
       "source_file": "README.md",
-      "source_location": "L120"
+      "source_location": "L124"
     },
     {
       "id": "tools_ci_coverage_goal",
@@ -81631,7 +81631,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L102",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -81642,7 +81642,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L130",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -81697,7 +81697,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L69",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -81708,7 +81708,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L82",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
@@ -81719,7 +81719,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L88",
+      "source_location": "L92",
       "weight": 1.0
     },
     {
@@ -81730,7 +81730,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L115",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -81741,18 +81741,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L120",
+      "source_location": "L124",
       "weight": 1.0
     },
     {
       "source": "readme_release_the_media_kit_exports",
-      "target": "readme_common_problems_125",
+      "target": "readme_common_problems_129",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L125",
+      "source_location": "L129",
       "weight": 1.0
     },
     {
@@ -100137,5 +100137,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3f4f6dc70d34aa79af0ac34cee0847a5ab24dca2"
+  "built_at_commit": "f58a72647802aac93be46b12e0b84687f49e3421"
 }
