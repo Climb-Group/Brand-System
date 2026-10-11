@@ -6,3 +6,5 @@
 *.pdf binary
 *.zip binary
 *.7z binary
+# The Copilot import CSV keeps the CRLF line endings and byte order mark of Microsoft's template.
+ai/prompts/dist/copilot/*.csv -text
