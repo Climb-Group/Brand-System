@@ -61,7 +61,11 @@ Or open an assistant with the brand already loaded. The brand centre shows these
 | Claude | Opens a new chat with a prompt that has Claude read both skills first. To keep them, upload `ai/packages/climb-voice.zip` and `ai/packages/climb-visual-style.zip` under Settings, Capabilities, Skills. |
 | Claude Code | Starts a session on this repository, which loads both skills from it. |
 | Codex | Opens a new chat in the Codex app with a prompt that installs both skills with the command above, then loads them. |
+| ChatGPT | Opens a new chat with a prompt that has ChatGPT read both skills first. To keep them, add the skill zips to a project or custom GPT. |
 | Microsoft Copilot | Opens Copilot with a prompt that has it read both skills first. For Microsoft 365 Copilot, `ai/packages/climbuk-brand-agent-m365.zip` is a ready-made agent: add it as a custom app in Teams, or have an admin deploy it. |
+| Gemini | Copies the prompt and opens Gemini, which has no prompt link; paste it in. To keep the skills, add the zips to a Gem. |
+| Perplexity, Grok, Le Chat | Open a new chat with a prompt that has the assistant read both skills first. |
+| DeepSeek | Copies the prompt and opens DeepSeek, which has no prompt link; paste it in. |
 
 None of these vendors offers a link that installs a skill for you, so each button opens the assistant with a prompt and the packages cover the rest. Rebuild the packages and links with `python3 ai/agents/build_agent_kits.py` after changing a skill; details are in `ai/README.md`.
 
