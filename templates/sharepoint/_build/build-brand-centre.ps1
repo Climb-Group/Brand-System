@@ -204,11 +204,17 @@ else {
         }
     }
 }
+# PnP refuses to save a page that holds a custom web part in a full width section (it only allows the image and hero
+# web parts there), although SharePoint shows it. So comments and publishing go through SharePoint's own calls.
 if ($hasBook) {
-    Set-PnPPage -Identity $BrandPageName -CommentsEnabled:$false | Out-Null
+    $pageId = (Get-PnPFile -Url "$rel/SitePages/$BrandPageName.aspx" -AsListItem).Id
+    try {
+        Invoke-PnPSPRestMethod -Method Post -Url "$SiteUrl/_api/web/GetList('$rel/SitePages')/items($pageId)/SetCommentsDisabled(true)" | Out-Null
+    }
+    catch { Write-Warning "Could not turn comments off on $BrandPageName.aspx: $($_.Exception.Message)" }
 }
 if ($Publish -and $hasBook) {
-    Set-PnPPage -Identity $BrandPageName -Publish | Out-Null
+    Invoke-PnPSPRestMethod -Method Post -Url "$SiteUrl/_api/sitepages/pages($pageId)/Publish" | Out-Null
     Write-Host "Published $BrandPageName.aspx"
 }
 
