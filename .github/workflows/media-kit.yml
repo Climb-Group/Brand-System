@@ -6,8 +6,9 @@ name: media kit
 #
 # The builder, climb_brand_media_kit/scripts/build_kit.py, lives in the website repository, which is private:
 # the MEDIA_KIT_BUILDER_TOKEN secret is a read-only token for it (contents: read). The photo library comes from
-# the photo-library release's climb-photo-library.zip (one folder per group, exclusions already applied); when
-# that release does not exist the kit is built without it and the job summary says so.
+# the photo-library release's climb-photo-library.zip (one folder per group, exclusions already applied), and
+# its optional media-kit-exclude.txt is passed as --photo-exclude on top; when that release does not exist the
+# kit is built without photos and the job summary says so.
 
 on:
   push:
@@ -112,6 +113,10 @@ jobs:
             mkdir -p "$RUNNER_TEMP/photo-library"
             unzip -q "$RUNNER_TEMP/climb-photo-library.zip" -d "$RUNNER_TEMP/photo-library"
             echo "dir=$RUNNER_TEMP/photo-library" >> "$GITHUB_OUTPUT"
+            # Optional second asset: folder/filename lines to leave out, applied on top of the zip.
+            if gh release download photo-library --repo "$GITHUB_REPOSITORY" --pattern media-kit-exclude.txt --dir "$RUNNER_TEMP"; then
+              echo "exclude=$RUNNER_TEMP/media-kit-exclude.txt" >> "$GITHUB_OUTPUT"
+            fi
           else
             echo '::warning::No photo-library release with climb-photo-library.zip, so the kit has no photo library.'
             echo 'The kit was built **without the photo library**: upload climb-photo-library.zip to a release tagged photo-library.' >> "$GITHUB_STEP_SUMMARY"
@@ -120,6 +125,7 @@ jobs:
       - name: Build the exports kit
         env:
           PHOTOS: ${{ steps.photos.outputs.dir }}
+          PHOTO_EXCLUDE: ${{ steps.photos.outputs.exclude }}
         run: |
           args=(--pack pack --rendered pack/build/assets --exports-out build/media-kit-exports
                 --zip build/climb-media-kit-exports.zip --fetch-fonts --font-cache build/fonts)
@@ -130,6 +136,9 @@ jobs:
               root=$(find "$root" -mindepth 1 -maxdepth 1 -type d)
             fi
             args+=(--photo-library "$root")
+            if [ -n "$PHOTO_EXCLUDE" ]; then
+              args+=(--photo-exclude "$PHOTO_EXCLUDE")
+            fi
           fi
           python3 builder/climb_brand_media_kit/scripts/build_kit.py "${args[@]}"
 

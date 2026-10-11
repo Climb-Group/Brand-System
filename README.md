@@ -112,7 +112,7 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 ### Set it up once
 
 1. Create a read-only token for the website repository (contents: read) and save it in this repository as the secret `MEDIA_KIT_BUILDER_TOKEN`. The builder lives there, and that repository is private.
-2. For the photo library, zip the library folders (one folder per group, with any excluded photos already removed) as `climb-photo-library.zip` and attach it to a release tagged `photo-library`. Replace the file there when the library changes. Without it the kit builds with no photo library and the job summary says so.
+2. For the photo library, zip the library folders (one folder per group, with any excluded photos already removed) as `climb-photo-library.zip` and attach it to a release tagged `photo-library`. To leave photos out without rebuilding the zip, also attach `media-kit-exclude.txt` with one `folder/filename` line per photo. Replace the files there when the library changes. Without the zip the kit builds with no photo library and the job summary says so.
 
 ### What it cannot build
 
