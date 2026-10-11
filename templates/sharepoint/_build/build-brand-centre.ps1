@@ -17,7 +17,10 @@ Changes to the tenant and the existing site are opt in:
   -TextPages      also builds the twelve plain SharePoint pages (brand-centre.aspx, our-brand.aspx and so on)
   -SetSiteLook    adds the ClimbUK theme to the tenant and applies it here (needs a SharePoint Administrator), then
                   sets the site logo, the extended header with its background, and the footer
-  -SetNavigation  adds the brand book menus to the top navigation (existing links stay)
+  -SetNavigation  adds the brand book menus to the menu bar the site shows (existing links stay)
+  -ReplaceNavigation
+                  saves both site menus to navigation-backup-<date>.json next to this script, removes every old link
+                  from the menu bar, then adds Home and the brand book menus
   -SetHomePage    makes brand.aspx (-BrandPageName) the site home page; the old home page stays in Site Pages
   -RegisterOfficeLibraries
                   shares the site read only with everyone in the organisation (Microsoft 365 requires it), then
@@ -49,6 +52,7 @@ param(
     [switch]$SetNavigation,
     [switch]$SetSiteLook,
     [switch]$RegisterOfficeLibraries,
+    [switch]$ReplaceNavigation,
     [ValidateSet("Auto", "TopNavigationBar", "QuickLaunch")][string]$NavigationLocation = "Auto"
 )
 $ErrorActionPreference = "Stop"
@@ -117,6 +121,7 @@ else {
 
 # 5. The brand book web part, once per tenant.
 $webPartId = "ba7831b6-7e3c-4201-ae39-39617ced1e61"
+$solutionId = "05f5d231-1818-4b9c-a6c2-6f22bb68c843"
 if ($InstallApp) {
     $catalog = Get-PnPTenantAppCatalogUrl
     if (-not $catalog) {
@@ -129,13 +134,19 @@ if ($InstallApp) {
 }
 
 # 6. The brand book page. A brand.aspx this script made earlier (title "Brand centre") that does not show the brand
-# book yet, because the app was not installed when it was made, is cleared and given the web part. Any other page
-# with that name is left alone.
+# book, because the web part was missing or empty, is cleared and given the web part. Any other page with that name
+# is left alone.
 $made = @()
-$brandPage = $null
-try { $brandPage = Get-PnPPage -Identity $BrandPageName -ErrorAction Stop } catch { $brandPage = $null }
 function IsBook($control) { "$($control.WebPartId)".Trim("{", "}").ToLower() -eq $webPartId }
-$hasBook = $brandPage -and @($brandPage.Controls | Where-Object { IsBook $_ }).Count -gt 0
+function BrandPage { try { return Get-PnPPage -Identity $BrandPageName -ErrorAction Stop } catch { return $null } }
+function HasBook { $p = BrandPage; return [bool]($p -and @($p.Controls | Where-Object { IsBook $_ }).Count -gt 0) }
+# The web part as SharePoint offers it on this site. Passing the object (not the id as text) to Add-PnPPageWebPart is
+# what makes the page show it: an id the site does not offer yet adds an empty web part instead of failing.
+function BookComponent {
+    @(Get-PnPPageComponent -Page $BrandPageName -ListAvailable | Where-Object { "$($_.Id)".Trim("{", "}").ToLower() -eq $webPartId })[0]
+}
+$brandPage = BrandPage
+$hasBook = HasBook
 $ours = $brandPage -and $brandPage.PageTitle -eq "Brand centre"
 if ($hasBook) {
     Write-Host "$BrandPageName.aspx already shows the brand book"
@@ -144,27 +155,45 @@ elseif ($brandPage -and -not $ours) {
     Write-Warning "Skipped $BrandPageName.aspx: a page with that name already exists and was not made by this script. Nothing on it was changed. Use -BrandPageName to build the brand book page under another name."
 }
 else {
-    if ($brandPage) {
-        $found = @($brandPage.Controls | ForEach-Object { "$($_.Type)" }) -join ", "
-        Write-Host "Clearing $BrandPageName.aspx, made earlier by this script without the brand book (it held: $(if ($found) { $found } else { 'nothing' }))"
-        $brandPage.ClearPage()
-        $brandPage.Save() | Out-Null
-    }
-    else {
+    if (-not $brandPage) {
         Add-PnPPage -Name $BrandPageName -LayoutType Home | Out-Null
         Set-PnPPage -Identity $BrandPageName -Title "Brand centre" -ThumbnailUrl "$rel/$img/banners/climbuk_sharepoint-banner_home_1920x1080.jpg" | Out-Null
     }
-    Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumn | Out-Null
-    try {
-        Add-PnPPageWebPart -Page $BrandPageName -Component $webPartId -Section 1 -Column 1 `
-            -WebPartProperties @{ page = "index"; bookUrl = "" } | Out-Null
-        $hasBook = $true
-        $made += $BrandPageName
-        Write-Host "Built $BrandPageName.aspx with the brand book"
+    # A newly deployed app can take a few minutes to reach the site, so wait for it (up to 10 minutes).
+    $component = BookComponent
+    for ($try = 1; -not $component -and $try -le 20; $try++) {
+        if ($try -eq 1) {
+            Write-Host "Waiting for the ClimbUK brand book web part to reach this site..."
+            try { Install-PnPApp -Identity $solutionId -Scope Tenant | Out-Null } catch { }
+        }
+        Start-Sleep -Seconds 30
+        $component = BookComponent
     }
-    catch {
-        Write-Warning "$BrandPageName.aspx has no brand book yet: $($_.Exception.Message). If you just ran -InstallApp, wait a few minutes for the app catalog to deploy it, then run the script again. Otherwise run it once with -InstallApp."
+    if (-not $component) {
+        Write-Warning "$BrandPageName.aspx is unchanged: this site does not offer the ClimbUK brand book web part. Check that 'ClimbUK brand book' shows as Enabled and Deployed in the app catalog ($(Get-PnPTenantAppCatalogUrl)), then run the script again."
     }
+    else {
+        $page = BrandPage
+        $found = @($page.Controls | ForEach-Object { "$($_.Type)" }) -join ", "
+        if ($found) {
+            Write-Host "Clearing $BrandPageName.aspx (it held: $found)"
+            $page.ClearPage()
+            $page.Save() | Out-Null
+        }
+        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumn | Out-Null
+        Add-PnPPageWebPart -Page $BrandPageName -Component $component -Section 1 -Column 1 | Out-Null
+        $hasBook = HasBook
+        if ($hasBook) {
+            $made += $BrandPageName
+            Write-Host "Built $BrandPageName.aspx with the brand book"
+        }
+        else {
+            Write-Warning "Added the brand book web part to $BrandPageName.aspx but SharePoint does not show it on the page. Paste this output to your brand contact."
+        }
+    }
+}
+if ($hasBook) {
+    Set-PnPPage -Identity $BrandPageName -CommentsEnabled:$false | Out-Null
 }
 if ($Publish -and $hasBook) {
     Set-PnPPage -Identity $BrandPageName -Publish | Out-Null
@@ -219,19 +248,38 @@ if ($SetSiteLook) {
         -HeaderLayout Extended -HeaderEmphasis Strong -LogoAlignment Left `
         -HeaderBackgroundImageUrl "$rel/$img/site/climbuk_sharepoint-site_header-background_2560x164.jpg" | Out-Null
     Set-PnPFooter -Enabled:$true -Layout Extended -BackgroundTheme Strong -Title "The Festival for Business Growth" `
-        -LogoUrl "$rel/$img/site/climbuk_sharepoint-site_footer-logo_480x160.png" | Out-Null
+        -LogoUrl "$rel/$img/site/climbuk_sharepoint-site_footer-logo-white_480x160.png" | Out-Null
     Write-Host "Set the site logo, header and footer"
 }
-if ($SetNavigation) {
+if ($SetNavigation -or $ReplaceNavigation) {
     # The menu bar a site shows depends on its type: communication sites draw it from Top navigation, sites with a
-    # horizontal team site menu draw it from Quick Launch. Auto picks Quick Launch when it already holds links of its
-    # own. The brand book menus go there, and copies this script left in the other list are removed.
+    # horizontal team site menu draw it from Quick Launch. Auto picks Quick Launch when it holds any links. The brand
+    # book menus go there, and copies this script left in the other list are removed.
     $ourMenus = @($data.booknav | ForEach-Object { $_.label }) + "Files"
     $others = @{ TopNavigationBar = "QuickLaunch"; QuickLaunch = "TopNavigationBar" }
     $navLoc = $NavigationLocation
     if ($navLoc -eq "Auto") {
-        $quick = @(Get-PnPNavigationNode -Location QuickLaunch | Where-Object { $ourMenus -notcontains $_.Title })
-        $navLoc = if ($quick.Count -gt 0) { "QuickLaunch" } else { "TopNavigationBar" }
+        $navLoc = if (@(Get-PnPNavigationNode -Location QuickLaunch).Count -gt 0) { "QuickLaunch" } else { "TopNavigationBar" }
+    }
+    function NavTree($nodes) {
+        @(@($nodes | Where-Object { $_ }) | ForEach-Object {
+            $kids = (Get-PnPNavigationNode -Id $_.Id).Children
+            [ordered]@{ title = $_.Title; url = $_.Url; children = @(NavTree $kids) }
+        } | Where-Object { $_ })
+    }
+    if ($ReplaceNavigation) {
+        # Every old link in the menu bar is removed, after saving both menus to a file next to this script, so they
+        # can be put back by hand.
+        $backup = Join-Path $here ("navigation-backup-{0:yyyyMMdd-HHmmss}.json" -f (Get-Date))
+        [ordered]@{
+            site             = $SiteUrl
+            QuickLaunch      = @(NavTree (Get-PnPNavigationNode -Location QuickLaunch))
+            TopNavigationBar = @(NavTree (Get-PnPNavigationNode -Location TopNavigationBar))
+        } | ConvertTo-Json -Depth 12 | Set-Content -Path $backup -Encoding utf8
+        Write-Host "Saved the old menus to $backup"
+        $gone = @(Get-PnPNavigationNode -Location $navLoc)
+        foreach ($old in $gone) { Remove-PnPNavigationNode -Identity $old.Id -Force }
+        Write-Host "Removed the old menu bar links ($navLoc): $(($gone | ForEach-Object { $_.Title }) -join ', ')"
     }
     foreach ($old in @(Get-PnPNavigationNode -Location $others[$navLoc] | Where-Object { $ourMenus -contains $_.Title })) {
         Remove-PnPNavigationNode -Identity $old.Id -Force
@@ -248,6 +296,7 @@ if ($SetNavigation) {
         return Add-PnPNavigationNode -Location $navLoc -Title $title -Url $url -External
     }
     $brandUrl = "$SiteUrl/SitePages/$BrandPageName.aspx"
+    if ($ReplaceNavigation) { NavNode "Home" $SiteUrl $null | Out-Null }
     foreach ($g in $data.booknav) {
         $parent = NavNode $g.label "http://linkless.header/" $null
         foreach ($l in $g.links) {
@@ -270,7 +319,12 @@ if ($RegisterOfficeLibraries) {
         Add-PnPGroupMember -Group $visitors -LoginName $everyone | Out-Null
         Write-Host "Shared the site with everyone in the organisation, read only"
     }
+    $registered = (@(Get-PnPOrgAssetsLibrary) | ConvertTo-Json -Depth 6 -WarningAction SilentlyContinue) + ""
     foreach ($lib in @(@{U = "BrandTemplates"; T = "OfficeTemplateLibrary" }, @{U = "BrandOfficeFonts"; T = "OfficeFontLibrary" })) {
+        if ($registered -match [regex]::Escape("$($rel.TrimStart("/"))/$($lib.U)")) {
+            Write-Host "$($lib.U) is already registered"
+            continue
+        }
         try {
             Add-PnPOrgAssetsLibrary -LibraryUrl "$SiteUrl/$($lib.U)" -OrgAssetType $lib.T -CdnType Public | Out-Null
             Write-Host "Registered $($lib.U) as an organisation asset library"
@@ -284,6 +338,33 @@ if ($RegisterOfficeLibraries) {
 if ($SetHomePage) {
     Set-PnPHomePage -RootFolderRelativeUrl "SitePages/$BrandPageName.aspx" | Out-Null
     Write-Host "Set $BrandPageName.aspx as the site home page"
+}
+
+# 9. Check what visitors will see.
+function Check([string]$what, [bool]$ok, [string]$detail) {
+    $mark = if ($ok) { "OK  " } else { "FIX " }
+    Write-Host "$mark $what$(if ($detail) { ": $detail" })"
+}
+Write-Host ""
+Write-Host "Check"
+Check "$BrandPageName.aspx shows the brand book" (HasBook) ""
+$version = ""
+try { $version = "$((Get-PnPFile -Url "$rel/SitePages/$BrandPageName.aspx" -AsListItem).FieldValues['_UIVersionString'])" } catch { }
+Check "$BrandPageName.aspx is published" ($version -match '\.0$') "version $version"
+$book = ""
+try { $book = Get-PnPFile -Url "$rel/$bookFolder/index.html" -AsString } catch { }
+Check "The brand book files are on the site" ($book -match 'id="cbb"') "$rel/$bookFolder"
+$homePage = "$(Get-PnPHomePage)"
+Check "The site home page" ($homePage -eq "SitePages/$BrandPageName.aspx") $homePage
+foreach ($loc in "QuickLaunch", "TopNavigationBar") {
+    $titles = @(Get-PnPNavigationNode -Location $loc | ForEach-Object { $_.Title })
+    if ($titles.Count) { Write-Host "     Menu ($loc): $($titles -join ', ')" }
+}
+if ($RegisterOfficeLibraries) {
+    $registered = (@(Get-PnPOrgAssetsLibrary) | ConvertTo-Json -Depth 6 -WarningAction SilentlyContinue) + ""
+    foreach ($u in "BrandTemplates", "BrandOfficeFonts") {
+        Check "$u is an organisation asset library" ($registered -match [regex]::Escape("$($rel.TrimStart("/"))/$u")) ""
+    }
 }
 
 Write-Host ""

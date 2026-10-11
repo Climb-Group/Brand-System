@@ -107,12 +107,13 @@ page("site_header-background", 2560, 164,
      "background:radial-gradient(circle,rgba(232,113,42,.45),rgba(232,113,42,0) 62%%)'></div>%s"
      % (shape(5, .14), GRAIN))
 
-# Site logo (square, shown at 64px and below: the li monogram) and footer logo (reversed wordmark).
+# Site logo (square, shown at 64px and below: the li monogram) and footer logo (all white wordmark: the footer is
+# orange, so the orange "Climb" of the reversed wordmark would vanish on it).
 mono = (PACK / "logos/ClimbUK/ClimbUK_icon-monogram.svg").read_text()
 page("site_logo", 192, 192, "<div style='width:192px;height:192px'>%s</div>"
      % mono.replace("<svg ", "<svg style='width:100%;height:100%' ", 1), fmt="png", limit=None)
-word = (PACK / "logos/ClimbUK/ClimbUK_reversed-dark.svg").read_text()
-page("site_footer-logo", 480, 160, "<div style='position:absolute;inset:28px 40px'>%s</div>"
+word = (PACK / "logos/ClimbUK/ClimbUK_mono-white.svg").read_text()
+page("site_footer-logo-white", 480, 160, "<div style='position:absolute;inset:28px 40px'>%s</div>"
      % word.replace("<svg ", "<svg style='width:100%;height:100%' ", 1), css="html,body,.canvas{background:transparent}",
      fmt="png", limit=None)
 

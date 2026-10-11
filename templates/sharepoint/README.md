@@ -2,7 +2,7 @@
 
 The ClimbUK brand centre on the SharePoint brand center site, looking and working like the brand centre on the website: the dark festival pages, the menus, search, the theme and text size switches, colour and type, logos, drawings, photography and the live components. One page, `brand.aspx`, shows the whole brand book through a small web part, and the site gets the ClimbUK theme, logo, header, footer and menus around it.
 
-Everything here only adds. The script never deletes a page, a file or a link, and it skips any page whose name is already taken. The steps that change the tenant or how the existing site looks (the app, theme, logo, header, footer, menu, home page) only run when you ask for them.
+Everything here only adds, with one exception you ask for by name: `-ReplaceNavigation` saves the site menus to a file, then removes the old links from the menu bar. Otherwise the script never deletes a page, a file or a link, and it skips any page whose name is already taken. The steps that change the tenant or how the existing site looks (the app, theme, logo, header, footer, menu, home page) only run when you ask for them.
 
 ## What is in this folder
 
@@ -16,7 +16,7 @@ Everything here only adds. The script never deletes a page, a file or a link, an
 | `banners/` | 12 page banners, 1920x1080 JPEG under 300 KB: a festival photo with a Dark Brown fade where the page title sits |
 | `quick-link-tiles/` | 16 tiles, 1200x675 JPEG: one house drawing in orange on Dark Brown, no words (the link title is live text) |
 | `section-backgrounds/` | Contours on Dark Brown and on Charcoal, for full width sections |
-| `site/` | Site logo (li monogram, 192x192), header background (2560x164, extended header) and footer logo (transparent PNG) |
+| `site/` | Site logo (li monogram, 192x192), header background (2560x164, extended header) and footer logo (all white wordmark, transparent PNG, for the orange footer) |
 | `brand-fonts/` | Montserrat and Open Sans as TTF, every weight and italic: for the brand center font package and for Word and PowerPoint |
 | `licences/` | The SIL Open Font License for both fonts |
 | `copy.txt` | The copy of the twelve plain pages, checked with the climb-voice copy checker |
@@ -67,15 +67,18 @@ When `brand.aspx` looks right, run the script again with the switches. Pages tha
 ./build-brand-centre.ps1 -SiteUrl https://<tenant>.sharepoint.com/sites/<brand-center-site> -ClientId <client id> `
   -MarketingContentUrl https://<tenant>.sharepoint.com/sites/<marketing-content-site> `
   -PhotoLibraryUrl https://<tenant>.sharepoint.com/sites/<photo-site> -PackPath ~/Brand-System `
-  -Publish -SetSiteLook -SetNavigation -SetHomePage -RegisterOfficeLibraries
+  -InstallApp -Publish -SetSiteLook -SetNavigation -ReplaceNavigation -SetHomePage -RegisterOfficeLibraries
 ```
+
+It ends with a **Check** list: each line starts with `OK` or `FIX`, and the last lines show the menu bar. If the web part has only just been added to the app catalog, the script waits up to 10 minutes for it to reach the site before it builds `brand.aspx`.
 
 | Switch | What it changes |
 | --- | --- |
 | `-InstallApp` | Adds the ClimbUK brand book web part to the tenant app catalog and makes it available on every site |
-| `-Publish` | Publishes the new pages |
+| `-Publish` | Publishes the new pages. Comments are always turned off on `brand.aspx` |
 | `-SetSiteLook` | Adds the **ClimbUK** theme to the tenant (Orange Text `#C55308` with white text, 4.55:1) and applies it to this site, then sets the site logo, the extended header with the contour background, and the footer with the tagline and wordmark |
-| `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the menu bar the site shows (Quick Launch on sites with a team site menu, Top navigation on communication sites; force one with `-NavigationLocation`). Existing links stay: remove the old ones by hand when you are happy |
+| `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the menu bar the site shows (Quick Launch on sites with a team site menu, Top navigation on communication sites; force one with `-NavigationLocation`). Existing links stay unless you add `-ReplaceNavigation` |
+| `-ReplaceNavigation` | Saves both site menus to `navigation-backup-<date and time>.json` next to the script, removes every old link from the menu bar (and the copies of the brand book menus in the other menu), then adds **Home** and the brand book menus. Use the backup file to put a link back by hand |
 | `-SetHomePage` | Makes `brand.aspx` the site home page. The old home page stays in Site Pages, unchanged |
 | `-RegisterOfficeLibraries` | Shares the site read only with everyone in the organisation (Microsoft 365 only serves organisation asset libraries everyone can read), then registers **Brand templates** and **Brand Office fonts**, so the templates show under the organisation tab in Word, Excel and PowerPoint. Needs a SharePoint Administrator |
 | `-TextPages` | Also builds the twelve plain SharePoint pages from earlier (`brand-centre.aspx`, `our-brand.aspx` and so on). Not needed for the brand book |
