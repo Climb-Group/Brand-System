@@ -140,7 +140,7 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 
 ### Use the brand from an agent
 
-- Load `.agents/skills/climb-voice` for any words and `.agents/skills/climb-visual-style` for anything visual; both for an asset with words on it. Run `python3 .agents/skills/climb-voice/scripts/check_copy.py FILE` on every piece of copy.
+- Load `.agents/skills/climb-voice` for any words and `.agents/skills/climb-visual-style` for anything visual; both for an asset with words on it. Only when the target is an Odoo website or module, also load `.agents/skills/climb-odoo-pages` (pages stay editable in the website editor and take their values from the theme). Run `python3 .agents/skills/climb-voice/scripts/check_copy.py FILE` on every piece of copy.
 - Every colour and size comes from `tokens/brand.tokens.json`. Never type a value that is not in it.
 - `ai/tools/brand_rules.py` answers brand questions as tools (`call(tool, arguments, venue_announced)`); `ai/kit.json` lists them.
 
