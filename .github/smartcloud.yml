@@ -25,3 +25,11 @@ sync:
     - LICENSE
 required:
   expect: ['^brand$']
+# The brand pack's CI job (check.yml) is required on the default branch too,
+# so a restricted run from a fork or Dependabot, which skips the aggregate,
+# still cannot merge without it.
+settings:
+  ruleset:
+    statusChecks:
+      checks:
+        brand: true
