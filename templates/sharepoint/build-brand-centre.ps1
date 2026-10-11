@@ -153,7 +153,7 @@ else {
         Add-PnPPage -Name $BrandPageName -LayoutType Home | Out-Null
         Set-PnPPage -Identity $BrandPageName -Title "Brand centre" -ThumbnailUrl "$rel/$img/banners/climbuk_sharepoint-banner_home_1920x1080.jpg" | Out-Null
     }
-    Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
+    Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumn | Out-Null
     try {
         Add-PnPPageWebPart -Page $BrandPageName -Component $webPartId -Section 1 -Column 1 `
             -WebPartProperties @{ page = "index"; bookUrl = "" } | Out-Null

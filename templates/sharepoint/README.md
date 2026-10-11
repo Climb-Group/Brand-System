@@ -1,6 +1,6 @@
 # SharePoint brand centre
 
-The ClimbUK brand centre on the SharePoint brand center site, looking and working like the brand centre on the website: the dark festival pages, the menus, search, the theme and text size switches, colour and type, logos, drawings, photography and the live components. One page, `brand.aspx`, shows the whole brand book full width through a small web part, and the site gets the ClimbUK theme, logo, header, footer and menus around it.
+The ClimbUK brand centre on the SharePoint brand center site, looking and working like the brand centre on the website: the dark festival pages, the menus, search, the theme and text size switches, colour and type, logos, drawings, photography and the live components. One page, `brand.aspx`, shows the whole brand book through a small web part, and the site gets the ClimbUK theme, logo, header, footer and menus around it.
 
 Everything here only adds. The script never deletes a page, a file or a link, and it skips any page whose name is already taken. The steps that change the tenant or how the existing site looks (the app, theme, logo, header, footer, menu, home page) only run when you ask for them.
 
