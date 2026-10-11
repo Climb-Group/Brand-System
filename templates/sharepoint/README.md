@@ -75,7 +75,7 @@ When `brand.aspx` looks right, run the script again with the switches. Pages tha
 | `-InstallApp` | Adds the ClimbUK brand book web part to the tenant app catalog and makes it available on every site |
 | `-Publish` | Publishes the new pages |
 | `-SetSiteLook` | Adds the **ClimbUK** theme to the tenant (Orange Text `#C55308` with white text, 4.55:1) and applies it to this site, then sets the site logo, the extended header with the contour background, and the footer with the tagline and wordmark |
-| `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the top navigation. Existing links stay: remove the old ones by hand when you are happy |
+| `-SetNavigation` | Adds the Brand, Build, Artwork, Guidelines and Files menus to the menu bar the site shows (Quick Launch on sites with a team site menu, Top navigation on communication sites; force one with `-NavigationLocation`). Existing links stay: remove the old ones by hand when you are happy |
 | `-SetHomePage` | Makes `brand.aspx` the site home page. The old home page stays in Site Pages, unchanged |
 | `-RegisterOfficeLibraries` | Shares the site read only with everyone in the organisation (Microsoft 365 only serves organisation asset libraries everyone can read), then registers **Brand templates** and **Brand Office fonts**, so the templates show under the organisation tab in Word, Excel and PowerPoint. Needs a SharePoint Administrator |
 | `-TextPages` | Also builds the twelve plain SharePoint pages from earlier (`brand-centre.aspx`, `our-brand.aspx` and so on). Not needed for the brand book |

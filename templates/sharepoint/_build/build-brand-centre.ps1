@@ -48,7 +48,8 @@ param(
     [switch]$SetHomePage,
     [switch]$SetNavigation,
     [switch]$SetSiteLook,
-    [switch]$RegisterOfficeLibraries
+    [switch]$RegisterOfficeLibraries,
+    [ValidateSet("Auto", "TopNavigationBar", "QuickLaunch")][string]$NavigationLocation = "Auto"
 )
 $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
@@ -222,16 +223,29 @@ if ($SetSiteLook) {
     Write-Host "Set the site logo, header and footer"
 }
 if ($SetNavigation) {
+    # The menu bar a site shows depends on its type: communication sites draw it from Top navigation, sites with a
+    # horizontal team site menu draw it from Quick Launch. Auto picks Quick Launch when it already holds links of its
+    # own. The brand book menus go there, and copies this script left in the other list are removed.
+    $ourMenus = @($data.booknav | ForEach-Object { $_.label }) + "Files"
+    $others = @{ TopNavigationBar = "QuickLaunch"; QuickLaunch = "TopNavigationBar" }
+    $navLoc = $NavigationLocation
+    if ($navLoc -eq "Auto") {
+        $quick = @(Get-PnPNavigationNode -Location QuickLaunch | Where-Object { $ourMenus -notcontains $_.Title })
+        $navLoc = if ($quick.Count -gt 0) { "QuickLaunch" } else { "TopNavigationBar" }
+    }
+    foreach ($old in @(Get-PnPNavigationNode -Location $others[$navLoc] | Where-Object { $ourMenus -contains $_.Title })) {
+        Remove-PnPNavigationNode -Identity $old.Id -Force
+    }
     # Safe to run again: a menu or link that is already there is reused, not added twice. Links are added as external
     # so SharePoint does not check them against the page's draft or published state.
     function NavNode([string]$title, [string]$url, $parent) {
-        $existing = if ($parent) { (Get-PnPNavigationNode -Id $parent.Id).Children } else { Get-PnPNavigationNode -Location TopNavigationBar }
+        $existing = if ($parent) { (Get-PnPNavigationNode -Id $parent.Id).Children } else { Get-PnPNavigationNode -Location $navLoc }
         $found = @($existing | Where-Object { $_.Title -eq $title })[0]
         if ($found) { return $found }
         if ($parent) {
-            return Add-PnPNavigationNode -Location TopNavigationBar -Title $title -Url $url -Parent $parent.Id -External
+            return Add-PnPNavigationNode -Location $navLoc -Title $title -Url $url -Parent $parent.Id -External
         }
-        return Add-PnPNavigationNode -Location TopNavigationBar -Title $title -Url $url -External
+        return Add-PnPNavigationNode -Location $navLoc -Title $title -Url $url -External
     }
     $brandUrl = "$SiteUrl/SitePages/$BrandPageName.aspx"
     foreach ($g in $data.booknav) {
@@ -245,7 +259,7 @@ if ($SetNavigation) {
     NavNode "Photo library" $PhotoLibraryUrl $files | Out-Null
     NavNode "Brand guidelines (PDF)" "$SiteUrl/BrandFiles" $files | Out-Null
     NavNode "Office templates" "$SiteUrl/BrandTemplates" $files | Out-Null
-    Write-Host "Added the brand book menus and a Files menu to the top navigation"
+    Write-Host "Added the brand book menus and a Files menu to the site menu ($navLoc)"
 }
 if ($RegisterOfficeLibraries) {
     # Microsoft 365 only serves organisation asset libraries that everyone in the organisation can read, so the site
