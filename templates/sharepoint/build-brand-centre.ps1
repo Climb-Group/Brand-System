@@ -127,27 +127,33 @@ if ($InstallApp) {
     }
 }
 
-# 6. The brand book page. A brand.aspx this script made earlier without the web part (because the app was not
-# installed yet) is still empty, so the web part is added to it; any other page with that name is left alone.
+# 6. The brand book page. A brand.aspx this script made earlier (title "Brand centre") that does not show the brand
+# book yet, because the app was not installed when it was made, is cleared and given the web part. Any other page
+# with that name is left alone.
 $made = @()
 $brandPage = $null
 try { $brandPage = Get-PnPPage -Identity $BrandPageName -ErrorAction Stop } catch { $brandPage = $null }
-$hasBook = $brandPage -and @($brandPage.Controls | Where-Object { "$($_.WebPartId)" -eq $webPartId }).Count -gt 0
+function IsBook($control) { "$($control.WebPartId)".Trim("{", "}").ToLower() -eq $webPartId }
+$hasBook = $brandPage -and @($brandPage.Controls | Where-Object { IsBook $_ }).Count -gt 0
+$ours = $brandPage -and $brandPage.PageTitle -eq "Brand centre"
 if ($hasBook) {
     Write-Host "$BrandPageName.aspx already shows the brand book"
 }
-elseif ($brandPage -and @($brandPage.Controls).Count -gt 0) {
-    Write-Warning "Skipped $BrandPageName.aspx: a page with that name already exists. Nothing on it was changed."
+elseif ($brandPage -and -not $ours) {
+    Write-Warning "Skipped $BrandPageName.aspx: a page with that name already exists and was not made by this script. Nothing on it was changed. Use -BrandPageName to build the brand book page under another name."
 }
 else {
-    if (-not $brandPage) {
+    if ($brandPage) {
+        $found = @($brandPage.Controls | ForEach-Object { "$($_.Type)" }) -join ", "
+        Write-Host "Clearing $BrandPageName.aspx, made earlier by this script without the brand book (it held: $(if ($found) { $found } else { 'nothing' }))"
+        $brandPage.ClearPage()
+        $brandPage.Save() | Out-Null
+    }
+    else {
         Add-PnPPage -Name $BrandPageName -LayoutType Home | Out-Null
         Set-PnPPage -Identity $BrandPageName -Title "Brand centre" -ThumbnailUrl "$rel/$img/banners/climbuk_sharepoint-banner_home_1920x1080.jpg" | Out-Null
-        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
     }
-    elseif (@($brandPage.Sections).Count -eq 0) {
-        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
-    }
+    Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
     try {
         Add-PnPPageWebPart -Page $BrandPageName -Component $webPartId -Section 1 -Column 1 `
             -WebPartProperties @{ page = "index"; bookUrl = "" } | Out-Null
@@ -156,7 +162,7 @@ else {
         Write-Host "Built $BrandPageName.aspx with the brand book"
     }
     catch {
-        Write-Warning "$BrandPageName.aspx has no brand book yet: the web part is not available on this site. If you just ran -InstallApp, wait a few minutes for the app catalog to deploy it, then run the script again. Otherwise run it once with -InstallApp."
+        Write-Warning "$BrandPageName.aspx has no brand book yet: $($_.Exception.Message). If you just ran -InstallApp, wait a few minutes for the app catalog to deploy it, then run the script again. Otherwise run it once with -InstallApp."
     }
 }
 if ($Publish -and $hasBook) {
