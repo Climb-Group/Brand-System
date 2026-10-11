@@ -119,7 +119,29 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 ### Set it up once
 
 1. Create a read-only token for the website repository (contents: read) and save it in this repository as the secret `MEDIA_KIT_BUILDER_TOKEN`. The builder lives there, and that repository is private.
-2. For the photo library, zip the library folders (one folder per group, with any excluded photos already removed) as `climb-photo-library.zip` and attach it to a release tagged `photo-library`. To leave photos out without rebuilding the zip, also attach `media-kit-exclude.txt` with one `folder/filename` line per photo. Replace the files there when the library changes. Without the zip the kit builds with no photo library and the job summary says so.
+2. Publish the photo library from the machine that holds the originals (one folder per candid group, 3840 px JPEGs) with the GitHub CLI signed in. Put the photos that must never be published in `media-kit-exclude.txt` next to that folder, one `group/filename` line each (`#` starts a comment), then run:
+
+   ```bash
+   python3 photos/_build/photo_library.py publish --source "Candid Shots/Originals-3840px"
+   ```
+
+   It zips the library without the excluded photos as `climb-photo-library.zip`, uploads it with the exclude list to the `photo-library` release (creating it the first time) and starts the `media kit` workflow. When nothing changed since the last upload it does nothing, so it is safe to repeat.
+3. To publish changes without a command, install the hourly timer on that machine (Linux, systemd):
+
+   ```bash
+   python3 photos/_build/photo_library.py install-timer --source "Candid Shots/Originals-3840px"
+   ```
+
+   Every hour it runs `publish`, which uploads and rebuilds the media kit only when a photo was added, removed, replaced or newly excluded. Check it with `systemctl --user list-timers climb-photo-library.timer`; stop it with `systemctl --user disable --now climb-photo-library.timer`. On macOS, run `publish` from launchd or cron instead.
+
+| `photo_library.py` option | Default | What it does |
+| --- | --- | --- |
+| `--source` | none, required | The library folder, one subfolder per candid group. |
+| `--exclude` | `media-kit-exclude.txt` next to the source folder | Photos never to publish. |
+| `--repo` | `Climb-Group/Brand-System` | Where the `photo-library` release lives. |
+| `--force` (publish) | off | Upload even when nothing changed. |
+| `--no-workflow` (publish) | off | Upload without starting the media kit workflow. |
+| `--out` (build) | `climb-photo-library.zip` | Where `build` writes the zip, for a check without uploading. |
 
 ### What it cannot build
 
@@ -130,7 +152,9 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 
 - **"Add the MEDIA_KIT_BUILDER_TOKEN secret".** The secret is missing or empty; see step 1.
 - **The website repository checkout fails with `git` exit code 1.** The `builder-ref` branch no longer exists (branches are deleted once merged) or the token cannot read the repository. Run the workflow with a branch that exists, or check the token has Contents read access to the website repository.
-- **The kit has no photos.** The `photo-library` release or its `climb-photo-library.zip` is missing; see step 2.
+- **The kit has no photos.** The `photo-library` release or its `climb-photo-library.zip` is missing; run step 2.
+- **`publish` says gh is not installed or failed.** Install the GitHub CLI and run `gh auth login` on the machine with the photos.
+- **A photo that should be private is in the library.** Add its `group/filename` line to `media-kit-exclude.txt` and run `publish`; the new list changes the fingerprint, so it uploads a zip without it and rebuilds the media kit.
 
 ## Licence
 
