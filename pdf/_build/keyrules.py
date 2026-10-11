@@ -50,7 +50,7 @@ def card(n, title, items, vis=""):
 def build(b):
     B = BRANDS[b]
     ground = B["ground"]
-    hero_photo = {"ClimbUK": "climb_crowd_wide.jpg", "ClimbGroup": "climb_isn_investors_hero.jpg", "Climb27": "climb_band_stage.jpg"}[b]
+    hero_photo = {"ClimbUK": "climb_crowd_wide.jpg", "ClimbGroup": "climb_recap_03.jpg", "Climb27": "joy_02.jpg"}[b]
     hero = (
         '<div class="hero"><div class="ph" style="background-image:url(%s%s);background-position:center 35%%"></div>'
         '<div class="layer fade-hero"></div><div class="glow"></div>'
@@ -76,7 +76,7 @@ def build(b):
         ], '<div class="vis"><div style="flex:1.3;background:var(--db);border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12)">%s</div>'
            '<div style="flex:1.3;background:#fff;border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center">%s</div>'
            '<div style="width:44px;height:44px;flex:none">%s</div></div>'
-           % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram", w=44, style="border-radius:6px"))),
+           % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram-on-ground", w=44, style="border-radius:6px"))),
         card("02", "Colour", [
             "<b>Dark first:</b> %s is the ground. Light grounds are for long reading." % other_ground,
             "<b>Orange leads, never floods:</b> one orange call to action per view.",
@@ -103,7 +103,7 @@ def build(b):
             "<b>One motif family</b> and two or three festival devices per piece.",
         ], '<div class="vis" style="gap:5px">%s</div>' % "".join(
             '<div style="flex:1;height:34px;border-radius:7px;background:url(%s%s) center/cover"></div>' % (P, f)
-            for f in ("climb_awards_winners.jpg", "climb_recap_05.jpg", "climb_band_stage.jpg", "climb_recap_02.jpg", "climb_drinks_reception.jpg"))),
+            for f in ("joy_01.jpg", "crowds_02.jpg", "stage_speakers_02.jpg", "meetings_01.jpg", "food_and_vendors_01.jpg"))),
         card("06", "Everyone in the room", [
             "<b>WCAG 2.2 AA everywhere,</b> AAA where it is easy.",
             "<b>44px targets,</b> a visible focus ring, colour never the only signal.",

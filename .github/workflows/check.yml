@@ -1,29 +1,38 @@
 name: check
 
+# The brand pack's own CI. The smartcloud check waits for this job (required.expect
+# in .github/smartcloud.yml), so it also runs in the merge queue.
+
 on:
   pull_request:
+  merge_group:
   push:
     branches: [main]
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   brand:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      # The runner's own Python 3 runs the brand scripts; they use the standard library only.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          python-version: "3.12"
+          node-version: 24
       - name: Tokens meet their contrast pairs and generated files are current
         run: python3 tokens/build_tokens.py --check
       - name: Token tests
         run: python3 -m unittest discover -s tokens/tests
       - name: AI kit tests
         run: python3 -m unittest discover -s ai/tests
+      - name: Skill and agent packages, open-in links and skills-lock.json are current
+        run: python3 ai/agents/build_agent_kits.py --check
       - name: Copy checker passes good copy and fails banned copy
         run: |
           echo "Get your Climb27 ticket" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -
@@ -34,3 +43,7 @@ jobs:
         run: python3 generators/catalogue.py "$RUNNER_TEMP/assets"
       - name: No em or en dashes in text files
         run: python3 tools/check_dashes.py
+      - name: House agent files and LLMS.md are current
+        run: |
+          node tools/dev/surfaces.mjs check
+          node tools/ai-docs/docgen.mjs --check

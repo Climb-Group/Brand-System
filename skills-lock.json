@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-self-evaluation": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/agent-self-evaluation/SKILL.md",
+      "computedHash": "d10cf15db9080f373c5e4b9ff670edf944807521193862dc65035b3679385b16"
+    },
+    "ai-sdk-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/ai-sdk-vendor/SKILL.md",
+      "computedHash": "cf819dfc28cd2ccd98a96ce074278beacc1d77201109efa15b099578d1a88108"
+    },
+    "apify-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/apify-vendor/SKILL.md",
+      "computedHash": "a1f6ff7c078410ccc8a2d73242d7920fe4b2d676f7c3413f4ed30d75439211d0"
+    },
+    "archify": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/archify/SKILL.md",
+      "computedHash": "29fcd6616fb04f21cde6d1cba6049a2f231972027fe34caebf0d4f66ff983a8e"
+    },
+    "better-accessibility": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/better-accessibility/SKILL.md",
+      "computedHash": "bdeef6ebe421afa22fadf13085409a7bcf230983bc4325c8cb7ec9dd8491f1c3"
+    },
+    "build-error-resolver": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/build-error-resolver/SKILL.md",
+      "computedHash": "0f295941e891e336be6ced3a38e95f36ad852d3ddc2aa15f1e544763f927bdad"
+    },
+    "chat-sdk-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/chat-sdk-vendor/SKILL.md",
+      "computedHash": "c9441fba188e91c1077190157ac93dd8b12764bbf1e9f8d697b606edd2510e36"
+    },
+    "clerk-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/clerk-vendor/SKILL.md",
+      "computedHash": "3487c303a772168df93557eba08bfb46afe6e540d6d2f40c3016a6a5b5b8812b"
+    },
+    "cloudflare-workers": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/cloudflare-workers/SKILL.md",
+      "computedHash": "b1cf2ad276c64f129c24bd8d1114433aefaec5feb233419bfaf8a683ed02caf7"
+    },
+    "code-review": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/code-review/SKILL.md",
+      "computedHash": "f924d4cfe7111d3090d6ebefa878f17ed54a907502ffde9d87bf2bac2a22f177"
+    },
+    "coding-preferences": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/coding-preferences/SKILL.md",
+      "computedHash": "dd850c7e7d86acbe0113d1c01199141ab2856427828546c3f91e6fc48c239acd"
+    },
+    "commit": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/commit/SKILL.md",
+      "computedHash": "9d92d4e05fabb1d1e8a6591532de2789f20de50dbe0c65dcf59586430eeef36b"
+    },
+    "commits-and-rd-evidence": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/commits-and-rd-evidence/SKILL.md",
+      "computedHash": "2b832b2fa54f8dfc570d2dc9d646cba6b17f31d82d7a4d498b176af6a75f8c00"
+    },
+    "convert-documents-to-markdown": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/convert-documents-to-markdown/SKILL.md",
+      "computedHash": "7300750a46dc59dcf47b4b0dcc2b536a3c6a60ac97aebcf47c37a41d1488c035"
+    },
+    "convex-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/convex-vendor/SKILL.md",
+      "computedHash": "60e9025ccb3f0100485feec269b2568cdf0edee2685fa397398034da350a0ad6"
+    },
+    "creating-pull-requests": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/creating-pull-requests/SKILL.md",
+      "computedHash": "e0b8486cd257511f28eee24fcf9dfad0829fd2e7e9cd23c99e212ca094a791b2"
+    },
+    "cross-critique": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/cross-critique/SKILL.md",
+      "computedHash": "0a7ae6f427ac4eafc7ee5ea913a9976e0fdf52e71f30a1773f4d09eed53273fc"
+    },
+    "database-reviewer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/database-reviewer/SKILL.md",
+      "computedHash": "7029c506aab81a7c20562ca5bc7e7a4dd239d37c6280567335107ac4c12a37cc"
+    },
+    "documentation-writing-standards": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/documentation-writing-standards/SKILL.md",
+      "computedHash": "0b261b07c16b8a781074282cc13dc7fd2b1ca1d40a2e7ebd7be19a55c212c8dc"
+    },
+    "eli5": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/eli5/SKILL.md",
+      "computedHash": "2aa95097e6e56d57028bbe2fab1d8f7ec7b34531d4e43393bed751d0c41aa743"
+    },
+    "eval-harness": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/eval-harness/SKILL.md",
+      "computedHash": "2d97459fc0615b41f98a612e6ab015da2b5b68b7803c56a35e993eb7aac8a2d1"
+    },
+    "extendable-module-architecture": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/extendable-module-architecture/SKILL.md",
+      "computedHash": "54cb5f53c274bb19dd709118e4bace13f4e86afd679e711a281057ab507c0380"
+    },
+    "feature-flags": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/feature-flags/SKILL.md",
+      "computedHash": "c05f092bc1c117bf5f3791e6991e941886be5fc108913c4d8775223a4a841ed3"
+    },
+    "flags-sdk-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/flags-sdk-vendor/SKILL.md",
+      "computedHash": "f461b3095655ee26c995b268f0bf2839939b79f8eb3766e96992cba01c582b37"
+    },
+    "frontend-design-hard-rules": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/frontend-design-hard-rules/SKILL.md",
+      "computedHash": "e59bd5baf963046d37b8fb195a3cc837771e95e6ab3d01eb7d180ac298720e02"
+    },
+    "gan-evaluator": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/gan-evaluator/SKILL.md",
+      "computedHash": "810a04b06204aa9bb5da70a520a82b321957144ef021bcb00a600ce2faff23f2"
+    },
+    "gan-generator": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/gan-generator/SKILL.md",
+      "computedHash": "d15986f847e5a154c66a3f72faa98bcc16a21a15420e86150e4bc3c970d8b69a"
+    },
+    "gan-planner": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/gan-planner/SKILL.md",
+      "computedHash": "4c073fb254cc5feeed1ddb44f2c4041159b989c262bad5fb04611c7590a29021"
+    },
+    "gitbutler": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/gitbutler/SKILL.md",
+      "computedHash": "074451dc67f8e738a478ee9cff07d11ec783d8df43600bfe89396b3949f835ca"
+    },
+    "gitbutler-instead-worktrees": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/gitbutler-instead-worktrees/SKILL.md",
+      "computedHash": "afc1334d5fba688c2010a1fc88012271ffd236c469b921157a542e355a695dc8"
+    },
+    "graphify": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/graphify/SKILL.md",
+      "computedHash": "a5c612359f14fd4db35f2ea990ce6048d20f07d99e613aa196408bfd66aeee53"
+    },
+    "graphify-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/graphify-vendor/SKILL.md",
+      "computedHash": "714b78a8328498997b01c167ba390f49ab2365013cb2136a4e15b8798478735c"
+    },
+    "grilling": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/grilling/SKILL.md",
+      "computedHash": "3bcaa95a95165744158ad65ca74db592fd633b2ac5a1474afff01eb870eaafd2"
+    },
+    "harness-optimizer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/harness-optimizer/SKILL.md",
+      "computedHash": "2db481a2c07e48adce2f8ae2de85f6dbfa9b7ef57144c8c3750ba888d07d03f6"
+    },
+    "investigate-first": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/investigate-first/SKILL.md",
+      "computedHash": "06c80d02255cc106840d2a198be0d2260e3db638aabbdc5a07a1314e68b4e051"
+    },
+    "lean-build": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/lean-build/SKILL.md",
+      "computedHash": "9c4a95ef8f7f93a4ff2ae8ffe051f96e219d72f7b7d66a73e1f3dfbf0bfe5a5d"
+    },
+    "migration": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/migration/SKILL.md",
+      "computedHash": "6615ddd70b71f381213f108a22343d8043fbe3043a53013462c69638f2d70ee1"
+    },
+    "neon-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/neon-vendor/SKILL.md",
+      "computedHash": "71c3bd15af885df88c5046ab71318f7ab435b2ce0ba1402e2ce072986bdaee59"
+    },
+    "no-em-or-en-dashes": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/no-em-or-en-dashes/SKILL.md",
+      "computedHash": "fe576e79eded44924593fae12ca203c4a96db1146b27ef64b543cea147024005"
+    },
+    "odoo-enterprise": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/odoo-enterprise/SKILL.md",
+      "computedHash": "415d6a19310342ccfb01140b6f1814a24a4ff9d9ed0bb0d5f0519482c7ded5f9"
+    },
+    "odoo-module-separation": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/odoo-module-separation/SKILL.md",
+      "computedHash": "7d5bcfd9ca8497321f584b67b85cfc0e41314a3b9b1287171fdb2da8b6a8bd61"
+    },
+    "project-dev-surfaces": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/project-dev-surfaces/SKILL.md",
+      "computedHash": "a2ffc0990bd77eb3271f4c4e5acd28bee73e20cb2d57f2b05face90dffa14333"
+    },
+    "python-reviewer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/python-reviewer/SKILL.md",
+      "computedHash": "f2a5cbb12dbc4b8970d9f1177f4773b7c71e9f039d9e59e879801785df8bd8c0"
+    },
+    "react-build-resolver": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/react-build-resolver/SKILL.md",
+      "computedHash": "a7cf81e25b50a1e343d817cceceac1f90451e0ba7ebd8334dd6488f27ea42ab2"
+    },
+    "react-reviewer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/react-reviewer/SKILL.md",
+      "computedHash": "980ba96d5f105665579101a825bd60b59740bf05f72ed5e9986f11d6f3e75eb7"
+    },
+    "research": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/research/SKILL.md",
+      "computedHash": "618aa3073fe431bd6ba548449195b68c40be84ef1dc57e7416bd130da70b5b98"
+    },
+    "safe-refactor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/safe-refactor/SKILL.md",
+      "computedHash": "3ff8929295cc41afe05c74196993496c0fb324bbb7a15e629306bb2ec57b5b1c"
+    },
+    "silent-failure-hunter": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/silent-failure-hunter/SKILL.md",
+      "computedHash": "672b84e312d722ae40156d5e11edcfd9ca95f3346375421a1aa970608782ce20"
+    },
+    "skills-best-practices": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/skills-best-practices/SKILL.md",
+      "computedHash": "d206b72b06d88e9fb7bfd69da8b3d605006fb8b08cd0f8c88633c1cf62d83146"
+    },
+    "skills-spec": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/skills-spec/SKILL.md",
+      "computedHash": "33ade564475bcacc4fd1fa63ff2c2f969f82eeb930a71bda6b38201e7e1bd857"
+    },
+    "surgical-patch": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/surgical-patch/SKILL.md",
+      "computedHash": "8281ac79083e5b6ee608e9ee9e40b654874ebbe930056c13d9e362a0ce038240"
+    },
+    "terraform-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/terraform-vendor/SKILL.md",
+      "computedHash": "ccf470877cc95c9744b4b620a19e99d7c009d09e1ca0868be2e96fd4f904562c"
+    },
+    "twilio": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/twilio/SKILL.md",
+      "computedHash": "1f858c39b74f7e2bb57210b4a3e2146b67b2af3e422eb17096b9aa8c04102d78"
+    },
+    "type-design-analyzer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/type-design-analyzer/SKILL.md",
+      "computedHash": "7138be09494a341e1c20298b8588c3445194f009285a4f588ecda0813e166ba4"
+    },
+    "typescript-reviewer": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/typescript-reviewer/SKILL.md",
+      "computedHash": "c8f19ebb6d7711ec6a2154389fe64ce9d6e24aad20ec52f2a0fc62de7d6cb570"
+    },
+    "vendor-llms-indexes": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/vendor-llms-indexes/SKILL.md",
+      "computedHash": "b180d04ed183dddf97d38bbd3dbbafc1faa2f2fbdedeb3fce282701cea05a1a7"
+    },
+    "web-accessibility": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/web-accessibility/SKILL.md",
+      "computedHash": "c012c3afd25fa38d6ec9eb6a23d548131e83ef364a22f6f7864136835f981a11"
+    },
+    "whitelabel-customer-facing-copy": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/whitelabel-customer-facing-copy/SKILL.md",
+      "computedHash": "0c71df48407e8c4be774310b28851a3a0e0790fb675b9ae4cdf495492e7ca00f"
+    },
+    "workflow-sdk-vendor": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/workflow-sdk-vendor/SKILL.md",
+      "computedHash": "6ca744a13f2ba7966545efb5de4b422a3db8836f45fb5a393371d5a3bdd84340"
+    },
+    "writing-specifications": {
+      "source": "Resnovas/.github",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Resnovas/.github.git",
+      "skillPath": "templates/.agents/skills/writing-specifications/SKILL.md",
+      "computedHash": "33adc72d3de414d45b2ca4417d6684988ba09d3b2c9cd6d53b7bc2ab376db6f1"
+    }
+  }
+}

@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.2"
+  version: "1.3"
 ---
 
 # ClimbUK visual style
@@ -99,7 +99,8 @@ See `references/elements.md` for how each motif is built and scaled.
 
 - Use the master files only, never a re-drawn or re-coloured copy. Variants: full colour, full colour for Light Grey grounds, reversed (dark grounds, the default), mono dark, mono white, and a tagline lockup with "The Festival for Business Growth" (no dates or places baked in).
 - Wordmark colours: Climb Orange `#E8712A` and Charcoal `#242322` on light grounds; Climb Orange and White on dark grounds. On Light Grey use the grey-ground variant (Orange Large on Grey `#D5641E`).
-- Square icons: the li monogram for favicons, app icons and anything under 64px; the stacked tile ("Climb / UK", "Climb / Group", "Climb / 27") for social avatars and larger squares.
+- Square icons: the li monogram for favicons, app icons and anything under 64px; the stacked icon ("Climb / UK", "Climb / Group", "Climb / 27") for social avatars and larger squares.
+- Transparent first: logos, icons, favicons and app tiles default to a transparent background; each also comes on solid White, Dark Brown and Climb Orange (`-on-white`, `-on-ground`, `-on-orange`). On orange the mark is one-colour white.
 - Clear space: the height of the large "C" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
 - Never stretch, rotate, outline, add effects, or set the logo on a busy part of a photo. On photos, sit it on the darkened area or use the filter.
 - ClimbUK is the brand on the poster. ClimbGroup appears as the organisation (footers, legal, corporate decks). An edition mark (Climb27) leads on event pieces, with ClimbUK as the endorsement.

@@ -193,6 +193,34 @@ def slab_poly(points, colour=OR, extra=""):
     return ('<div class="abs" style="left:%.0fpx;top:%.0fpx;width:%.0fpx;height:%.0fpx;background:%s;clip-path:polygon(%s);%s"></div>'
             % (x0, y0, x1 - x0, y1 - y0, colour, poly, extra))
 
+def photo_wall(K, photos, x0, h, tw, skew, gap, fade_css, duo=False):
+    """Slanted full height photo tiles from x0 to the right, each leaning like the X header wall. Photos are part
+    of the layout (run off an edge, cut on the slant), never cards laid on the ground."""
+    out = []
+    for k, ph in enumerate(photos):
+        x = x0 + k * (tw + gap)
+        poly = [(x + skew, 0), (x + skew + tw, 0), (x + tw, h), (x, h)]
+        out.append('<div class="abs" style="left:%.0fpx;top:0;width:%.0fpx;height:%.0fpx;clip-path:polygon(%s)">%s</div>'
+                   % (x, tw + skew, h, ",".join("%.0fpx %.0fpx" % (a - x, b) for a, b in poly),
+                      K.pic(ph, 0, 0, tw + skew, h, pos="center 35%", duo=duo, fade=fade_css)))
+    return "".join(out)
+
+
+def cut_band(K, photo, w, top, bottom, pos="center 35%", slab=OR, thick=18, fade_css=None):
+    """A full width photo band cut on a diagonal at the top and the bottom: top and bottom are (y left, y right).
+    An orange slab runs along each cut, so the photo reads as a panel of the layout."""
+    y0 = min(top)
+    y1 = max(bottom)
+    clip = "polygon(0 %dpx,%dpx %dpx,%dpx %dpx,0 %dpx)" % (top[0] - y0, w, top[1] - y0, w, bottom[1] - y0, bottom[0] - y0)
+    fade_css = fade_css or ("linear-gradient(to bottom, rgba(%s,.35) 0%%, rgba(%s,0) 25%%, rgba(%s,0) 70%%, rgba(%s,.6) 100%%)"
+                            % (DB_RGB, DB_RGB, DB_RGB, DB_RGB))
+    out = ['<div class="abs" style="left:0;top:%dpx;width:%dpx;height:%dpx;clip-path:%s">%s</div>'
+           % (y0, w, y1 - y0, clip, K.pic(photo, 0, 0, w, y1 - y0, pos=pos, fade=fade_css))]
+    for yl, yr in (top, bottom):
+        out.append(slab_poly([(0, yl - thick / 2), (w, yr - thick / 2), (w, yr + thick / 2), (0, yl + thick / 2)], slab))
+    return "".join(out)
+
+
 
 def chevrons(x, y, size, steps=3, colour=DB, w=None, h=None):
     return F.svg(w, h, M.ascent(w, h, x, y, size, steps=steps, colour=colour, kind="chevrons"), "pointer-events:none")
@@ -334,19 +362,26 @@ def desktop(C, brand, i, motif, w, h):
     p, copy = [], []
     logo_at = (w * 0.86, h * 0.89)
     if motif == "stage-light":  # photo led
-        p.append(K.pic(B["photos"][0], w * 0.3, 0, w * 0.7, h, pos="center 35%", duo=True, blur=10 * u,
-                       fade=fade("to left", 10, 95, 0.0, 1)))
-        p.append(glow(w, h, w, 0, w * 0.55, 0.5))
-        cw = w * 0.3
-        p.append(K.pic(B["photos"][1], w * 0.47, h * 0.14, cw, cw * 0.62, pos="center 40%", rot=-4, radius=14 * u,
-                       shadow=True))
-        cw2 = w * 0.24
-        p.append(K.pic(B["photos"][2], w * 0.66, h * 0.45, cw2, cw2 * 0.66, pos="center 35%", rot=5, radius=14 * u,
-                       shadow=True))
-        p.append(sticker(B["sticker"], w * 0.455, h * 0.115, 30 * u, rot=-6))
-        p.append(hero(B["heroes"][0], w * 0.565, h * 0.56, w * 0.13, rot=-6,
-                      ghosts=[(-0.65, -0.2, 0.7, 14, 0.25), (-1.05, 0.35, 0.5, -18, 0.16)]))
+        # A crisp photo runs off the right edge, cut on a diagonal with an orange slab along the cut; no taller or
+        # wider than its source, fading into Dark Brown at the foot where it is shorter than the screen.
+        src = C.PHOTOS / (B["photos"][1] + ".jpg")
+        sw, sh = _jpeg_size(src)
+        ph = min(h, sh)
+        x0, skew = w * 0.36, w * 0.12
+        pw = min(w - x0, sw)
+        x0 = w - pw
+        clip = "polygon(%.0fpx 0,%.0fpx 0,%.0fpx %.0fpx,0 %.0fpx)" % (skew, pw, pw, h, h)
+        p.append('<div class="abs" style="left:%.0fpx;top:0;width:%.0fpx;height:%.0fpx;clip-path:%s">%s</div>'
+                 % (x0, pw, h, clip, K.pic(B["photos"][1], 0, 0, pw, ph, pos="center 40%",
+                                           fade="linear-gradient(to bottom, rgba(%s,0) 55%%, rgba(%s,.85) 100%%)"
+                                           % (DB_RGB, DB_RGB))))
+        p.append(slab_poly([(x0 - 14 * u, h), (x0 + skew - 14 * u, 0), (x0 + skew + 4 * u, 0), (x0 + 4 * u, h)], OR))
+        p.append(glow(w, h, 0, h, w * 0.5, 0.35))
+        p.append(sticker(B["sticker"], w * 0.24, h * 0.2, 30 * u, rot=-6))
+        p.append(hero(B["heroes"][0], w * 0.24, h * 0.42, w * 0.12, rot=-6,
+                      ghosts=[(0.35, -0.75, 0.5, 14, 0.2), (-0.1, 1.1, 0.45, -18, 0.14)]))
         copy.append(B["sticker"])
+        logo_at = (w * 0.06, h * 0.89)  # on plain ground, never over the photo
     elif motif == "contours":  # type led
         p.append(F.svg(w, h, M.contours(w, h, seed=21, rings=13, dark=True, marker=True, cx=1.0, cy=1.05)))
         p.append(glow(w, h, w * 0.9, 0, w * 0.45, 0.32))
@@ -397,14 +432,16 @@ def phone(C, brand, i, motif, w, h):
     logo_w = w * 0.3
     logo_xy = ((w - logo_w) / 2, h * 0.815)
     if motif == "stage-light":
-        p.append(K.pic(B["photos"][0], 0, h * 0.2, w, h * 0.8, pos="center", duo=True, blur=8 * u,
-                       fade="linear-gradient(to bottom, rgba(%s,1) 0%%, rgba(%s,.2) 30%%, rgba(%s,.5) 75%%, rgba(%s,1) 100%%)"
-                       % (DB_RGB, DB_RGB, DB_RGB, DB_RGB)))
+        # The photo full width between two diagonals, an orange slab along the lower cut; the drawing and the
+        # sticker sit on plain Dark Brown under it, clear of every face.
+        y0, y1, d = h * 0.24, h * 0.56, h * 0.05
+        clip = "polygon(0 %.0fpx,%.0fpx 0,%.0fpx %.0fpx,0 %.0fpx)" % (d, w, w, y1 - y0 - d, y1 - y0)
+        p.append('<div class="abs" style="left:0;top:%.0fpx;width:%.0fpx;height:%.0fpx;clip-path:%s">%s</div>'
+                 % (y0, w, y1 - y0, clip, K.pic(B["photos"][1], 0, 0, w, y1 - y0, pos="center 40%")))
+        p.append(slab_poly([(0, y1 - 4 * u), (w, y1 - d - 4 * u), (w, y1 - d + 14 * u), (0, y1 + 14 * u)], OR))
         p.append(glow(w, h, w, h * 0.22, w * 0.9, 0.4))
-        p.append(K.pic(B["photos"][1], w * 0.08, h * 0.31, w * 0.76, w * 0.5, pos="center 40%", rot=-5, radius=18 * u, shadow=True))
-        p.append(K.pic(B["photos"][2], w * 0.26, h * 0.5, w * 0.66, w * 0.44, pos="center 35%", rot=5, radius=18 * u, shadow=True))
-        p.append(sticker(B["sticker"], w * 0.06, h * 0.293, 40 * u, rot=-6))
-        p.append(hero(B["heroes"][0], w * 0.04, h * 0.6, w * 0.34, rot=-8, ghosts=[(1.9, -0.95, 0.45, 18, 0.2)]))
+        p.append(sticker(B["sticker"], w * 0.06, y1 + 40 * u, 40 * u, rot=-4))
+        p.append(hero(B["heroes"][0], w * 0.56, y1 + 20 * u, w * 0.3, rot=-8, ghosts=[(-0.9, 0.55, 0.45, 18, 0.2)]))
         copy.append(B["sticker"])
     elif motif == "contours":
         p.append(F.svg(w, h, M.contours(w, h, seed=31, rings=12, dark=True, marker=True, cx=0.9, cy=0.92)))
@@ -505,10 +542,63 @@ def facebook_cover(C, brand):
     p.append(head([HEADER_LINES[brand]], 330, 300, 74, 760, eyebrow=B["eyebrow"] if brand != "Climb27" else C.DATES))
     p.append(hero(B["heroes"][2], 1110, 150, 260, rot=-6, ghosts=[(0.55, -0.35, 0.55, 16, 0.2)]))
     p.append(F.logo_img(C, brand, "reversed-dark", 330, 150, 220))
-    p.append(scatter(B["extras"], (40, 40, 360, h - 40), 3, (110, 140), seed=6, opacity=(0.5, 0.7)))
+    # drawings stay on the ground between the photos, never over a face
+    p.append(scatter(B["extras"], (450, 30, 1060, 140), 3, (80, 100), seed=6, opacity=(0.5, 0.7)))
     p.append(sticker(B["sticker"] if brand != "Climb27" else "Get your ticket", 340, h - 110, 22, rot=-4, side="right"))
     copy = [plain(HEADER_LINES[brand]), B["eyebrow"], C.DATES, B["sticker"], "Get your ticket"]
     return asset(name, "Social", brand, w, h, p, copy, scale=2)
+
+
+def youtube_banner(C, brand, tone):
+    """2560x1440, the YouTube channel art. TVs show it all, desktops a 2560x423 band and phones only the centre
+    1546x423, so the logo and the line sit inside that safe area; photos, glow and ghosts fill the rest.
+    tone "dark" is Dark Brown with the orange word; "orange" is a Climb Orange ground with Dark Brown type, the
+    emphasis word in White and the mono dark logo."""
+    w, h = 2560, 1440
+    sx, sy, sw, sh = (w - 1546) // 2, (h - 423) // 2, 1546, 423
+    name = "%s_youtube-banner_%s_%dx%d" % (brand.lower(), tone, w, h)
+    K = Kit(C, name, 1)
+    B = BRANDS[brand]
+    line = HEADER_LINES[brand]
+    dark = tone == "dark"
+    p = []
+    if dark:
+        p.append(K.pic(B["photos"][0], 0, 0, w, h, pos="center 40%", duo=True, blur=6,
+                       fade="radial-gradient(ellipse at center, rgba(%s,.92) 0%%, rgba(%s,.78) 45%%, rgba(%s,.35) 100%%)"
+                       % (DB_RGB, DB_RGB, DB_RGB)))
+        p.append(glow(w, h, w * 0.5, h * 0.62, 900, 0.4))
+    else:
+        p.append('<div class="abs" style="left:0;top:0;width:%dpx;height:%dpx;background:%s"></div>' % (w, h, OR))
+        p.append(scatter(B["extras"], (sx, 70, sx + sw, sy - 50), 5, (140, 190), seed=9, opacity=(0.18, 0.28), ink=DB))
+    # slanted photo walls run off both edges at full height, like the X header, so the desktop band shows real
+    # people either side of the safe area and the TV view reads as one poster, not cards laid on a ground
+    ground = DB_RGB if dark else OR_RGB
+    tw, skew, gap = 262, 170, 12
+    walls = [(-150, B["photos"][1:3]), (sx + sw - 20, (B["photos"] * 2)[3:6])]
+    for x0, photos in walls:
+        for k, ph in enumerate(photos):
+            x = x0 + k * (tw + gap)
+            poly = [(x + skew, 0), (x + skew + tw, 0), (x + tw, h), (x, h)]
+            p.append('<div class="abs" style="left:%.0fpx;top:0;width:%.0fpx;height:%.0fpx;clip-path:polygon(%s)">%s</div>'
+                     % (x, tw + skew, h, ",".join("%.0fpx %.0fpx" % (a - x, b) for a, b in poly),
+                        K.pic(ph, 0, 0, tw + skew, h, pos="center 35%", duo=not dark,
+                              fade="linear-gradient(to bottom, rgba(%s,.55) 0%%, rgba(%s,0) 30%%, rgba(%s,0) 70%%, rgba(%s,.7) 100%%)"
+                                   % (ground, ground, ground, ground))))
+        # the slab sits on the wall edge that faces the line
+        e = x0 + 2 * (tw + gap) - gap if x0 < sx else x0
+        d = 8 if x0 < sx else -30
+        p.append(slab_poly([(e + d, h), (e + d + skew, 0), (e + d + skew + 22, 0), (e + d + 22, h)], OR if dark else DB))
+    ink = DB if not dark else WH
+    p.append(head([line], sx + 60, sy + 130, 118, 1100, eyebrow=B["eyebrow"] if brand != "Climb27" else C.DATES,
+                  colour=ink, sub_colour=ink, rule_on=dark))
+    p.append(F.logo_img(C, brand, "reversed-dark" if dark else "mono-dark", sx + 60, sy + 30, 260))
+    if dark:
+        p.append(hero(B["heroes"][0], sx + sw - 330, sy + 70, 260, rot=-6, ghosts=[(-0.6, 0.2, 0.5, 14, 0.18)]))
+    else:
+        p.append(I.place(B["heroes"][0], sx + sw - 330, sy + 70, 260, rotate=-6, ink=DB))
+    css = "" if dark else ".o{color:%s !important}.lab{color:%s !important}" % (WH, DB)
+    copy = [plain(line), B["eyebrow"], C.DATES]
+    return asset(name, "Social", brand, w, h, p, copy, scale=1, css=css)
 
 
 def see_you(C):
@@ -539,33 +629,41 @@ def see_you(C):
 PACKS = {
     # key: display lines, hero drawing, ghosts and extras, crisp photo, second photo, glow corner
     "find-your-people": dict(lines=["*Find* your", "[[people]]."], hero="bubbles",
-                             extras=["coffee", "handshake", "people"], photo="climb_awards_winners",
+                             extras=["coffee", "handshake", "people"], photo="climb_crowd_wide",
                              photo2="climb_drinks_reception"),
     "main-stage-moments": dict(lines=["Main *stage*", "[[moments]]."], hero="microphone",
                                extras=["spotlight", "trophy", "record"], photo="climb_band_stage",
                                photo2="climb_awards_trophies"),
     "bigger-stage": dict(lines=["Your *business*.", "Bigger [[stage]]."], hero="rocket",
-                         extras=["chart", "megaphone", "summit"], photo="climb_crowd_wide", photo2="climb_expo_floor"),
+                         extras=["chart", "megaphone", "summit"], photo="climb_stage_region", photo2="climb_expo_floor"),
 }
 
 
+def _cut_photo(K, photo, w, ph, yl, yr, pos, top=0):
+    """The photo full bleed above a diagonal from (0, yl) to (w, yr), fading into Dark Brown towards the cut, with
+    a soft dark band at the top for the logo. top starts the photo lower (stories keep the logo on plain ground). Nothing below the cut, so stickers and drawings never sit on a face."""
+    clip = "polygon(0 0,%dpx 0,%dpx %dpx,0 %dpx)" % (w, w, yr - top, yl - top)
+    return ('<div class="abs" style="left:0;top:%dpx;width:%dpx;height:%dpx;clip-path:%s">%s</div>'
+            % (top, w, ph - top, clip, K.pic(photo, 0, 0, w, ph - top, pos=pos,
+                                  fade="linear-gradient(to bottom, rgba(%s,.75) 0%%, rgba(%s,0) 24%%, rgba(%s,0) 60%%, rgba(%s,.9) 100%%)"
+                                  % (DB_RGB, DB_RGB, DB_RGB, DB_RGB))))
+
+
 def pack_post(C, key):
-    """1080x1350 at 2x: photo on top under a Dark Brown fade, the hero drawing breaking out of it, the line below,
-    the ticket at the foot."""
+    """1080x1350 at 2x: the photo runs full bleed across the top, fades into Dark Brown and ends on an orange
+    diagonal slab. The dates and the hero drawing sit under the slab, the line below, the ticket at the foot."""
     w, h = 1080, 1350
     P = PACKS[key]
     name = "climb27_post_%s_%dx%d" % (key, w * 2, h * 2)
     K = Kit(C, name, 2)
-    ph = 780
-    p = [K.pic(P["photo2"], 0, 0, w, ph, pos="center", duo=True, blur=5,
-               fade="linear-gradient(to bottom, rgba(%s,.75) 0%%, rgba(%s,.35) 40%%, rgba(%s,1) 98%%)" % (DB_RGB, DB_RGB, DB_RGB)),
-         glow(w, h, w, 0, 640, 0.42)]
+    yl, yr = 690, 590
+    p = [_cut_photo(K, P["photo"], w, yl, yl, yr, "center 30%"),
+         slab_poly([(0, yl - 4), (w, yr - 4), (w, yr + 14), (0, yl + 14)], OR),
+         glow(w, h, w, h, 620, 0.3)]
     p.append(F.logo_img(C, "Climb27", "reversed-dark", 64, 64, 280))
-    p.append(K.pic(P["photo"], 290, 150, 760, 507, pos="center 30%", rot=4, radius=22, shadow=True))
-    p.append(hero(P["hero"], 40, 360, 360, rot=-8,
-                  ghosts=[(0.1, -0.62, 0.45, 16, 0.25), (-0.05, 0.75, 0.32, -18, 0.18)]))
-    p.append(sticker(C.DATES, 60, 650, 30, rot=4, side="right"))
-    p.append(head(P["lines"], 64, 790, 130, 952, rule_on=False, sub=C.TAGLINE + ".", sub_size=32))
+    p.append(hero(P["hero"], 860, 625, 150, rot=-8, ghosts=[(-0.7, 0.2, 0.5, 16, 0.2)]))
+    p.append(sticker(C.DATES, 64, 716, 28, rot=-3))
+    p.append(head(P["lines"], 64, 800, 130, 952, rule_on=False, sub=C.TAGLINE + ".", sub_size=32))
     p.append(date_ticket(C, 64, h - 64 - 130, 952, 130, uid="pp", stub_text=URL,
                          main='<div class="lab" style="font-size:30px;color:#fff;letter-spacing:.06em">Get your ticket</div>'))
     copy = [C.DATES, plain(" ".join(P["lines"])), C.TAGLINE, "Get your ticket", URL]
@@ -573,21 +671,21 @@ def pack_post(C, key):
 
 
 def pack_story(C, key):
-    """1080x1920 at 2x. Nothing in the top 250 or the bottom 340. A tilted photo card in the middle, the drawing
-    bursting out of its corner, the line under it."""
+    """1080x1920 at 2x. Nothing in the top 250 or the bottom 340. The logo sits on plain ground, the photo runs
+    full bleed under it and ends on an orange diagonal slab; the dates and the drawing sit under it, the line below."""
     w, h = 1080, 1920
     P = PACKS[key]
     name = "climb27_story_%s_%dx%d" % (key, w * 2, h * 2)
     K = Kit(C, name, 2)
-    p = [K.pic(P["photo2"], 0, 0, w, h, pos="center", duo=True, blur=6,
-               fade="linear-gradient(to bottom, rgba(%s,.9) 0%%, rgba(%s,.55) 40%%, rgba(%s,.95) 75%%)" % (DB_RGB, DB_RGB, DB_RGB)),
-         glow(w, h, 0, 520, 760, 0.42)]
+    yl, yr = 930, 800
+    p = [_cut_photo(K, P["photo"], w, yl, yl, yr, "center 35%", top=400),
+         glow(w, h, 0, 300, 700, 0.35),
+         slab_poly([(0, yl - 4), (w, yr - 4), (w, yr + 16), (0, yl + 16)], OR),
+         glow(w, h, w, h, 760, 0.3)]
     p.append(F.logo_img(C, "Climb27", "reversed-dark", 90, 280, 300))
-    cw, chh = 780, 520
-    p.append(K.pic(P["photo"], 110, 520, cw, chh, pos="center 30%", rot=-4, radius=22, shadow=True))
-    p.append(hero(P["hero"], 640, 330, 380, rot=-10, ghosts=[(-0.55, 0.15, 0.55, 18, 0.25), (-1.4, -0.1, 0.4, -14, 0.16)]))
-    p.append(sticker(C.DATES, 90, 1010, 32, rot=-5))
-    p.append(head(P["lines"], 90, 1075, 128, 900, rule_on=True, sub=C.TAGLINE + ".", sub_size=32))
+    p.append(hero(P["hero"], 830, 840, 170, rot=-10, ghosts=[(-0.75, 0.25, 0.5, 18, 0.2)]))
+    p.append(sticker(C.DATES, 90, 962, 30, rot=-3))
+    p.append(head(P["lines"], 90, 1050, 128, 900, rule_on=True, sub=C.TAGLINE + ".", sub_size=32))
     p.append(scatter(P["extras"], (40, h - 320, w - 40, h - 30), 3, (190, 230), seed=8, opacity=(0.16, 0.26)))
     p.append(date_ticket(C, 90, h - 340 - 116, 900, 116, uid="ps", stub_text=URL,
                          main='<div class="lab" style="font-size:30px;color:#fff;letter-spacing:.06em">Get your ticket</div>'))
@@ -655,38 +753,21 @@ def poster(C, key):
     K = Kit(C, name)
     m = 180
     p = []
-    if key == "find-your-people":
-        p += [F.svg(w, h, M.contours(w, h, seed=53, rings=12, dark=True, marker=False, cx=1.05, cy=0.55)),
-              glow(w, h, 0, h * 0.25, w * 0.8, 0.4),
-              K.pic(P["photo"], 200, 760, 1500, 1000, pos="center 30%", rot=-4, radius=36, shadow=True),
-              K.pic(P["photo2"], 1020, 1420, 1260, 840, pos="center", rot=5, radius=36, shadow=True),
-              sticker(C.DATES, 240, 700, 70, rot=-6),
-              hero(P["hero"], 1460, 300, 860, rot=-6, ghosts=[(-0.55, 0.05, 0.55, 16, 0.25), (-1.3, -0.12, 0.4, -12, 0.16)]),
-              I.place("coffee", 120, 1820, 520, rotate=-10, seed=2)]
-        ty = 2340
-    elif key == "main-stage-moments":
-        p += [F.svg(w, h, M.stage_light(w, h * 0.7, seed=5, uid="psl")),
-              glow(w, h, w * 0.6, 0, w * 0.7, 0.45)]
-        for k, (ph, x, y, r) in enumerate((("climb_band_stage", 120, 1540, -6), ("climb_awards_trophies", 880, 1640, 4),
-                                           ("climb_crowd_wide", 1620, 1520, -3))):
-            p.append(K.pic(ph, x, y, 760, 520, pos="center 35%", rot=r, radius=26, shadow=True))
-        p.append(hero("microphone", 520, 200, 1350, rot=-4, ghosts=[(-0.32, 0.25, 0.5, 20, 0.2), (0.95, 0.35, 0.45, -20, 0.18)]))
-        p.append(I.place("spotlight", 1800, 360, 560, rotate=-8, opacity=0.9, seed=4))
-        p.append(sticker("Main stage moments", 160, 2120, 66, rot=-4))
-        ty = 2340
-    else:
+    # the photo runs full bleed from the top and ends on an orange diagonal slab, as on the posts; the dates and
+    # the drawing sit under the slab, so nothing lands on a face
+    yl, yr = 1960, 1740
+    p += [_cut_photo(K, P["photo"], w, yl, yl, yr, "center 30%"),
+          slab_poly([(0, yl - 8), (w, yr - 8), (w, yr + 30), (0, yl + 30)], OR),
+          glow(w, h, w, h * 0.7, w * 0.7, 0.32)]
+    if key == "bigger-stage":
         p += [slab_poly([(w * 0.7, h), (w, h * 0.76), (w, h)], OR),
-              chevrons(w * 0.87, h * 0.975, w * 0.09, steps=3, colour=DB, w=w, h=h),
-              F.svg(w, h, M.contours(w, h, seed=55, rings=10, dark=True, marker=False, cx=-0.05, cy=0.0)),
-              glow(w, h, w, h * 0.45, w * 0.7, 0.35),
-              K.pic(P["photo"], 180, 860, 1450, 966, pos="center 40%", rot=-5, radius=36, shadow=True),
-              sticker(C.DATES, 220, 800, 70, rot=-6),
-              hero("rocket", 1420, 420, 1000, rot=0, ghosts=[(-0.32, 0.55, 0.5, 8, 0.25), (-0.6, 0.98, 0.34, 14, 0.15)]),
-              I.place("chart", 1820, 1700, 480, rotate=8, opacity=0.9, seed=3)]
-        ty = 2160
+              chevrons(w * 0.87, h * 0.975, w * 0.09, steps=3, colour=DB, w=w, h=h)]
+    p.append(sticker(C.DATES if key != "main-stage-moments" else "Main stage moments", m, yl + 70, 66, rot=-3))
+    p.append(hero(P["hero"], 1830, yr - 260, 500, rot=-8, ghosts=[(-0.7, 0.25, 0.5, 16, 0.2)]))
+    ty = 2230
     p.append(F.logo_img(C, "Climb27", "reversed-dark", m, 190, 760))
     p.append('<div class="abs lab" style="right:%dpx;top:240px;font-size:52px;color:#F2AE86">%s</div>' % (m, URL))
-    p.append(head(P["lines"], m, ty, 300, w - 2 * m, rule_on=True, sub=C.TAGLINE + ".", sub_size=72))
+    p.append(head(P["lines"], m, ty, 280, w - 2 * m, rule_on=True, sub=C.TAGLINE + ".", sub_size=68))
     tw = w - 2 * m - (330 if key == "bigger-stage" else 0)
     p.append(foot_ticket(C, m, h - m - 300, tw, 300, "pf"))
     p.append(F.grain_layer(w, h, 53, 0.07))
@@ -706,11 +787,12 @@ def pullup(C):
     p.append(F.logo_img(C, "Climb27", "reversed-dark", m, 260, 1900))
     p.append('<div class="abs body" style="left:%dpx;top:760px;font-size:110px;color:#F2AE86">%s.</div>' % (m, C.TAGLINE))
     p.append(head(["Your *business*.", "Bigger [[stage]]."], m, 1080, 330, w - 2 * m, rule_on=True))
-    p.append(K.pic("climb_crowd_wide", m - 40, 2250, 1560, 1100, pos="center 40%", rot=-4, radius=48, shadow=True))
-    p.append(K.pic("climb_band_stage", 1500, 3650, 1560, 1040, pos="center", rot=4, radius=48, shadow=True))
-    p.append(sticker(C.DATES, m, 2190, 96, rot=-6))
-    p.append(hero("rocket", 1800, 2000, 1300, ghosts=[(-0.3, 0.55, 0.5, 8, 0.22), (-0.55, 0.95, 0.35, 14, 0.14)]))
-    p.append(hero("microphone", 140, 3600, 1250, rot=-6, ghosts=[(0.62, 0.66, 0.42, 18, 0.2)]))
+    # one full width photo band cut on the diagonal, slabs along both cuts; the drawings sit on the ground
+    # around it, so nothing lands on a face
+    p.append(cut_band(K, "climb_crowd_wide", w, (2700, 2400), (4300, 4000), pos="center 40%", thick=40))
+    p.append(sticker(C.DATES, m, 2280, 96, rot=-4))
+    p.append(hero("rocket", 2420, 1870, 520, rot=0, ghosts=[(-0.6, 0.3, 0.45, 8, 0.2)]))
+    p.append(hero("microphone", 2150, 4150, 850, rot=-6, ghosts=[(-0.9, 0.2, 0.45, 18, 0.2)]))
     ty, th = 5060, 1200
     main = ('<div class="lab" style="font-size:84px;color:#F2AE86">Get your ticket</div>'
             '<div class="disp" style="font-size:210px;margin:30px 0 34px;text-transform:none">%s</div>'
@@ -761,7 +843,7 @@ def lanyard(C):
     k = 0
     x = 60
     while x < w - 600:
-        items.append('<img src="%s" style="height:168px" alt="">' % C.logo("Climb27", "icon-monogram"))
+        items.append('<img src="%s" style="height:168px" alt="">' % C.logo("Climb27", "icon-monogram-on-ground"))
         items.append('<img src="%s" style="height:%dpx" alt="">' % (C.logo("Climb27", "reversed-dark"), word_h))
         items.append(I.svg(doodles[k % len(doodles)], seed=k, style="width:200px;height:200px;flex:none;transform:rotate(%ddeg)"
                            % (-12 if k % 2 else 10)))
@@ -864,7 +946,8 @@ def assets(C):
             for (w, h) in [(1179, 2556), (1440, 3120)]:
                 out.append(phone(C, brand, i, motif, w, h))
     for brand in ("Climb27", "ClimbUK", "ClimbGroup"):
-        out += [linkedin_company(C, brand), x_header(C, brand), facebook_cover(C, brand)]
+        out += [linkedin_company(C, brand), x_header(C, brand), facebook_cover(C, brand),
+                youtube_banner(C, brand, "dark"), youtube_banner(C, brand, "orange")]
     out.append(see_you(C))
     out.append(footer_strip(C))
     for key in PACKS:

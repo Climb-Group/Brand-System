@@ -75,11 +75,11 @@ def cover(bk):
             + '<div class="glow"></div>'
             + '<div style="position:absolute;right:110px;top:150px;width:700px;height:760px">'
               '<div style="position:absolute;right:0;top:0;width:520px;height:390px;border-radius:14px;overflow:hidden;transform:rotate(3deg);box-shadow:0 30px 80px rgba(0,0,0,.5)">'
-              '<div class="ph" style="background-image:url(%sclimb_isn_investors_hero.jpg)"></div></div>'
+              '<div class="ph" style="background-image:url(%smeetings_01.jpg)"></div></div>'
               '<div style="position:absolute;left:0;top:300px;width:470px;height:330px;border-radius:14px;overflow:hidden;transform:rotate(-3deg);box-shadow:0 30px 80px rgba(0,0,0,.5)">'
-              '<div class="ph" style="background-image:url(%sclimb_recap_02.jpg)"></div></div>'
+              '<div class="ph" style="background-image:url(%sclimb_recap_03.jpg)"></div></div>'
               '<div style="position:absolute;right:30px;top:470px;width:360px;height:290px;border-radius:14px;overflow:hidden;transform:rotate(2deg);box-shadow:0 30px 80px rgba(0,0,0,.5)">'
-              '<div class="ph" style="background-image:url(%sclimb_awards_trophies.jpg)"></div></div>'
+              '<div class="ph" style="background-image:url(%svip_and_awards_01.jpg)"></div></div>'
               '<span class="sticker" style="position:absolute;left:330px;top:250px;font-size:30px">Contracts</span>'
               '<span class="sticker white" style="position:absolute;left:70px;top:640px;font-size:30px;transform:rotate(3deg)">Decks</span>'
               '<span class="sticker dark" style="position:absolute;right:0;top:740px;font-size:30px">Footers</span>'
@@ -96,6 +96,8 @@ def cover(bk):
     pos = "center 35%" if b == "Climb27" else "center 40%"
     inner = (
         photo(B["cover_photo"], "fade-hero", pos)
+        # A soft shadow behind the headline keeps it at AA where the fade thins out.
+        + '<div class="layer" style="background:radial-gradient(1000px 340px at 32% 66%,rgba(var(--ink),.55),rgba(var(--ink),0) 70%)"></div>'
         + '<div class="glow"></div>'
         + '<div style="position:absolute;left:120px;top:104px">%s</div>' % logo(b, "reversed-dark", h=96)
         + '<div style="position:absolute;right:120px;top:110px"><span class="sticker" style="font-size:30px">%s</span></div>' % B["cover_sticker"]
@@ -119,11 +121,11 @@ SECTIONS = [
     ("07", "Motion and digital", "climb_isn_investors_hero.jpg", 'RISE. <em>SETTLE</em>. <span class="o">SPRING</span>.'),
     ("08", "Voice", "climb_isn_founders_hero.jpg", 'HEADLINE <em>ENERGY</em>. ADVISER <span class="o">DISCIPLINE</span>.'),
     ("09", "Out in the world", "climb_expo_floor.jpg", 'PRINT IT. <em>FILM</em> IT. <span class="o">SHARE</span> IT.'),
-    ("10", "Everyone", "climb_crowd_wide.jpg", 'BUILT FOR <span class="o">EVERYONE</span> IN THE <em>ROOM</em>.'),
+    ("10", "Everyone", "crowds_01.jpg", 'BUILT FOR <span class="o">EVERYONE</span> IN THE <em>ROOM</em>.'),
 ]
 
 
-GROUP_PHOTOS = {1: "climb_isn_founders_hero.jpg", 7: "climb_awards_winners.jpg"}
+GROUP_PHOTOS = {1: "meetings_02.jpg", 7: "stage_speakers_01.jpg"}
 
 
 def divider(bk, idx):
@@ -133,12 +135,14 @@ def divider(bk, idx):
     bk.section = name
     left = idx % 2 == 0
     inner = (
-        photo(ph, "fade-brown" if left else "fade-brown-r", "center 35%")
+        # Photo stays clear above; the fade only takes the bottom third, where the title sits.
+        photo(ph, "fade-divider", "center 35%")
+        + '<div class="layer fade-divider-%s"></div>' % ("l" if left else "r")
         + '<div class="glow%s"></div>' % ("" if left else " tl")
         + '<div class="numo" aria-hidden="true" style="position:absolute;%s:120px;top:110px;font-size:380px">%s</div>' % ("left" if left else "right", n)
-        + '<div style="position:absolute;%s:120px;bottom:150px;width:1250px;%s">'
-          '<div class="eb" style="font-size:26px;margin-bottom:30px;%s">%s</div>'
-          '<div class="h" style="font-size:118px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'
+        + '<div style="position:absolute;%s:120px;bottom:96px;width:1600px;%s">'
+          '<div class="eb" style="font-size:24px;margin-bottom:20px;%s">%s</div>'
+          '<div class="h" style="font-size:96px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'
         % ("left" if left else "right", "" if left else "text-align:right", "" if left else "justify-content:flex-end", name, h)
     )
     bk.add("", inner)
@@ -202,7 +206,7 @@ def family(bk):
 
 def big_idea(bk):
     inner = (
-        photo("climb_isn_founders_hero.jpg", "fade-hero", "center 30%")
+        photo("audience_at_stage_02.jpg", "fade-hero", "center 30%")
         + '<div class="glow"></div>'
         + '<div class="pad" style="display:flex;flex-direction:column;justify-content:center">'
           '<div class="eb" style="font-size:24px">The big idea</div>'
@@ -315,10 +319,10 @@ def logo_icons(bk):
           '<div style="text-align:center">%s<p class="small" style="margin-top:20px">Stacked tile</p></div>'
           '<div style="text-align:center">%s<p class="small" style="margin-top:20px">Monogram</p></div>'
           '<div style="display:flex;flex-direction:column;gap:22px;align-items:center">%s%s%s<p class="small">64, 32, 16</p></div></div></div>'
-        % (logo(b, "icon", w=360, style="border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
-           logo(b, "icon-monogram", w=240, style="border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
-           logo(b, "icon-monogram", w=64, style="border-radius:10px"), logo(b, "icon-monogram", w=32, style="border-radius:6px"),
-           logo(b, "icon-monogram", w=16, style="border-radius:3px"))
+        % (logo(b, "icon-on-ground", w=360, style="border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
+           logo(b, "icon-monogram-on-ground", w=240, style="border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
+           logo(b, "icon-monogram-on-ground", w=64, style="border-radius:10px"), logo(b, "icon-monogram-on-ground", w=32, style="border-radius:6px"),
+           logo(b, "icon-monogram-on-ground", w=16, style="border-radius:3px"))
     )
     bk.add(bk.B["ground"], inner)
 
@@ -351,19 +355,20 @@ def logo_donts(bk):
 def edition_mark(bk):
     """Climb27 only: how the edition mark and ClimbUK sit together."""
     inner = (
-        photo("climb_isn_investors_hero.jpg", "fade-heat", "center 30%")
-        + '<div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center">'
-          '<div><div class="eb" style="font-size:24px">The edition mark</div>'
-          '<div class="h" style="font-size:84px;margin-top:26px">THE EDITION <em>LEADS</em>. CLIMBUK <span class="o">ENDORSES</span>.</div>'
+        photo("stage_speakers_01.jpg", "fade-hero", "center 30%")
+        # Text on the left, the ticket low on the right: the photo shows above the ticket.
+        + '<div class="pad">'
+          '<div style="width:820px;position:absolute;top:0"><div class="eb" style="font-size:24px">The edition mark</div>'
+          '<div class="h" style="font-size:76px;margin-top:26px">THE EDITION <em>LEADS</em>. CLIMBUK <span class="o">ENDORSES</span>.</div>'
           '<ul class="list copy" style="margin-top:44px">'
           '<li><b>Climb27 leads</b> on posters, tickets, socials, signs and screens for this edition.</li>'
           '<li><b>ClimbUK sits quieter:</b> smaller, in a corner or the footer, in one tone if the piece is busy.</li>'
           '<li><b>Dates go next to the mark,</b> never inside it: 30 June and 1 July 2027.</li></ul></div>'
-          '<div class="ticket" style="padding:84px 84px 56px">'
-          '%s<div class="h" style="font-size:44px;margin-top:100px">YOUR BUSINESS.<br><em>BIGGER</em> <span class="o">STAGE</span>.</div>'
-          '<div class="tear" style="margin:46px -84px 40px"><div class="notch" style="left:-23px;top:-24px"></div><div class="notch" style="right:-23px;top:-24px"></div></div>'
+          '<div class="ticket" style="position:absolute;right:0;bottom:0;width:640px;padding:56px 60px 44px">'
+          '%s<div class="h" style="font-size:40px;margin-top:44px">YOUR BUSINESS.<br><em>BIGGER</em> <span class="o">STAGE</span>.</div>'
+          '<div class="tear" style="margin:36px -60px 32px"><div class="notch" style="left:-23px;top:-24px"></div><div class="notch" style="right:-23px;top:-24px"></div></div>'
           '<div style="display:flex;justify-content:space-between;align-items:center"><div class="mont" style="font-weight:700;font-size:26px">30 June and 1 July 2027</div>%s</div></div></div>'
-        % (logo("Climb27", "reversed-dark", w=400), logo("ClimbUK", "mono-white", h=34))
+        % (logo("Climb27", "reversed-dark", w=300), logo("ClimbUK", "mono-white", h=30))
     )
     bk.add("", inner)
 
@@ -396,7 +401,7 @@ def presets(bk):
     ps = [
         ("Dark Brown", "The default", "var(--db)", "#fff", "#fff", "var(--tint)", "var(--o)", "var(--o)", "#fff"),
         ("Charcoal", "Second dark", "var(--ch)", "var(--lg)", "#fff", "var(--tint)", "var(--o)", "var(--o)", "#fff"),
-        ("Climb Orange", "The big moment", "var(--o)", "#fff", "#fff", "#fff", "var(--db)", "var(--db)", "#fff"),
+        ("Climb Orange", "The big moment", "var(--o)", "var(--db)", "#fff", "var(--db)", "var(--db)", "var(--db)", "#fff"),
         ("White", "Long reading", "#fff", "#4A5878", "var(--ch)", "var(--deep)", "var(--o)", "var(--o)", "#fff"),
         ("Light Grey", "Quiet sections", "var(--lg)", "#404C68", "#B04902", "#7A3B16", "#D5641E", "var(--o)", "#fff"),
     ]
@@ -559,8 +564,8 @@ def devices(bk):
           '<span class="btn" style="font-size:24px">Get your ticket <span>\u2192</span></span>'
           '<p class="small" style="margin-top:16px">Ticket card: stub notches and a tear line.</p></div>'
           # photo card
-          '<div style="position:absolute;left:640px;top:0;width:420px;height:560px;border-radius:14px;overflow:hidden;transform:rotate(-1.5deg);box-shadow:0 30px 70px rgba(0,0,0,.5)">'
-          '<div class="ph" style="background-image:url(%sclimb_awards_winners.jpg)"></div><div class="layer fade-card"></div>'
+          '<div style="position:absolute;left:640px;top:0;width:420px;height:560px;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5)">'
+          '<div class="ph" style="background-image:url(%svip_and_awards_03.jpg)"></div><div class="layer fade-card"></div>'
           '<div class="h" style="position:absolute;left:34px;top:34px;font-size:40px">THE <span class="o">CLIMB</span>AWARDS</div>'
           '<p style="position:absolute;left:34px;bottom:30px;right:34px;font-size:22px;line-height:1.4">The walk-up, the trophies, the night people talk about.</p>'
           '<span class="sticker" style="position:absolute;right:20px;top:120px;font-size:22px">Main stage</span></div>'
@@ -589,7 +594,7 @@ def lineup(bk):
     marq = " \u00b7 ".join(["Find Your People", "Main Stage Moments", "Business that feels like a festival"] * 3)
     inner = (
         '<div class="glow"></div>'
-        + '<div style="position:absolute;left:0;right:0;top:60px">%s%s</div>' % (row(marq, -120), row(marq, -620))
+        + '<div aria-hidden="true" style="position:absolute;left:0;right:0;top:60px">%s%s</div>' % (row(marq, -120), row(marq, -620))
         + '<div class="pad" style="top:300px">'
           '<div class="eb" style="font-size:24px">Lineups and marquees</div>'
           '<div class="h" style="margin-top:34px;line-height:1.12">%s</div>'
@@ -615,12 +620,16 @@ def illustrations(bk, names):
     bk.add(bk.B["ground"], inner)
 
 
+# Wide frames zoom in on the people so they read as a tall tile.
+CROPS = {"outdoor_seating_01.jpg": "72% 95%/auto 200% no-repeat"}
+
+
 def photo_shoot(bk):
-    tiles = ["climb_awards_winners.jpg", "climb_recap_05.jpg", "climb_recap_02.jpg", "climb_band_stage.jpg", "climb_recap_04.jpg",
-             "climb_isn_founders_hero.jpg", "climb_drinks_reception.jpg", "climb_consultants_expert.jpg", "climb_expo_floor.jpg"]
+    tiles = ["climb_recap_05.jpg", "joy_01.jpg", "crowds_02.jpg", "audience_at_stage_01.jpg", "exhibitor_01.jpg",
+             "food_and_vendors_01.jpg", "outdoor_seating_01.jpg", "roundtable_and_workshops_01.jpg", "climb_recap_06.jpg"]
     wall = ('<div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:10px;position:absolute;right:0;top:0;width:1060px;height:960px">'
             '<div style="grid-column:1/3;grid-row:1/3;background:url(%s%s) center/cover"></div>' % (P, tiles[0])
-            + "".join('<div style="background:url(%s%s) center/cover"></div>' % (P, t) for t in tiles[1:])
+            + "".join('<div style="background:url(%s%s) %s"></div>' % (P, t, CROPS.get(t, "center/cover")) for t in tiles[1:])
             + '</div>')
     inner = (
         wall
@@ -640,9 +649,9 @@ def photo_shoot(bk):
 
 
 def photo_fades(bk):
-    fades = [("fade-brown", "Brown", "Statements and story bands", "climb_isn_founders_hero.jpg", 'BUSINESS WITH A <span class="o">PARTY</span>'),
-             ("fade-heat", "Heat", "Ticket moments: a line, two buttons", "climb_crowd_wide.jpg", 'GET YOUR <span class="o">TICKET</span>'),
-             ("fade-orange", "Orange", "One offer on an orange section", "climb_awards_trophies.jpg", 'BRINGING A <span style="color:var(--db)">TEAM</span>?')]
+    fades = [("fade-brown", "Brown", "Statements and story bands", "stage_speakers_03.jpg", 'BUSINESS WITH A <span class="o">PARTY</span>'),
+             ("fade-heat", "Heat", "Ticket moments: a line, two buttons", "crowds_03.jpg", 'GET YOUR <span class="o">TICKET</span>'),
+             ("fade-orange", "Orange", "One offer on an orange section", "climbteam_01.jpg" if bk.b == "ClimbGroup" else "climbteam_02.jpg", 'BRINGING A <span style="color:var(--db)">TEAM</span>?')]
     html = "".join(
         '<div><div style="position:relative;height:520px;border-radius:14px;overflow:hidden">'
         '<div class="ph" style="background-image:url(%s%s)"></div><div class="layer %s"></div>'
@@ -661,7 +670,7 @@ def photo_fades(bk):
 def photo_rules(bk):
     inner = (
         '<div style="position:absolute;left:0;top:0;bottom:0;width:900px;overflow:hidden">'
-        + photo("climb_awards_winners.jpg", "", "center 30%")
+        + photo("stage_speakers_02.jpg", "", "center 30%")
         + '<div class="layer" style="background:linear-gradient(90deg,rgba(30,15,5,0) 55%,var(--db)),linear-gradient(180deg,rgba(30,15,5,0) 72%,var(--db) 90%)"></div></div>'
         + '<div class="pad" style="left:auto;width:820px">'
           '<div class="eb" style="font-size:24px;justify-content:flex-end">Editing and care</div>'
@@ -788,12 +797,12 @@ def tickets(bk):
 def themes27(bk):
     inner = (
         '<div style="position:absolute;left:0;top:0;bottom:0;width:960px;overflow:hidden">'
-        + photo("climb_awards_winners.jpg", "fade-bottom", "center 30%")
+        + photo("exhibitor_02.jpg", "fade-bottom", "center 30%")
         + '<div style="position:absolute;left:100px;right:80px;bottom:120px"><div class="eb" style="font-size:24px">Theme one</div>'
           '<div class="h" style="font-size:104px;margin-top:20px">FIND YOUR <span class="o">PEOPLE</span></div>'
           '<p class="lead" style="margin-top:20px">The people you meet are the reason to come. Close conversations, the right rooms, the community that sends each other work.</p></div></div>'
         + '<div style="position:absolute;right:0;top:0;bottom:0;width:960px;overflow:hidden">'
-        + photo("climb_consultants_expert.jpg", "fade-bottom", "center 30%")
+        + photo("stage_speakers_04.jpg", "fade-bottom", "center 40%")
         + '<div class="glow"></div><div style="position:absolute;left:80px;right:100px;bottom:120px"><div class="eb" style="font-size:24px">Theme two</div>'
           '<div class="h" style="font-size:104px;margin-top:20px">MAIN STAGE <em>MOMENTS</em></div>'
           '<p class="lead" style="margin-top:20px">Short, big moments: sets, announcements, awards and our own formats. Big moments, not keynotes.</p></div></div>'
@@ -813,7 +822,7 @@ def share_kit(bk):
                 '<div class="h" style="font-size:34px;margin-top:16px">%s</div>'
                 '<div style="font-size:15px;margin-top:10px;color:var(--tint)">Your name, Company</div></div>'
                 '<div style="position:absolute;left:20px;right:20px;bottom:18px;display:flex;align-items:center;justify-content:flex-end;background:var(--ch);border-radius:10px;padding:10px 12px">'
-                '<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase">climb-uk.com</span></div></div>'
+                '<span style="background:var(--o);font:800 13px Montserrat;padding:6px 10px;border-radius:6px;text-transform:uppercase;color:var(--db)">climb-uk.com</span></div></div>'
                 % (rot, P, ph, logo("Climb27", "reversed-dark", h=28), role, line))
     inner = (
         '<div class="glow"></div>'
@@ -825,9 +834,9 @@ def share_kit(bk):
           '<li>Partners write in their own voice: "We are at Climb27".</li>'
           '<li>Lines partners may use: Official partner of Climb27, Speaking at Climb27, Exhibiting at Climb27.</li></ul></div>'
           '<div style="display:flex;gap:28px;align-items:center;justify-content:center;padding-top:60px">%s%s%s</div></div>'
-        % (tile("Attendee", 'I\'M <span class="o">ATTENDING</span><br><em>CLIMB27</em>', "climb_awards_winners.jpg", "-2"),
-           tile("Speaker", 'I\'M <span class="o">SPEAKING</span><br>AT <em>CLIMB27</em>', "climb_recap_04.jpg", "1"),
-           tile("Partner", 'WE\'RE <span class="o">PARTNERING</span><br>AT <em>CLIMB27</em>', "climb_recap_05.jpg", "3"))
+        % (tile("Attendee", 'I\'M <span class="o">ATTENDING</span><br><em>CLIMB27</em>', "crowds_04.jpg", "-2"),
+           tile("Speaker", 'I\'M <span class="o">SPEAKING</span><br>AT <em>CLIMB27</em>', "climb_recap_01.jpg", "1"),
+           tile("Partner", 'WE\'RE <span class="o">PARTNERING</span><br>AT <em>CLIMB27</em>', "meetings_03.jpg", "3"))
     )
     bk.add("", inner)
 
@@ -858,7 +867,7 @@ def documents(bk):
     def page(cover):
         if cover:
             return ('<div style="position:relative;width:400px;height:566px;border-radius:6px;overflow:hidden;background:var(--db);box-shadow:0 30px 70px rgba(0,0,0,.55);transform:rotate(-3deg)">'
-                    '<div class="ph" style="background-image:url(%sclimb_expo_floor.jpg);bottom:45%%"></div>'
+                    '<div class="ph" style="background-image:url(%sexhibitor_03.jpg);bottom:45%%"></div>'
                     '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,.2),var(--db) 56%%)"></div>'
                     '%s<div style="position:absolute;left:40px;top:40px">%s</div>'
                     '<div style="position:absolute;left:28px;right:28px;top:330px"><span class="sticker" style="font-size:14px">Partners</span>'
@@ -912,9 +921,9 @@ def signature(bk):
         '<div style="text-align:right">%s'
         '<div style="display:flex;gap:8px;margin-top:34px;justify-content:flex-end">%s</div></div></div>'
         '<div style="margin-top:30px;height:150px;border-radius:10px;overflow:hidden;position:relative">'
-        '<div class="ph" style="background-image:url(%sclimb_crowd_wide.jpg)"></div><div class="layer fade-heat"></div>'
+        '<div class="ph" style="background-image:url(%sclimb_recap_02.jpg)"></div><div class="layer fade-heat"></div>'
         '<div class="h" style="position:absolute;left:30px;top:30px;font-size:40px">SEE YOU AT <span class="o">CLIMB27</span></div>'
-        '<span class="btn" style="position:absolute;left:30px;bottom:22px;font-size:16px;padding:8px 18px">Get your ticket</span></div>'
+        '<span class="btn" style="position:absolute;left:30px;bottom:22px;font-size:20px;padding:8px 18px">Get your ticket</span></div>'
         '<div style="font-size:14px;margin-top:18px;color:#555">This email and any attachments are confidential.</div></div></div>'
         % (logo(b, "full-colour-light", w=230),
            "".join('<span style="display:inline-block;width:34px;height:34px;border:2px solid var(--o);border-radius:8px;padding:6px">%s</span>' % open(os.path.join(HERE, "assets/social/%s.svg" % g)).read().replace('<svg ', '<svg fill="#C55308" width="18" height="18" ')
@@ -1045,8 +1054,8 @@ def print_merch(bk):
         '<li><b>Signs:</b> 40mm cap height to read at 10m, 80mm at 20m. Chevrons point the way people turn.</li></ul></div>'
         '<div style="position:relative">'
         '<div style="position:absolute;left:-10px;top:500px;width:250px;height:356px;background:var(--db);border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-5deg);z-index:2;overflow:hidden">'
-        '<div class="ph" style="background-image:url(%sclimb_band_stage.jpg);bottom:40%%"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,15,5,0) 20%%,var(--db) 60%%)"></div>'
-        '<div style="position:absolute;left:32px;top:32px">%s</div>'
+        '<div class="ph" style="background-image:url(%s%s);top:84px;bottom:36%%;background-position:center 20%%"></div><div style="position:absolute;inset:84px 0 0;background:linear-gradient(180deg,var(--db),rgba(30,15,5,0) 12%%,rgba(30,15,5,0) 45%%,var(--db) 72%%)"></div>'
+        '<div style="position:absolute;left:32px;top:30px">%s</div>'
         '<div class="h" style="position:absolute;left:32px;bottom:56px;font-size:32px">%s</div>'
         '<div style="position:absolute;left:32px;bottom:26px;font:700 13px Montserrat;color:var(--tint)">climb-uk.com</div></div>'
         # Totes: a white canvas bag in Dark Brown and orange, a Dark Brown bag in orange and White. Two colours each.
@@ -1060,13 +1069,13 @@ def print_merch(bk):
         '<div style="position:absolute;left:78px;top:-118px;width:224px;height:166px;border:18px solid var(--lg);border-bottom:0;border-radius:120px 120px 0 0"></div>'
         '<div style="position:absolute;inset:0;background:var(--w);border-radius:6px 6px 16px 16px;box-shadow:0 34px 80px rgba(0,0,0,.65);overflow:hidden">'
         '<div style="position:absolute;left:-40px;top:22px;font:800 64px/0.9 \'Montserrat Outline\',Montserrat;color:transparent;-webkit-text-stroke:2px var(--o);letter-spacing:-.03em;white-space:nowrap">FIND YOUR PEOPLE FIND<br>YOUR PEOPLE FIND YOUR<br>PEOPLE FIND YOUR PEOPLE</div>'
-        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em class="o">PEOPLE</em>.</div>'
+        '<div class="h" style="position:absolute;left:34px;top:210px;font-size:64px;line-height:.9;color:var(--db)">FIND<br>YOUR<br><em style="color:var(--ot)">PEOPLE</em>.</div>'
         '<img src="assets/illus/high-five.svg" style="position:absolute;right:20px;top:196px;width:132px;height:132px;transform:rotate(10deg);--doodle-ground:var(--w)">'
         '<div style="position:absolute;left:34px;bottom:26px">%s</div></div>'
         '<span class="sticker" style="position:absolute;right:-26px;top:-20px;font-size:22px;transform:rotate(6deg)">Tote</span></div>'
         '<div style="position:absolute;left:280px;bottom:60px;width:500px;height:110px;border-radius:12px;z-index:1;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
         '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
-        % (P, logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
+        % (P, "climbteam_02.jpg" if b == "ClimbGroup" else "joy_03.jpg", logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
            logo(b, "mono-white", h=32), logo(b, "mono-white", h=32))
     )
     bk.add(bk.B["ground"], inner)
@@ -1078,7 +1087,7 @@ def video(bk):
         + '<div class="glow"></div>'
         + '<div style="position:absolute;left:120px;top:110px;right:120px;bottom:140px;border:2px solid rgba(255,255,255,.25);border-radius:6px"></div>'
         + '<div style="position:absolute;left:150px;top:140px;font:700 16px Montserrat;letter-spacing:.14em;color:rgba(255,255,255,.7)">TITLE SAFE 5%</div>'
-        + '<div style="position:absolute;right:150px;top:140px;opacity:.6">%s</div>' % logo(bk.b, "icon-monogram", w=60)
+        + '<div style="position:absolute;right:150px;top:140px;opacity:.6">%s</div>' % logo(bk.b, "icon-monogram-on-ground", w=60)
         + '<div style="position:absolute;left:180px;top:200px;width:900px">'
           '<div class="eb" style="font-size:24px">Video and motion graphics</div>'
           '<div class="h" style="font-size:84px;margin-top:22px">FILM THE <em>FESTIVAL</em>, NOT THE <span class="o">CONFERENCE</span>.</div>'
@@ -1168,14 +1177,14 @@ def downloads(bk):
 def back_cover(bk):
     b, B = bk.b, bk.B
     inner = (
-        photo({"ClimbUK": "climb_crowd_wide.jpg", "Climb27": "climb_band_stage.jpg"}.get(b, "climb_awards_winners.jpg"), "fade-hero", "center 35%")
-        + '<div class="layer" style="background:rgba(30,15,5,.66)"></div>'
+        photo({"ClimbUK": "climbteam_01.jpg", "Climb27": "climbteam_01.jpg"}.get(b, "roundtable_and_workshops_02.jpg"), "fade-ends", "center 30%")
         + '<div class="glow"></div>'
-        + '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">'
-          '<div class="h" style="font-size:150px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div>'
-          '<div style="margin-top:150px">%s</div>'
-          '<div class="mont" style="margin-top:130px;font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;color:var(--tint)">%s</div></div>'
-        % (B["closing_h"], logo(b, "tagline-lockup-reversed", h=150), COMMON["web"])
+        + ('<div style="position:absolute;left:0;right:0;top:100px;text-align:center">'
+          '<div class="h" style="font-size:124px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'
+          '<div style="position:absolute;left:0;right:0;bottom:90px;display:flex;flex-direction:column;align-items:center">'
+          '<div>%s</div>'
+          '<div class="mont" style="margin-top:44px;font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;color:var(--tint)">%s</div></div>'
+        % (B["closing_h"], logo(b, "reversed-dark", h=120), COMMON["web"]))
     )
     bk.add("", inner, foot=False)
 

@@ -115,12 +115,26 @@ class LogoTest(unittest.TestCase):
             ({"brand": "ClimbUK", "ground": "light grey"}, "full-colour-grey"),
             ({"brand": "ClimbUK", "ground": "orange"}, "mono-white"),
             ({"brand": "Climb27", "use": "favicon"}, "icon-monogram"),
-            ({"brand": "ClimbGroup", "use": "LinkedIn avatar"}, "icon"),
-            ({"brand": "ClimbUK", "ground": "dark", "width_px": 90}, "icon"),
+            ({"brand": "ClimbGroup", "use": "LinkedIn avatar"}, "icon-reversed"),
+            ({"brand": "ClimbGroup", "use": "LinkedIn avatar", "ground": "white"}, "icon"),
+            ({"brand": "ClimbUK", "ground": "dark", "width_px": 90}, "icon-reversed"),
+            ({"brand": "ClimbUK", "ground": "orange", "use": "favicon"}, "icon-monogram-on-orange"),
+            ({"brand": "ClimbUK", "use": "app icon", "fill": "ground"}, "icon-monogram-on-ground"),
+            ({"brand": "ClimbUK", "ground": "white", "fill": "white"}, "logo-on-white"),
+            ({"brand": "Climb27", "ground": "dark", "tagline": True, "fill": "orange"}, "tagline-lockup-on-orange"),
             ({"brand": "ClimbUK", "ground": "white", "tagline": True, "width_px": 200}, "full-colour-light"),
         ]
         for args, variant in cases:
             self.assertEqual(brand_rules.call("logo", args)["variant"], variant, args)
+
+    def test_transparent_by_default_with_solid_versions(self):
+        result = brand_rules.call("logo", {"brand": "ClimbUK", "use": "favicon"})
+        self.assertEqual(result["variant"], "icon-monogram")
+        self.assertEqual(set(result["on_solid"]), {"white", "ground", "orange"})
+        for files in result["on_solid"].values():
+            self.assertTrue(os.path.exists(brand_rules.pack_path(files["vector"])), files["vector"])
+            for png in files["png"]:
+                self.assertTrue(os.path.exists(brand_rules.pack_path(png)), png)
 
     def test_logo_files_exist_in_the_pack(self):
         result = brand_rules.call("logo", {"brand": "Climb27", "ground": "dark"})

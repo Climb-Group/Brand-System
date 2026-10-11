@@ -4,8 +4,8 @@ Describe the code in this pull request and nothing else: no conversation
 history, prompts or background it does not need. Keep it shorter than the diff.
 No emoji, no checklists. Delete the guidance comments as you fill it in.
 
-Contributing: https://github.com/Resnovas/.github/blob/HEAD/CONTRIBUTING.md
-AI policy:    https://github.com/Resnovas/.github/blob/HEAD/AI_POLICY.md
+Contributing: https://github.com/Climb-Group/Brand-System/blob/HEAD/CONTRIBUTING.md
+AI policy:    https://github.com/Climb-Group/Brand-System/blob/HEAD/AI_POLICY.md
 
 Using an AI tool? Open this as a draft, and mark it ready only once you have
 read every changed line and run it yourself.
