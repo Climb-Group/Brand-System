@@ -1,0 +1,38 @@
+// The brand book brings its own styles (tokens, fonts and the book itself), loaded from the brand book folder.
+// This only frames it: full width, no gap above, and a quiet state while a page loads.
+.climbBrandPage {
+  margin: 0;
+  min-height: 60vh;
+}
+
+.status {
+  padding: 48px 24px;
+  font-family: "Open Sans", sans-serif;
+}
+
+// The site menu bar already carries the Brand, Build, Artwork and Guidelines menus, so the book's own copy of them is
+// hidden here. The book bar keeps its name, search, downloads and the theme and text size switches.
+.climbBrandPage :global(.cbb-menu),
+.climbBrandPage :global([data-cbb-toggle="cbb-menu"]) {
+  display: none !important;
+}
+
+// Without the menus the book bar has room for the view options, so on wide screens they move up into the same row,
+// lined up with the right edge of the content.
+@media (min-width: 992px) {
+  .climbBrandPage :global(.cbb-view-bar) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc((100% - min(100% - 32px, var(--climb-layout-container))) / 2);
+    display: flex;
+    align-items: center;
+    border: 0;
+    background: none;
+  }
+  .climbBrandPage :global(.cbb-view-bar .cbb-view) {
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}

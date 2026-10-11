@@ -1,0 +1,318 @@
+Brand centre
+Everything that makes ClimbUK, ClimbGroup and Climb27 look and sound like themselves, in one place.
+Business with a party. Built to the brand.
+Logos, colours, type, photography, templates and the rules that tie them together. Start here, make it on brand and get it out the door.
+
+New here?
+Read the story behind the name, the voice in four lines and the five visual rules. It takes ten minutes and it saves hours.
+Start with our brand
+
+Making something?
+Open a template that already has the fonts, colours and layouts set: documents, slides, spreadsheets, video titles and call backgrounds.
+Open the templates
+
+Need a file?
+Every logo, photo, drawing and finished piece of artwork lives in the marketing content library, sorted by brand.
+Go to the artwork library
+
+Three brands, one family
+ClimbUK is the brand on the poster: the festival and everything around it. Climb27 is this year's edition and leads on event pieces, with ClimbUK as the endorsement. ClimbGroup is the company name, for legal lines, contracts and corporate pieces.
+
+The tagline
+The Festival for Business Growth. "The Festival of Business Growth" is the spoken form and is also right. Use one form per piece.
+Climb27 headline: Your business. Bigger stage.
+
+The rules on one page
+Short on time? The key rules for each brand fit on a single page.
+ClimbUK key rules (PDF)
+Climb27 key rules (PDF)
+ClimbGroup key rules (PDF)
+
+Questions about the brand?
+The marketing team checks artwork, answers questions and shares new files. Email marketing@climb-uk.com and say what you are making.
+
+Our brand. The name, the voice and the five visual rules.
+Templates. Documents, slides and video, ready to go.
+Logos. The right logo for every ground.
+Microsoft 365 kit. Teams themes, backgrounds and signatures.
+Artwork library. Every file, sorted by brand.
+Our brand
+Where the name comes from, what the brand stands for and the rules every piece follows.
+Not a conference. A festival for business growth.
+ClimbUK is business with a party, not a party for business. Real crowds under stage light, big type and an orange that glows, with a clear next step every time.
+
+Where the name comes from
+The name comes from the Investor Ladder. A business climbs the ladder to reach the next rung: an investor who fits where it is now. Investors pass businesses up and down the ladder to the rung that suits what they need.
+ClimbUK is a business event, never a sport or outdoors event. Talk about climbing only when the business meaning is clear in the same line, and never use ropes, walls or mountain pictures.
+
+Our two themes
+Find Your People. The people you meet are the reason to come: fellow founders, investors, advisers and partners.
+Main Stage Moments. Short, big moments: sets, announcements, awards and our own formats.
+
+The five visual rules
+Dark first. Dark Brown or Charcoal is the default ground. Light grounds are for reading-heavy pieces.
+Orange leads, it does not flood. One orange button per view, with orange markers around it.
+Type does the shouting. Big uppercase Montserrat, one word in orange and one in italic.
+Real people, real light. Our own festival photos, never stock.
+Contrast is not optional. Every text colour has a tested pair.
+
+Writing the words?
+The voice has four lines and a short list of rules. Read them before you write a headline.
+Read the voice guide
+
+Voice
+How ClimbUK sounds: headline energy with the discipline of a good adviser.
+Exciting and useful, in every line.
+Write like it belongs on a festival poster, then make sure the reader knows exactly what to do next.
+
+The voice in four lines
+Headline energy. Short, rhythmic, confident.
+Doing, not dreaming. Name the outcome and the next step.
+Curated, not crowded. Sell the right people in the room, never size.
+Personal, not generic. Write for one audience at a time.
+
+Rules that always apply
+No emojis, no exclamation marks and no long dashes.
+Always write the full name: ClimbUK, ClimbGroup or Climb27.
+No promised outcomes and no promised number of meetings.
+No audience sizes or numbers we have not published.
+Links say where they go, never "click here".
+
+Words we use
+agenda for the event schedule.
+Find investors looking for real deal flow, so nothing reads as a promised meeting.
+connect you with the right people.
+fractional leaders take responsibility for a function; keep them separate from advisers.
+public sector for every public body in one phrase.
+
+Want the full guide?
+The voice chapter covers audiences, channels, the glossary and worked examples.
+Open the guidelines
+
+Logos
+Every logo for ClimbUK, ClimbGroup and Climb27, and the right one for each ground.
+The right logo. Every time.
+Use the master files only. Never redraw, recolour, stretch or outline a logo.
+
+Which file to use
+Reversed: the default, for Dark Brown, Charcoal and dark photos.
+Full colour light: for white grounds.
+Full colour grey: for Light Grey grounds.
+Mono white or mono dark: one colour print and busy photos.
+Tagline lockup: with The Festival for Business Growth.
+
+Square icons
+The li monogram is for favicons, app icons and anything under 64 pixels. The stacked tile, with the name on two lines, is for social avatars and larger squares.
+Clear space and size
+Keep the height of the large C clear on every side. Minimum width is 120 pixels on screen and 30 millimetres in print.
+
+Get the files
+Logo masters for every brand, as scalable vector graphics (SVG) and PNG images, with a contact sheet that shows each one on every ground.
+Open the logo folders in marketing content
+
+Putting a logo on a photo?
+Sit it on the darkened part of the picture, or use the mono white version.
+See the photography rules
+
+Colour and type
+The palette, the five presets that keep text readable, and the two typefaces.
+Orange leads. Contrast decides.
+Five colours, five tested presets and two typefaces. Pick a preset and the readable pairs come with it.
+
+The palette
+Brand orange #E8712A
+Dark Brown #1E0F05
+Charcoal #242322
+Light Grey #E9E9E9
+White #FFFFFF
+
+Orange for small text
+On white: Orange Text #C55308
+On Light Grey: #B04902
+On Dark Brown and Charcoal: Orange Tint #F2AE86 for links, brand orange for everything else
+
+Type
+Montserrat Bold, ExtraBold and Black for headlines, uppercase with tight leading. Open Sans for everything you read.
+Both are free to use under a free, open font licence.
+
+Never do this
+White text on brand orange below 19 pixels bold.
+Light Grey or slate text on any orange.
+Dark Brown labels on orange buttons.
+Orange on orange, or a hover state lighter than the button.
+
+Building for screens?
+The digital user interface (UI) guide has the type scale, spacing, buttons and the accessible AAA themes.
+Open the guidelines
+
+Photography
+Real people under real stage light: how to choose and use festival photos.
+Real people. Real light.
+Our own festival photos of real attendees, speakers and stage moments, used with consent. Never stock handshakes or empty rooms.
+
+Choose a photo that
+shows faces, laughter and close conversations;
+has orange lanyards, branded backdrops or stage light in it;
+has no readable name badges and no children;
+is at least 4K, and never upscaled.
+
+Put words on it like this
+Text on a photo always sits on a solid ground or a proper fade to Dark Brown, never over a busy part of the picture.
+Dense photo walls beat one lonely picture.
+
+Find the photos
+The full candid set from Climb26 lives in marketing content, sorted by moment: crowds, stage, meetings, joy, awards and more.
+Open the photo library in marketing content
+
+Shooting or filming at an event?
+Capture at 4K or above, 8K where you can.
+Read the photography and video guides
+
+Drawings and devices
+The hand drawn line set, the background motifs and the festival devices that carry the energy.
+Make it feel like a festival.
+Smooth, tablet-drawn lines, four motif families and a handful of poster devices. Use two or three per piece, not all of them at once.
+
+Drawings
+One clean line drawing per object, from tickets and microphones to rockets and ladders. Each has a soft fill shape behind it for depth.
+They default to brand orange and work on every ground.
+
+Motifs
+The Ascent: rising steps, the rungs of the Investor Ladder.
+Contours: rings of growth spreading out from one point.
+Stage Light: soft orange beams on a dark ground.
+Connections: dots joined by fine lines, people finding each other.
+
+Festival devices
+The orange word and the italic word in a headline.
+The short orange rule above a statement.
+Stickers tilted a few degrees on a card corner.
+Ticket cards with stub notches and a dashed tear line.
+Outline numerals for section numbers.
+Photo fades and an orange stage glow.
+
+Need a drawing?
+Every drawing is in marketing content, ready for print and screen.
+Open the drawings in marketing content
+
+Templates
+Documents, slides, spreadsheets and video templates with the fonts, colours and layouts already set.
+Start from the right file.
+Never start from a blank page. Every template has the brand fonts, colours and layouts built in.
+
+In Word and PowerPoint
+Choose New, then the ClimbUK tab under your organisation's templates. Letterhead, proposal, report, press release, meeting notes and the 16:9 deck, for each brand.
+
+In Excel
+Event budget, run sheet, content calendar and partner pipeline, with the brand table styles and chart colours. Find them in the same place as the Word and PowerPoint templates.
+
+For video
+Titles, lower thirds, a colour look and motion loops for editing apps. The install package sets them up on Windows, macOS and Linux.
+
+Get the template files
+Open the brand templates library
+Download the full brand pack
+
+Presenting on a call?
+Use a branded meeting theme and background as well.
+Open the Microsoft 365 kit
+
+Microsoft 365 kit
+Teams meeting themes and backgrounds, email signatures and the brand across Microsoft 365.
+Show up on brand.
+Branded meetings, backgrounds and signatures, so every call and email looks like the festival.
+
+Meeting backgrounds
+Twelve 4K backgrounds for each brand: photo, calm, festival and frosted glass. In Teams, open Effects and avatars, then Video effects, and pick one from the organisation set.
+The logo sits top left and the middle stays calm for you.
+
+Meeting themes
+Branded meetings show the brand logo, image and colour in the join screen and meeting window. Your meeting policy sets the theme for you.
+
+Email signatures
+Signatures are set centrally with the social buttons for LinkedIn, Instagram, TikTok, X and Bluesky. Do not add your own logo or banner.
+
+Fonts and colours in your apps
+Montserrat and Open Sans are set as the brand fonts across the brand centre and the templates.
+
+Making slides for a call?
+Start from the brand deck.
+Open the templates
+
+Artwork library
+Finished artwork and source files for every brand: social, print, stage, email and video.
+Every file. One place.
+Social posts, banners, print, stage screens and email artwork, ready to use or adapt.
+
+Marketing content
+The working library for campaigns: finished artwork, photos and drawings, sorted by brand and campaign.
+Open marketing content
+
+Photos and video
+Festival photography and video, sorted by moment, ready for layouts and posts.
+Open the photo and video library
+
+What you will find
+Social banners, headers, posts and stories at twice the platform size.
+Posters, pull-up banners, badges, lanyards and merch at print resolution.
+Holding slides, lower thirds and name cards for the big screen, all 4K.
+Email banners and the signature footer.
+Desktop and phone wallpapers.
+
+Cannot find it?
+Ask the marketing team before you make a new version.
+Get help with artwork
+
+Guidelines
+The full brand book chapters: voice, digital UI, motion, photography, video, print, press and signatures.
+The whole brand book.
+Guiding, not restrictive. Read the chapter for what you are making.
+
+Brand books
+ClimbUK brand guidelines (PDF)
+Climb27 brand guidelines (PDF)
+ClimbGroup brand guidelines (PDF)
+
+One page rules
+ClimbUK key rules (PDF)
+Climb27 key rules (PDF)
+ClimbGroup key rules (PDF)
+
+Chapters
+Voice
+Digital user interface
+Motion
+Photography
+Video
+Print, merch and signage
+Press and partners
+Email signatures
+
+Accessibility
+Everything meets WCAG 2.2 AA, and AAA where it is small and easy. Every colour and size has an AAA version, and every text colour pair is tested.
+
+Working with press or partners?
+The press and partners chapter has the boilerplate, logo rules and contacts.
+Contact the marketing team
+
+Get help
+Who to ask about artwork, files, partners and press.
+Ask early. Ship on brand.
+Send it to us before it goes out and we will check it against the brand.
+
+Brand, artwork and press
+marketing@climb-uk.com
+Artwork checks, new files, logo requests and press questions.
+
+Partnerships
+partnerships@climb-uk.com
+Partner logos, co-branded pieces and partner packs.
+
+When you ask, include
+what you are making and for which brand;
+where it will appear and at what size;
+the date it needs to go out.
+
+Start with the basics
+Most answers are in the brand rules.
+Read our brand
