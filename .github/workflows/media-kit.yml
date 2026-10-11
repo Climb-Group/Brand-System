@@ -114,7 +114,7 @@ jobs:
             echo "dir=$RUNNER_TEMP/photo-library" >> "$GITHUB_OUTPUT"
           else
             echo '::warning::No photo-library release with climb-photo-library.zip, so the kit has no photo library.'
-            echo 'The kit was built **without the photo library**: upload `climb-photo-library.zip` to a release tagged `photo-library`.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'The kit was built **without the photo library**: upload climb-photo-library.zip to a release tagged photo-library.' >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Build the exports kit
