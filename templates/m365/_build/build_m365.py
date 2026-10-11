@@ -234,6 +234,67 @@ def bg_festival(brand, motif):
         a["extra_css"] += ".canvas{background:%s !important}" % LG
 
 
+POSTER_PHOTOS = {
+    "ClimbUK": ["joy_01", "crowds_01", "exhibitor_02", "meetings_03", "audience_at_stage_01", "climbteam_02"],
+    "ClimbGroup": ["vip_and_awards_02", "roundtable_and_workshops_02", "meetings_02", "food_and_vendors_01",
+                   "stage_speakers_02", "vip_and_awards_04"],
+    "Climb27": ["stage_speakers_01", "audience_at_stage_02", "crowds_02", "joy_03", "stage_speakers_03", "joy_04"],
+}
+POSTER_COUNT = 6
+
+
+def bg_poster(brand, kind, i):
+    """Backgrounds in the meeting theme style. The left side is solid ground with the logo, the brand line and the
+    sticker, all inside the 4:3 centre crop Teams uses for gallery tiles (12.5 to 87.5 percent across) and above the
+    name label; the right side carries a Climb26 photo under a fade (kind "photo") or a house drawing in the glow
+    (kind "drawing"). The middle stays quiet for the person. The last two of each kind are light."""
+    w, h = 3840, 2160
+    dark = i < POSTER_COUNT - 2
+    name = "%s_teams-bg_%s-%d_%dx%d" % (brand.lower(), kind, i + 1, w, h)
+    b = B[brand]
+    Bd = P.BRANDS[brand]
+    K = P.Kit(C, name)
+    rgb = DB_RGB if dark else "255,255,255"
+    x0 = w * 0.135
+    p = []
+    if kind == "photo":
+        p.append(K.pic("candid/" + POSTER_PHOTOS[brand][i], int(w * 0.5), 0, w - int(w * 0.5), h, pos="50% 40%",
+                       fade=P.fade("to right", 0, 45, 1.0, 0.0, rgb=rgb)))
+        if dark:
+            p.append(P.glow(w, h, w, 0, w * 0.45, 0.3))
+    else:
+        drawings = Bd["heroes"] + Bd["extras"][:2]
+        if dark:
+            p.append(P.glow(w, h, w * 0.82, h * 0.35, w * 0.4, 0.42))
+        p.append(F.svg(w, h, M.contours(w, h, seed=70 + i, rings=10, dark=dark, marker=False, cx=1.02, cy=0.4 + 0.1 * (i % 3))))
+        ink = None if dark else OR_TEXT
+        p.append(P.hero(drawings[i], w * 0.66, h * 0.24, 820, rot=(-6, 5, -3, 7, -5, 4)[i], ghost_ink=ink,
+                        ghosts=[(-0.35, 0.8, 0.5, 14, 0.18), (0.55, 0.95, 0.4, -16, 0.13), (0.15, -0.3, 0.35, 10, 0.12)])
+                 if dark else I.place(drawings[i], w * 0.66, h * 0.24, 820, rotate=(-6, 5, -3, 7, -5, 4)[i], ink=OR_TEXT, ground=WH))
+    p.append(F.svg(w, h, M.contours(w, h, seed=80 + i, rings=7, dark=dark, marker=False, cx=-0.08, cy=1.1)))
+    line = b["line"]
+    words, rows = " ".join(line).split(), [""]
+    for wd in words:  # stack short rows so the line stays big inside the narrow band beside the person
+        plain = re.sub(r"[*\[\]]", "", rows[-1] + " " + wd).strip()
+        rows[-1:] = [(rows[-1] + " " + wd).strip()] if len(plain) <= 10 or not rows[-1] else [rows[-1], wd]
+    stack = rows
+    if dark:
+        hd = P.head(stack, x0, h * 0.2, 220, 1000, anchor="top", lh=0.98)
+    else:
+        hd = P.head([l.replace("[[", "{{").replace("]]", "}}") for l in stack], x0, h * 0.2, 220, 1000, anchor="top",
+                    colour=CH, lh=0.98)
+        hd = hd.replace("{{", '<span style="color:%s">' % OR_TEXT).replace("}}", "</span>")
+    p.append(hd)
+    p.append(P.sticker(theme_sticker(brand), x0, h * 0.66, 60, rot=-3, tone="orange" if dark else "brown"))
+    if dark:
+        p.append(F.grain_layer(w, h, 100 + i, 0.05))
+    p.append(F.logo_img(C, brand, "reversed-dark" if dark else "full-colour-light", x0, h * 0.08, w * 0.13))
+    copy = [F.plain(l) for l in line] + [theme_sticker(brand)]
+    a = add(name, w, h, p, copy, group="Backgrounds", ground="dark-brown")
+    if not dark:
+        a["extra_css"] += ".canvas{background:%s !important}" % WH
+
+
 def bg_calm(brand, mode):
     """Calm background for everyday calls: one motif and the logo, nothing else. Dark: Dark Brown with contours and
     a corner glow. Light: Light Grey with grey-tone contours, an orange slab and the grey-ground logo."""
@@ -322,6 +383,9 @@ def build_pages(build):
             bg_festival(brand, motif)
         for mode in CALM:
             bg_calm(brand, mode.split("-")[1])
+        for kind in ("photo", "drawing"):
+            for i in range(POSTER_COUNT):
+                bg_poster(brand, kind, i)
         # Organisation theme logos: shown in the navigation bar, scaled to fit 200x48.
         wordmark(brand, "reversed-dark", 200, 48, "%s_m365-logo-default_200x48" % brand.lower())
         wordmark(brand, "mono-white", 200, 48, "%s_m365-logo-alternative_200x48" % brand.lower())
