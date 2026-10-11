@@ -110,17 +110,19 @@ class OpenInTest(unittest.TestCase):
 
     def test_every_target_has_a_label_link_and_honest_how(self):
         ids = [t["id"] for t in self.data["targets"]]
-        self.assertEqual(ids, ["claude", "claude-code", "codex", "copilot"])
+        self.assertEqual(ids, ["claude", "claude-code", "codex", "chatgpt", "copilot", "gemini", "perplexity", "grok",
+                               "mistral", "deepseek"])
         for target in self.data["targets"]:
             self.assertTrue(target["label"].startswith("Open in "))
             self.assertTrue(target["how"])
-            (target["label"] + target["how"] + target["install"]).encode("ascii")
+            (target["label"] + target["how"] + target.get("install", "")).encode("ascii")
 
     def test_links_carry_a_prompt_that_names_both_skills(self):
         for target in self.data["targets"]:
             parsed = urllib.parse.urlparse(target["url"])
             query = urllib.parse.parse_qs(parsed.query)
-            prompt = (query.get("q") or query.get("prompt"))[0]
+            # Assistants that cannot take a prompt in the link copy it to the clipboard instead.
+            prompt = target["copy"] if "copy" in target else (query.get("q") or query.get("prompt"))[0]
             for name in kits.BRAND_SKILLS:
                 self.assertIn(name, prompt, target["id"])
         code = urllib.parse.parse_qs(urllib.parse.urlparse(self.data["targets"][1]["url"]).query)

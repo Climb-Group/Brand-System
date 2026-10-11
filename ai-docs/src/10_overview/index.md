@@ -18,7 +18,7 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 ### Install the skills elsewhere
 
 - `npx skills add Climb-Group/Brand-System` offers exactly the two brand skills. The house skills synced into `.agents/skills` are listed in `skills-lock.json`, which `npx skills` treats as already installed and hides.
-- `ai/open-in.json` holds the "Open in Claude", "Open in Claude Code", "Open in Codex" and "Open in Microsoft Copilot" links. They prefill a prompt; none of these assistants has a link that installs a skill directly.
+- `ai/open-in.json` holds the "Open in" links for Claude, Claude Code, Codex, ChatGPT, Microsoft Copilot, Gemini, Perplexity, Grok, Le Chat and DeepSeek. Most prefill a prompt; Gemini and DeepSeek have no prompt link, so their entry carries the prompt in `copy` for the page to copy first. None of these assistants has a link that installs a skill directly.
 - `ai/packages/` holds a zip per skill (an assistant's skill upload), both skills together, and a Microsoft 365 Copilot agent package.
 
 ### Change the skills or the packages
