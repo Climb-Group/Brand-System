@@ -83,7 +83,7 @@ class PublishTest(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def fake_gh(self, published):
+    def fake_gh(self, published, names=None):
         calls = []
 
         def run(*args, check=True, capture=True):
@@ -94,7 +94,7 @@ class PublishTest(unittest.TestCase):
                     result.returncode = 1
                 else:
                     with open(os.path.join(args[args.index("--dir") + 1], library.FINGERPRINT_NAME), "w") as handle:
-                        json.dump({"fingerprint": published}, handle)
+                        json.dump({"fingerprint": published, "names": names}, handle)
             return result
 
         return calls, run
@@ -107,14 +107,32 @@ class PublishTest(unittest.TestCase):
         self.assertFalse([c for c in calls if c[:2] == ("release", "upload")])
 
     def test_changed_library_uploads_and_starts_the_media_kit_build(self):
-        calls, run = self.fake_gh(None)
+        calls, run = self.fake_gh("old", names=["Crowds/a.jpg", "Crowds/removed.jpg"])
         with mock.patch.object(library, "gh", run), mock.patch("sys.stdout"):
-            library.publish(self.source, None, library.REPOSITORY)
+            self.assertEqual(library.publish(self.source, None, library.REPOSITORY), 0)
         upload = [c for c in calls if c[:2] == ("release", "upload")][0]
         self.assertTrue(any(str(a).endswith(library.ZIP_NAME) for a in upload))
         self.assertIn("--clobber", upload)
         self.assertIn(("workflow", "run", library.WORKFLOW, "--repo", library.REPOSITORY, "--ref", "main"), calls)
 
+    def test_a_new_photo_holds_the_publish_until_approved(self):
+        make_library(self.source, ["Joy/new.jpg"])
+        calls, run = self.fake_gh("old", names=["Crowds/a.jpg"])
+        with mock.patch.object(library, "gh", run), mock.patch("sys.stdout"), \
+                mock.patch("sys.stderr"), mock.patch.object(library.shutil, "which", return_value=None):
+            self.assertEqual(library.publish(self.source, None, library.REPOSITORY), 2)
+        self.assertFalse([c for c in calls if c[:2] == ("release", "upload")])
+        calls, run = self.fake_gh("old", names=["Crowds/a.jpg"])
+        with mock.patch.object(library, "gh", run), mock.patch("sys.stdout"):
+            self.assertEqual(library.publish(self.source, None, library.REPOSITORY, approve_new=True), 0)
+        self.assertTrue([c for c in calls if c[:2] == ("release", "upload")])
+
+    def test_the_first_publish_needs_approval(self):
+        calls, run = self.fake_gh(None)
+        with mock.patch.object(library, "gh", run), mock.patch("sys.stdout"), \
+                mock.patch("sys.stderr"), mock.patch.object(library.shutil, "which", return_value=None):
+            self.assertEqual(library.publish(self.source, None, library.REPOSITORY), 2)
+        self.assertFalse([c for c in calls if c[:2] == ("release", "upload")])
 
 if __name__ == "__main__":
     unittest.main()
