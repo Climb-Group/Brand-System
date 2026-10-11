@@ -134,5 +134,14 @@ class PublishTest(unittest.TestCase):
             self.assertEqual(library.publish(self.source, None, library.REPOSITORY), 2)
         self.assertFalse([c for c in calls if c[:2] == ("release", "upload")])
 
+class ReleaseTagTest(unittest.TestCase):
+    def test_the_media_kit_workflow_reads_the_release_publish_writes(self):
+        workflow = os.path.join(HERE, "..", "..", ".github", "workflows", "media-kit.yml")
+        with open(workflow, encoding="utf-8") as handle:
+            text = handle.read()
+        self.assertEqual(library.TAG, "photo-library-1.0")
+        self.assertEqual(text.count("gh release download %s " % library.TAG), 2)
+
+
 if __name__ == "__main__":
     unittest.main()
