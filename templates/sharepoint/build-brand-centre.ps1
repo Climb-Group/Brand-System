@@ -308,7 +308,7 @@ if ($SetNavigation -or $ReplaceNavigation) {
         return Add-PnPNavigationNode -Location $navLoc -Title $title -Url $url -External
     }
     $brandUrl = "$SiteUrl/SitePages/$BrandPageName.aspx"
-    if ($ReplaceNavigation) { NavNode "Home" $SiteUrl $null | Out-Null }
+    if ($ReplaceNavigation) { NavNode "Home" $brandUrl $null | Out-Null }
     foreach ($g in $data.booknav) {
         $parent = NavNode $g.label "http://linkless.header/" $null
         foreach ($l in $g.links) {
@@ -316,6 +316,7 @@ if ($SetNavigation -or $ReplaceNavigation) {
         }
     }
     $files = NavNode "Files" "http://linkless.header/" $null
+    NavNode "Downloads" "$($brandUrl)?brandpage=downloads" $files | Out-Null
     NavNode "Marketing content" $MarketingContentUrl $files | Out-Null
     NavNode "Photo library" $PhotoLibraryUrl $files | Out-Null
     NavNode "Brand guidelines (PDF)" "$SiteUrl/BrandFiles" $files | Out-Null

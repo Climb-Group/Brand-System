@@ -9,3 +9,10 @@
   padding: 48px 24px;
   font-family: "Open Sans", sans-serif;
 }
+
+// The site menu bar already carries the Brand, Build, Artwork and Guidelines menus, so the book's own copy of them is
+// hidden here. The book bar keeps its name, search, downloads and the theme and text size switches.
+.climbBrandPage :global(.cbb-menu),
+.climbBrandPage :global([data-cbb-toggle="cbb-menu"]) {
+  display: none !important;
+}
