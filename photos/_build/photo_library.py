@@ -15,6 +15,10 @@ publish  builds the zip, and when the library changed since the last upload
          (a fingerprint of names, sizes and times kept with the release)
          uploads it to the photo-library release with the exclude list, then
          starts the media kit workflow. Needs the GitHub CLI, signed in.
+         The release is public, so a photo that was not in the last upload
+         holds the whole publish (exit 2, with a desktop notification) until
+         it is screened and publish runs with --approve-new. Removing photos
+         or adding exclusions goes out on its own.
 install-timer
          writes a systemd user timer that runs publish every hour, so a
          change to the folder reaches the media kit without a command.
@@ -123,28 +127,48 @@ def gh(*args, check=True, capture=True):
     return result
 
 
-def published_fingerprint(repo, workdir):
+def published_state(repo, workdir):
+    """The fingerprint and photo names of the last upload, or (None, None) before the first."""
     result = gh("release", "download", TAG, "--repo", repo, "--pattern", FINGERPRINT_NAME,
                 "--dir", workdir, "--clobber", check=False)
     path = os.path.join(workdir, FINGERPRINT_NAME)
     if result.returncode != 0 or not os.path.isfile(path):
-        return None
+        return None, None
     with open(path, encoding="utf-8") as handle:
-        return json.load(handle).get("fingerprint")
+        state = json.load(handle)
+    names = state.get("names")
+    return state.get("fingerprint"), set(names) if names is not None else None
 
 
-def publish(source, exclude, repo, force=False, run_workflow=True):
+def notify(title, body):
+    """A desktop notification where one is available; the message is printed either way."""
+    print("%s: %s" % (title, body), file=sys.stderr)
+    if shutil.which("notify-send"):
+        subprocess.run(["notify-send", "--app-name=ClimbUK", title, body], check=False)
+
+
+def publish(source, exclude, repo, force=False, run_workflow=True, approve_new=False):
     excludes = read_excludes(exclude)
     files, _ = library_files(source, excludes)
     current = fingerprint(files, excludes)
     with tempfile.TemporaryDirectory(prefix="climb-photo-library-") as workdir:
-        if not force and published_fingerprint(repo, workdir) == current:
+        published, reviewed = published_state(repo, workdir)
+        if not force and published == current:
             print("photo library unchanged since the last upload; nothing to do")
             return 0
+        # The release is public: a photo nobody has screened is held until someone approves it.
+        new = sorted(name for name, _ in files if reviewed is None or name not in reviewed)
+        if new and not approve_new:
+            notify("Photo library held for review",
+                   "%d new photo(s) not yet published: %s. Exclude any that must stay private in %s, "
+                   "then run publish with --approve-new." % (len(new), ", ".join(new[:10]) + (" ..." if len(new) > 10 else ""), EXCLUDE_NAME))
+            return 2
         out = os.path.join(workdir, ZIP_NAME)
         summary = build(source, exclude, out)
+        state = {k: summary[k] for k in ("fingerprint", "photos", "excluded", "bytes")}
+        state["names"] = [name for name, _ in files]
         with open(os.path.join(workdir, FINGERPRINT_NAME), "w", encoding="utf-8") as handle:
-            json.dump({k: summary[k] for k in ("fingerprint", "photos", "excluded", "bytes")}, handle, indent=2)
+            json.dump(state, handle, indent=2)
         if gh("release", "view", TAG, "--repo", repo, check=False).returncode != 0:
             gh("release", "create", TAG, "--repo", repo, "--title", "Photo library", "--latest=false",
                "--notes", "Climb26 candid photo library for the media kit build, with the excluded "
@@ -200,6 +224,8 @@ def main(argv=None):
         if name == "publish":
             p.add_argument("--force", action="store_true", help="upload even when nothing changed")
             p.add_argument("--no-workflow", action="store_true", help="do not start the media kit workflow")
+            p.add_argument("--approve-new", action="store_true",
+                           help="publish photos that were not in the last upload (after screening them)")
     args = parser.parse_args(argv)
     exclude = args.exclude
     if exclude is None:
@@ -211,7 +237,7 @@ def main(argv=None):
             print(json.dumps(summary, indent=2))
             return 0
         if args.command == "publish":
-            return publish(args.source, exclude, args.repo, args.force, not args.no_workflow)
+            return publish(args.source, exclude, args.repo, args.force, not args.no_workflow, args.approve_new)
         return install_timer(args.source, exclude, args.repo)
     except LibraryError as error:
         print("photo_library: %s" % error, file=sys.stderr)
