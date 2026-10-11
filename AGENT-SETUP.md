@@ -23,6 +23,7 @@ Machine-only. People: `README.md`, `AGENTS.md`.
 | --- | --- |
 | tokens | `python3 tokens/build_tokens.py` |
 | agent kits, skill zips, open-in links | `node --run agent-kits` |
+| media kit exports ZIP | Actions > media kit > Run workflow (needs `MEDIA_KIT_BUILDER_TOKEN`) |
 | test | `node --run test` |
 | all CI | `node --run check` |
 | copy check | `python3 .agents/skills/climb-voice/scripts/check_copy.py FILE` |

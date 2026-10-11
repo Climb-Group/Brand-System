@@ -94,7 +94,35 @@ node --run check       # what CI runs: tokens, agent kits, dashes, agent files, 
 node --run test        # token and AI kit tests
 ```
 
-The house release workflows (`House release`, `House nightly`, `House release preview`) do nothing here until the repository has a `release.config.json`; the template downloads are released separately.
+The house release workflows (`House release`, `House nightly`, `House release preview`) do nothing here until the repository has a `release.config.json`; the template downloads are released separately, and the media kit exports by the `media kit` workflow below.
+
+## Release the media kit exports
+
+The rendered artwork (social, call backgrounds, wallpapers, stage and screens, print and merch, email banners), the full guideline books, the templates and the photo library run to several hundred megabytes, so they are never committed. The `media kit` workflow builds them into `climb-media-kit-exports.zip` and attaches it to a new release named `media-kit-<date>-<commit>`. The website imports that file from its link (Website > Configuration > Media kit > Import a kit).
+
+It runs on every push to `main` that changes the artwork sources (`generators/`, `illustrations/`, `logos/`, `photos/`, `pdf/`, `templates/`, `tokens/`, `fonts/`), and by hand from the Actions tab with two options:
+
+| Option | Default | What it does |
+| --- | --- | --- |
+| `builder-ref` | `claude/brand-media-kit` | The branch or tag of the website repository whose kit builder (`climb_brand_media_kit/scripts/build_kit.py`) to run. |
+| `photo-library` | ticked | Adds the photo library from the `photo-library` release. |
+
+Each run renders the catalogue (`generators/catalogue.py` and `generators/render.mjs` in headless Chromium), builds the template install package (`templates/_build/package_build.py`), downloads the fonts, then runs the kit builder. The job summary prints the import link.
+
+### Set it up once
+
+1. Create a read-only token for the website repository (contents: read) and save it in this repository as the secret `MEDIA_KIT_BUILDER_TOKEN`. The builder lives there, and that repository is private.
+2. For the photo library, zip the library folders (one folder per group, with any excluded photos already removed) as `climb-photo-library.zip` and attach it to a release tagged `photo-library`. Replace the file there when the library changes. Without it the kit builds with no photo library and the job summary says so.
+
+### What it cannot build
+
+- The 4K motion clips: they are their own download (`climb-video-motion-v1`), rendered separately.
+- PNG copies of the drawings: the builder takes them with `--drawing-png`, but no script in this repository renders them yet.
+
+### Common problems
+
+- **"Add the MEDIA_KIT_BUILDER_TOKEN secret".** The secret is missing or empty; see step 1.
+- **The kit has no photos.** The `photo-library` release or its `climb-photo-library.zip` is missing; see step 2.
 
 ## Licence
 

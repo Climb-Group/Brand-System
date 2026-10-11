@@ -1,0 +1,151 @@
+name: media kit
+
+# Builds the media kit exports ZIP (rendered social, call backgrounds, wallpapers, stage, print and email
+# artwork, the big guideline books, the templates and the photo library) and attaches it to a new
+# media-kit-<date>-<commit> release, ready for Media kit > Import a kit on the website.
+#
+# The builder, climb_brand_media_kit/scripts/build_kit.py, lives in the website repository, which is private:
+# the MEDIA_KIT_BUILDER_TOKEN secret is a read-only token for it (contents: read). The photo library comes from
+# the photo-library release's climb-photo-library.zip (one folder per group, exclusions already applied); when
+# that release does not exist the kit is built without it and the job summary says so.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "generators/**"
+      - "illustrations/**"
+      - "logos/**"
+      - "photos/**"
+      - "pdf/**"
+      - "templates/**"
+      - "tokens/**"
+      - "fonts/**"
+  workflow_dispatch:
+    inputs:
+      builder-ref:
+        description: Branch or tag of the website repository whose build_kit.py to use
+        type: string
+        default: claude/brand-media-kit
+      photo-library:
+        description: Add the photo library from the photo-library release
+        type: boolean
+        default: true
+
+permissions: {}
+
+concurrency:
+  group: media-kit
+  cancel-in-progress: true
+
+jobs:
+  exports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write # to create the release and attach the ZIP
+    env:
+      BUILDER_REF: ${{ inputs.builder-ref || 'claude/brand-media-kit' }}
+      WITH_PHOTOS: ${{ github.event_name != 'workflow_dispatch' || inputs.photo-library }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: pack
+          persist-credentials: false
+
+      - name: Check the builder token is set
+        env:
+          HAS_TOKEN: ${{ secrets.MEDIA_KIT_BUILDER_TOKEN != '' }}
+        run: |
+          if [ "$HAS_TOKEN" != 'true' ]; then
+            echo '::error::Add the MEDIA_KIT_BUILDER_TOKEN secret: a read-only token for TGTGamer/climb-group-odoo (contents: read).'
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: TGTGamer/climb-group-odoo
+          ref: ${{ env.BUILDER_REF }}
+          token: ${{ secrets.MEDIA_KIT_BUILDER_TOKEN }}
+          path: builder
+          sparse-checkout: climb_brand_media_kit/scripts
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Install pdftoppm
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Install Pillow and fontTools
+        run: python3 -m pip install Pillow==12.0.0 fonttools==4.59.0 # zizmor: ignore[adhoc-packages]
+
+      - name: Install Playwright
+        working-directory: pack
+        run: npm install --no-save playwright@1.56.1 # zizmor: ignore[adhoc-packages]
+
+      - name: Install Chromium
+        working-directory: pack
+        run: npx playwright install --with-deps chromium # zizmor: ignore[adhoc-packages]
+
+      - name: Render the artwork catalogue
+        working-directory: pack
+        run: |
+          python3 generators/catalogue.py build/assets
+          node generators/render.mjs build/assets
+
+      - name: Build the template install package
+        working-directory: pack
+        run: |
+          python3 templates/_build/package_build.py
+          mkdir -p templates/downloads
+          cp templates/dist/Climb-Templates-*.zip templates/downloads/
+
+      - name: Fetch the photo library
+        id: photos
+        if: env.WITH_PHOTOS == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release download photo-library --repo "$GITHUB_REPOSITORY" --pattern climb-photo-library.zip --dir "$RUNNER_TEMP"; then
+            mkdir -p "$RUNNER_TEMP/photo-library"
+            unzip -q "$RUNNER_TEMP/climb-photo-library.zip" -d "$RUNNER_TEMP/photo-library"
+            echo "dir=$RUNNER_TEMP/photo-library" >> "$GITHUB_OUTPUT"
+          else
+            echo '::warning::No photo-library release with climb-photo-library.zip, so the kit has no photo library.'
+            echo 'The kit was built **without the photo library**: upload `climb-photo-library.zip` to a release tagged `photo-library`.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Build the exports kit
+        env:
+          PHOTOS: ${{ steps.photos.outputs.dir }}
+        run: |
+          args=(--pack pack --rendered pack/build/assets --exports-out build/media-kit-exports
+                --zip build/climb-media-kit-exports.zip --fetch-fonts --font-cache build/fonts)
+          if [ -n "$PHOTOS" ]; then
+            # One folder per group; the zip may wrap them in a single top folder.
+            root="$PHOTOS"
+            if [ "$(find "$root" -mindepth 1 -maxdepth 1 -type d | wc -l)" = 1 ] && [ -z "$(find "$root" -mindepth 1 -maxdepth 1 -type f)" ]; then
+              root=$(find "$root" -mindepth 1 -maxdepth 1 -type d)
+            fi
+            args+=(--photo-library "$root")
+          fi
+          python3 builder/climb_brand_media_kit/scripts/build_kit.py "${args[@]}"
+
+      - name: Attach it to a new release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="media-kit-$(date -u +%Y-%m-%d)-${GITHUB_SHA::7}"
+          files=$(python3 -c "import json; print(len(json.load(open('build/media-kit-exports/manifest.json'))['assets']))" 2>/dev/null || echo '?')
+          size=$(du -m build/climb-media-kit-exports.zip | cut -f1)
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --draft --latest=false \
+            --title "Media kit exports $(date -u +%Y-%m-%d)" \
+            --notes "The media kit exports kit ($files files, $size MB), built from $GITHUB_SHA. Import it from Website > Configuration > Media kit > Import a kit with the link to climb-media-kit-exports.zip below."
+          gh release upload "$tag" build/climb-media-kit-exports.zip --repo "$GITHUB_REPOSITORY"
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
+          url="https://github.com/$GITHUB_REPOSITORY/releases/download/$tag/climb-media-kit-exports.zip"
+          echo "Import link: $url" >> "$GITHUB_STEP_SUMMARY"
+          echo "$url"

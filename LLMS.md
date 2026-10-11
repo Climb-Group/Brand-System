@@ -155,3 +155,9 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 3. Run `node --run check` and `node --run test`.
 
 A house sync that adds or removes a house skill also needs step 2, or `--check` fails on `skills-lock.json`.
+
+### Release the media kit exports
+
+- `.github/workflows/media-kit.yml` renders the catalogue, builds the template package and runs the website repository's `climb_brand_media_kit/scripts/build_kit.py` to make `climb-media-kit-exports.zip`, then attaches it to a new `media-kit-<date>-<commit>` release. It needs the `MEDIA_KIT_BUILDER_TOKEN` secret (read-only on the private website repository).
+- The photo library is read from `climb-photo-library.zip` on the `photo-library` release; without it the kit has no photo library. Never put a photo with a readable name badge or a possible minor in that zip.
+- The 4K motion clips and drawing PNGs are not part of this build.
