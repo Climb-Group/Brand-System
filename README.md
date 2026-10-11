@@ -157,7 +157,7 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 
 ### What it cannot build
 
-- The 4K motion clips: they are their own download (`climb-video-motion-v1`), rendered separately.
+- The 4K motion clips: they are their own download (the newest `climb-video-motion-<date>-<commit>` release), rendered separately.
 - PNG copies of the drawings: the builder takes them with `--drawing-png`, but no script in this repository renders them yet.
 
 ### Common problems

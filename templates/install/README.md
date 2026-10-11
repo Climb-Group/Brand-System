@@ -10,7 +10,7 @@ linux/     install and uninstall scripts
 VERSION    package version
 ```
 
-The 4K motion clips (600 MB) are a separate download, `climb-video-motion-v1.zip`. Unzip them next to the video kit if you edit video.
+The 4K motion clips (600 MB) are a separate download, `climb-video-motion.zip` on the newest `climb-video-motion-<date>-<commit>` release. Unzip them next to the video kit if you edit video.
 
 ## What ends up where
 
