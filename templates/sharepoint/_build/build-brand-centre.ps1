@@ -332,6 +332,8 @@ if ($SetNavigation -or $ReplaceNavigation) {
     NavNode "Brand guidelines (PDF)" "$SiteUrl/BrandFiles" $files | Out-Null
     NavNode "Office templates" "$SiteUrl/BrandTemplates" $files | Out-Null
     Write-Host "Added the brand book menus and a Files menu to the site menu ($navLoc)"
+    # Menus open as plain dropdowns: the mega menu spreads a short list across several columns.
+    Set-PnPWeb -MegaMenuEnabled:$false | Out-Null
 }
 if ($RegisterOfficeLibraries) {
     # Microsoft 365 only serves organisation asset libraries that everyone in the organisation can read, so the site
