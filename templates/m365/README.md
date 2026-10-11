@@ -12,7 +12,7 @@ Sizes and limits were checked against Microsoft's documentation on 10 October 20
 | `teams-themes/reactions/<set>/` | Branded reactions for all five slots (Like, Heart, Applause, Laugh, Surprised) in three sets: `mixed` (each reaction in its own palette so they are told apart at a glance: Like on Climb Orange, Heart on Dark Brown, Applause on Charcoal, Laugh on Orange Tint, Surprised on White), `orange` (Climb Orange disc, Dark Brown drawing) and `dark` (Dark Brown disc ringed in Climb Orange, orange drawing). Each has a static 100x100 PNG and an animated 100x5100 sprite (51 frames, 24 fps) |
 | `teams-backgrounds/<Brand>/` | 14 meeting backgrounds per brand, 42 in all, 3840x2160 JPG: 10 festival layouts (stage-light, contours, connections, ascent, spotlight, summit, orbit, network, and the light pair ascent-light and contours-light) and 4 calm ones (calm-dark, calm-glow, calm-light, calm-white) |
 | `org-theme/` | Navigation bar logos per brand: default (full colour reversed) and alternative (one-colour white), as SVG and as 200x48 PNG, all under 10 KB |
-| `app-tiles/` | App launcher tiles at 60x60 (the upload size), 120x120 and 240x240: Odoo, climb-uk.com, Brand centre, Tickets, Media kit and a plain li monogram tile |
+| `app-tiles/` | Solid Dark Brown app launcher tiles at 60x60, 120x120 and 240x240 (the transparent tiles are linked from the website, see App launcher tiles): Odoo, climb-uk.com, Brand centre, Tickets, Media kit and a plain li monogram tile |
 | `teams-app-odoo/`, `teams-app-odoo.zip` | A Teams app that opens Odoo in a personal tab: manifest, 192x192 colour icon (mark inside the 120x120 safe area) and 32x32 white outline icon |
 | `sign-in-page/` | Sign-in page branding: 1920x1080 background (under 300 KB), banner and header logos (245x36), square logos (240x240, light and dark) and favicon (32x32) |
 | `_build/build_m365.py` | The script that makes all of it |
@@ -71,13 +71,15 @@ Microsoft 365 admin center > **Settings** > **Org settings** > **Organization pr
 
 | Tile name | URL of website | Image URL (60x60) | Description |
 | --- | --- | --- | --- |
-| Odoo | `https://www.climb-uk.com/odoo` | link to `app-tiles/odoo_60x60.png` | Our business system: contacts, events, tickets, website and accounts. |
-| climb-uk.com | `https://www.climb-uk.com` | `app-tiles/website_60x60.png` | The public website. |
-| Brand centre | the brand centre site address | `app-tiles/brand-centre_60x60.png` | Logos, colours, fonts, templates and the brand guidelines. |
-| Tickets | the event ticket page | `app-tiles/tickets_60x60.png` | Event tickets and the box office. |
-| Media kit | the media kit page | `app-tiles/media-kit_60x60.png` | Photos, video, press and partner downloads. |
+| Odoo | `https://www.climb-uk.com/odoo` | `https://www.climb-uk.com/brand/app-tiles/odoo_60x60.png` | Our business system: contacts, events, tickets, website and accounts. |
+| climb-uk.com | `https://www.climb-uk.com` | `https://www.climb-uk.com/brand/app-tiles/website_60x60.png` | The public website. |
+| Brand centre | the brand centre site address | `https://www.climb-uk.com/brand/app-tiles/brand-centre_60x60.png` | Logos, colours, fonts, templates and the brand guidelines. |
+| Tickets | the event ticket page | `https://www.climb-uk.com/brand/app-tiles/tickets_60x60.png` | Event tickets and the box office. |
+| Media kit | the media kit page | `https://www.climb-uk.com/brand/app-tiles/media-kit_60x60.png` | Photos, video, press and partner downloads. |
 
-The image must be a public HTTPS link that opens without signing in: host the PNGs on the website (for example under `/brand`) or link the files in this brand pack's public download. Tiles appear in the app launcher on the **All** tab within 24 hours; the admin adding them needs an Exchange Online mailbox they have signed in to at least once.
+The image links point at the transparent tiles hosted on the website, which sit cleanly on the app launcher in light and dark mode. The same address serves 120x120 and 240x240 sizes (swap `60x60` in the name), and solid versions under `white/`, `ground/` and `orange/` (for example `https://www.climb-uk.com/brand/app-tiles/orange/odoo_60x60.png`). The files in `app-tiles/` here are the Dark Brown solid set, for places that need an upload instead of a link.
+
+The image must be a public HTTPS link that opens without signing in; check that a link opens in a private browser window before adding the tile. Tiles appear in the app launcher on the **All** tab within 24 hours; the admin adding them needs an Exchange Online mailbox they have signed in to at least once.
 
 ### Teams app for Odoo
 
