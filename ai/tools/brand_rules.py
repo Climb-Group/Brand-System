@@ -394,8 +394,33 @@ def _palette_rules():
 
 LOGO_VARIANTS = (
     "full-colour-light", "full-colour-grey", "reversed-dark", "mono-dark", "mono-white",
-    "tagline-lockup", "tagline-lockup-reversed", "icon", "icon-monogram",
+    "tagline-lockup", "tagline-lockup-reversed", "icon", "icon-reversed", "icon-monogram",
+    "logo-on-white", "logo-on-ground", "logo-on-orange",
+    "tagline-lockup-on-white", "tagline-lockup-on-ground", "tagline-lockup-on-orange",
+    "icon-on-white", "icon-on-ground", "icon-on-orange",
+    "icon-monogram-on-white", "icon-monogram-on-ground", "icon-monogram-on-orange",
 )
+# Every logo is transparent by default. These are the solid grounds each family also comes on.
+LOGO_FILLS = {"white": "white", "ground": "ground", "dark brown": "ground", "dark": "ground", "brown": "ground",
+              "orange": "orange", "climb orange": "orange"}
+
+
+def _logo_family(variant):
+    if variant.startswith("icon-monogram"):
+        return "icon-monogram"
+    if variant.startswith("icon"):
+        return "icon"
+    if variant.startswith("tagline"):
+        return "tagline-lockup"
+    return "logo"
+
+
+def _logo_files(brand_name, variant):
+    stem = "%s_%s" % (brand_name, variant)
+    return {
+        "vector": "logos/%s/%s.svg" % (brand_name, stem),
+        "png": ["logos/%s/PNG/%s_%d.png" % (brand_name, stem, size) for size in (512, 1024, 2048)],
+    }
 LOGOS_README = "logos/README.md"
 
 
@@ -422,8 +447,9 @@ def _logo_readme():
     return _cache["logos"]
 
 
-def pick_logo(brand="climbuk", ground="dark", width_px=0, use="", tagline=False, colours=0):
-    """Choose the logo master for a brand, ground and size. Notes and rules come from logos/README.md."""
+def pick_logo(brand="climbuk", ground="dark", width_px=0, use="", tagline=False, colours=0, fill=""):
+    """Choose the logo master for a brand, ground and size. Transparent by default; fill (white, ground or orange)
+    picks the version on that solid ground. Notes and rules come from logos/README.md."""
     brand_name = BRANDS.get(_norm(brand).replace(" ", ""))
     if not brand_name:
         return {"ok": False, "message": "Brand must be ClimbUK, ClimbGroup or Climb27."}
@@ -435,8 +461,9 @@ def pick_logo(brand="climbuk", ground="dark", width_px=0, use="", tagline=False,
         variant = "icon-monogram"
         reasons.append("Favicons, app icons and anything under 64px use the li monogram.")
     elif any(word in use_key for word in ("avatar", "profile", "square")):
-        variant = "icon"
-        reasons.append("Social avatars and squares of 64px or more use the stacked tile.")
+        light = any(word in ground_key for word in ("white", "light", "paper", "grey", "gray"))
+        variant = "icon" if light else "icon-reversed"
+        reasons.append("Social avatars and squares of 64px or more use the stacked icon.")
     elif "orange" in ground_key:
         variant = "mono-white"
         reasons.append("On Climb Orange use mono white, never the full-colour logo.")
@@ -460,20 +487,30 @@ def pick_logo(brand="climbuk", ground="dark", width_px=0, use="", tagline=False,
     if variant.startswith("tagline") and 0 < width < 240:
         variant = {"tagline-lockup": "full-colour-light", "tagline-lockup-reversed": "reversed-dark"}[variant]
         reasons.append("Tagline lockups need 240px or 60mm, so the plain wordmark is used.")
-    if variant not in ("icon", "icon-monogram") and 0 < width < 120:
-        variant = "icon-monogram" if width < 64 else "icon"
+    if not variant.startswith("icon") and 0 < width < 120:
+        light = any(word in ground_key for word in ("white", "light", "paper", "grey", "gray"))
+        variant = "icon-monogram" if width < 64 else ("icon" if light else "icon-reversed")
         reasons.append("Wordmarks need 120px on screen or 30mm in print; below that use a square icon.")
+    family = _logo_family(variant)
+    if variant.startswith("icon") and "orange" in ground_key:
+        variant = "%s-on-orange" % family
+        reasons.append("On Climb Orange the icon is the one-colour white version on its own orange square.")
+    fill_key = LOGO_FILLS.get(_norm(fill))
+    if fill_key:
+        variant = "%s-on-%s" % (family, fill_key)
+        reasons.append("Solid %s ground asked for: the file carries its own background, with the clear space "
+                       "built in." % {"white": "White", "ground": "Dark Brown", "orange": "Climb Orange"}[fill_key])
+    elif not variant.endswith(("-on-orange",)):
+        reasons.append("Transparent background, so it sits on any platform's own colour. Versions on solid White, "
+                       "Dark Brown and Climb Orange are listed under on_solid.")
     about, rules = _logo_readme()
-    stem = "%s_%s" % (brand_name, variant)
     return {
         "ok": True,
         "brand": brand_name,
         "variant": variant,
         "about": about.get(variant, ""),
-        "files": {
-            "vector": "logos/%s/%s.svg" % (brand_name, stem),
-            "png": ["logos/%s/PNG/%s_%d.png" % (brand_name, stem, size) for size in (512, 1024, 2048)],
-        },
+        "files": _logo_files(brand_name, variant),
+        "on_solid": {key: _logo_files(brand_name, "%s-on-%s" % (family, key)) for key in ("white", "ground", "orange")},
         "reasons": reasons,
         "rules": rules + [
             "ClimbUK is the brand on the poster. ClimbGroup is the organisation (footers, legal, corporate decks). "
@@ -650,6 +687,7 @@ TOOLS = {
         use=a.get("use") or "",
         tagline=_bool(a.get("tagline")),
         colours=_int(a.get("colours")),
+        fill=a.get("fill") or "",
     ),
     "surface": lambda a, _: get_surface(a.get("surface") or ""),
     "audience": lambda a, _: get_audience(a.get("audience") or ""),

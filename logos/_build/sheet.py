@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""One contact sheet per brand: variants (columns) x backgrounds (rows), with contrast notes."""
+"""One contact sheet per brand: the transparent variants (columns) x backgrounds (rows), with contrast notes.
+The solid-ground variants carry their own ground, so they are left off the sheet."""
 import os, subprocess, base64
-from build import OUT, VARIANTS, ORANGE, ORANGE_GREY, BROWN, CHAR, GREY, WHITE, ratio
+from build import OUT, VARIANTS as ALL, ORANGE, ORANGE_GREY, BROWN, CHAR, GREY, WHITE, ratio
+
+VARIANTS = [v for v in ALL if v[6] is None]
 
 BGS = [("White", WHITE), ("Light Grey", GREY), ("Dark Brown", BROWN), ("Charcoal", CHAR)]
 CW, CH, LW, TH = 520, 300, 170, 110  # cell w/h, label column, header height
@@ -9,11 +12,8 @@ CW, CH, LW, TH = 520, 300, 170, 110  # cell w/h, label column, header height
 
 def note(key, bg):
     """Lowest contrast between the logo's marks and the background (3:1 graphic threshold)."""
-    if key.startswith("icon"):
-        return None  # self-contained tile; marks sit on Dark Brown (orange 6.06, white 18.65)
-    c1, c2 = {k: (a, b) for k, _, a, b, _ in VARIANTS if not k.startswith("icon")}[key]
-    r = min(ratio(c1, bg), ratio(c2, bg))
-    return r
+    c1, c2 = {v[0]: (v[3], v[4]) for v in VARIANTS}[key]
+    return min(ratio(c1, bg), ratio(c2, bg))
 
 
 def main():
@@ -42,13 +42,13 @@ def main():
                 parts.append(f'<image x="{x + (CW - dw) / 2:.1f}" y="{y + (CH - 40 - dh) / 2:.1f}" width="{dw:.1f}" height="{dh:.1f}" '
                              f'href="data:image/png;base64,{data}"/>')
                 r = note(key, bg)
-                txt = "tile (orange 6.06:1 on Dark Brown)" if r is None else f"min contrast {r:.2f}:1 - {'PASS' if r >= 3 else 'FAIL'}"
+                txt = f"min contrast {r:.2f}:1 - {'PASS' if r >= 3 else 'FAIL'}"
                 col = "#888888" if bg in (WHITE, GREY) else "#BBBBBB"
                 if r is not None and r < 3:
                     col = "#C00000" if bg in (WHITE, GREY) else "#FF6B6B"
                 parts.append(f'<text x="{x + CW / 2}" y="{y + CH - 18}" text-anchor="middle" font-family="Open Sans" font-size="16" fill="{col}">{txt}</text>')
         parts.append(f'<text x="24" y="{H - 18}" font-family="Open Sans" font-size="16" fill="#666666">'
-                     f'Orange {ORANGE} (was #EC752A); on-grey orange {ORANGE_GREY}; wordmark dark {CHAR}; tiles {BROWN}. WCAG 1.4.11 graphic threshold 3:1. '
+                     f'Orange {ORANGE} (was #EC752A); on-grey orange {ORANGE_GREY}; wordmark dark {CHAR}; solid grounds {WHITE}, {BROWN}, {ORANGE}. WCAG 1.4.11 graphic threshold 3:1. '
                      f'FAIL cells show where a variant must not be used.</text>')
         svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">' + "".join(parts) + "</svg>"
         out = os.path.join(bdir, f"{brand}_contact-sheet.png")

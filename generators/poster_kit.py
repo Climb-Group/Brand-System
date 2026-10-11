@@ -843,7 +843,7 @@ def lanyard(C):
     k = 0
     x = 60
     while x < w - 600:
-        items.append('<img src="%s" style="height:168px" alt="">' % C.logo("Climb27", "icon-monogram"))
+        items.append('<img src="%s" style="height:168px" alt="">' % C.logo("Climb27", "icon-monogram-on-ground"))
         items.append('<img src="%s" style="height:%dpx" alt="">' % (C.logo("Climb27", "reversed-dark"), word_h))
         items.append(I.svg(doodles[k % len(doodles)], seed=k, style="width:200px;height:200px;flex:none;transform:rotate(%ddeg)"
                            % (-12 if k % 2 else 10)))

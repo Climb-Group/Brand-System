@@ -8,6 +8,13 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 - Every colour and size comes from `tokens/brand.tokens.json`. Never type a value that is not in it.
 - `ai/tools/brand_rules.py` answers brand questions as tools (`call(tool, arguments, venue_announced)`); `ai/kit.json` lists them.
 
+### Logos and app icons
+
+- Every logo, icon, favicon and app tile is transparent by default; each also comes on solid White, Dark Brown and Climb Orange. Logo files take the suffix `-on-white`, `-on-ground` or `-on-orange` (`logos/ClimbUK/ClimbUK_icon-monogram-on-ground.svg`); app icons sit in `white/`, `ground/` and `orange/` subfolders of `app-icons/favicons/` and `app-icons/app-tiles/`.
+- Ask the logo tool, not memory: `call("logo", {"brand": "ClimbUK", "use": "favicon"})` returns the transparent `icon-monogram` and lists the three solid versions under `on_solid`; add `"fill": "ground"` for the Dark Brown file.
+- Code that wants the old Dark Brown tile uses `icon-on-ground` or `icon-monogram-on-ground`.
+- Rebuild with `python3 logos/_build/build.py && python3 logos/_build/sheet.py`, then `python3 app-icons/_build/build_app_icons.py`. All need `rsvg-convert` and Pillow.
+
 ### Install the skills elsewhere
 
 - `npx skills add Climb-Group/Brand-System` offers exactly the two brand skills. The house skills synced into `.agents/skills` are listed in `skills-lock.json`, which `npx skills` treats as already installed and hides.
