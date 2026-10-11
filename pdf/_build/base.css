@@ -68,27 +68,35 @@ img{display:block}
 .glow{position:absolute;inset:0;background:radial-gradient(1150px 640px at 94% 112%,rgba(var(--or),.55),rgba(var(--or),0) 64%)}
 .glow.tl{background:radial-gradient(900px 560px at 4% -8%,rgba(var(--or),.42),rgba(var(--or),0) 64%)}
 .glow.white{background:radial-gradient(900px 520px at 6% -6%,rgba(255,255,255,.26),rgba(255,255,255,0) 62%),radial-gradient(900px 600px at 100% 110%,rgba(var(--ink),.28),rgba(var(--ink),0) 64%)}
-.fade-hero{background:linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),.2) 35%,rgba(var(--ink),.97)),
-  linear-gradient(100deg,rgba(var(--ink),.97),rgba(var(--ink),.93) 66%,rgba(var(--ink),.35)),
+/* Text sits on the left: the fade holds it there and leaves the right of the photo clear. */
+.fade-hero{background:linear-gradient(180deg,rgba(var(--ink),.25),rgba(var(--ink),0) 25%,rgba(var(--ink),0) 70%,rgba(var(--ink),.75)),
+  linear-gradient(90deg,rgba(var(--ink),.95),rgba(var(--ink),.88) 46%,rgba(var(--ink),.35) 62%,rgba(var(--ink),0) 76%),
   radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.28),rgba(var(--or),0) 60%)}
 .fade-brown{background:linear-gradient(90deg,rgba(var(--ink),.92),rgba(var(--ink),.7) 55%,rgba(var(--ink),.45)),
   linear-gradient(180deg,rgba(var(--ink),.5),rgba(var(--ink),.25) 30%,rgba(var(--ink),.95) 55%,rgba(var(--ink),1))}
 .fade-brown-r{background:linear-gradient(270deg,rgba(var(--ink),.92),rgba(var(--ink),.7) 55%,rgba(var(--ink),.4)),
   linear-gradient(180deg,rgba(var(--ink),.45),rgba(var(--ink),.2) 30%,rgba(var(--ink),.95) 55%,rgba(var(--ink),1))}
+/* Back cover: words at the top and the bottom, the photo clear in the middle. */
+.fade-ends{background:linear-gradient(180deg,rgba(var(--ink),.95),rgba(var(--ink),.88) 34%,rgba(var(--ink),0) 50%,rgba(var(--ink),0) 62%,rgba(var(--ink),.85) 76%,rgba(var(--ink),.97))}
+.fade-divider{background:linear-gradient(180deg,rgba(var(--ink),.25),rgba(var(--ink),0) 22%,rgba(var(--ink),0) 48%,rgba(var(--ink),.6) 60%,rgba(var(--ink),.9) 67%,rgba(var(--ink),.97))}
+.fade-divider-l{background:linear-gradient(90deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%)}
+.fade-divider-r{background:linear-gradient(270deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%)}
 .fade-heat{background:linear-gradient(90deg,rgba(var(--ink),.96),rgba(var(--ink),.9) 50%,rgba(var(--or),.35)),
   radial-gradient(960px 480px at 85% 110%,rgba(var(--or),.55),rgba(var(--or),0) 60%),
   linear-gradient(180deg,rgba(var(--ink),.35),rgba(var(--ink),0) 45%,rgba(var(--ink),.95))}
-.fade-orange{background:linear-gradient(90deg,rgba(var(--or),.97),rgba(var(--or),.95) 60%,rgba(var(--or),.6)),
+/* Orange holds the text side and the bottom; the rest of the photo stays clear. */
+.fade-orange{background:linear-gradient(90deg,rgba(var(--or),.97),rgba(var(--or),.9) 45%,rgba(var(--or),.3) 72%,rgba(var(--or),0)),
+  linear-gradient(180deg,rgba(var(--or),0) 45%,rgba(var(--or),.9) 85%),
   radial-gradient(640px 320px at 10% 0%,rgba(255,255,255,.2),rgba(255,255,255,0) 60%)}
 .fade-card{background:linear-gradient(180deg,rgba(var(--ink),.95),rgba(var(--ink),.88) 26%,rgba(var(--ink),.3) 48%,rgba(var(--ink),.3) 58%,rgba(var(--ink),.95) 78%)}
 .fade-bottom{background:linear-gradient(180deg,rgba(var(--ink),.1) 0%,rgba(var(--ink),.25) 25%,rgba(var(--ink),.9) 45%,rgba(var(--ink),.97) 60%)}
 
 .pad{position:absolute;left:120px;right:120px;top:100px;bottom:120px}
 .foot{position:absolute;left:120px;right:120px;bottom:46px;display:flex;align-items:center;justify-content:space-between;
-  font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .foot img{height:30px}
 .foot .pg{display:flex;gap:22px;align-items:center}
-.foot .pg b{color:var(--o)}
+.foot .pg b{color:var(--tint)}
 .s.wh .foot,.s.gr .foot{color:#595959}
 .s.wh .foot .pg b,.s.gr .foot .pg b{color:var(--deep)}
 .s.or .foot{color:var(--db)} .s.or .foot .pg b{color:var(--db)}
