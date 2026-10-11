@@ -168,3 +168,10 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 - `.github/workflows/media-kit.yml` renders the catalogue, builds the template package and runs the website repository's `climb_brand_media_kit/scripts/build_kit.py` to make `climb-media-kit-exports.zip`, then attaches it to a new `media-kit-<date>-<commit>` release. It needs the `MEDIA_KIT_BUILDER_TOKEN` secret (read-only on the private website repository). The builder comes from the `builder-ref` input, default `production`; never default it to a feature branch, since merged branches are deleted.
 - The photo library is read from `climb-photo-library.zip` on the `photo-library-1.0` release, which `photos/_build/photo_library.py publish --source <library>` uploads from the machine with the originals (it skips the upload when the fingerprint is unchanged, holds it while any photo is new until `--approve-new`, and then starts the media kit workflow; `install-timer` runs it hourly under systemd); an optional `media-kit-exclude.txt` on the same release (one `folder/filename` per line) is passed to the builder as `--photo-exclude`; without the zip the kit has no photo library. Never put a photo with a readable name badge or a possible minor in that zip.
 - The 4K motion clips and drawing PNGs are not part of this build.
+
+### Release the templates and motion clips
+
+- `.github/workflows/release.yml` runs on its own on every push to main; never add a manual-only step to it.
+- `templates` builds `Climb-Templates-<version>.zip` and publishes the `templates-v<version>` release from `templates/install/VERSION`. A published release is immutable, so a pull request that changes the package must bump `templates/install/VERSION`; the `templates version` check fails until it does.
+- `motion` renders `climb-video-motion.zip` when `templates/_build/`, `generators/motifs.py`, `tokens/`, `logos/` or the fonts change, or when no motion release exists, and publishes a new `climb-video-motion-<date>-<commit>` release.
+- Every release is created as a draft, uploaded, then published; never upload to a published release.
