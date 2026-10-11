@@ -1,0 +1,1195 @@
+{
+  "$description": "ClimbUK, ClimbGroup and Climb27 design tokens. Single source of truth for the website theme, email layouts, print and any agent-made asset. Format: Design Tokens Community Group draft. Generate CSS and SCSS with build_tokens.py; never edit the generated files.",
+  "color": {
+    "$type": "color",
+    "brand": {
+      "orange": {
+        "$value": "#E8712A",
+        "$description": "Climb Orange. Fills, shapes, decoration, large text on white, any text on Dark Brown and Charcoal. Website o-color-1. Replaced #EC752A in October 2026."
+      },
+      "dark-brown": {
+        "$value": "#1E0F05",
+        "$description": "Dark Brown. The default ground: dark theme first. Website o-color-2."
+      },
+      "light-grey": {
+        "$value": "#E9E9E9",
+        "$description": "Light Grey. Light section ground and text on dark. Never text on any orange. Website o-color-3."
+      },
+      "white": {
+        "$value": "#FFFFFF",
+        "$description": "White. Website o-color-4."
+      },
+      "charcoal": {
+        "$value": "#242322",
+        "$description": "Charcoal. Second dark ground and headings on white. Website o-color-5."
+      }
+    },
+    "orange": {
+      "text": {
+        "$value": "#C55308",
+        "$description": "Orange Text. Small orange text on white; fill behind small white labels; hover for Climb Orange buttons."
+      },
+      "text-on-grey": {
+        "$value": "#B04902",
+        "$description": "Orange Text on Grey. Small orange text on Light Grey; hover for Orange Text buttons."
+      },
+      "large-on-grey": {
+        "$value": "#D5641E",
+        "$description": "Orange Large on Grey. Large orange text and meaningful marks on Light Grey."
+      },
+      "tint": {
+        "$value": "#F2AE86",
+        "$description": "Orange Tint. Links and small orange text on Dark Brown and Charcoal. Never on light grounds."
+      },
+      "deep": {
+        "$value": "#8D4419",
+        "$description": "Deep Orange. Small orange text and links on White (7.06:1, AAA)."
+      },
+      "deep-on-grey": {
+        "$value": "#7A3B16",
+        "$description": "Deep Orange on Grey. Small orange text and links on Light Grey (7.02:1, AAA)."
+      }
+    },
+    "link": {
+      "on-white": {
+        "$value": "{color.orange.deep}",
+        "$description": "Link colour on white (AAA). Underline links in running text."
+      },
+      "on-grey": {
+        "$value": "{color.orange.deep-on-grey}",
+        "$description": "Link colour on Light Grey (AAA)."
+      },
+      "on-dark": {
+        "$value": "{color.orange.tint}",
+        "$description": "Link colour on Dark Brown and Charcoal."
+      }
+    },
+    "text": {
+      "body-on-light": {
+        "$value": "#4A5878",
+        "$description": "Body Slate. Body text on White (7.1:1, AAA)."
+      },
+      "body-on-dark": {
+        "$value": "{color.brand.light-grey}",
+        "$description": "Body text on Charcoal."
+      },
+      "heading-on-dark": {
+        "$value": "{color.brand.white}"
+      },
+      "heading-on-light": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "body-on-grey": {
+        "$value": "#404C68",
+        "$description": "Body Slate Deep. Body text on Light Grey (7.06:1, AAA); also the AAA-Light body colour on White (8.57:1)."
+      }
+    }
+  },
+  "preset": {
+    "$description": "The five colour presets (o_cc1 to o_cc5 on the website). Every asset, on or off the web, picks one of these as its ground.",
+    "o_cc1": {
+      "name": {
+        "$value": "White"
+      },
+      "background": {
+        "$value": "{color.brand.white}"
+      },
+      "text": {
+        "$value": "{color.text.body-on-light}"
+      },
+      "heading": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "link": {
+        "$value": "{color.link.on-white}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.deep}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      }
+    },
+    "o_cc2": {
+      "name": {
+        "$value": "Light Grey"
+      },
+      "background": {
+        "$value": "{color.brand.light-grey}"
+      },
+      "text": {
+        "$value": "{color.text.body-on-grey}"
+      },
+      "heading": {
+        "$value": "{color.orange.text-on-grey}"
+      },
+      "link": {
+        "$value": "{color.link.on-grey}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.deep-on-grey}"
+      },
+      "accent-large": {
+        "$value": "{color.orange.large-on-grey}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      }
+    },
+    "o_cc3": {
+      "name": {
+        "$value": "Dark Brown"
+      },
+      "background": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "text": {
+        "$value": "{color.brand.white}"
+      },
+      "heading": {
+        "$value": "{color.brand.white}"
+      },
+      "link": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      }
+    },
+    "o_cc4": {
+      "name": {
+        "$value": "Climb Orange"
+      },
+      "background": {
+        "$value": "{color.brand.orange}"
+      },
+      "text": {
+        "$value": "{color.brand.white}"
+      },
+      "heading": {
+        "$value": "{color.brand.white}"
+      },
+      "link": {
+        "$value": "{color.brand.white}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.white}"
+      },
+      "button-label": {
+        "$value": "{color.orange.text}"
+      },
+      "$description": "Large white text only (19px bold and up). For body copy use Orange Text #C55308 as the ground instead."
+    },
+    "o_cc5": {
+      "name": {
+        "$value": "Charcoal"
+      },
+      "background": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "text": {
+        "$value": "{color.brand.light-grey}"
+      },
+      "heading": {
+        "$value": "{color.brand.white}"
+      },
+      "link": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "display": {
+        "$value": [
+          "Montserrat",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Headings and display. Weight 700 (Bold) by default, 800 for posters and screens."
+      },
+      "body": {
+        "$value": [
+          "Open Sans",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Body copy, labels, small print."
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "body": {
+        "$value": 400
+      },
+      "semibold": {
+        "$value": 600
+      },
+      "bold": {
+        "$value": 700
+      },
+      "black": {
+        "$value": 800
+      }
+    }
+  },
+  "type": {
+    "$description": "Type scale in px at a 1440px wide screen. Display sizes scale down fluidly on smaller screens. Large text (3:1 rules) starts at 24px, or 19px bold.",
+    "display": {
+      "size": {
+        "$value": "68px"
+      },
+      "line-height": {
+        "$value": 1.02
+      },
+      "case": {
+        "$value": "uppercase"
+      },
+      "tracking": {
+        "$value": "-0.01em"
+      }
+    },
+    "h1": {
+      "size": {
+        "$value": "48px"
+      },
+      "line-height": {
+        "$value": 1.05
+      }
+    },
+    "h2": {
+      "size": {
+        "$value": "40px"
+      },
+      "line-height": {
+        "$value": 1.08
+      }
+    },
+    "h3": {
+      "size": {
+        "$value": "22px"
+      },
+      "line-height": {
+        "$value": 1.2
+      }
+    },
+    "lead": {
+      "size": {
+        "$value": "20px"
+      },
+      "line-height": {
+        "$value": 1.5
+      }
+    },
+    "body": {
+      "size": {
+        "$value": "16px"
+      },
+      "line-height": {
+        "$value": 1.6
+      }
+    },
+    "small": {
+      "size": {
+        "$value": "14px"
+      },
+      "line-height": {
+        "$value": 1.5
+      }
+    },
+    "button-large": {
+      "size": {
+        "$value": "19px"
+      },
+      "weight": {
+        "$value": 700
+      },
+      "$description": "The smallest label allowed in white on Climb Orange."
+    },
+    "eyebrow": {
+      "size": {
+        "$value": "13px"
+      },
+      "weight": {
+        "$value": 600
+      },
+      "case": {
+        "$value": "uppercase"
+      },
+      "tracking": {
+        "$value": "0.12em"
+      }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "1": {
+      "$value": "4px"
+    },
+    "2": {
+      "$value": "8px"
+    },
+    "3": {
+      "$value": "12px"
+    },
+    "4": {
+      "$value": "16px"
+    },
+    "5": {
+      "$value": "24px"
+    },
+    "6": {
+      "$value": "32px"
+    },
+    "7": {
+      "$value": "48px"
+    },
+    "8": {
+      "$value": "64px"
+    },
+    "section": {
+      "$value": "96px",
+      "$description": "Vertical padding of a full section on the web (96px top and bottom)."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "card": {
+      "$value": "14px"
+    },
+    "small": {
+      "$value": "10px"
+    },
+    "pill": {
+      "$value": "999px"
+    }
+  },
+  "shadow": {
+    "$description": "Elevation on light grounds (White, Light Grey). Shadows are tinted with Dark Brown, never pure black, and stay soft and low. On dark grounds, raise a surface by moving it one step lighter (Dark Brown to Charcoal) and adding the hairline; a shadow alone disappears there.",
+    "0": {
+      "$value": "none",
+      "$description": "Flat: sections, most cards on dark grounds."
+    },
+    "1": {
+      "$value": "0 1px 2px rgba(30, 15, 5, 0.08), 0 1px 3px rgba(30, 15, 5, 0.10)",
+      "$description": "Resting cards, inputs, chips."
+    },
+    "2": {
+      "$value": "0 4px 12px rgba(30, 15, 5, 0.10), 0 2px 4px rgba(30, 15, 5, 0.06)",
+      "$description": "Hovered cards, sticky bars, dropdowns."
+    },
+    "3": {
+      "$value": "0 12px 32px rgba(30, 15, 5, 0.14), 0 4px 8px rgba(30, 15, 5, 0.06)",
+      "$description": "Popovers, menus, floating ticket bar."
+    },
+    "4": {
+      "$value": "0 24px 64px rgba(30, 15, 5, 0.22), 0 8px 16px rgba(30, 15, 5, 0.08)",
+      "$description": "Modals and dialogs only."
+    },
+    "hairline-dark": {
+      "$value": "inset 0 0 0 1px rgba(255, 255, 255, 0.08)",
+      "$description": "Edge of a raised Charcoal surface on Dark Brown."
+    },
+    "glow": {
+      "$value": "0 0 48px rgba(232, 113, 42, 0.45)",
+      "$description": "Stage-light glow behind the one primary action on a dark hero or stage screen. Never on light grounds, never on more than one element."
+    }
+  },
+  "motion": {
+    "$description": "Motion is a confident rise into place: things arrive from below and settle, like stepping up onto a stage. Short, decisive, never bouncy. Respect prefers-reduced-motion: swap movement for a fade at duration.quick.",
+    "duration": {
+      "instant": {
+        "$value": "100ms",
+        "$description": "Colour and opacity feedback: hover, press."
+      },
+      "quick": {
+        "$value": "160ms",
+        "$description": "Small UI: buttons, toggles, tooltips, focus rings."
+      },
+      "base": {
+        "$value": "240ms",
+        "$description": "Cards lifting, menus opening, accordions."
+      },
+      "slow": {
+        "$value": "400ms",
+        "$description": "Panels, modals, section reveals on scroll."
+      },
+      "stage": {
+        "$value": "700ms",
+        "$description": "Hero entrances, title cards and logo reveals in video. The ceiling for any web animation."
+      }
+    },
+    "easing": {
+      "rise": {
+        "$value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "$description": "Signature curve for anything entering: fast start, long settle."
+      },
+      "spring": {
+        "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "$description": "Playful overshoot for hover lifts on cards, stickers and photo tiles, as on the Climb27 homepage. Use with a quick or base duration; never for page-level movement."
+      },
+      "standard": {
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$description": "State changes and things moving within the page."
+      },
+      "exit": {
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$description": "Anything leaving: accelerate away, at about two thirds of the entrance duration."
+      },
+      "linear": {
+        "$value": "linear",
+        "$description": "Progress, marquees and stage-light drift only."
+      }
+    },
+    "distance": {
+      "lift": {
+        "$value": "4px",
+        "$description": "Card or button raise on hover."
+      },
+      "rise": {
+        "$value": "16px",
+        "$description": "Element entering from below on scroll."
+      },
+      "rise-large": {
+        "$value": "48px",
+        "$description": "Hero lines and video titles entering from below."
+      }
+    },
+    "stagger": {
+      "$value": "60ms",
+      "$description": "Delay between siblings entering in sequence; cap a sequence at 6 items."
+    }
+  },
+  "layout": {
+    "$description": "Web layout. Matches Bootstrap 5 breakpoints.",
+    "breakpoint": {
+      "sm": {
+        "$value": "576px"
+      },
+      "md": {
+        "$value": "768px"
+      },
+      "lg": {
+        "$value": "992px"
+      },
+      "xl": {
+        "$value": "1200px"
+      },
+      "xxl": {
+        "$value": "1400px"
+      }
+    },
+    "container": {
+      "$value": "1320px",
+      "$description": "Widest content column."
+    },
+    "measure": {
+      "$value": "68ch",
+      "$description": "Longest line of body text on promotional pages, cards and subtitles. Written pieces (blog posts, news, newsletters, articles) run to the container."
+    },
+    "gutter": {
+      "$value": "24px",
+      "$description": "Column gap."
+    },
+    "target-min": {
+      "$value": "44px",
+      "$description": "Smallest touch target (WCAG 2.2 asks for 24px; we use 44px)."
+    },
+    "target-compact": {
+      "$value": "24px",
+      "$description": "Compact target for dense rows (signature icons). WCAG 2.2 AA minimum; use target-min or aaa.layout.target wherever space allows."
+    }
+  },
+  "print": {
+    "$description": "Production colour for print, merch and signage. Pantone and RAL are nearest matches to the screen colours, chosen from published hex approximations: confirm each against a current Pantone Formula Guide (or RAL fan deck) and a press proof before the first run, then record the approved reference here. CMYK values are starting points for coated stock (FOGRA39 / ISO Coated v2); let the printer's RIP convert from the Pantone where they can.",
+    "orange": {
+      "pantone-coated": {
+        "$value": "158 C"
+      },
+      "pantone-uncoated": {
+        "$value": "158 U"
+      },
+      "cmyk": {
+        "$value": "0 65 90 0"
+      },
+      "ral": {
+        "$value": "RAL 2011 Deep Orange"
+      },
+      "status": {
+        "$value": "nearest match, confirm on proof"
+      }
+    },
+    "orange-text": {
+      "cmyk": {
+        "$value": "0 70 100 15"
+      },
+      "status": {
+        "$value": "starting point for small orange text on white; match on proof"
+      }
+    },
+    "dark-brown": {
+      "pantone-coated": {
+        "$value": "Black 4 C"
+      },
+      "pantone-uncoated": {
+        "$value": "Black 4 U"
+      },
+      "cmyk": {
+        "$value": "40 70 80 85"
+      },
+      "ral": {
+        "$value": "RAL 8022 Black Brown"
+      },
+      "status": {
+        "$value": "nearest match, confirm on proof"
+      }
+    },
+    "charcoal": {
+      "pantone-coated": {
+        "$value": "419 C"
+      },
+      "pantone-uncoated": {
+        "$value": "419 U"
+      },
+      "cmyk": {
+        "$value": "60 50 50 90"
+      },
+      "cmyk-text": {
+        "$value": "0 0 0 90"
+      },
+      "ral": {
+        "$value": "RAL 9011 Graphite Black"
+      },
+      "status": {
+        "$value": "nearest match, confirm on proof"
+      }
+    },
+    "light-grey": {
+      "pantone-coated": {
+        "$value": "Cool Gray 1 C"
+      },
+      "pantone-uncoated": {
+        "$value": "Cool Gray 1 U"
+      },
+      "cmyk": {
+        "$value": "0 0 0 10"
+      },
+      "ral": {
+        "$value": "RAL 9002 Grey White"
+      },
+      "status": {
+        "$value": "nearest match, confirm on proof"
+      }
+    },
+    "orange-tint": {
+      "cmyk": {
+        "$value": "0 35 45 0"
+      },
+      "status": {
+        "$value": "match on proof; for print use a tint of 158 C rather than a fifth spot colour"
+      }
+    },
+    "white": {
+      "cmyk": {
+        "$value": "0 0 0 0"
+      },
+      "status": {
+        "$value": "paper white; on dark merch use the garment printer's opaque white"
+      },
+      "ral": {
+        "$value": "RAL 9016 Traffic White"
+      }
+    }
+  },
+  "contrast": {
+    "$description": "WCAG 2.2 thresholds the build checks every documented pair against.",
+    "normal-text": {
+      "$value": 4.5
+    },
+    "large-text": {
+      "$value": 3.0
+    },
+    "non-text": {
+      "$value": 3.0
+    },
+    "aaa-text": {
+      "$value": 7.0
+    },
+    "aaa-large-text": {
+      "$value": 4.5
+    }
+  },
+  "pairs": {
+    "$description": "Foreground on background pairs this system promises. build_tokens.py fails if any falls below its threshold. kind is normal (4.5:1), large (3:1), aaa (7:1) or aaa-large (4.5:1).",
+    "$value": [
+      [
+        "color.brand.white",
+        "color.brand.orange",
+        "large"
+      ],
+      [
+        "color.brand.orange",
+        "color.brand.white",
+        "large"
+      ],
+      [
+        "color.brand.orange",
+        "color.brand.dark-brown",
+        "normal"
+      ],
+      [
+        "color.brand.orange",
+        "color.brand.charcoal",
+        "normal"
+      ],
+      [
+        "color.orange.text",
+        "color.brand.white",
+        "normal"
+      ],
+      [
+        "color.brand.white",
+        "color.orange.text",
+        "normal"
+      ],
+      [
+        "color.orange.text-on-grey",
+        "color.brand.light-grey",
+        "normal"
+      ],
+      [
+        "color.orange.text-on-grey",
+        "color.brand.white",
+        "normal"
+      ],
+      [
+        "color.orange.large-on-grey",
+        "color.brand.light-grey",
+        "large"
+      ],
+      [
+        "color.orange.tint",
+        "color.brand.dark-brown",
+        "normal"
+      ],
+      [
+        "color.orange.tint",
+        "color.brand.charcoal",
+        "normal"
+      ],
+      [
+        "color.link.on-white",
+        "color.brand.white",
+        "normal"
+      ],
+      [
+        "color.link.on-grey",
+        "color.brand.light-grey",
+        "normal"
+      ],
+      [
+        "color.brand.white",
+        "color.brand.dark-brown",
+        "normal"
+      ],
+      [
+        "color.brand.light-grey",
+        "color.brand.charcoal",
+        "normal"
+      ],
+      [
+        "color.brand.charcoal",
+        "color.brand.white",
+        "normal"
+      ],
+      [
+        "color.text.body-on-light",
+        "color.brand.white",
+        "normal"
+      ],
+      [
+        "color.text.body-on-light",
+        "color.brand.light-grey",
+        "normal"
+      ],
+      [
+        "theme.aaa-dark.text",
+        "theme.aaa-dark.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.text",
+        "theme.aaa-dark.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.text-muted",
+        "theme.aaa-dark.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.text-muted",
+        "theme.aaa-dark.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.heading",
+        "theme.aaa-dark.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.heading",
+        "theme.aaa-dark.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.link",
+        "theme.aaa-dark.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.link",
+        "theme.aaa-dark.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.accent-small",
+        "theme.aaa-dark.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.accent-small",
+        "theme.aaa-dark.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-dark.accent-large",
+        "theme.aaa-dark.background",
+        "aaa-large"
+      ],
+      [
+        "theme.aaa-dark.button-label",
+        "theme.aaa-dark.button-fill",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.text",
+        "theme.aaa-light.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.text",
+        "theme.aaa-light.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.text-muted",
+        "theme.aaa-light.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.text-muted",
+        "theme.aaa-light.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.heading",
+        "theme.aaa-light.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.heading",
+        "theme.aaa-light.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.link",
+        "theme.aaa-light.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.link",
+        "theme.aaa-light.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.accent-small",
+        "theme.aaa-light.background",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.accent-small",
+        "theme.aaa-light.surface",
+        "aaa"
+      ],
+      [
+        "theme.aaa-light.accent-large",
+        "theme.aaa-light.background",
+        "aaa-large"
+      ],
+      [
+        "theme.aaa-light.button-label",
+        "theme.aaa-light.button-fill",
+        "aaa"
+      ],
+      [
+        "theme.dark.text",
+        "theme.dark.background",
+        "normal"
+      ],
+      [
+        "theme.dark.heading",
+        "theme.dark.background",
+        "normal"
+      ],
+      [
+        "theme.dark.link",
+        "theme.dark.background",
+        "normal"
+      ],
+      [
+        "theme.dark.accent-small",
+        "theme.dark.background",
+        "normal"
+      ],
+      [
+        "theme.dark.button-label",
+        "theme.dark.button-fill",
+        "large"
+      ],
+      [
+        "theme.light.text",
+        "theme.light.background",
+        "normal"
+      ],
+      [
+        "theme.light.heading",
+        "theme.light.background",
+        "normal"
+      ],
+      [
+        "theme.light.link",
+        "theme.light.background",
+        "normal"
+      ],
+      [
+        "theme.light.accent-small",
+        "theme.light.background",
+        "normal"
+      ],
+      [
+        "theme.light.button-label",
+        "theme.light.button-fill",
+        "large"
+      ],
+      [
+        "color.orange.deep",
+        "color.brand.white",
+        "aaa"
+      ],
+      [
+        "color.orange.deep-on-grey",
+        "color.brand.light-grey",
+        "aaa"
+      ],
+      [
+        "color.text.body-on-light",
+        "color.brand.white",
+        "aaa"
+      ],
+      [
+        "color.text.body-on-grey",
+        "color.brand.light-grey",
+        "aaa"
+      ],
+      [
+        "color.orange.tint",
+        "color.brand.charcoal",
+        "aaa"
+      ],
+      [
+        "color.orange.tint",
+        "color.brand.dark-brown",
+        "aaa"
+      ]
+    ]
+  },
+  "theme": {
+    "$type": "color",
+    "$description": "Four ready-made colour themes. Dark is the default. AAA-Dark and AAA-Light meet WCAG 2.2 AAA contrast (7:1 for text, 4.5:1 for large text) on every role. tokens.css also exposes each as a [data-climb-theme] scope.",
+    "dark": {
+      "$description": "Dark (default). Dark Brown ground, Charcoal cards. Meets AA; small accents already AAA.",
+      "background": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "surface": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "text": {
+        "$value": "{color.brand.white}"
+      },
+      "text-muted": {
+        "$value": "{color.brand.light-grey}"
+      },
+      "heading": {
+        "$value": "{color.brand.white}"
+      },
+      "link": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      },
+      "focus-ring": {
+        "$value": "{color.orange.tint}"
+      },
+      "border": {
+        "$value": "{color.brand.charcoal}"
+      }
+    },
+    "light": {
+      "$description": "Light. White ground, Light Grey cards. Meets AA; body, links and small accents AAA.",
+      "background": {
+        "$value": "{color.brand.white}"
+      },
+      "surface": {
+        "$value": "{color.brand.light-grey}"
+      },
+      "text": {
+        "$value": "{color.text.body-on-light}"
+      },
+      "text-muted": {
+        "$value": "{color.text.body-on-light}"
+      },
+      "heading": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "link": {
+        "$value": "{color.link.on-white}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.deep}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      },
+      "focus-ring": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "border": {
+        "$value": "{color.brand.light-grey}"
+      }
+    },
+    "aaa-dark": {
+      "$description": "AAA-Dark. As Dark, with Orange Tint buttons carrying Dark Brown labels so every role passes AAA.",
+      "background": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "surface": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "text": {
+        "$value": "{color.brand.white}"
+      },
+      "text-muted": {
+        "$value": "{color.brand.light-grey}"
+      },
+      "heading": {
+        "$value": "{color.brand.white}"
+      },
+      "link": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.tint}"
+      },
+      "accent-large": {
+        "$value": "{color.brand.orange}"
+      },
+      "button-fill": {
+        "$value": "{color.orange.tint}"
+      },
+      "button-label": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "focus-ring": {
+        "$value": "{color.orange.tint}"
+      },
+      "border": {
+        "$value": "{color.brand.light-grey}"
+      }
+    },
+    "aaa-light": {
+      "$description": "AAA-Light. White ground and cards, deeper slate body text, Deep Orange buttons with white labels.",
+      "background": {
+        "$value": "{color.brand.white}"
+      },
+      "surface": {
+        "$value": "{color.brand.white}"
+      },
+      "text": {
+        "$value": "{color.text.body-on-grey}"
+      },
+      "text-muted": {
+        "$value": "{color.text.body-on-grey}"
+      },
+      "heading": {
+        "$value": "{color.brand.charcoal}"
+      },
+      "link": {
+        "$value": "{color.orange.deep}"
+      },
+      "accent-small": {
+        "$value": "{color.orange.deep}"
+      },
+      "accent-large": {
+        "$value": "{color.orange.text}"
+      },
+      "button-fill": {
+        "$value": "{color.orange.deep}"
+      },
+      "button-label": {
+        "$value": "{color.brand.white}"
+      },
+      "focus-ring": {
+        "$value": "{color.brand.dark-brown}"
+      },
+      "border": {
+        "$value": "{color.brand.charcoal}"
+      }
+    }
+  },
+  "aaa": {
+    "$description": "AAA-* size, spacing and layout variants (WCAG 2.2 AAA 1.4.8 Visual Presentation, 2.5.5 Target Size, 2.4.13 Focus Appearance). Use with the AAA themes, or alone where text must be easier to read.",
+    "type": {
+      "eyebrow-size": {
+        "$value": "14px",
+        "$description": "Smallest uppercase label."
+      },
+      "small-size": {
+        "$value": "15px"
+      },
+      "small-line-height": {
+        "$value": 1.5
+      },
+      "body-size": {
+        "$value": "18px"
+      },
+      "body-line-height": {
+        "$value": 1.6
+      },
+      "lead-line-height": {
+        "$value": 1.6
+      },
+      "heading-line-height": {
+        "$value": 1.25,
+        "$description": "Headings at least 1.2 so wrapped lines stay apart."
+      },
+      "paragraph-spacing": {
+        "$value": "1.6em",
+        "$description": "At least 1.5 times the line spacing gap."
+      },
+      "letter-spacing": {
+        "$value": "0.01em"
+      }
+    },
+    "space": {
+      "paragraph": {
+        "$value": "1.6em"
+      },
+      "control-gap": {
+        "$value": "12px",
+        "$description": "Gap between adjacent targets."
+      }
+    },
+    "layout": {
+      "measure": {
+        "$value": "66ch",
+        "$description": "Line length cap for promotional pages, cards and subtitles. Written pieces (blog posts, news, newsletters, articles) run to the container instead."
+      },
+      "target": {
+        "$value": "44px",
+        "$description": "Every tap target, no exceptions."
+      },
+      "text-align": {
+        "$value": "start",
+        "$description": "Never justified."
+      }
+    },
+    "focus": {
+      "width": {
+        "$value": "3px"
+      },
+      "offset": {
+        "$value": "3px"
+      },
+      "style": {
+        "$value": "solid"
+      }
+    }
+  },
+  "focus": {
+    "$description": "Focus ring (E11). 3px solid, 3px offset. Orange Tint on dark grounds, Dark Brown on light and on Climb Orange.",
+    "width": {
+      "$value": "3px"
+    },
+    "offset": {
+      "$value": "3px"
+    },
+    "on-dark": {
+      "$value": "{color.orange.tint}"
+    },
+    "on-light": {
+      "$value": "{color.brand.dark-brown}"
+    },
+    "on-orange": {
+      "$value": "{color.brand.dark-brown}"
+    }
+  }
+}

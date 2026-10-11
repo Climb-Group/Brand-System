@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "climb-brand-page-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/climbBrandPage/ClimbBrandPageWebPart.js",
+          "manifest": "./src/webparts/climbBrandPage/ClimbBrandPageWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "ClimbBrandPageWebPartStrings": "lib/webparts/climbBrandPage/loc/{locale}.js"
+  }
+}
