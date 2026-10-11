@@ -31,6 +31,8 @@ jobs:
         run: python3 -m unittest discover -s tokens/tests
       - name: AI kit tests
         run: python3 -m unittest discover -s ai/tests
+      - name: Photo library tests
+        run: python3 -m unittest discover -s photos/tests
       - name: Skill and agent packages, open-in links and skills-lock.json are current
         run: python3 ai/agents/build_agent_kits.py --check
       - name: Copy checker passes good copy and fails banned copy
