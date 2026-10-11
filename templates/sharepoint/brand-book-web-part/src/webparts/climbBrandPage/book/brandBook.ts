@@ -321,10 +321,11 @@ export function initBrandBook(hooks) {
             box.classList.toggle("is-narrow", w < avail - 40);
         }
         this.name = iframe.name;
+        this.win = function () { return iframe.contentWindow; };
         this.load = function () {
             if (loaded) { return; }
             loaded = true;
-            hooks.frame(iframe, theme());
+hooks.frame(iframe, theme());
         };
         this.theme = function () {
             if (loaded && iframe.contentWindow) {
@@ -368,9 +369,12 @@ export function initBrandBook(hooks) {
         } else {
             frames.forEach(function (f) { f.load(); });
         }
+        // Only the preview frames on this page may resize themselves.
         window.addEventListener("message", function (e) {
-            if (!e.data || !e.data.cbbFrame) { return; }
-            frames.forEach(function (f) { if (f.name === e.data.cbbFrame) { f.height(e.data.height); } });
+            if (e.origin !== window.location.origin || !e.data || !e.data.cbbFrame) { return; }
+            frames.forEach(function (f) {
+                if (f.name === e.data.cbbFrame && f.win() === e.source) { f.height(e.data.height); }
+            });
         });
         var search = $("[data-cbb-comp-search]");
         if (search) {
@@ -412,9 +416,10 @@ export function initBrandBook(hooks) {
         var spaceIn = $("[data-cbb-lab-space]", lab);
         var verdictEl = $("[data-cbb-lab-verdict]", lab);
         var groundNames = { 1: "White", 2: "Light Grey", 3: "Dark Brown", 4: "Climb Orange", 5: "Charcoal", 6: "a dark photo" };
-        var base = labImg.getAttribute("src").replace(/[^/]*$/, "");
+        var brands = ["ClimbUK", "ClimbGroup", "Climb27"];
         var update = function () {
-            var brand = $('input[name="cbb-lab-brand"]:checked', lab).value;
+            var picked = $('input[name="cbb-lab-brand"]:checked', lab).value;
+            var brand = brands.filter(function (b) { return b === picked; })[0] || brands[0];
             var g = parseInt($('input[name="cbb-lab-ground"]:checked', lab).value, 10);
             var width = parseInt(sizeIn.value, 10);
             var small = width < 120;
@@ -425,7 +430,7 @@ export function initBrandBook(hooks) {
             var square = choice[0].indexOf("icon") === 0;
             labStage.setAttribute("data-ground", g);
             labLogo.style.width = (square ? Math.min(width, 200) : width) + "px";
-            labImg.src = base + brand + "_" + choice[0] + ".svg";
+            labImg.setAttribute("src", hooks.asset("logos/" + encodeURIComponent(brand + "_" + choice[0] + ".svg")));
             labImg.alt = brand + " logo, " + choice[1].toLowerCase();
             sizeOut.textContent = width + "px";
             labLogo.classList.toggle("show-space", spaceIn.checked && !square);

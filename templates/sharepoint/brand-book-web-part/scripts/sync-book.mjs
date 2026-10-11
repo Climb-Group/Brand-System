@@ -11,11 +11,13 @@ if (!book) {
 const out = new URL("../src/webparts/climbBrandPage/book/", import.meta.url).pathname;
 let js = readFileSync(join(book, "js/brand_book.js"), "utf8");
 
-// The script runs once per page load on the website. Here it runs when the web part has drawn the page, and four
+// The script runs once per page load on the website. Here it runs when the web part has drawn the page, and five
 // places that build addresses ask the web part, because the page is not served from the brand book folder.
 const swaps = [
   ['(function () {\n    "use strict";', "export function initBrandBook(hooks) {\n    \"use strict\";"],
-  ['iframe.src = iframe.getAttribute("data-src") + "?theme=" + encodeURIComponent(theme());', "hooks.frame(iframe, theme());"],
+  ['            var m = /^([\\w-]+(?:\\/[\\w-]+)*\\.html)(?:\\?v=(\\w+))?$/.exec(iframe.getAttribute("data-src") || "");\n            if (!m) { return; }\n            iframe.src = m[1].split("/").map(encodeURIComponent).join("/") + "?" + (m[2] ? "v=" + m[2] + "&" : "") +\n                "theme=" + encodeURIComponent(theme());', "hooks.frame(iframe, theme());"],
+  ['labImg.setAttribute("src", "logos/" + encodeURIComponent(brand + "_" + choice[0] + ".svg"));',
+    'labImg.setAttribute("src", hooks.asset("logos/" + encodeURIComponent(brand + "_" + choice[0] + ".svg")));'],
   ['window.history.replaceState(null, "", window.location.pathname + window.location.hash);', "window.history.replaceState(null, \"\", hooks.withoutBrand());"],
   ["'<img src=\"' + esc(r.preview) + '\"", "'<img src=\"' + esc(hooks.asset(r.preview)) + '\""],
   ["return '<li><a href=\"' + esc(r.url) + '\">'", "return '<li><a href=\"' + esc(hooks.link(r.url)) + '\">'"],
