@@ -23,7 +23,7 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 | `pdf/` | One-page key rules and the full brand guidelines book, per brand. |
 | `templates/` | Office templates (Word, Excel, PowerPoint) and video templates (Premiere Pro, DaVinci Resolve). |
 | `ai/` | Topics and instructions that let AI assistants use the brand. |
-| `.agents/skills/` | Agent Skills: `climb-voice` (copy rules and a copy checker) and `climb-visual-style` (visual rules). `.claude/skills` points here. |
+| `.agents/skills/` | Agent Skills: `climb-voice` (copy rules and a copy checker) and `climb-visual-style` (visual rules). `.claude/skills` points here. The other skills there are the shared engineering standards synced from `Resnovas/.github`. |
 
 ## Change a colour or a size
 
@@ -59,6 +59,20 @@ Details and options for each generator are in `generators/README.md`. The compon
 - **The checker flags "Climb".** Write the full name: ClimbUK, ClimbGroup or the edition, for example Climb27.
 - **The checker flags the venue.** Venue details are embargoed until ClimbUK announces them. Use `--announced` only after the announcement is live.
 
+## Repository setup and checks
+
+The repository follows the shared engineering setup from `Resnovas/.github`: the governance documents at the root (`AI_POLICY.md`, `DCO.md`, `GOVERNANCE.md` and the rest), the house workflows in `.github/workflows/house-*.yml`, the editor and agent surfaces (`.vscode/`, `.zed/`, `.run/`, `.codex/`, `.cursor/`, `.agents/`) and the commit hook. A weekly sync pull request keeps them current; lines after a `house:local` marker are this repository's own. `LICENSE` is not synced, because the brand material is ClimbGroup's.
+
+On a fresh clone, with Node 24 and Python 3:
+
+```bash
+scripts/agent-setup    # installs the commit hook and editor actions, then runs every check
+node --run check       # what CI runs: tokens, dashes, agent files, LLMS.md
+node --run test        # token and AI kit tests
+```
+
+The house release workflows (`House release`, `House nightly`, `House release preview`) do nothing here until the repository has a `release.config.json`; the template downloads are released separately.
+
 ## Licence
 
-The fonts are under the SIL Open Font License (`fonts/OFL-*.txt`). Everything else is the property of ClimbGroup; see `LICENSE.md`.
+The fonts are under the SIL Open Font License (`fonts/OFL-*.txt`). Everything else is the property of ClimbGroup; see `LICENSE`.
