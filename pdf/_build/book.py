@@ -319,10 +319,10 @@ def logo_icons(bk):
           '<div style="text-align:center">%s<p class="small" style="margin-top:20px">Stacked tile</p></div>'
           '<div style="text-align:center">%s<p class="small" style="margin-top:20px">Monogram</p></div>'
           '<div style="display:flex;flex-direction:column;gap:22px;align-items:center">%s%s%s<p class="small">64, 32, 16</p></div></div></div>'
-        % (logo(b, "icon", w=360, style="border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
-           logo(b, "icon-monogram", w=240, style="border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
-           logo(b, "icon-monogram", w=64, style="border-radius:10px"), logo(b, "icon-monogram", w=32, style="border-radius:6px"),
-           logo(b, "icon-monogram", w=16, style="border-radius:3px"))
+        % (logo(b, "icon-on-ground", w=360, style="border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
+           logo(b, "icon-monogram-on-ground", w=240, style="border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)"),
+           logo(b, "icon-monogram-on-ground", w=64, style="border-radius:10px"), logo(b, "icon-monogram-on-ground", w=32, style="border-radius:6px"),
+           logo(b, "icon-monogram-on-ground", w=16, style="border-radius:3px"))
     )
     bk.add(bk.B["ground"], inner)
 
@@ -1087,7 +1087,7 @@ def video(bk):
         + '<div class="glow"></div>'
         + '<div style="position:absolute;left:120px;top:110px;right:120px;bottom:140px;border:2px solid rgba(255,255,255,.25);border-radius:6px"></div>'
         + '<div style="position:absolute;left:150px;top:140px;font:700 16px Montserrat;letter-spacing:.14em;color:rgba(255,255,255,.7)">TITLE SAFE 5%</div>'
-        + '<div style="position:absolute;right:150px;top:140px;opacity:.6">%s</div>' % logo(bk.b, "icon-monogram", w=60)
+        + '<div style="position:absolute;right:150px;top:140px;opacity:.6">%s</div>' % logo(bk.b, "icon-monogram-on-ground", w=60)
         + '<div style="position:absolute;left:180px;top:200px;width:900px">'
           '<div class="eb" style="font-size:24px">Video and motion graphics</div>'
           '<div class="h" style="font-size:84px;margin-top:22px">FILM THE <em>FESTIVAL</em>, NOT THE <span class="o">CONFERENCE</span>.</div>'

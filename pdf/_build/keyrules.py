@@ -76,7 +76,7 @@ def build(b):
         ], '<div class="vis"><div style="flex:1.3;background:var(--db);border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12)">%s</div>'
            '<div style="flex:1.3;background:#fff;border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center">%s</div>'
            '<div style="width:44px;height:44px;flex:none">%s</div></div>'
-           % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram", w=44, style="border-radius:6px"))),
+           % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram-on-ground", w=44, style="border-radius:6px"))),
         card("02", "Colour", [
             "<b>Dark first:</b> %s is the ground. Light grounds are for long reading." % other_ground,
             "<b>Orange leads, never floods:</b> one orange call to action per view.",

@@ -81,27 +81,64 @@ def png_exports(svg_path, pngdir, stem):
                         os.path.join(pngdir, f"{stem}_{wpx}.png")], check=True)
 
 
+# The three solid grounds every logo, icon and tile also comes on. Transparent is the default; these are for
+# places that need a filled square or rectangle (app stores, slides, platforms that flatten transparency).
+GROUNDS = {"white": WHITE, "ground": BROWN, "orange": ORANGE}
+
 VARIANTS = [
-    # key, label, climb colour, suffix colour, intended background
-    ("full-colour-light", "Full colour (light)", ORANGE, CHAR, WHITE),
-    ("reversed-dark", "Reversed (dark-first)", ORANGE, WHITE, BROWN),
-    ("mono-dark", "Mono dark", CHAR, CHAR, WHITE),
-    ("mono-white", "Mono white", WHITE, WHITE, BROWN),
-    ("icon", "Square icon", None, None, None),
-    ("full-colour-grey", "Full colour (Light Grey)", ORANGE_GREY, CHAR, GREY),
-    ("icon-monogram", "Monogram icon (under 64px)", None, None, None),
-    ("tagline-lockup", "Tagline lockup", ORANGE, CHAR, WHITE),
-    ("tagline-lockup-reversed", "Tagline lockup reversed", ORANGE, WHITE, BROWN),
+    # key, label, kind, climb colour, suffix colour, intended background, solid ground (None = transparent)
+    ("full-colour-light", "Full colour (light)", "word", ORANGE, CHAR, WHITE, None),
+    ("reversed-dark", "Reversed (dark-first)", "word", ORANGE, WHITE, BROWN, None),
+    ("mono-dark", "Mono dark", "word", CHAR, CHAR, WHITE, None),
+    ("mono-white", "Mono white", "word", WHITE, WHITE, BROWN, None),
+    ("icon", "Square icon", "icon", ORANGE, CHAR, WHITE, None),
+    ("icon-reversed", "Square icon reversed", "icon", ORANGE, WHITE, BROWN, None),
+    ("full-colour-grey", "Full colour (Light Grey)", "word", ORANGE_GREY, CHAR, GREY, None),
+    ("icon-monogram", "Monogram icon (under 64px)", "monogram", ORANGE, ORANGE, None, None),
+    ("tagline-lockup", "Tagline lockup", "tagline", ORANGE, CHAR, WHITE, None),
+    ("tagline-lockup-reversed", "Tagline lockup reversed", "tagline", ORANGE, WHITE, BROWN, None),
+    # Solid grounds: full colour on White, reversed on Dark Brown, one-colour white on Climb Orange.
+    ("logo-on-white", "Logo on White", "word", ORANGE, CHAR, WHITE, WHITE),
+    ("logo-on-ground", "Logo on Dark Brown", "word", ORANGE, WHITE, BROWN, BROWN),
+    ("logo-on-orange", "Logo on Climb Orange", "word", WHITE, WHITE, ORANGE, ORANGE),
+    ("tagline-lockup-on-white", "Tagline lockup on White", "tagline", ORANGE, CHAR, WHITE, WHITE),
+    ("tagline-lockup-on-ground", "Tagline lockup on Dark Brown", "tagline", ORANGE, WHITE, BROWN, BROWN),
+    ("tagline-lockup-on-orange", "Tagline lockup on Climb Orange", "tagline", WHITE, WHITE, ORANGE, ORANGE),
+    ("icon-on-white", "Square icon on White", "icon", ORANGE, CHAR, WHITE, WHITE),
+    ("icon-on-ground", "Square icon on Dark Brown", "icon", ORANGE, WHITE, BROWN, BROWN),
+    ("icon-on-orange", "Square icon on Climb Orange", "icon", WHITE, WHITE, ORANGE, ORANGE),
+    ("icon-monogram-on-white", "Monogram on White", "monogram", ORANGE, ORANGE, WHITE, WHITE),
+    ("icon-monogram-on-ground", "Monogram on Dark Brown", "monogram", ORANGE, ORANGE, BROWN, BROWN),
+    ("icon-monogram-on-orange", "Monogram on Climb Orange", "monogram", WHITE, WHITE, ORANGE, ORANGE),
 ]
 TAGLINE = "The Festival for Business Growth"
+
+
+def rect(w, h, ground, x=0, y=0):
+    return f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" fill="{ground}"/>' if ground else ""
+
+
+def c_height(paths, w, h):
+    """Height of the large C in Climb (the leftmost orange shape): the clear space on every edge."""
+    climb = [p for p in paths if p[1] == "climb"]
+    first = min(path_bboxes(climb, w, h), key=lambda b: b[0])
+    return first[3]
+
+
+def on_ground(vb, body, clear, ground):
+    """Grow the view box by the clear space on every edge and fill it with the ground."""
+    x, y, bw, bh = vb
+    nvb = (x - clear, y - clear, bw + 2 * clear, bh + 2 * clear)
+    return nvb, rect(nvb[2], nvb[3], ground, nvb[0], nvb[1]) + body
 
 
 def path_bboxes(paths, w, h):
     return [bbox([p], w, h) for p in paths]
 
 
-def build_monogram(w, h, paths):
-    """The shared li mark (the 'l' and the stencilled 'i' of Climb), orange on a Dark Brown tile."""
+def build_monogram(w, h, paths, colour=ORANGE, ground=None):
+    """The shared li mark (the 'l' and the stencilled 'i' of Climb): orange on a transparent square by default,
+    or on a solid ground."""
     climb = [p for p in paths if p[1] == "climb"]
     cb = bbox(climb, w, h)
     picked = [p for p, b in zip(climb, path_bboxes(climb, w, h))
@@ -112,12 +149,12 @@ def build_monogram(w, h, paths):
     k = size * 0.70 / mb[3]
     tx = (size - mb[2] * k) / 2 - mb[0] * k
     ty = (size - mb[3] * k) / 2 - mb[1] * k
-    body = (f'<rect width="{size}" height="{size}" fill="{BROWN}"/>'
-            + group(picked, None, ORANGE, f"translate({tx:.2f} {ty:.2f}) scale({k:.5f})"))
+    body = (rect(size, size, ground)
+            + group(picked, None, colour, f"translate({tx:.2f} {ty:.2f}) scale({k:.5f})"))
     return svg_doc((0, 0, size, size), body, "<title>Climb li monogram</title>")
 
 
-def build_tagline(brand, w, h, paths, c1, c2, label):
+def build_tagline(brand, w, h, paths, c1, c2, label, ground=None):
     """Wordmark with the tagline set in Montserrat Bold (outlined) beneath, matched to the wordmark width."""
     from textpath import text_path
     allb = bbox(paths, w, h)
@@ -134,8 +171,10 @@ def build_tagline(brand, w, h, paths, c1, c2, label):
     full_h = base + 0.25 * cap * k  # room for descenders (g, w baseline)
     x0, y0 = allb[0], allb[1]
     vb = (x0, y0, allb[2], full_h - y0)
-    return svg_doc(vb, group(paths, "climb", c1) + group(paths, "suffix", c2) + tag,
-                   f"<title>{brand} logo with tagline, {label}</title>")
+    body = group(paths, "climb", c1) + group(paths, "suffix", c2) + tag
+    if ground:
+        vb, body = on_ground(vb, body, c_height(paths, w, h), ground)
+    return svg_doc(vb, body, f"<title>{brand} logo with tagline, {label}</title>")
 
 
 def without_reg(paths, w, h):
@@ -146,8 +185,9 @@ def without_reg(paths, w, h):
     return [p for p, b in zip(paths, bs) if not (p[1] == "suffix" and b[3] < 0.3 * tall and b[2] < 0.3 * tall)]
 
 
-def build_icon(brand, w, h, paths):
-    """Square tile, Dark Brown, stacked 'Climb' over suffix, centred and drawn without the registered mark."""
+def build_icon(brand, w, h, paths, c1=ORANGE, c2=WHITE, ground=None):
+    """Square icon, stacked 'Climb' over suffix, centred and drawn without the registered mark. Transparent by
+    default, or on a solid ground."""
     if brand in STACKED:
         sw, sh, sp = load(STACKED[brand])
         sp = without_reg(sp, sw, sh)
@@ -164,8 +204,7 @@ def build_icon(brand, w, h, paths):
         tx = (size - allb[2] * k) / 2 - allb[0] * k
         ty = (size - allb[3] * k) / 2 - allb[1] * k
         tf = f"translate({tx:.2f} {ty:.2f}) scale({k:.5f})"
-        body = (f'<rect width="{size}" height="{size}" fill="{BROWN}"/>'
-                + group(sp, "climb", ORANGE, tf) + group(sp, "suffix", WHITE, tf))
+        body = rect(size, size, ground) + group(sp, "climb", c1, tf) + group(sp, "suffix", c2, tf)
         return svg_doc((0, 0, size, size), body)
     paths = without_reg(paths, w, h)
     cb = bbox(paths, w, h, "climb")
@@ -179,9 +218,9 @@ def build_icon(brand, w, h, paths):
     c_ty = top - cb[1] * k
     s_tx = (size - xb[2] * k) / 2 - xb[0] * k
     s_ty = top + (cb[3] + gap) * k - xb[1] * k
-    body = (f'<rect width="{size}" height="{size}" fill="{BROWN}"/>'
-            + group(paths, "climb", ORANGE, f"translate({c_tx:.2f} {c_ty:.2f}) scale({k:.5f})")
-            + group(paths, "suffix", WHITE, f"translate({s_tx:.2f} {s_ty:.2f}) scale({k:.5f})"))
+    body = (rect(size, size, ground)
+            + group(paths, "climb", c1, f"translate({c_tx:.2f} {c_ty:.2f}) scale({k:.5f})")
+            + group(paths, "suffix", c2, f"translate({s_tx:.2f} {s_ty:.2f}) scale({k:.5f})"))
     return svg_doc((0, 0, size, size), body)
 
 
@@ -192,16 +231,18 @@ def main():
         vb = bbox(paths, w, h)
         bdir = os.path.join(OUT, brand)
         files = {}
-        for key, label, c1, c2, bg in VARIANTS:
-            if key == "icon":
-                doc = build_icon(brand, w, h, paths)
-            elif key == "icon-monogram":
-                doc = build_monogram(w, h, paths)
-            elif key.startswith("tagline"):
-                doc = build_tagline(brand, w, h, paths, c1, c2, label)
+        for key, label, kind, c1, c2, bg, ground in VARIANTS:
+            if kind == "icon":
+                doc = build_icon(brand, w, h, paths, c1, c2, ground)
+            elif kind == "monogram":
+                doc = build_monogram(w, h, paths, c1, ground)
+            elif kind == "tagline":
+                doc = build_tagline(brand, w, h, paths, c1, c2, label, ground)
             else:
-                doc = svg_doc(vb, group(paths, "climb", c1) + group(paths, "suffix", c2),
-                              f"<title>{brand} logo, {label}</title>")
+                box, body = vb, group(paths, "climb", c1) + group(paths, "suffix", c2)
+                if ground:
+                    box, body = on_ground(vb, body, c_height(paths, w, h), ground)
+                doc = svg_doc(box, body, f"<title>{brand} logo, {label}</title>")
             p = os.path.join(bdir, f"{brand}_{key}.svg")
             write(p, doc)
             png_exports(p, os.path.join(bdir, "PNG"), f"{brand}_{key}")

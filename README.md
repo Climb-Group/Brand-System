@@ -7,7 +7,8 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 | Folder | What it holds |
 | --- | --- |
 | `tokens/` | Design tokens: colours, presets, themes (Dark, Light, AAA-Dark, AAA-Light), type, spacing, radius, shadow, motion, print colours. `brand.tokens.json` is the source; `tokens.css` and `_tokens.scss` are generated. |
-| `logos/` | Logo masters per brand (SVG and PNG, contact sheets) and the script that builds them. |
+| `logos/` | Logo masters per brand (SVG and PNG, contact sheets) and the script that builds them. Transparent by default, each also on solid White, Dark Brown and Climb Orange. |
+| `app-icons/` | Favicons, web app icons and app launcher tiles, transparent by default and on the three solid grounds. |
 | `fonts/` | Montserrat and Open Sans (SIL Open Font License). |
 | `illustrations/` | The house line illustrations, one SVG per object, and the background shapes in `shapes/`. |
 | `icons/social/` | Social icons and signature buttons in SVG and PNG. |
@@ -75,6 +76,8 @@ None of these vendors offers a link that installs a skill for you, so each butto
 python3 generators/illustrations.py     # illustrations/*.svg
 python3 generators/build_shapes.py      # illustrations/shapes/*.svg
 python3 logos/_build/build.py           # logos/
+python3 logos/_build/sheet.py           # logos/<Brand>/<Brand>_contact-sheet.png
+python3 app-icons/_build/build_app_icons.py   # app-icons/ (run after the logos)
 python3 generators/catalogue.py build/assets && node generators/render.mjs build/assets   # the asset catalogue as PNG
 ```
 

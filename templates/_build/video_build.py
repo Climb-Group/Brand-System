@@ -320,7 +320,7 @@ def bug(b):
     """Reversed monogram at 60% opacity, top right, 160px on a 4K frame (guidelines/video.md)."""
     d = os.path.join(VOUT, b)
     bug = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    mono = Image.open(B.logo(b, "icon-monogram", 512)).convert("RGBA").resize((160, 160), Image.LANCZOS)
+    mono = Image.open(B.logo(b, "icon-monogram-on-ground", 512)).convert("RGBA").resize((160, 160), Image.LANCZOS)
     mono.putalpha(mono.getchannel("A").point(lambda v: int(v * 0.6)))
     bug.alpha_composite(mono, (W - 192 - 160, 108))
     still(bug, os.path.join(d, "stills", "%s_Bug_4K.png" % b))

@@ -98,7 +98,7 @@
       "key": "logo",
       "name": "climb_brand_logo",
       "progress": "Choosing the logo",
-      "description": "Pick the right logo master for ClimbUK, ClimbGroup or Climb27 on a given ground, size and use, and return the variant, file names and the logo rules.",
+      "description": "Pick the right logo master for ClimbUK, ClimbGroup or Climb27 on a given ground, size and use, and return the variant, file names and the logo rules. Files are transparent by default; fill asks for the version on a solid White, Dark Brown or Climb Orange ground.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -128,6 +128,11 @@
           "colours": {
             "type": "integer",
             "description": "1 when only one ink or colour is available."
+          },
+          "fill": {
+            "type": "string",
+            "description": "Leave empty for a transparent background (the default). white, ground (Dark Brown) or orange for a solid background.",
+            "maxLength": 20
           }
         },
         "required": [
