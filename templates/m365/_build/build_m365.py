@@ -121,39 +121,35 @@ def theme_sticker(brand):
 
 
 def theme_image(brand, mode, scale, label):
-    """Meeting theme image, laid out at the recommended 1440x810. Dark: a Climb26 photo under a Dark Brown fade with
-    the orange glow and the brand line on the solid side. Light: White ground, tilted photo cards, Charcoal line with
-    the orange word in Orange Text (4.6:1, so the line passes even at small display sizes)."""
+    """Meeting theme image, laid out at the recommended 1440x810. Teams shows it behind the join screen, with the
+    theme logo and meeting title at the top centre and the camera and audio panels over the middle (about 22 to 78
+    percent across and down), and crops the top and bottom on wide windows. So the middle stays photo and glow only:
+    the brand line runs in one line along the bottom band on the solid left half, the sticker sits top left, and the
+    photo fills the right half under a fade, where it shows beside the panels. Dark: Dark Brown fade and the orange glow. Light: White fade, Charcoal line with the orange word in
+    Orange Text (4.6:1)."""
     w, h = 1440, 810
     b = B[brand]
     K = P.Kit(C, brand, scale)
-    p = []
-    if mode == "dark":
-        p.append(K.pic(b["dark_photo"], int(w * 0.34), 0, w - int(w * 0.34), h, pos=b["dark_pos"],
-                       fade=P.fade("to right", 0, 70, 1.0, 0.0)))
+    dark = mode == "dark"
+    rgb = DB_RGB if dark else "255,255,255"
+    p = [K.pic(b["dark_photo"], int(w * 0.5), 0, w - int(w * 0.5), h, pos=b["dark_pos"],
+               fade=P.fade("to right", 0, 45, 1.0, 0.0, rgb=rgb))]
+    if dark:
         p.append(P.glow(w, h, w, 0, w * 0.5, 0.42))
-        p.append(F.svg(w, h, M.contours(w, h, seed=21, rings=8, dark=True, marker=False, cx=-0.05, cy=1.08)))
-        p.append(P.head(b["line"], 96, h * 0.5, 92, 600, anchor="top", lh=0.98).replace(
-            "top:%.0fpx" % (h * 0.5), "top:%.0fpx;transform:translateY(-50%%)" % (h * 0.5)))
-        p.append(P.sticker(theme_sticker(brand), 96, h - 120, 26, rot=-4))
-        p.append(F.grain_layer(w, h, 31, 0.06))
-        ground = "dark-brown"
+    p.append(F.svg(w, h, M.contours(w, h, seed=21, rings=8, dark=dark, marker=False, cx=-0.05, cy=1.08)))
+    line = " ".join(b["line"])
+    if dark:
+        hd = P.head([line], 96, 632, 52, 620, anchor="top", lh=1.0)
     else:
-        cards = b["cards"]
-        p.append(F.svg(w, h, M.contours(w, h, seed=22, rings=9, dark=False, marker=False, cx=1.05, cy=1.1)))
-        p.append(F.svg(w, h, M.slabs(w, h, corners=("br",), length=w * 0.2, thick=h * 0.05)))
-        p.append(K.pic(cards[0], 820, 90, 400, 300, rot=-5, radius=18, shadow=True))
-        p.append(K.pic(cards[1], 1010, 330, 360, 260, rot=4, radius=18, shadow=True))
-        p.append(K.pic(cards[2], 770, 440, 300, 230, rot=-2, radius=18, shadow=True))
-        line = [l.replace("[[", "{{").replace("]]", "}}") for l in b["line"]]
-        hd = P.head(line, 96, h * 0.5, 92, 600, anchor="top", colour=CH, lh=0.98)
-        hd = hd.replace("top:%.0fpx" % (h * 0.5), "top:%.0fpx;transform:translateY(-50%%)" % (h * 0.5))
+        hd = P.head([line.replace("[[", "{{").replace("]]", "}}")], 96, 632, 52, 620, anchor="top", colour=CH, lh=1.0)
         hd = hd.replace("{{", '<span style="color:%s">' % OR_TEXT).replace("}}", "</span>")
-        p.append(hd)
-        p.append(P.sticker(theme_sticker(brand), 96, h - 120, 26, rot=-4, tone="brown"))
-        ground = "white"
+    p.append(hd)
+    p.append(P.sticker(theme_sticker(brand), 96, 110, 24, rot=-3, tone="orange" if dark else "brown"))
+    if dark:
+        p.append(F.grain_layer(w, h, 31, 0.06))
     copy = [F.plain(l) for l in b["line"]] + [theme_sticker(brand)]
-    add("%s_teams-theme_image-%s_%s" % (brand.lower(), mode, label), w, h, p, copy, scale=scale, ground=ground)
+    add("%s_teams-theme_image-%s_%s" % (brand.lower(), mode, label), w, h, p, copy, scale=scale,
+        ground="dark-brown" if dark else "white")
 
 
 # ---------------------------------------------------------------- Organisation backgrounds

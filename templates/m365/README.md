@@ -8,7 +8,7 @@ Sizes and limits were checked against Microsoft's documentation on 10 October 20
 
 | Folder | What it holds |
 | --- | --- |
-| `teams-themes/<Brand>/` | Meeting theme logo (dark and light, 800x800 PNG) and theme image (dark and light, 1440x810 JPG plus a 3840x2160 JPG) |
+| `teams-themes/<Brand>/` | Meeting theme logo (dark and light, 800x800 PNG) and theme image (dark and light, 1440x810 JPG plus a 3840x2160 JPG; the middle stays clear for the join screen panels, the line runs along the bottom) |
 | `teams-themes/reactions/<set>/` | Branded reactions for all five slots (Like, Heart, Applause, Laugh, Surprised) in three sets: `mixed` (each reaction in its own palette so they are told apart at a glance: Like on Climb Orange, Heart on Dark Brown, Applause on Charcoal, Laugh on Orange Tint, Surprised on White), `orange` (Climb Orange disc, Dark Brown drawing) and `dark` (Dark Brown disc ringed in Climb Orange, orange drawing). Each has a static 100x100 PNG and an animated 100x5100 sprite (51 frames, 24 fps) |
 | `teams-backgrounds/<Brand>/` | 14 meeting backgrounds per brand, 42 in all, 3840x2160 JPG: 10 festival layouts (stage-light, contours, connections, ascent, spotlight, summit, orbit, network, and the light pair ascent-light and contours-light) and 4 calm ones (calm-dark, calm-glow, calm-light, calm-white) |
 | `org-theme/` | Navigation bar logos per brand: default (full colour reversed) and alternative (one-colour white), as SVG and as 200x48 PNG, all under 10 KB |
