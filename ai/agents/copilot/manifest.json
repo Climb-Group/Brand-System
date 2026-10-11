@@ -1,0 +1,33 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "1.0.0",
+  "id": "3bfd0754-7974-4e49-acfe-f901e960ba00",
+  "developer": {
+    "name": "ClimbGroup",
+    "websiteUrl": "https://climb-uk.com/brand",
+    "privacyUrl": "https://climb-uk.com/privacy",
+    "termsOfUseUrl": "https://climb-uk.com/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "ClimbUK Brand",
+    "full": "ClimbUK Brand assistant"
+  },
+  "description": {
+    "short": "Write and design on brand for ClimbUK, ClimbGroup and Climb27.",
+    "full": "The ClimbUK brand voice and visual style in one assistant. It writes, reviews and plans copy and designs for ClimbUK, ClimbGroup and the Climb editions, using the public brand pack."
+  },
+  "accentColor": "#1E0F05",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "climbukBrand",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  }
+}
