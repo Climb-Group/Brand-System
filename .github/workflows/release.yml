@@ -16,8 +16,7 @@ on:
         type: boolean
         default: false
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: release
@@ -26,13 +25,13 @@ concurrency:
 jobs:
   templates:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - name: Build the install package
         run: python3 templates/_build/package_build.py
       - name: Attach it to the templates release
@@ -51,18 +50,17 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.motion
     runs-on: ubuntu-latest
     timeout-minutes: 300
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          python-version: "3.12"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+          node-version: 24
       - name: Install ffmpeg, Pillow and Chromium
-        run: |
+        run: | # pinned render tool, no lockfile in this repo # zizmor: ignore[adhoc-packages]
           sudo apt-get update && sudo apt-get install -y ffmpeg
           python3 -m pip install Pillow
           npm install --no-save playwright@1.56.1
