@@ -134,7 +134,7 @@ if ($InstallApp) {
 }
 
 # 6. The brand book page. A brand.aspx this script made earlier (title "Brand centre") that does not show the brand
-# book, because the web part was missing or empty, is cleared and given the web part. Any other page with that name
+# book full width, because the web part was missing or empty or sat in a narrow section, is cleared and rebuilt. Any other page with that name
 # is left alone.
 $made = @()
 function IsBook($control) { "$($control.WebPartId)".Trim("{", "}").ToLower() -eq $webPartId }
@@ -145,10 +145,12 @@ function HasBook { $p = BrandPage; return [bool]($p -and @($p.Controls | Where-O
 function BookComponent {
     @(Get-PnPPageComponent -Page $BrandPageName -ListAvailable | Where-Object { "$($_.Id)".Trim("{", "}").ToLower() -eq $webPartId })[0]
 }
+# The brand book fills the page width in a full width section. Sites that do not allow one get a one column section.
+function IsWide { $p = BrandPage; return [bool]($p -and @($p.Sections | Where-Object { "$($_.Type)" -eq "OneColumnFullWidth" }).Count -gt 0) }
 $brandPage = BrandPage
 $hasBook = HasBook
 $ours = $brandPage -and $brandPage.PageTitle -eq "Brand centre"
-if ($hasBook) {
+if ($hasBook -and ((IsWide) -or -not $ours)) {
     Write-Host "$BrandPageName.aspx already shows the brand book"
 }
 elseif ($brandPage -and -not $ours) {
@@ -180,8 +182,18 @@ else {
             $page.ClearPage()
             $page.Save() | Out-Null
         }
-        Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumn | Out-Null
-        Add-PnPPageWebPart -Page $BrandPageName -Component $component -Section 1 -Column 1 | Out-Null
+        try {
+            Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumnFullWidth | Out-Null
+            Add-PnPPageWebPart -Page $BrandPageName -Component $component -Section 1 -Column 1 | Out-Null
+        }
+        catch {
+            Write-Host "This site does not allow a full width section ($($_.Exception.Message)), so the brand book goes in a one column section"
+            $page = BrandPage
+            $page.ClearPage()
+            $page.Save() | Out-Null
+            Add-PnPPageSection -Page $BrandPageName -SectionTemplate OneColumn | Out-Null
+            Add-PnPPageWebPart -Page $BrandPageName -Component $component -Section 1 -Column 1 | Out-Null
+        }
         $hasBook = HasBook
         if ($hasBook) {
             $made += $BrandPageName
@@ -348,6 +360,7 @@ function Check([string]$what, [bool]$ok, [string]$detail) {
 Write-Host ""
 Write-Host "Check"
 Check "$BrandPageName.aspx shows the brand book" (HasBook) ""
+Check "$BrandPageName.aspx is full width" (IsWide) "a site that does not allow it shows the brand book in one column"
 $version = ""
 try { $version = "$((Get-PnPFile -Url "$rel/SitePages/$BrandPageName.aspx" -AsListItem).FieldValues['_UIVersionString'])" } catch { }
 Check "$BrandPageName.aspx is published" ($version -match '\.0$') "version $version"

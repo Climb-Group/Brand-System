@@ -3,7 +3,7 @@
   "solution": {
     "name": "ClimbUK brand book",
     "id": "05f5d231-1818-4b9c-a6c2-6f22bb68c843",
-    "version": "1.0.0.0",
+    "version": "1.0.1.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,

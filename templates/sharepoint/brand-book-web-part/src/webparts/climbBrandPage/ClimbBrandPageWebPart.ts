@@ -18,6 +18,53 @@ export interface IClimbBrandPageWebPartProps {
 
 export default class ClimbBrandPageWebPart extends BaseClientSideWebPart<IClimbBrandPageWebPartProps> {
   private _shown: string = '';
+  private _watch: number = 0;
+
+  // SharePoint moves between pages without reloading, and the brand book menus only change the page address, so the
+  // web part draws the page again whenever the address changes. Links between brand book pages stay on this page.
+  protected onInit(): Promise<void> {
+    // SharePoint changes the address itself when its menu links point at this page, without telling web parts.
+    this._watch = window.setInterval(() => {
+      if (this._shown && this._shown !== this._base() + this._slug()) {
+        this.render();
+      }
+    }, 300);
+    window.addEventListener('popstate', this._onPopState);
+    this.domElement.addEventListener('click', this._onClick);
+    return super.onInit();
+  }
+
+  protected onDispose(): void {
+    window.clearInterval(this._watch);
+    window.removeEventListener('popstate', this._onPopState);
+    this.domElement.removeEventListener('click', this._onClick);
+    super.onDispose();
+  }
+
+  private _onPopState = (): void => {
+    this.render();
+  };
+
+  private _onClick = (e: MouseEvent): void => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+    const a = (e.target as HTMLElement).closest ? (e.target as HTMLElement).closest('a[href]') as HTMLAnchorElement : null;
+    if (!a || a.target) {
+      return;
+    }
+    const to = new URL(a.href, window.location.href);
+    const slug = to.searchParams.get(PAGE_PARAM) || '';
+    if (to.origin !== window.location.origin || to.pathname.toLowerCase() !== window.location.pathname.toLowerCase() || !SLUG.test(slug)) {
+      return;
+    }
+    if (slug === this._slug() && to.hash) {
+      return;
+    }
+    e.preventDefault();
+    window.history.pushState(null, '', to.pathname + to.search + to.hash);
+    this.render();
+  };
 
   public render(): void {
     const base = this._base();
@@ -25,6 +72,7 @@ export default class ClimbBrandPageWebPart extends BaseClientSideWebPart<IClimbB
     if (this._shown === base + slug) {
       return;
     }
+    const moved = this._shown !== '';
     this._shown = base + slug;
     showBookPage(this.domElement, {
       base,
@@ -36,6 +84,8 @@ export default class ClimbBrandPageWebPart extends BaseClientSideWebPart<IClimbB
     }).then((ok) => {
       if (!ok) {
         this._shown = '';
+      } else if (moved && window.location.hash.length < 2) {
+        this.domElement.scrollIntoView();
       }
     }).catch(() => {
       this._shown = '';
