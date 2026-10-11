@@ -13,7 +13,7 @@ build    writes the zip: group folders at the top, JPEGs stored as they are,
          sorted, without the excluded photos.
 publish  builds the zip, and when the library changed since the last upload
          (a fingerprint of names, sizes and times kept with the release)
-         uploads it to the photo-library release with the exclude list, then
+         uploads it to the photo-library-1.0 release with the exclude list, then
          starts the media kit workflow. Needs the GitHub CLI, signed in.
          The release is public, so a photo that was not in the last upload
          holds the whole publish (exit 2, with a desktop notification) until
@@ -37,7 +37,7 @@ import tempfile
 import zipfile
 
 REPOSITORY = "Climb-Group/Brand-System"
-TAG = "photo-library"
+TAG = "photo-library-1.0"
 ZIP_NAME = "climb-photo-library.zip"
 FINGERPRINT_NAME = "climb-photo-library.json"
 EXCLUDE_NAME = "media-kit-exclude.txt"

@@ -6,7 +6,7 @@ name: media kit
 #
 # The builder, climb_brand_media_kit/scripts/build_kit.py, lives in the website repository, which is private:
 # the MEDIA_KIT_BUILDER_TOKEN secret is a read-only token for it (contents: read). The photo library comes from
-# the photo-library release's climb-photo-library.zip (one folder per group, exclusions already applied), and
+# the photo-library-1.0 release's climb-photo-library.zip (one folder per group, exclusions already applied), and
 # its optional media-kit-exclude.txt is passed as --photo-exclude on top; when that release does not exist the
 # kit is built without photos and the job summary says so.
 
@@ -29,7 +29,7 @@ on:
         type: string
         default: production
       photo-library:
-        description: Add the photo library from the photo-library release
+        description: Add the photo library from the photo-library-1.0 release
         type: boolean
         default: true
 
@@ -109,17 +109,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release download photo-library --repo "$GITHUB_REPOSITORY" --pattern climb-photo-library.zip --dir "$RUNNER_TEMP"; then
+          if gh release download photo-library-1.0 --repo "$GITHUB_REPOSITORY" --pattern climb-photo-library.zip --dir "$RUNNER_TEMP"; then
             mkdir -p "$RUNNER_TEMP/photo-library"
             unzip -q "$RUNNER_TEMP/climb-photo-library.zip" -d "$RUNNER_TEMP/photo-library"
             echo "dir=$RUNNER_TEMP/photo-library" >> "$GITHUB_OUTPUT"
             # Optional second asset: folder/filename lines to leave out, applied on top of the zip.
-            if gh release download photo-library --repo "$GITHUB_REPOSITORY" --pattern media-kit-exclude.txt --dir "$RUNNER_TEMP"; then
+            if gh release download photo-library-1.0 --repo "$GITHUB_REPOSITORY" --pattern media-kit-exclude.txt --dir "$RUNNER_TEMP"; then
               echo "exclude=$RUNNER_TEMP/media-kit-exclude.txt" >> "$GITHUB_OUTPUT"
             fi
           else
-            echo '::warning::No photo-library release with climb-photo-library.zip, so the kit has no photo library.'
-            echo 'The kit was built **without the photo library**: upload climb-photo-library.zip to a release tagged photo-library.' >> "$GITHUB_STEP_SUMMARY"
+            echo '::warning::No photo-library-1.0 release with climb-photo-library.zip, so the kit has no photo library.'
+            echo 'The kit was built **without the photo library**: upload climb-photo-library.zip to the release tagged photo-library-1.0.' >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Build the exports kit

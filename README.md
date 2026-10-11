@@ -112,7 +112,7 @@ It runs on every push to `main` that changes the artwork sources (`generators/`,
 | Option | Default | What it does |
 | --- | --- | --- |
 | `builder-ref` | `production` | The branch or tag of the website repository whose kit builder (`climb_brand_media_kit/scripts/build_kit.py`) to run. |
-| `photo-library` | ticked | Adds the photo library from the `photo-library` release. |
+| `photo-library` | ticked | Adds the photo library from the `photo-library-1.0` release. |
 
 Each run renders the catalogue (`generators/catalogue.py` and `generators/render.mjs` in headless Chromium), builds the template install package (`templates/_build/package_build.py`), downloads the fonts, then runs the kit builder. The job summary prints the import link.
 
@@ -125,7 +125,7 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
    python3 photos/_build/photo_library.py publish --source "Candid Shots/Originals-3840px" --approve-new
    ```
 
-   It zips the library without the excluded photos as `climb-photo-library.zip`, uploads it with the exclude list to the `photo-library` release (creating it the first time) and starts the `media kit` workflow. When nothing changed since the last upload it does nothing, so it is safe to repeat. The release is public, so a photo that was not in the last upload holds the whole publish, with a desktop notification naming it, until you have screened it: exclude it if it must stay private, then run `publish` again with `--approve-new`. The first publish needs `--approve-new` too. Removing photos or adding exclusions goes out without it.
+   It zips the library without the excluded photos as `climb-photo-library.zip`, uploads it with the exclude list to the `photo-library-1.0` release (creating it the first time) and starts the `media kit` workflow. When nothing changed since the last upload it does nothing, so it is safe to repeat. The release is public, so a photo that was not in the last upload holds the whole publish, with a desktop notification naming it, until you have screened it: exclude it if it must stay private, then run `publish` again with `--approve-new`. The first publish needs `--approve-new` too. Removing photos or adding exclusions goes out without it.
 3. To publish changes without a command, install the hourly timer on that machine (Linux, systemd):
 
    ```bash
@@ -138,7 +138,7 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 | --- | --- | --- |
 | `--source` | none, required | The library folder, one subfolder per candid group. |
 | `--exclude` | `media-kit-exclude.txt` next to the source folder | Photos never to publish. |
-| `--repo` | `Climb-Group/Brand-System` | Where the `photo-library` release lives. |
+| `--repo` | `Climb-Group/Brand-System` | Where the `photo-library-1.0` release lives. |
 | `--force` (publish) | off | Upload even when nothing changed. |
 | `--no-workflow` (publish) | off | Upload without starting the media kit workflow. |
 | `--approve-new` (publish) | off | Publish photos that were not in the last upload, once you have screened them. |
@@ -153,7 +153,8 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 
 - **"Add the MEDIA_KIT_BUILDER_TOKEN secret".** The secret is missing or empty; see step 1.
 - **The website repository checkout fails with `git` exit code 1.** The `builder-ref` branch no longer exists (branches are deleted once merged) or the token cannot read the repository. Run the workflow with a branch that exists, or check the token has Contents read access to the website repository.
-- **The kit has no photos.** The `photo-library` release or its `climb-photo-library.zip` is missing; run step 2.
+- **The kit has no photos.** The `photo-library-1.0` release or its `climb-photo-library.zip` is missing; run step 2.
+- **`publish` fails with "tag_name was used by an immutable release" or "creations being restricted".** The library lives on the existing `photo-library-1.0` release, because the plain `photo-library` tag can never be reused and new tags are restricted. Leave that release in place; `publish` only replaces its files.
 - **`publish` says gh is not installed or failed.** Install the GitHub CLI and run `gh auth login` on the machine with the photos.
 - **The timer shows failed and a notification says the library is held for review.** New photos are waiting for you; see step 2.
 - **A photo that should be private is in the library.** Add its `group/filename` line to `media-kit-exclude.txt` and run `publish`; the new list changes the fingerprint, so it uploads a zip without it and rebuilds the media kit.
