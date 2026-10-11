@@ -208,10 +208,14 @@ else {
 # web parts there), although SharePoint shows it. So comments and publishing go through SharePoint's own calls.
 if ($hasBook) {
     $pageId = (Get-PnPFile -Url "$rel/SitePages/$BrandPageName.aspx" -AsListItem).Id
-    try {
-        Invoke-PnPSPRestMethod -Method Post -Url "$SiteUrl/_api/web/GetList('$rel/SitePages')/items($pageId)/SetCommentsDisabled(true)" | Out-Null
+    # The call takes its value either in the address or in the body, depending on the SharePoint version.
+    $item = "$SiteUrl/_api/web/GetList('$rel/SitePages')/items($pageId)"
+    $off = $false
+    foreach ($try in @(@{ U = "$item/SetCommentsDisabled"; C = @{ value = $true } }, @{ U = "$item/SetCommentsDisabled(value=true)"; C = @{} })) {
+        if ($off) { continue }
+        try { Invoke-PnPSPRestMethod -Method Post -Url $try.U -Content $try.C | Out-Null; $off = $true } catch { $why = $_.Exception.Message }
     }
-    catch { Write-Warning "Could not turn comments off on $BrandPageName.aspx: $($_.Exception.Message)" }
+    if (-not $off) { Write-Warning "Could not turn comments off on $BrandPageName.aspx: $why. Turn them off in the page settings by hand." }
 }
 if ($Publish -and $hasBook) {
     Invoke-PnPSPRestMethod -Method Post -Url "$SiteUrl/_api/sitepages/pages($pageId)/Publish" | Out-Null
