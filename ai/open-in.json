@@ -1,0 +1,51 @@
+{
+  "repository": "Climb-Group/Brand-System",
+  "skills": [
+    {
+      "name": "climb-voice",
+      "skill": "https://raw.githubusercontent.com/Climb-Group/Brand-System/main/.agents/skills/climb-voice/SKILL.md",
+      "download": "https://github.com/Climb-Group/Brand-System/raw/main/ai/packages/climb-voice.zip"
+    },
+    {
+      "name": "climb-visual-style",
+      "skill": "https://raw.githubusercontent.com/Climb-Group/Brand-System/main/.agents/skills/climb-visual-style/SKILL.md",
+      "download": "https://github.com/Climb-Group/Brand-System/raw/main/ai/packages/climb-visual-style.zip"
+    }
+  ],
+  "targets": [
+    {
+      "id": "claude",
+      "label": "Open in Claude",
+      "url": "https://claude.ai/new?q=Use%20the%20ClimbUK%20brand%20in%20this%20chat.%20Read%20these%20two%20brand%20skills%20in%20full%20first%3A%20https%3A%2F%2Fraw.githubusercontent.com%2FClimb-Group%2FBrand-System%2Fmain%2F.agents%2Fskills%2Fclimb-voice%2FSKILL.md%20and%20https%3A%2F%2Fraw.githubusercontent.com%2FClimb-Group%2FBrand-System%2Fmain%2F.agents%2Fskills%2Fclimb-visual-style%2FSKILL.md.%20Follow%20them%20for%20everything%20you%20write%20or%20design%20for%20ClimbUK%2C%20ClimbGroup%20and%20the%20Climb%20editions.%20Then%20tell%20me%20in%20one%20line%20that%20you%20are%20ready%2C%20and%20ask%20what%20I%20want%20to%20make.",
+      "how": "Opens a new Claude chat with a prompt that has Claude read both brand skills first.",
+      "install": "To keep the skills, add the skill zips in Claude under Settings, Capabilities, Skills."
+    },
+    {
+      "id": "claude-code",
+      "label": "Open in Claude Code",
+      "url": "https://claude.ai/code?prompt=Load%20the%20climb-voice%20and%20climb-visual-style%20skills%20from%20this%20repository%20and%20use%20them%20for%20this%20session.%20Follow%20them%20for%20everything%20you%20write%20or%20design%20for%20ClimbUK%2C%20ClimbGroup%20and%20the%20Climb%20editions.%20Then%20tell%20me%20in%20one%20line%20that%20you%20are%20ready%2C%20and%20ask%20what%20I%20want%20to%20make.&repositories=Climb-Group%2FBrand-System",
+      "how": "Starts a Claude Code session on the brand pack, which loads both skills from the repository.",
+      "install": "npx skills add Climb-Group/Brand-System --agent claude-code"
+    },
+    {
+      "id": "codex",
+      "label": "Open in Codex",
+      "url": "codex://threads/new?prompt=Install%20the%20ClimbUK%20brand%20skills%20with%20%60npx%20skills%20add%20Climb-Group%2FBrand-System%20--agent%20codex%20--global%20--yes%60%2C%20then%20load%20climb-voice%20and%20climb-visual-style.%20Follow%20them%20for%20everything%20you%20write%20or%20design%20for%20ClimbUK%2C%20ClimbGroup%20and%20the%20Climb%20editions.%20Then%20tell%20me%20in%20one%20line%20that%20you%20are%20ready%2C%20and%20ask%20what%20I%20want%20to%20make.",
+      "how": "Opens a new chat in the Codex app with a prompt that installs both skills and loads them.",
+      "install": "npx skills add Climb-Group/Brand-System --agent codex"
+    },
+    {
+      "id": "copilot",
+      "label": "Open in Microsoft Copilot",
+      "url": "https://copilot.microsoft.com/?q=Use%20the%20ClimbUK%20brand%20in%20this%20chat.%20Read%20these%20two%20brand%20skills%20in%20full%20first%3A%20https%3A%2F%2Fraw.githubusercontent.com%2FClimb-Group%2FBrand-System%2Fmain%2F.agents%2Fskills%2Fclimb-voice%2FSKILL.md%20and%20https%3A%2F%2Fraw.githubusercontent.com%2FClimb-Group%2FBrand-System%2Fmain%2F.agents%2Fskills%2Fclimb-visual-style%2FSKILL.md.%20Follow%20them%20for%20everything%20you%20write%20or%20design%20for%20ClimbUK%2C%20ClimbGroup%20and%20the%20Climb%20editions.%20Then%20tell%20me%20in%20one%20line%20that%20you%20are%20ready%2C%20and%20ask%20what%20I%20want%20to%20make.",
+      "how": "Opens Copilot with a prompt that has it read both brand skills first.",
+      "install": "For Microsoft 365 Copilot, add the ClimbUK Brand agent package as a custom app.",
+      "download": "https://github.com/Climb-Group/Brand-System/raw/main/ai/packages/climbuk-brand-agent-m365.zip"
+    }
+  ],
+  "install": {
+    "every agent": "npx skills add Climb-Group/Brand-System",
+    "list the skills": "npx skills add Climb-Group/Brand-System --list",
+    "all skills": "https://github.com/Climb-Group/Brand-System/raw/main/ai/packages/climbuk-brand-skills.zip"
+  }
+}

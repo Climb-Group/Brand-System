@@ -1,0 +1,18 @@
+{
+  "name": "climbuk-brand-pack",
+  "private": true,
+  "type": "module",
+  "description": "The ClimbUK brand pack: tokens, logos, illustrations, photography, guidelines, templates and the Agent Skills that teach agents the brand.",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "setup": "node tools/dev/surfaces.mjs install",
+    "check": "python3 tokens/build_tokens.py --check && python3 ai/agents/build_agent_kits.py --check && python3 tools/check_dashes.py && node tools/dev/surfaces.mjs check && node tools/ai-docs/docgen.mjs --check",
+    "test": "python3 -m unittest discover -s tokens/tests && python3 -m unittest discover -s ai/tests",
+    "agent-kits": "python3 ai/agents/build_agent_kits.py",
+    "ai-docs": "node tools/ai-docs/docgen.mjs",
+    "ai-docs:check": "node tools/ai-docs/docgen.mjs --check"
+  }
+}

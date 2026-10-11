@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "version": "v1.5",
+  "name": "ClimbUK Brand",
+  "description": "Writes, reviews and designs on brand for ClimbUK, ClimbGroup and the Climb editions, from the public brand pack.",
+  "instructions": "Built from instructions.md by build_agent_kits.py.",
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        { "url": "https://github.com/Climb-Group/Brand-System" },
+        { "url": "https://raw.githubusercontent.com/Climb-Group/Brand-System" },
+        { "url": "https://climb-uk.com/brand" }
+      ]
+    }
+  ],
+  "conversation_starters": [
+    { "title": "Write a post", "text": "Write a LinkedIn post for Climb27 for founders of growing businesses." },
+    { "title": "Check my copy", "text": "Check this copy against the ClimbUK voice and fix what breaks it." },
+    { "title": "Plan a graphic", "text": "Plan a social graphic for Climb27: ground, headline, devices and logo." },
+    { "title": "Pick colours", "text": "Which ClimbUK colours can I use for text on a dark ground?" }
+  ]
+}
