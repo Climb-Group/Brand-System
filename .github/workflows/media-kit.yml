@@ -27,7 +27,7 @@ on:
       builder-ref:
         description: Branch or tag of the website repository whose build_kit.py to use
         type: string
-        default: claude/brand-media-kit
+        default: production
       photo-library:
         description: Add the photo library from the photo-library release
         type: boolean
@@ -46,7 +46,7 @@ jobs:
     permissions:
       contents: write # to create the release and attach the ZIP
     env:
-      BUILDER_REF: ${{ inputs.builder-ref || 'claude/brand-media-kit' }}
+      BUILDER_REF: ${{ inputs.builder-ref || 'production' }}
       WITH_PHOTOS: ${{ github.event_name != 'workflow_dispatch' || inputs.photo-library }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

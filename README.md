@@ -111,7 +111,7 @@ It runs on every push to `main` that changes the artwork sources (`generators/`,
 
 | Option | Default | What it does |
 | --- | --- | --- |
-| `builder-ref` | `claude/brand-media-kit` | The branch or tag of the website repository whose kit builder (`climb_brand_media_kit/scripts/build_kit.py`) to run. |
+| `builder-ref` | `production` | The branch or tag of the website repository whose kit builder (`climb_brand_media_kit/scripts/build_kit.py`) to run. |
 | `photo-library` | ticked | Adds the photo library from the `photo-library` release. |
 
 Each run renders the catalogue (`generators/catalogue.py` and `generators/render.mjs` in headless Chromium), builds the template install package (`templates/_build/package_build.py`), downloads the fonts, then runs the kit builder. The job summary prints the import link.
@@ -129,6 +129,7 @@ Each run renders the catalogue (`generators/catalogue.py` and `generators/render
 ### Common problems
 
 - **"Add the MEDIA_KIT_BUILDER_TOKEN secret".** The secret is missing or empty; see step 1.
+- **The website repository checkout fails with `git` exit code 1.** The `builder-ref` branch no longer exists (branches are deleted once merged) or the token cannot read the repository. Run the workflow with a branch that exists, or check the token has Contents read access to the website repository.
 - **The kit has no photos.** The `photo-library` release or its `climb-photo-library.zip` is missing; see step 2.
 
 ## Licence
