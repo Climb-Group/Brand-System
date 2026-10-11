@@ -1,6 +1,6 @@
 ---
 name: climb-voice
-description: The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Load it whenever you write or edit any words a customer, partner, attendee or the public will read for ClimbUK, ClimbGroup or a Climb edition (Climb27 and later): web pages, snippets, emails, social posts, ads, captions, scripts, slides, press releases, signage, merch lines, or alt text. Also load it to review or "make on-brand" copy someone else wrote, and whenever you publish or upload any text to the website (blog posts, news, newsletters, partner or client supplied text) even when it goes up word for word, so the glossary stays complete. Includes a copy checker script.
+description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Load it whenever you write or edit any words a customer, partner, attendee or the public will read for ClimbUK, ClimbGroup or a Climb edition (Climb27 and later): web pages, snippets, emails, social posts, ads, captions, scripts, slides, press releases, signage, merch lines, or alt text. Also load it to review or "make on-brand" copy someone else wrote, and whenever you publish or upload any text to the website (blog posts, news, newsletters, partner or client supplied text) even when it goes up word for word, so the glossary stays complete. Includes a copy checker script.'
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
