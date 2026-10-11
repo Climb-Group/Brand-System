@@ -33,6 +33,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 REPOSITORY = "Climb-Group/Brand-System"
 BRANCH = "main"
 BRAND_SKILLS = ("climb-voice", "climb-visual-style")
+# Brand skills for one platform only. npx skills offers them with the others; the packages and prompts leave them out,
+# because they apply only when the work is on that platform.
+PLATFORM_SKILLS = ("climb-odoo-pages",)
 SKILLS_DIR = ".agents/skills"
 PACKAGES = "ai/packages"
 COPILOT = "ai/agents/copilot"
@@ -222,7 +225,7 @@ def skills_lock():
     house = {}
     base = os.path.join(ROOT, SKILLS_DIR)
     for name in sorted(os.listdir(base)):
-        if name in BRAND_SKILLS or not os.path.isfile(os.path.join(base, name, "SKILL.md")):
+        if name in BRAND_SKILLS + PLATFORM_SKILLS or not os.path.isfile(os.path.join(base, name, "SKILL.md")):
             continue
         digest = hashlib.sha256()
         for relative, full in sorted(skill_files(name)):

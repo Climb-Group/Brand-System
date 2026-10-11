@@ -24,7 +24,7 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 | `pdf/` | One-page key rules and the full brand guidelines book, per brand. |
 | `templates/` | Office templates (Word, Excel, PowerPoint) and video templates (Premiere Pro, DaVinci Resolve). |
 | `ai/` | Topics and instructions that let AI assistants use the brand. |
-| `.agents/skills/` | Agent Skills: `climb-voice` (copy rules and a copy checker) and `climb-visual-style` (visual rules). `.claude/skills` points here. The other skills there are the shared engineering standards synced from `Resnovas/.github`; `skills-lock.json` keeps them out of `npx skills`. |
+| `.agents/skills/` | Agent Skills: `climb-voice` (copy rules and a copy checker) and `climb-visual-style` (visual rules), plus `climb-odoo-pages`, extra rules used only when the brand goes on an Odoo website. `.claude/skills` points here. The other skills there are the shared engineering standards synced from `Resnovas/.github`; `skills-lock.json` keeps them out of `npx skills`. |
 
 ## Change a colour or a size
 

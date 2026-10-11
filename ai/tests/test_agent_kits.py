@@ -58,7 +58,8 @@ class SkillsLockTest(unittest.TestCase):
         lock = json.loads(kits.skills_lock())
         base = os.path.join(kits.ROOT, kits.SKILLS_DIR)
         present = {n for n in os.listdir(base) if os.path.isfile(os.path.join(base, n, "SKILL.md"))}
-        self.assertEqual(set(lock["skills"]), present - set(kits.BRAND_SKILLS))
+        self.assertEqual(set(lock["skills"]), present - set(kits.BRAND_SKILLS) - set(kits.PLATFORM_SKILLS))
+        self.assertNotIn("climb-odoo-pages", lock["skills"])
         self.assertEqual(lock["version"], 1)
 
 
