@@ -263,7 +263,8 @@ function Get-ClimbDownload {
     $name = [IO.Path]::GetFileName(([uri]$Url).AbsolutePath)
     if (-not $name) { $name = [guid]::NewGuid().ToString() }
     $dir = Join-Path ([IO.Path]::GetTempPath()) 'climb-intune'
-    New-Item -ItemType Directory -Force -Path $dir | Out-Null
+    # Local temp files are not tenant changes, so they are written under -WhatIf too.
+    New-Item -ItemType Directory -Force -Path $dir -WhatIf:$false | Out-Null
     $out = Join-Path $dir $name
     Invoke-WebRequest -Uri $Url -OutFile $out -ErrorAction Stop
     return $out

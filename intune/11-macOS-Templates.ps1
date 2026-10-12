@@ -85,8 +85,9 @@ $body = @{
     roleScopeTagIds             = @('0')
 }
 
-$id = Set-ClimbObject -Collection 'deviceManagement/deviceShellScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
+# Resolve the assignment first, so a missing group stops the run before anything is created.
 $targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
+$id = Set-ClimbObject -Collection 'deviceManagement/deviceShellScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
 Set-ClimbAssignment -Collection 'deviceManagement/deviceShellScripts' -Id $id -Name $name -Kind shellScript -Targets $targets -WhatIf:$WhatIfPreference
 
 Write-ClimbStep 'Done. Macs run it within about 8 hours of their next check-in, then daily.'

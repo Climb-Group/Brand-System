@@ -11,7 +11,7 @@
         the brand Normal.dotm (letterhead), Blank.potx and Book.xltx in their Office folders.
         Their old Normal.dotm is kept as Normal-before-Climb.dotm.
 
-    Needs 10-Windows-Templates.ps1 with templates package 1.3.0 or later, which installs the
+    Needs 10-Windows-Templates.ps1 with templates package 1.4.0 or later, which installs the
     default files. While Word is open the remediation leaves the files alone and tries the next day.
 
 .PARAMETER Brand
@@ -46,7 +46,7 @@ $detect = @"
 `$Dest = Join-Path `$env:ProgramData 'Climb\Templates'
 `$Version = Get-Content -Path (Join-Path `$Dest 'VERSION') -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not (Test-Path (Join-Path `$Dest "Defaults\`$Brand\Normal.dotm"))) {
-    Write-Output 'Climb templates 1.3.0 or later not installed yet'
+    Write-Output 'Climb templates 1.4.0 or later not installed yet'
     exit 0
 }
 `$Applied = (Get-ItemProperty -Path 'HKCU:\Software\Climb\OfficeDefaults' -Name 'Applied' -ErrorAction SilentlyContinue).Applied
@@ -77,11 +77,12 @@ $body = @{
     roleScopeTagIds          = @('0')
 }
 
+# Resolve the assignment first, so a missing group stops the run before anything is created.
+$targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
 $id = Set-ClimbObject -Collection 'deviceManagement/deviceHealthScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
 
 $time = [timespan]::Parse($RunAt).ToString('hh\:mm\:ss')
 $schedule = @{ '@odata.type' = '#microsoft.graph.deviceHealthScriptDailySchedule'; interval = 1; useUtc = $false; time = $time }
-$targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
 Set-ClimbAssignment -Collection 'deviceManagement/deviceHealthScripts' -Id $id -Name $name -Kind healthScript -Targets $targets -RunSchedule $schedule -WhatIf:$WhatIfPreference
 
 Write-ClimbStep "Done. Each person gets the $Brand defaults at the first daily run after the templates are installed."
