@@ -83,7 +83,9 @@ try {
     Copy-Tree (Join-Path $Payload 'office') (Join-Path $Dest 'Office')
     Copy-Tree (Join-Path $Payload 'themes') (Join-Path $Dest 'Themes')
     Copy-Tree (Join-Path $Payload 'libreoffice') (Join-Path $Dest 'LibreOffice')
+    Copy-Tree (Join-Path $Payload 'defaults') (Join-Path $Dest 'Defaults')
     Copy-Item -Path (Join-Path $PSScriptRoot 'Set-ClimbTemplatesUser.ps1') -Destination $Dest -Force
+    Copy-Item -Path (Join-Path $PSScriptRoot 'Set-ClimbDefaultsUser.ps1') -Destination $Dest -Force
 
     # ONLYOFFICE Desktop Editors: add now, and again at each start-up in case an update removed them
     $OnlyOffice = Join-Path $Dest 'Add-ClimbOnlyOffice.ps1'

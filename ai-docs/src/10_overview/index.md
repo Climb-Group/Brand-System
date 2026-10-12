@@ -41,9 +41,15 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 - The photo library is read from `climb-photo-library.zip` on the `photo-library-1.0` release, which `photos/_build/photo_library.py publish --source <library>` uploads from the machine with the originals (it skips the upload when the fingerprint is unchanged, holds it while any photo is new until `--approve-new`, and then starts the media kit workflow; `install-timer` runs it hourly under systemd); an optional `media-kit-exclude.txt` on the same release (one `folder/filename` per line) is passed to the builder as `--photo-exclude`; without the zip the kit has no photo library. Never put a photo with a readable name badge or a possible minor in that zip.
 - The 4K motion clips and drawing PNGs are not part of this build.
 
+### Device rollout (intune/)
+
+- `intune/` holds PowerShell 7 scripts that create Intune objects named `Climb - ...` through Microsoft Graph beta (`Invoke-MgGraphRequest` only, helpers in `intune/ClimbIntune.psm1`). Every script is idempotent by that name and takes `-WhatIf`. Scripts 10 to 13 fetch the `templates-v<version>` release, so a change to the installers reaches devices only after a new templates release. `50-Outlook-Default-Font.ps1` uses Exchange Online PowerShell, not Graph.
+- Keep the folder public-safe: no tenant ids or domains, account names or internal security settings. Tenant-specific notes and audits stay outside the repository.
+
 ### Release the templates and motion clips
 
 - `.github/workflows/release.yml` runs on its own on every push to main; never add a manual-only step to it.
 - `templates` builds `Climb-Templates-<version>.zip` and publishes the `templates-v<version>` release from `templates/install/VERSION`. A published release is immutable, so a pull request that changes the package must bump `templates/install/VERSION`; the `templates version` check fails until it does.
 - `motion` renders `climb-video-motion.zip` when `templates/_build/`, `generators/motifs.py`, `tokens/`, `logos/` or the fonts change, or when no motion release exists, and publishes a new `climb-video-motion-<date>-<commit>` release.
 - Every release is created as a draft, uploaded, then published; never upload to a published release.
+- The package carries `payload/defaults/<Brand>/` (`Normal.dotm`, `Blank.potx`, `Book.xltx`, `Default Theme.thmx`) from `templates/_build/defaults_build.py`. The per-person scripts `install/windows/Set-ClimbDefaultsUser.ps1` and `install/macos/set-climb-defaults.sh` copy one brand's set into each person's Office folders; the default brand is ClimbGroup. Rebuild the defaults after changing the letterhead, the deck or the themes, and never edit them by hand.

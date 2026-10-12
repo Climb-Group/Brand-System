@@ -11,6 +11,7 @@ python3 pptx_build.py       # office/<Brand>/powerpoint/*.potx and office/<Brand
 python3 word_build.py       # office/<Brand>/word/*.dotx and office/<Brand>/external/*.dotx
 python3 excel_build.py      # office/<Brand>/excel/*.xltx and office/<Brand>/external/*.xltx
 python3 theme_build.py      # office/_shared/office-theme/
+python3 defaults_build.py   # office/<Brand>/defaults/: Normal.dotm, Blank.potx, Book.xltx, Default Theme.thmx (run after the three above)
 python3 previews_build.py   # office/previews/*.jpg and office/libreoffice/
 python3 video_build.py      # video/_shared and video/<Brand>: motion clips and stills (slow: about 8 minutes a brand)
 python3 resolve_build.py    # video/<Brand>/davinci-resolve/*.drfx and setting-files/ (resolve_setup.lua tests them inside Resolve)
