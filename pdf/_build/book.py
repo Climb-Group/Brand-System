@@ -127,11 +127,11 @@ SECTIONS = [
 
 # Per-brand swaps for a section divider photo, by section index.
 BRAND_PHOTOS = {
-    "ClimbGroup": {1: "meetings_02.jpg", 7: "stage_speakers_01.jpg"},
+    "ClimbGroup": {1: "climbteam_02.jpg", 7: "stage_speakers_01.jpg"},
     "ClimbUK": {5: "stage_speakers_04.jpg"},
 }
 # Where a swapped photo has faces high on the right, show its lower part and drop the numeral below the faces.
-DIVIDER_FRAME = {"stage_speakers_04.jpg": ("center 100%", 330)}
+DIVIDER_FRAME = {"stage_speakers_04.jpg": ("center 100%", 330), "climbteam_02.jpg": ("center 35%", 330)}
 
 
 def divider(bk, idx):
