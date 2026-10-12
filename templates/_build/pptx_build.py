@@ -1,10 +1,14 @@
-"""Build the 16:9 PowerPoint template (.potx) for each brand from raw OOXML.
+"""Build the 16:9 PowerPoint templates (.potx) for each brand from raw OOXML: the presentation template (19 layouts, 14
+example slides from copy_samples.py) and every deck in catalog.py (the same master, the layouts each deck needs, and
+its example slides from deck_samples.py).
 
 Dark first: the master is Dark Brown with White text; the Light layouts override the colour map for reading-heavy
 slides. Every layout has a title placeholder (screen readers announce it), logos carry alt text, and backgrounds and
 motifs are background fills or shapes marked decorative.
 
-python3 pptx_build.py [Brand ...]
+python3 pptx_build.py [Brand ...]              build every template for the brands given (default: all)
+python3 pptx_build.py --only Sales-deck ...   build only the named templates
+python3 pptx_build.py --copy                  print every string a reader sees, for check_copy.py
 """
 import os
 import sys
@@ -14,8 +18,10 @@ from xml.sax.saxutils import escape
 from PIL import Image
 
 import brand as B
-import ooxml_theme as T
+import catalog as K
 import copy_samples as C
+import deck_samples as D
+import ooxml_theme as T
 
 EMU = 914400
 W, H = 13.333, 7.5
@@ -218,8 +224,9 @@ def sticker(t, x, y, w=2.1, prompt="Main stage", idx=30):
          prompt=prompt, anchor="ctr", autofit="none", ins=(0.12, 0.04, 0.12, 0.04))
 
 
-def layouts(b):
-    """Each layout: (name, background art or None, light?, builder(tree))."""
+def layouts(b, names=None, extra=()):
+    """Each layout: (name, background art or None, light?, builder(tree)). names keeps only those layouts, in that
+    order; extra appends layouts from EXTRA (holding slides, logo grids, co-branded title and end cards)."""
     info = B.BRANDS[b]
     L = []
 
@@ -403,7 +410,92 @@ def layouts(b):
              lst=lvl(sz=22, font=B.DISPLAY, b=1, cap="all", spc=50, colour=B.WHITE, algn="ctr"),
              prompt=info["url"], anchor="ctr", autofit="none")
     add("End card", "slide_end", False, end)
+    for name in extra:
+        EXTRA[name](b, add)
+    if names:
+        by = {l["name"]: l for l in L}
+        L = [by[n] for n in names]
     return L
+
+
+def _holding(b, add):
+    def f(t):
+        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.5, descr="%s logo" % b)
+        t.ph("Title", "title", None, M, 1.9, W - 2 * M, 3.0, lst=title_lst(80, font=B.DISPLAY_BLACK, algn="ctr", ln=90),
+             prompt="Big line, readable from the back", anchor="ctr", autofit="norm")
+        t.ph("Line", "body", 1, 1.5, 5.1, W - 3.0, 0.9, lst=plain_lst(28, B.GREY, algn="ctr"),
+             prompt="The one thing to know, or the time")
+        t.ph("Footer line", "body", 13, M, 6.6, W - 2 * M, 0.5, lst=plain_lst(18, B.TINT, algn="ctr", b=1),
+             prompt=B.BRANDS[b]["line"], autofit="none")
+    add("Holding", "slide_title", False, f)
+
+
+def _up_next(b, add):
+    def f(t):
+        eyebrow(t, M, 0.55, 8, prompt="Up next")
+        rule(t, M, 1.05)
+        t.ph("Title", "title", None, M, 1.3, 8.0, 2.6, lst=title_lst(44, font=B.DISPLAY_BLACK, ln=92), prompt="Session title",
+             anchor="t")
+        t.ph("Speakers", "body", 1, M, 4.1, 8.0, 2.2, lst=plain_lst(24, B.WHITE, ln=125), prompt="Speaker names, companies")
+        t.ph("Time", "body", 14, 9.1, 1.3, 3.5, 1.6, lst=lvl(sz=72, font=B.DISPLAY_BLACK, colour=B.ORANGE, algn="r", ln=90),
+             prompt="11:00", anchor="t", autofit="none")
+        t.ph("Stage", "body", 15, 9.1, 3.0, 3.5, 0.6, lst=plain_lst(20, B.TINT, algn="r", b=1, cap="all", spc=100),
+             prompt="Main stage", autofit="none")
+        footer(t, b)
+    add("Up next", "slide_dark", False, f)
+
+
+def _logo_grid(b, add):
+    def f(t):
+        eyebrow(t, M, 0.55, 10, light=True, prompt="Thank you to our partners")
+        rule(t, M, 1.05)
+        t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL), prompt="Partner logos",
+             anchor="t")
+        cw, chh, gap = 2.6, 1.5, 0.45
+        for k in range(8):
+            x = M + (k % 4) * (cw + gap)
+            y = 2.6 + (k // 4) * (chh + gap)
+            t.ph("Logo %d" % (k + 1), "pic", 15 + k, x, y, cw, chh, prompt="Partner logo")
+        footer(t, b, light=True)
+    add("Logo grid (light)", "slide_light", True, f)
+
+
+def _cobrand_title(b, add):
+    host = D.host_line(b)
+
+    def f(t):
+        t.ph("Your logo", "pic", 15, M, 0.55, 3.4, 1.2, prompt="Your logo")
+        lg = B.logo(b, "reversed-dark", 1024)
+        iw, ih = Image.open(lg).size
+        t.pic(lg, W - M - 0.5 * iw / ih, 0.55, h=0.5, descr="%s logo" % b)
+        t.ph("Host line", "body", 13, 7.0, 1.15, W - M - 7.0, 0.45, lst=plain_lst(14, B.TINT, algn="r", b=1, cap="all", spc=300),
+             prompt=host, autofit="none")
+        t.ph("Title", "ctrTitle", None, M, 2.3, 11.2, 2.8, lst=title_lst(54, font=B.DISPLAY_BLACK, ln=92), anchor="b",
+             prompt="Your talk title")
+        t.ph("Subtitle", "subTitle", 1, M, 5.25, 9.0, 0.8, lst=plain_lst(22, B.GREY), prompt="Your name, role, company")
+        t.ph("Date line", "body", 14, M, 6.2, 9.0, 0.5, lst=plain_lst(16, B.TINT, b=1), prompt=B.BRANDS[b]["edition"] or "Date")
+    add("Co-branded title", "slide_title", False, f, "title")
+
+
+def _cobrand_end(b, add):
+    host = D.host_line(b)
+
+    def f(t):
+        t.ph("Your logo", "pic", 15, (W - 3.4) / 2, 0.9, 3.4, 1.2, prompt="Your logo")
+        t.ph("Title", "title", None, 1.5, 2.5, W - 3.0, 1.2, lst=title_lst(48, font=B.DISPLAY_BLACK, algn="ctr"),
+             prompt="Thank you", anchor="ctr")
+        t.ph("Contact", "body", 13, 1.5, 3.8, W - 3.0, 1.2, lst=plain_lst(20, B.GREY, algn="ctr", ln=130),
+             prompt="Your name, email and website")
+        t.ph("Host line", "body", 14, 1.5, 5.4, W - 3.0, 0.5, lst=plain_lst(16, B.TINT, algn="ctr", b=1, cap="all", spc=300),
+             prompt=host, autofit="none")
+        lg = B.logo(b, "reversed-dark", 1024)
+        iw, ih = Image.open(lg).size
+        t.pic(lg, (W - 0.5 * iw / ih) / 2, 6.1, h=0.5, descr="%s logo" % b)
+    add("Co-branded end", "slide_end", False, f)
+
+
+EXTRA = {"Holding": _holding, "Up next": _up_next, "Logo grid (light)": _logo_grid, "Co-branded title": _cobrand_title,
+         "Co-branded end": _cobrand_end}
 
 
 def layout_xml(spec, tree):
@@ -447,8 +539,9 @@ def rels(items):
                       for r, t, tg in items))
 
 
-def build(b, out_path, template=True):
-    specs = layouts(b)
+def build(b, out_path, template=True, deck=None):
+    """deck: None for the presentation template, else a deck spec from deck_samples.DECKS."""
+    specs = layouts(b, deck.get("layouts") if deck else None, deck.get("extra", ()) if deck else ())
     files = {}
     media = {}  # source path -> media name
 
@@ -480,7 +573,7 @@ def build(b, out_path, template=True):
 
     # Sample slides.
     by_name = {s["name"]: (i + 1, s) for i, s in enumerate(specs)}
-    slides = C.slides(b)
+    slides = deck["slides"](b) if deck else C.slides(b)
     for k, (lname, fill) in enumerate(slides, 1):
         li, spec = by_name[lname]
         t = Tree()
@@ -512,8 +605,8 @@ def build(b, out_path, template=True):
     files["docProps/core.xml"] = (
         XML + '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
         'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" '
-        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>%s presentation</dc:title><dc:creator>%s</dc:creator>'
-        '<dc:language>en-GB</dc:language></cp:coreProperties>' % (b, b))
+        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>%s</dc:title><dc:creator>%s</dc:creator>'
+        '<dc:language>en-GB</dc:language></cp:coreProperties>' % (escape(deck["title"]) if deck else b + " presentation", b))
     files["docProps/app.xml"] = (XML + '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">'
                                  '<Application>Microsoft Office PowerPoint</Application><Company>ClimbGroup</Company></Properties>')
     files["_rels/.rels"] = rels([("rId1", "officeDocument", "ppt/presentation.xml"),
@@ -552,13 +645,49 @@ def build(b, out_path, template=True):
     return out_path
 
 
-def main():
-    brands = sys.argv[1:] or list(B.BRANDS)
+def all_copy(brands=("ClimbUK", "ClimbGroup", "Climb27")):
+    """Every string a reader sees on the example slides and in the placeholder prompts, for the copy checker."""
+    import re
+    out = []
     for b in brands:
-        d = os.path.join(B.OUT, "office", b, "powerpoint")
-        p = build(b, os.path.join(d, "%s_Presentation_16x9.potx" % b))
-        build(b, os.path.join(B.OUT, "_preview", "%s_Presentation_16x9.pptx" % b), template=False)
-        print(p)
+        for row in K.rows("powerpoint", b):
+            deck = D.DECKS[(row["name"], row["external"])] if not row["original"] else None
+            specs = layouts(b, deck.get("layouts") if deck else None, deck.get("extra", ()) if deck else ())
+            trees = []
+            for sp in specs:
+                t = Tree()
+                sp["fn"](t)
+                trees.append(t)
+                out += re.findall(r"<a:t>([^<]*)</a:t>", t.xml())
+            by = {sp["name"]: k for k, sp in enumerate(specs)}
+            for lname, fill in (deck["slides"](b) if deck else C.slides(b)):
+                t = Tree()
+                t.layout = trees[by[lname]]
+                fill(t, specs[by[lname]])
+                out += re.findall(r"<a:t>([^<]*)</a:t>", t.xml())
+    from xml.sax.saxutils import unescape
+    return [unescape(x) for x in out]
+
+
+def main():
+    args = sys.argv[1:]
+    if args[:1] == ["--copy"]:
+        print("\n".join(all_copy()))
+        return
+    only = None
+    if args[:1] == ["--only"]:
+        only, args = args[1:], []
+    brands = args or list(B.BRANDS)
+    for b in brands:
+        for row in K.rows("powerpoint", b):
+            if only and row["name"] not in only:
+                continue
+            deck = None if row["original"] else dict(D.DECKS[(row["name"], row["external"])], title="%s %s" % (b, row["title"].lower()))
+            stem = K.stem(b, row)
+            d = os.path.join(B.OUT, "office", K.folder(b, row))
+            p = build(b, os.path.join(d, stem + ".potx"), deck=deck)
+            build(b, os.path.join(B.OUT, "_preview", stem + ".pptx"), template=False, deck=deck)
+            print(p)
 
 
 if __name__ == "__main__":
