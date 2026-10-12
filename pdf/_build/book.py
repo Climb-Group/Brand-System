@@ -125,21 +125,27 @@ SECTIONS = [
 ]
 
 
-GROUP_PHOTOS = {1: "meetings_02.jpg", 7: "stage_speakers_01.jpg"}
+# Per-brand swaps for a section divider photo, by section index.
+BRAND_PHOTOS = {
+    "ClimbGroup": {1: "meetings_02.jpg", 7: "stage_speakers_01.jpg"},
+    "ClimbUK": {5: "stage_speakers_04.jpg"},
+}
+# Where a swapped photo has faces high on the right, show its lower part and drop the numeral below the faces.
+DIVIDER_FRAME = {"stage_speakers_04.jpg": ("center 100%", 330)}
 
 
 def divider(bk, idx):
     n, name, ph, h = SECTIONS[idx]
-    if bk.b == "ClimbGroup":
-        ph = GROUP_PHOTOS.get(idx, ph)
+    ph = BRAND_PHOTOS.get(bk.b, {}).get(idx, ph)
+    pos, num_top = DIVIDER_FRAME.get(ph, ("center 35%", 110))
     bk.section = name
     left = idx % 2 == 0
     inner = (
         # Photo stays clear above; the fade only takes the bottom third, where the title sits.
-        photo(ph, "fade-divider", "center 35%")
+        photo(ph, "fade-divider", pos)
         + '<div class="layer fade-divider-%s"></div>' % ("l" if left else "r")
         + '<div class="glow%s"></div>' % ("" if left else " tl")
-        + '<div class="numo" aria-hidden="true" style="position:absolute;%s:120px;top:110px;font-size:380px">%s</div>' % ("left" if left else "right", n)
+        + '<div class="numo" aria-hidden="true" style="position:absolute;%s:120px;top:%dpx;font-size:380px">%s</div>' % ("left" if left else "right", num_top, n)
         + '<div style="position:absolute;%s:120px;bottom:96px;width:1600px;%s">'
           '<div class="eb" style="font-size:24px;margin-bottom:20px;%s">%s</div>'
           '<div class="h" style="font-size:96px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div></div>'
@@ -1074,9 +1080,9 @@ def print_merch(bk):
         '<div style="position:absolute;left:34px;bottom:26px">%s</div></div>'
         '<span class="sticker" style="position:absolute;right:-26px;top:-20px;font-size:22px;transform:rotate(6deg)">Tote</span></div>'
         '<div style="position:absolute;left:280px;bottom:60px;width:500px;height:110px;border-radius:12px;z-index:1;background:repeating-linear-gradient(90deg,var(--o) 0 140px,var(--o) 140px 280px);display:flex;align-items:center;gap:40px;padding:0 36px;overflow:hidden;transform:rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.4)">%s%s</div>'
-        '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: orange ground, logo repeat.</p></div></div>'
+        '<p class="small" style="position:absolute;left:290px;bottom:10px">Woven lanyard: White and Charcoal logos.</p></div></div>'
         % (P, "climbteam_02.jpg" if b == "ClimbGroup" else "joy_03.jpg", logo(b, "reversed-dark", h=30), 'WE ARE<br><span class="o">HIRING</span>' if b == "ClimbGroup" else 'FIND YOUR<br><span class="o">PEOPLE</span>', logo(b, "mono-white", h=24), logo(b, "full-colour-light", h=24),
-           logo(b, "mono-white", h=32), logo(b, "mono-white", h=32))
+           logo(b, "mono-white", h=32), logo(b, "mono-dark", h=32))
     )
     bk.add(bk.B["ground"], inner)
 
