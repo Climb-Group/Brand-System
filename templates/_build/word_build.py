@@ -1,10 +1,13 @@
-"""Build the Word templates (.dotx) for each brand: letterhead, report, proposal, press release and meeting notes.
+"""Build the Word templates (.dotx) for each brand: the first set (letterhead, report, proposal, press release and
+meeting notes, hand-written below) and every document in catalog.py, rendered from the blocks in word_content.py.
 
 Light grounds for reading (the brand rule for documents), with a Dark Brown photo cover on reports and proposals.
 Real heading styles (navigation pane and screen readers), en-GB language, alt text on logos, decorative art behind
 text, colour pairs from the tokens.
 
-python3 word_build.py [Brand ...]
+python3 word_build.py [Brand ...]          build every template for the brands given (default: all)
+python3 word_build.py --only Memo ...     build only the named templates
+python3 word_build.py --copy              print every string a reader sees, for check_copy.py
 """
 import copy
 import os
@@ -13,7 +16,7 @@ import sys
 import zipfile
 
 from docx import Document
-from docx.enum.section import WD_SECTION
+from docx.enum.section import WD_ORIENT, WD_SECTION
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK, WD_TAB_ALIGNMENT
@@ -22,7 +25,9 @@ from docx.oxml.ns import nsdecls, qn
 from docx.shared import Cm, Pt, RGBColor, Emu
 
 import brand as B
+import catalog as K
 import ooxml_theme as T
+import word_content as WC
 
 ART = os.path.join(B.OUT, "_art")
 rgb = RGBColor.from_string
@@ -333,11 +338,12 @@ def page_setup(sec, top=3.4, bottom=2.8):
     sec.header_distance, sec.footer_distance = Cm(1.2), Cm(1.0)
 
 
-def standard_header(b, header, footer, label=None):
+def standard_header(b, header, footer, label=None, landscape=False):
     """Logo top left, URL (or a document label) top right, slab corners, legal line and page number."""
+    right = 25.3 if landscape else 16.6
     hp = header.paragraphs[0]
     hp.text = ""
-    hp.paragraph_format.tab_stops.add_tab_stop(Cm(16.6), WD_TAB_ALIGNMENT.RIGHT)
+    hp.paragraph_format.tab_stops.add_tab_stop(Cm(right), WD_TAB_ALIGNMENT.RIGHT)
     r = hp.add_run()
     lg = B.logo(b, "full-colour-light", 1024)
     r.add_picture(lg, width=Cm(4.0))
@@ -353,12 +359,12 @@ def standard_header(b, header, footer, label=None):
     fp = footer.paragraphs[0]
     fp.text = ""
     fp.style = footer.part.document.styles["Small Print"] if False else fp.style
-    fp.paragraph_format.tab_stops.add_tab_stop(Cm(16.6), WD_TAB_ALIGNMENT.RIGHT)
+    fp.paragraph_format.tab_stops.add_tab_stop(Cm(right), WD_TAB_ALIGNMENT.RIGHT)
     r = fp.add_run(B.LEGAL)
     r.font.size = Pt(7)
     r.font.color.rgb = rgb(B.SLATE)
     fp2 = footer.add_paragraph()
-    fp2.paragraph_format.tab_stops.add_tab_stop(Cm(16.6), WD_TAB_ALIGNMENT.RIGHT)
+    fp2.paragraph_format.tab_stops.add_tab_stop(Cm(right), WD_TAB_ALIGNMENT.RIGHT)
     r = fp2.add_run("%s\t" % B.BRANDS[b]["url"])
     r.font.size = Pt(8)
     r.font.bold = True
@@ -367,7 +373,10 @@ def standard_header(b, header, footer, label=None):
     r.font.size = Pt(8)
     r.font.color.rgb = rgb(B.SLATE)
     field(r, "PAGE")
-    anchor_picture(fp2.add_run(), os.path.join(ART, "a4_slab_br.png"), 6.0, 15.0, 29.1, descr="", decorative=True)
+    if landscape:
+        anchor_picture(fp2.add_run(), os.path.join(ART, "a4_slab_br.png"), 6.0, 23.7, 20.4, descr="", decorative=True)
+    else:
+        anchor_picture(fp2.add_run(), os.path.join(ART, "a4_slab_br.png"), 6.0, 15.0, 29.1, descr="", decorative=True)
 
 
 def cover_header(b, header, photo_cover=True):
@@ -399,18 +408,9 @@ def new_doc():
     return doc
 
 
-def cover_doc(b, kind):
-    info = COVERS[kind]
-    doc = new_doc()
-    sec = doc.sections[0]
-    sec.different_first_page_header_footer = True
-    cover_header(b, sec.first_page_header)
-    standard_header(b, sec.header, sec.footer, label=info["label"])
-    sec.first_page_footer.paragraphs[0].text = ""
+def cover_front(doc, b, info, name):
+    """The cover page text: label, title, subtitle and the meta line over the Dark Brown fade, then a page break."""
     ed = B.BRANDS[b]["edition"]
-    name = "ClimbUK" if b == "ClimbGroup" else b  # ClimbGroup proposals sell the festival
-
-    # Cover text sits on the lower half, over the Dark Brown fade.
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(318)
     r = p.add_run(info["label"])
@@ -436,6 +436,18 @@ def cover_doc(b, kind):
         r = p.add_run(info["meta"])
         set_font(r, B.BODY, 10, colour=B.GREY)
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+
+
+def cover_doc(b, kind):
+    info = COVERS[kind]
+    doc = new_doc()
+    sec = doc.sections[0]
+    sec.different_first_page_header_footer = True
+    cover_header(b, sec.first_page_header)
+    standard_header(b, sec.header, sec.footer, label=info["label"])
+    sec.first_page_footer.paragraphs[0].text = ""
+    name = "ClimbUK" if b == "ClimbGroup" else b  # ClimbGroup proposals sell the festival
+    cover_front(doc, b, info, name)
 
     # Inner pages: a style guide in use.
     doc.add_paragraph("Contents", style="Eyebrow")
@@ -596,7 +608,7 @@ def meeting_notes(b):
     return doc
 
 
-DOCS = {
+ORIGINAL = {
     "Letterhead": letterhead,
     "Report": lambda b: cover_doc(b, "report"),
     "Proposal": lambda b: cover_doc(b, "proposal"),
@@ -605,21 +617,329 @@ DOCS = {
 }
 
 
+# ---------- the catalogue documents, rendered from word_content.py ----------
+
+def table_look(tbl, first_row=True, first_col=False):
+    tblpr = tbl._tbl.tblPr
+    look = tblpr.find(qn("w:tblLook"))
+    if look is None:
+        look = OxmlElement("w:tblLook")
+        tblpr.append(look)
+    for k, v in (("w:val", "04A0" if first_row else "0020"), ("w:firstRow", "1" if first_row else "0"), ("w:lastRow", "0"),
+                 ("w:firstColumn", "1" if first_col else "0"), ("w:lastColumn", "0"), ("w:noHBand", "0"), ("w:noVBand", "1")):
+        look.set(qn(k), v)
+
+
+def fill_table(doc, header, rows, widths=None, first_col=False):
+    """A Climb Table with a repeating header row; narrow type when the table is wide."""
+    cols = len(header) if header else len(rows[0])
+    tbl = doc.add_table(rows=len(rows) + (1 if header else 0), cols=cols)
+    tbl.style = doc.styles["Climb Table"]
+    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    tbl.autofit = False
+    size = 9.5 if cols < 7 else (8 if cols < 10 else 7.5)
+    all_rows = ([header] if header else []) + rows
+    for i, row in enumerate(all_rows):
+        for j, v in enumerate(row):
+            cell = tbl.cell(i, j)
+            cell.text = ""
+            p = cell.paragraphs[0]
+            rich(p, str(v), size=size)
+            if first_col and j == 0:
+                for r in p.runs:
+                    set_font(r, B.DISPLAY, size, bold=True, colour=B.CHARCOAL)
+            if widths:
+                cell.width = Cm(widths[j])
+    if widths:
+        for j, w in enumerate(widths):
+            tbl.columns[j].width = Cm(w)
+    if header:
+        header_row(tbl)
+    if cols >= 7:
+        for row in tbl.rows:
+            row._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
+    table_look(tbl, first_row=bool(header), first_col=first_col)
+    return tbl
+
+
+def merge_field(run, name):
+    """A mail merge field with its placeholder result, so the slot shows before the merge. Each part is its own run
+    carrying the run's formatting, which is what Word and LibreOffice both apply to the result."""
+    import copy
+    rpr = run._r.find(qn("w:rPr"))
+    parent = run._r.getparent()
+    at = list(parent).index(run._r)
+
+    def run_el():
+        r = OxmlElement("w:r")
+        if rpr is not None:
+            r.append(copy.deepcopy(rpr))
+        return r
+    parts = []
+    for kind, text in (("begin", None), ("instr", 'MERGEFIELD %s \\* MERGEFORMAT' % name), ("separate", None),
+                       ("text", "\u00ab%s\u00bb" % name), ("end", None)):
+        r = run_el()
+        if kind == "instr":
+            el = OxmlElement("w:instrText")
+            el.set(qn("xml:space"), "preserve")
+            el.text = " %s " % text
+        elif kind == "text":
+            el = OxmlElement("w:t")
+            el.text = text
+        else:
+            el = OxmlElement("w:fldChar")
+            el.set(qn("w:fldCharType"), kind)
+        r.append(el)
+        parts.append(r)
+    parent.remove(run._r)
+    for k, r in enumerate(parts):
+        parent.insert(at + k, r)
+
+
+def merge_text(p, text, size=None, colour=None):
+    """Text with «Field» tokens turned into mail merge fields."""
+    import re
+    for tok in re.split(r"(«[^»]+»)", text):
+        if not tok:
+            continue
+        r = p.add_run()
+        if tok.startswith("«"):
+            merge_field(r, tok[1:-1])
+        else:
+            r.text = tok
+        if size:
+            r.font.size = Pt(size)
+        if colour:
+            r.font.color.rgb = rgb(colour)
+
+
+def restart_numbering(doc, paragraphs):
+    """Give a numbered list its own numbering instance, so it starts at 1 instead of continuing the last list."""
+    numbering = doc.part.numbering_part.element
+    style_pr = doc.styles["List Number"].element.pPr
+    num_id = style_pr.numPr.numId.val
+    abstract = numbering.num_having_numId(num_id).abstractNumId.val
+    new = numbering.add_num(abstract)
+    new.add_lvlOverride(0).add_startOverride(1)
+    for p in paragraphs:
+        numpr = p._p.get_or_add_pPr().get_or_add_numPr()
+        numpr.get_or_add_ilvl().val = 0
+        numpr.get_or_add_numId().val = new.numId
+
+
+def sign_block(doc, parties):
+    tbl = doc.add_table(rows=1, cols=len(parties))
+    tbl.style = doc.styles["Climb Table"]
+    tbl.autofit = False
+    for j, party in enumerate(parties):
+        cell = tbl.cell(0, j)
+        cell.text = ""
+        p = cell.paragraphs[0]
+        r = p.add_run("Signed for and on behalf of %s" % party)
+        set_font(r, B.DISPLAY, 9.5, bold=True, colour=B.CHARCOAL)
+        for line in ("Signature", "Name", "Role", "Date"):
+            q = cell.add_paragraph()
+            q.paragraph_format.space_before = Pt(14)
+            r = q.add_run("%s:  " % line)
+            set_font(r, B.BODY, 9, bold=True, colour=B.SLATE)
+            r = q.add_run("_" * 28)
+            r.font.color.rgb = rgb(B.SLATE)
+        cell.width = Cm(16.6 / len(parties))
+    table_look(tbl, first_row=False)
+
+
+def cert_page(doc, b, eyebrow, line, after, fields, signer):
+    """One certificate: the mark, the eyebrow, the name as merge fields, the line, a signature and the lockup."""
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(70)
+    r = p.add_run()
+    r.add_picture(B.logo(b, "full-colour-light", 1024), width=Cm(4.6))
+    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo" % b)
+    p = doc.add_paragraph(style="Eyebrow")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(26)
+    p.add_run(eyebrow)
+    p = doc.add_paragraph(style="Lead")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.add_run(line)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_after = Pt(4)
+    for k, (fld, _) in enumerate(fields):
+        if k:
+            p.add_run(" ")
+        r = p.add_run()
+        set_font(r, B.DISPLAY_BLACK, 36, colour=B.CHARCOAL, caps=True, spacing=-0.4)
+        merge_field(r, fld)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run()
+    r.add_picture(os.path.join(ART, "rule_short.png"), width=Cm(2.6))
+    r._r.find(".//" + qn("wp:docPr")).set("descr", "")
+    p = doc.add_paragraph(style="Lead")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    merge_text(p, after)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(34)
+    r = p.add_run("_" * 34)
+    r.font.color.rgb = rgb(B.SLATE)
+    p = doc.add_paragraph(style="Caption")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.add_run(signer)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(6)
+    r = p.add_run()
+    r.add_picture(B.logo(b, "tagline-lockup", 1024), width=Cm(5.0))
+    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo, %s" % (b, B.BRANDS[b]["line"]))
+
+
+def render_blocks(doc, b, blocks):
+    for blk in blocks:
+        kind = blk[0]
+        if kind == "eyebrow":
+            doc.add_paragraph(blk[1], style="Eyebrow")
+        elif kind == "title":
+            p = doc.add_paragraph(style="Title")
+            rich(p, blk[1])
+            for r in p.runs:
+                set_font(r, B.DISPLAY_BLACK, 26)
+        elif kind == "sub":
+            doc.add_paragraph(blk[1], style="Subtitle")
+        elif kind == "lead":
+            rich(doc.add_paragraph(style="Lead"), blk[1])
+        elif kind in ("h1", "h2", "h3"):
+            rich(doc.add_paragraph(style="Heading %s" % kind[1]), blk[1])
+        elif kind == "p":
+            for line in blk[1].split("\n"):
+                rich(doc.add_paragraph(), line)
+        elif kind == "bullets":
+            for t in blk[1]:
+                rich(doc.add_paragraph(style="List Bullet"), t)
+        elif kind == "numbers":
+            restart_numbering(doc, [rich(doc.add_paragraph(style="List Number"), t) for t in blk[1]])
+        elif kind == "checklist":
+            for t in blk[1]:
+                doc.add_paragraph("[  ]  " + t)
+        elif kind == "callout":
+            rich(doc.add_paragraph(style="Callout"), blk[1])
+        elif kind == "quote":
+            doc.add_paragraph(blk[1], style="Quote")
+            doc.add_paragraph(blk[2], style="Quote Source")
+        elif kind == "big":
+            doc.add_paragraph(blk[1], style="Big Number")
+            doc.add_paragraph(blk[2])
+        elif kind == "small":
+            doc.add_paragraph(blk[1], style="Small Print")
+        elif kind == "kv":
+            fill_table(doc, None, [[k, v] for k, v in blk[1]], [4.6, 12.0], first_col=True)
+        elif kind == "table":
+            fill_table(doc, blk[1], blk[2], blk[3] if len(blk) > 3 else None)
+        elif kind == "clauses":
+            n = blk[2] if len(blk) > 2 else 1
+            for k, (heading, note) in enumerate(blk[1], n):
+                doc.add_paragraph("%d. %s" % (k, heading), style="Heading 2")
+                doc.add_paragraph(WC.APPROVED)
+                doc.add_paragraph("What goes here: " + note, style="Caption")
+        elif kind == "sign":
+            doc.add_paragraph("Signatures", style="Heading 2")
+            sign_block(doc, blk[1])
+        elif kind == "sigline":
+            p = doc.add_paragraph()
+            p.paragraph_format.space_before = Pt(24)
+            r = p.add_run("Signed:  " + "_" * 30 + "      Date:  " + "_" * 14)
+            r.font.color.rgb = rgb(B.SLATE)
+            doc.add_paragraph(blk[1], style="Caption")
+        elif kind == "page":
+            doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+        elif kind == "toc":
+            doc.add_paragraph("Contents", style="Eyebrow")
+            toc = doc.add_paragraph()
+            r = toc.add_run()
+            field(r, 'TOC \\o "1-2" \\h \\z \\u')
+            r.text = ""
+            toc.add_run("Right-click and choose Update Field to build the contents from the headings.").italic = True
+            doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+        elif kind == "cert":
+            cert_page(doc, b, *blk[1:])
+        else:
+            raise ValueError("unknown block %r" % (kind,))
+
+
+def landscape(sec, top=2.0, bottom=1.8):
+    sec.orientation = WD_ORIENT.LANDSCAPE
+    sec.page_width, sec.page_height = Cm(29.7), Cm(21.0)
+    sec.left_margin = sec.right_margin = Cm(2.2)
+    sec.top_margin, sec.bottom_margin = Cm(top), Cm(bottom)
+    sec.header_distance, sec.footer_distance = Cm(0.8), Cm(0.8)
+
+
+def catalogue_doc(b, name):
+    spec = WC.DOCS[name]
+    doc = new_doc()
+    sec = doc.sections[0]
+    kind = spec["kind"]
+    if kind == "cover":
+        info = dict(WC.COVERS[name])
+        for k in ("title", "sub", "meta"):
+            info[k] = info[k].replace("[Edition]", WC.edition(b)).replace("[Dates]", WC.event_dates(b))
+        sec.different_first_page_header_footer = True
+        cover_header(b, sec.first_page_header)
+        standard_header(b, sec.header, sec.footer, label=info["label"])
+        sec.first_page_footer.paragraphs[0].text = ""
+        cover_front(doc, b, info, b)
+    elif kind == "plain":
+        standard_header(b, sec.header, sec.footer, label=spec["label"])
+    elif kind == "landscape-plain":
+        landscape(sec, top=3.0, bottom=2.4)
+        standard_header(b, sec.header, sec.footer, label=spec["label"], landscape=True)
+    elif kind == "landscape":
+        landscape(sec)
+        hp = sec.header.paragraphs[0]
+        hp.text = ""
+        anchor_picture(hp.add_run(), os.path.join(ART, "a4_slab_tl.png"), 3.6, 0, 0, descr="", decorative=True)
+        anchor_picture(hp.add_run(), os.path.join(ART, "a4_slab_br.png"), 6.0, 23.7, 20.4, descr="", decorative=True)
+        fp = sec.footer.paragraphs[0]
+        fp.text = ""
+        r = fp.add_run(B.LEGAL)
+        r.font.size = Pt(6.5)
+        r.font.color.rgb = rgb(B.SLATE)
+    render_blocks(doc, b, spec["blocks"](b))
+    return doc
+
+
+def save(doc, b, row):
+    stem = K.stem(b, row)
+    d = os.path.join(B.OUT, "office", K.folder(b, row))
+    os.makedirs(d, exist_ok=True)
+    doc.core_properties.title = "%s %s" % (b, row["title"].lower())
+    doc.core_properties.author = b
+    p = os.path.join(d, stem + ".dotx")
+    doc.save(p)
+    apply_theme(p, b)
+    os.makedirs(os.path.join(B.OUT, "_preview"), exist_ok=True)
+    to_document(p, os.path.join(B.OUT, "_preview", stem + ".docx"))
+    print(p)
+
+
 def main():
-    brands = sys.argv[1:] or list(B.BRANDS)
+    args = sys.argv[1:]
+    if args[:1] == ["--copy"]:
+        print("\n".join(WC.all_copy()))
+        return
+    only = None
+    if args[:1] == ["--only"]:
+        only, args = args[1:], []
+    brands = args or list(B.BRANDS)
     for b in brands:
-        d = os.path.join(B.OUT, "office", b, "word")
-        os.makedirs(d, exist_ok=True)
-        for name, fn in DOCS.items():
-            doc = fn(b)
-            doc.core_properties.title = "%s %s" % (b, name.replace("-", " ").lower())
-            doc.core_properties.author = b
-            p = os.path.join(d, "%s_%s.dotx" % (b, name))
-            doc.save(p)
-            apply_theme(p, b)
-            pv = os.path.join(B.OUT, "_preview", "%s_%s.docx" % (b, name))
-            to_document(p, pv)
-            print(p)
+        for row in K.rows("word", b):
+            if only and row["name"] not in only:
+                continue
+            fn = ORIGINAL.get(row["name"]) if row["original"] else None
+            doc = fn(b) if fn else catalogue_doc(b, row["name"])
+            save(doc, b, row)
 
 
 if __name__ == "__main__":
