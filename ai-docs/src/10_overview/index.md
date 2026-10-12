@@ -15,6 +15,12 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 - Code that wants the old Dark Brown tile uses `icon-on-ground` or `icon-monogram-on-ground`.
 - Rebuild with `python3 logos/_build/build.py && python3 logos/_build/sheet.py`, then `python3 app-icons/_build/build_app_icons.py`. All need `rsvg-convert` and Pillow.
 
+### Fonts
+
+- Montserrat and Open Sans ship in three formats: `fonts/ttf/` (TrueType) and `fonts/otf/` (OpenType, PostScript outlines) hold every style the brand uses, named `<Family>-<Style>` (`fonts/otf/OpenSans-SemiBold.otf`); the `fonts/*.woff2` files are Latin-only web fonts for pages.
+- Hand an app, an office suite or a brand centre upload the TTF or OTF file, never the WOFF2; tools that take uploaded fonts refuse WOFF2.
+- `python3 fonts/_build/fetch_fonts.py` (needs fontTools) fetches the official builds at pinned commits; Open Sans has no official OTF, so its OTF files are converted from the official TTF. `python3 -m unittest discover -s fonts/tests` checks both formats with the standard library only.
+
 ### Install the skills elsewhere
 
 - `npx skills add Climb-Group/Brand-System` offers exactly the two brand skills. The house skills synced into `.agents/skills` are listed in `skills-lock.json`, which `npx skills` treats as already installed and hides.

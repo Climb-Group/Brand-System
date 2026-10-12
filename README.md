@@ -9,7 +9,7 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 | `tokens/` | Design tokens: colours, presets, themes (Dark, Light, AAA-Dark, AAA-Light), type, spacing, radius, shadow, motion, print colours. `brand.tokens.json` is the source; `tokens.css` and `_tokens.scss` are generated. |
 | `logos/` | Logo masters per brand (SVG and PNG, contact sheets) and the script that builds them. Transparent by default, each also on solid White, Dark Brown and Climb Orange. |
 | `app-icons/` | Favicons, web app icons and app launcher tiles, transparent by default and on the three solid grounds. |
-| `fonts/` | Montserrat and Open Sans (SIL Open Font License). |
+| `fonts/` | Montserrat and Open Sans (SIL Open Font License): TTF in `fonts/ttf/` and OTF in `fonts/otf/` for apps and font uploads, WOFF2 for web pages. |
 | `illustrations/` | The house line illustrations, one SVG per object, and the background shapes in `shapes/`. |
 | `icons/social/` | Social icons and signature buttons in SVG and PNG. |
 | `photos/` | Consented event photography used across the brand. |
