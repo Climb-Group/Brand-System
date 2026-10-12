@@ -61,6 +61,9 @@ copy_tree "$PAYLOAD/fonts" "$DEST/Fonts"
 copy_tree "$PAYLOAD/office" "$DEST/Office"
 copy_tree "$PAYLOAD/themes" "$DEST/Themes"
 copy_tree "$PAYLOAD/libreoffice" "$DEST/LibreOffice"
+copy_tree "$PAYLOAD/defaults" "$DEST/Defaults"
+cp "$HERE/set-climb-defaults.sh" "$DEST/"
+chmod 755 "$DEST/set-climb-defaults.sh"
 
 # Office for Mac: shared templates and themes for every user
 mkdir -p "$MSO/Templates.localized" "$MSO/Themes.localized/Theme Colors" "$MSO/Themes.localized/Theme Fonts"

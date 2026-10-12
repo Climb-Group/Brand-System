@@ -8,6 +8,7 @@ Output: templates/dist/Climb-Templates-<version>.zip, laid out as
       payload/fonts/       Montserrat and Open Sans TTF + licences
       payload/office/<Brand>/   .dotx .xltx .potx, the co-branded external versions among them (External-*)
       payload/themes/      .thmx + Theme Colors/ + Theme Fonts/
+      payload/defaults/<Brand>/ Normal.dotm, Blank.potx, Book.xltx, Default Theme.thmx
       payload/libreoffice/<Brand>/
       payload/video/       Resolve .drfx, LUT, Premiere XML, stills, captions
       windows/ macos/ linux/
@@ -48,6 +49,8 @@ def entries():
         for app in ("word", "excel", "powerpoint", "external"):
             for p in files(os.path.join(office, b, app)):
                 yield p, "office/%s/%s" % (b, os.path.basename(p))
+        for p in files(os.path.join(office, b, "defaults")):
+            yield p, "defaults/%s/%s" % (b, os.path.basename(p))
         for p in files(os.path.join(office, "libreoffice", b)):
             yield p, "libreoffice/%s/%s" % (b, os.path.basename(p))
     theme = os.path.join(office, "_shared", "office-theme")

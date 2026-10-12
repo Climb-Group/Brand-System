@@ -24,6 +24,7 @@ Also here:
 - `_shared/office-theme/`: a `.thmx` theme per brand, plus the colour and font schemes on their own.
 - `libreoffice/`: the same templates as `.ott`, `.ots` and `.otp` for LibreOffice.
 - `previews/`: contact sheets per brand: `_Word`, `_Excel` and `_PowerPoint` for the first set, `_Word-company`, `_Word-events`, `_Excel-company`, `_Excel-events` and `_Decks` for the second set, and `_External` for the co-branded versions.
+- `<Brand>/defaults/`: the files Office opens for a new blank file (`Normal.dotm` letterhead for Word, `Blank.potx` for PowerPoint on Windows, `Default Theme.thmx` for PowerPoint on Mac, `Book.xltx` for Excel). The install package sets them for each person; see "Make a brand the default" in `../install/README.md`.
 
 ## Install
 
