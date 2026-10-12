@@ -34,6 +34,7 @@ Good copy is easy to read for everyone, including people reading in a second lan
 - **Unusual words link to the glossary.** The first time a page uses a word a newcomer may not know (scale-up, exhibitor tiers, deal flow), link it to the ClimbUK glossary page, or say what it means in a few words.
 - **Keep the glossary up to date.** Whenever text goes on the website, including blog posts, news, newsletters and text a client or partner supplied that is published word for word, check it for terms a newcomer may not know. Add any that are missing to the glossary, each with a one or two sentence definition in this voice. Supplied text keeps its own wording; the glossary does the explaining.
 - **Links say where they go.** The link text names the destination or the action: "See the Climb27 lineup", "Read the partner terms". Never "Click here", "Read more", "Learn more", "Find out more", "More info" or a bare "here". If a link opens a new tab, say so.
+- **Buttons say what they do.** The button text is the action: "Get your ticket", "Book now", "Book a call". Never "Call to action", "The main button" or "Buy now".
 
 ## Where the name comes from
 

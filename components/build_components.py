@@ -125,7 +125,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:700}
 h2{font-size:clamp(2rem,2vw + 1rem,2.5rem)}
 @each $i, $bg, $tx, $hd, $ln, $bf, $bt in
   (1,var(--white),var(--body-slate),var(--charcoal),var(--link-on-white),var(--climb-orange),var(--white)),
-  (2,var(--light-grey),var(--body-slate),var(--orange-text-on-grey),var(--link-on-grey),var(--climb-orange),var(--white)),
+  (2,var(--light-grey),var(--body-slate),var(--charcoal),var(--link-on-grey),var(--climb-orange),var(--white)),
   (3,var(--dark-brown),var(--white),var(--white),var(--orange-tint),var(--climb-orange),var(--white)),
   (4,var(--climb-orange),var(--white),var(--white),var(--white),var(--white),var(--charcoal)),
   (5,var(--charcoal),var(--light-grey),var(--white),var(--orange-tint),var(--climb-orange),var(--white)) {

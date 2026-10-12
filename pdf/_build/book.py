@@ -403,7 +403,7 @@ def presets(bk):
         ("Charcoal", "Second dark", "var(--ch)", "var(--lg)", "#fff", "var(--tint)", "var(--o)", "var(--o)", "#fff"),
         ("Climb Orange", "The big moment", "var(--o)", "var(--db)", "#fff", "var(--db)", "var(--db)", "var(--db)", "#fff"),
         ("White", "Long reading", "#fff", "#4A5878", "var(--ch)", "var(--deep)", "var(--o)", "var(--o)", "#fff"),
-        ("Light Grey", "Quiet sections", "var(--lg)", "#404C68", "#B04902", "#7A3B16", "#D5641E", "var(--o)", "#fff"),
+        ("Light Grey", "Quiet sections", "var(--lg)", "#404C68", "var(--ch)", "#7A3B16", "#D5641E", "var(--o)", "#fff"),
     ]
     html = "".join(
         '<div style="background:%s;border-radius:14px;padding:40px 34px;height:600px;display:flex;flex-direction:column;%s">'

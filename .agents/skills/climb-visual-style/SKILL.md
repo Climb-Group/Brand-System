@@ -27,7 +27,7 @@ All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_
 | Preset | Ground | Text | Headings | Links | Orange you may use | Primary button |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 White | #FFFFFF | Body Slate #4D5B7C | Charcoal #242322 | #A94B12, underlined | Small: #C55308. Large: #E8712A | #E8712A, white 19px bold label |
-| 2 Light Grey | #E9E9E9 | Body Slate #4D5B7C | #B04902 | #843A0E, underlined | Small: #B04902. Large: #D5641E | as preset 1 |
+| 2 Light Grey | #E9E9E9 | Body Slate #4D5B7C | Charcoal #242322 | #843A0E, underlined | Small: #B04902. Large: #D5641E | as preset 1 |
 | 3 Dark Brown (default) | #1E0F05 | White | White | Orange Tint #F2AE86 | #E8712A at any size | as preset 1 |
 | 4 Climb Orange | #E8712A | White, large only | White | White, underlined | none | White fill, #C55308 label |
 | 5 Charcoal | #242322 | Light Grey #E9E9E9 | White | Orange Tint #F2AE86 | #E8712A at any size | as preset 1 |

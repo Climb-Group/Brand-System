@@ -127,7 +127,7 @@
         "$value": "{color.text.body-on-grey}"
       },
       "heading": {
-        "$value": "{color.orange.text-on-grey}"
+        "$value": "{color.text.heading-on-light}"
       },
       "link": {
         "$value": "{color.link.on-grey}"
@@ -732,6 +732,11 @@
         "color.brand.charcoal",
         "color.brand.white",
         "normal"
+      ],
+      [
+        "color.brand.charcoal",
+        "color.brand.light-grey",
+        "aaa"
       ],
       [
         "color.text.body-on-light",
