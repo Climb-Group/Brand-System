@@ -6,12 +6,24 @@ Word, Excel and PowerPoint templates for ClimbUK, ClimbGroup and Climb27, so eve
 | --- | --- | --- | --- |
 | `ClimbUK/`, `ClimbGroup/`, `Climb27/` | Letterhead, Report, Proposal, Press release, Meeting notes | Event budget, Partner pipeline, Run sheet, Content calendar | Presentation 16:9 (19 layouts, 14 example slides) |
 
+The second set, for any company and for the events business. "All" is every brand folder; "UK and Group" is `ClimbUK/` and `ClimbGroup/` only.
+
+| App | All three brands | ClimbUK and ClimbGroup only |
+| --- | --- | --- |
+| Word | Memo, Contract, Partnership agreement, Award sponsorship agreement, Exhibitor agreement, Non-disclosure agreement, Business plan, Policy, Standard operating procedure, Case study, Fact sheet, Newsletter, Certificate (award, completion and appreciation pages), Terms and conditions, Post-event report, Exhibitor manual, Speaker brief, Host brief, Event risk assessment and method statement, Event day pack, Attendance certificate | Statement of work, Job description, Offer letter, Employee handbook, Brief, Board report |
+| Excel | Invoice, Quote, Purchase order, Profit and loss, Expense claim, KPI dashboard, Project plan (Gantt), Task tracker, Risk register, Contact list, Timesheet, Speaker and session tracker, Production critical path, Supplier and crew tracker, Floor plan and stand allocation, Staff and volunteer rota, Feedback survey results | Annual budget, Cash flow forecast, Supplier register, Asset register, Leave planner, Recruitment tracker |
+| PowerPoint | Investor pitch deck, Sales deck, All-hands, Org chart, Partner prospectus, Stage holding slides, Speaker slides | Quarterly business review, Board presentation, Project kick-off, Training deck |
+
+Every deck shares the presentation template's master and layouts; the stage holding slides add Holding, Up next and Logo grid layouts. The contract is the general services agreement; the three event agreements (partnership, award sponsorship, exhibitor) are their own files with the same clause headings and a schedule each. Clause bodies are slots for the approved wording. The certificates and the attendance certificate carry mail merge fields (First_name, Last_name, Event, Date, CPD_hours) so a list of names fills them in one go.
+
+**Co-branded versions for people outside the company** are in `<Brand>/external/`, named `External-...`: the investor pitch deck (for founders pitching at the event), the stage holding slides (for a partner stage), the speaker slides (with the speaker's own logo slot) and the exhibitor and partner risk assessment (Word and Excel, with the five steps, the 5 x 5 matrix, the scored register and example hazards). Each carries a "Your logo" slot and the brand as the host mark ("Speaking at Climb27", "Pitching at ClimbUK", "Hosted at Climb27"), fewer layouts and no internal content. In the install package they sit in the brand's folder with the other templates.
+
 Also here:
 
 - `_shared/fonts/`: Montserrat and Open Sans as desktop fonts (static TTF, every weight the templates use) with their licences.
 - `_shared/office-theme/`: a `.thmx` theme per brand, plus the colour and font schemes on their own.
 - `libreoffice/`: the same templates as `.ott`, `.ots` and `.otp` for LibreOffice.
-- `previews/`: a contact sheet per brand and app.
+- `previews/`: contact sheets per brand: `_Word`, `_Excel` and `_PowerPoint` for the first set, `_Word-company`, `_Word-events`, `_Excel-company`, `_Excel-events` and `_Decks` for the second set, and `_External` for the co-branded versions.
 
 ## Install
 
@@ -32,7 +44,8 @@ Also here:
 - **One orange word, one italic word** per headline. In Word, select the word and apply the Orange Word character style (it uses the small-text orange that passes contrast on white). In PowerPoint, colour it Climb Orange from the theme colours.
 - **Dark first, light for reading.** PowerPoint opens on Dark Brown layouts; use the "(light)" layouts for slides people will read closely. Word and Excel are light because they are for reading and printing; report and proposal covers are dark.
 - **Photos.** Picture placeholders in PowerPoint crop to fit. Use real, consented event photos, never stock. Give every picture alt text (right-click, View Alt Text).
-- **Tables.** Word uses the Climb Table style (Dark Brown header row that repeats on each page). Excel sheets are Excel tables with drop-down status lists, totals and print setup (A4 landscape, fit to width).
+- **Tables.** Word uses the Climb Table style (Dark Brown header row that repeats on each page). Excel sheets are Excel tables with drop-down status lists, totals and print setup (A4 landscape, fit to width). Light Grey cells in a workbook are the ones you fill in; every total, score, band and date header is a formula. Invoices, quotes, purchase orders and expense claims carry an editable VAT rate (20 percent by default) and the company's legal line and VAT number.
+- **Risk bands.** Risk registers write the band in words (Low, Medium, High, Critical) and colour the cell as well; the colours all pass contrast, and the word is what counts.
 - **Legal line.** Letterheads and documents carry the company's legal line in the footer. Keep it on anything that leaves the company.
 
 ## Accessibility

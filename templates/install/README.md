@@ -3,7 +3,7 @@
 This package installs the ClimbUK, ClimbGroup and Climb27 Word, Excel and PowerPoint templates, the Montserrat and Open Sans fonts, the Office themes, the LibreOffice templates and the video kit (DaVinci Resolve titles, the grade LUT, Premiere Pro sequences, stills and captions) on Windows, macOS and Linux. Use it by hand on one machine, or through Intune, Jamf or any other device manager.
 
 ```
-payload/   the files: fonts, office/<Brand>, themes, libreoffice/<Brand>, video
+payload/   the files: fonts, office/<Brand> (the External-* files are the co-branded versions for people outside the company), themes, libreoffice/<Brand>, video
 windows/   Install, Uninstall, Detect and per-user scripts (PowerShell)
 macos/     install and uninstall scripts, and build-pkg.sh to make a .pkg
 linux/     install and uninstall scripts
