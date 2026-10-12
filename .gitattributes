@@ -3,6 +3,8 @@
 *.jpg binary
 *.webp binary
 *.woff2 binary
+*.ttf binary
+*.otf binary
 *.pdf binary
 *.zip binary
 *.7z binary

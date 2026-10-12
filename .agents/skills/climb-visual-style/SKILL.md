@@ -84,7 +84,7 @@ Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); pri
 | Illustrations and background shapes | `illustrations/`, `illustrations/shapes/` |
 | Social and signature icons, signature buttons | `icons/social/` |
 | Event photography (consented) | `photos/` |
-| Fonts (OFL) | `fonts/` |
+| Fonts (OFL) | `fonts/ttf/` and `fonts/otf/` for apps and font uploads, `fonts/*.woff2` for web pages only |
 | Live, theme-switchable components | `components/hub/` |
 | Asset generators (call backgrounds, wallpapers, social, email, print kits) | `generators/` |
 | Previews and contact sheets | `previews/` |
