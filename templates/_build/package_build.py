@@ -6,7 +6,7 @@ Output: templates/dist/Climb-Templates-<version>.zip, laid out as
       VERSION
       README.md            (from install/README.md)
       payload/fonts/       Montserrat and Open Sans TTF + licences
-      payload/office/<Brand>/   .dotx .xltx .potx
+      payload/office/<Brand>/   .dotx .xltx .potx, the co-branded external versions among them (External-*)
       payload/themes/      .thmx + Theme Colors/ + Theme Fonts/
       payload/libreoffice/<Brand>/
       payload/video/       Resolve .drfx, LUT, Premiere XML, stills, captions
@@ -43,7 +43,9 @@ def entries():
     for p in files(os.path.join(office, "_shared", "fonts")):
         yield p, "fonts/" + os.path.basename(p)
     for b in BRANDS:
-        for app in ("word", "excel", "powerpoint"):
+        # The external folder is flattened in with the rest: every installer and the ONLYOFFICE list read one folder
+        # per brand, and the External- prefix keeps the names apart.
+        for app in ("word", "excel", "powerpoint", "external"):
             for p in files(os.path.join(office, b, app)):
                 yield p, "office/%s/%s" % (b, os.path.basename(p))
         for p in files(os.path.join(office, "libreoffice", b)):
