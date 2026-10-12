@@ -14,7 +14,7 @@ documentation covers the same ground in plain words; see the README.
 
 ## House standards
 
-Every Resnovas repository follows the same standards. This section is synced from
+Every ClimbGroup repository follows the same standards. This section is synced from
 [`Resnovas/.github`](https://github.com/Resnovas/.github); the rules come from
 `AGENTS.md`, `CONTRIBUTING.md`, `AI_POLICY.md` and the PostHog skill
 `coding-preferences`, and those documents win if this summary ever disagrees
@@ -42,7 +42,7 @@ with them. The sections after this one describe this repository itself.
   `feature-flags`). Telemetry events carry no secret or personal data.
 - **Module boundaries.** The core package holds domain-agnostic building
   blocks only. Vendor SDKs and API clients live in
-  `@resnovas/integrations.<vendor>`. Features depend on core and
+  `@climbgroup/integrations.<vendor>`. Features depend on core and
   integrations, never the other way round (`AI_POLICY.md` AI-13).
 - **Comments explain why.** Constraints, trade-offs and anything surprising;
   never a restatement of the code.
@@ -112,9 +112,11 @@ with them. The sections after this one describe this repository itself.
 - Releases are cut by the synced house release workflow from `release.config.json`
   at the repository root (what the repository ships: bundles, apps, the major
   tag, error tracking project, npm package); the tools under `tools/release/`
-  are synced too. Never run `nx release` without `--dry-run`; the workflow is
-  the only release path, and its first run in a repository takes a specifier
-  with first-release ticked.
+  are synced too. The workflow runs on every push to the default branch and
+  releases when the conventional commits call for it (before the first stable
+  `v*` tag, the `firstRelease` version); never add a release that needs
+  starting by hand. Never run `nx release` without `--dry-run`; the workflow
+  is the only release path.
 
 ### Document everything twice
 
@@ -138,7 +140,7 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 
 ### Use the brand from an agent
 
-- Load `.agents/skills/climb-voice` for any words and `.agents/skills/climb-visual-style` for anything visual; both for an asset with words on it. Run `python3 .agents/skills/climb-voice/scripts/check_copy.py FILE` on every piece of copy.
+- Load `.agents/skills/climb-voice` for any words and `.agents/skills/climb-visual-style` for anything visual; both for an asset with words on it. Only when the target is an Odoo website or module, also load `.agents/skills/climb-odoo-pages` (pages stay editable in the website editor and take their values from the theme). Run `python3 .agents/skills/climb-voice/scripts/check_copy.py FILE` on every piece of copy.
 - Every colour and size comes from `tokens/brand.tokens.json`. Never type a value that is not in it.
 - `ai/tools/brand_rules.py` answers brand questions as tools (`call(tool, arguments, venue_announced)`); `ai/kit.json` lists them.
 
