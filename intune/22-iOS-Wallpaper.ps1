@@ -62,8 +62,9 @@ $body = @{
     roleScopeTagIds           = @('0')
 }
 
-$id = Set-ClimbObject -Collection 'deviceManagement/deviceConfigurations' -Name $name -Body $body -WhatIf:$WhatIfPreference
+# Resolve the assignment first, so a missing group stops the run before anything is created.
 $targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
+$id = Set-ClimbObject -Collection 'deviceManagement/deviceConfigurations' -Name $name -Body $body -WhatIf:$WhatIfPreference
 Set-ClimbAssignment -Collection 'deviceManagement/deviceConfigurations' -Id $id -Name $name -Kind deviceConfiguration -Targets $targets -WhatIf:$WhatIfPreference
 
 Write-ClimbStep 'Done. People can still change the wallpaper afterwards unless a device restriction blocks it (left alone on purpose).'

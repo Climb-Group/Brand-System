@@ -57,16 +57,22 @@ foreach ($u in @($DesktopImageUrl, $LockScreenImageUrl)) {
 Write-ClimbStep "Desktop: $(if ($LockScreenOnly) { '(not set)' } else { $DesktopImageUrl })"
 Write-ClimbStep "Lock screen: $LockScreenImageUrl"
 
-$definitions = [ordered]@{
-    'device_vendor_msft_personalization_lockscreenimageurl' = $LockScreenImageUrl
+# The Personalization CSP sits at ./Vendor/MSFT/Personalization, so its settings catalog ids have
+# no "device_" prefix. Try the known spellings, then search the catalog, before writing anything.
+function Resolve-ClimbSettingId([string]$Leaf) {
+    foreach ($id in "vendor_msft_personalization_$Leaf", "device_vendor_msft_personalization_$Leaf") {
+        try { Invoke-ClimbGraph -Path "deviceManagement/configurationSettings('$id')" | Out-Null; return $id } catch { }
+    }
+    $hits = @(try { Invoke-ClimbGraph -Path "deviceManagement/configurationSettings?`$search=`"$Leaf`"" } catch { }) |
+            Where-Object { $_.id -like "*personalization_$Leaf" }
+    $hits = @($hits)
+    if ($hits.Count -ge 1) { return $hits[0].id }
+    throw "The settings catalog has no Personalization setting '$Leaf'. Search 'Personalization' in the settings picker and update this script."
 }
-if (-not $LockScreenOnly) { $definitions['device_vendor_msft_personalization_desktopimageurl'] = $DesktopImageUrl }
 
-# Make sure the settings catalog still has these setting ids before writing anything.
-foreach ($defId in $definitions.Keys) {
-    try { Invoke-ClimbGraph -Path "deviceManagement/configurationSettings('$defId')" | Out-Null }
-    catch { throw "The settings catalog has no setting '$defId'. Microsoft may have renamed it: search 'Personalization' in the settings picker and update this script." }
-}
+$definitions = [ordered]@{ (Resolve-ClimbSettingId 'lockscreenimageurl') = $LockScreenImageUrl }
+if (-not $LockScreenOnly) { $definitions[(Resolve-ClimbSettingId 'desktopimageurl')] = $DesktopImageUrl }
+Write-ClimbStep "Settings: $($definitions.Keys -join ', ')"
 
 $settings = @(foreach ($defId in $definitions.Keys) {
         @{
@@ -92,8 +98,9 @@ $body = @{
     settings        = $settings
 }
 
-$id = Set-ClimbObject -Collection 'deviceManagement/configurationPolicies' -Name $name -NameProperty name -Body $body -UsePut -WhatIf:$WhatIfPreference
+# Resolve the assignment first, so a missing group stops the run before anything is created.
 $targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
+$id = Set-ClimbObject -Collection 'deviceManagement/configurationPolicies' -Name $name -NameProperty name -Body $body -UsePut -WhatIf:$WhatIfPreference
 Set-ClimbAssignment -Collection 'deviceManagement/configurationPolicies' -Id $id -Name $name -Kind configurationPolicy -Targets $targets -WhatIf:$WhatIfPreference
 
 Write-ClimbStep 'Done. The new picture shows after the next sync; the lock screen can need a restart.'

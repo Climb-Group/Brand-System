@@ -44,8 +44,8 @@ Write-ClimbStep "Taking fonts from templates $($release.Version)"
 $zip = Get-ClimbDownload -Url $release.Url
 if ((Get-FileHash -Algorithm SHA256 -Path $zip).Hash.ToLowerInvariant() -ne $release.Sha256) { throw 'Checksum mismatch on the templates download.' }
 $work = Join-Path ([IO.Path]::GetTempPath()) "climb-fonts-$($release.Version)"
-if (Test-Path $work) { Remove-Item $work -Recurse -Force }
-Expand-Archive -Path $zip -DestinationPath $work
+if (Test-Path $work) { Remove-Item $work -Recurse -Force -WhatIf:$false }
+Expand-Archive -Path $zip -DestinationPath $work -WhatIf:$false
 $fontDir = Get-ChildItem -Path $work -Recurse -Directory -Filter fonts | Where-Object { Get-ChildItem $_.FullName -Filter *.ttf } | Select-Object -First 1
 if (-not $fontDir) { throw 'No fonts folder with .ttf files in the templates package.' }
 
@@ -124,5 +124,5 @@ $($g -join "`n")
     Set-ClimbAssignment -Collection 'deviceManagement/deviceConfigurations' -Id $id -Name $name -Kind deviceConfiguration -Targets $targets -WhatIf:$WhatIfPreference
 }
 
-Remove-Item $work -Recurse -Force
+Remove-Item $work -Recurse -Force -WhatIf:$false
 Write-ClimbStep "Done: $i font profile(s)."

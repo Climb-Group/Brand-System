@@ -12,16 +12,36 @@ These scripts set up Intune so every company device gets the brand fonts, the Of
 
 ## Run order
 
-```bash
-cd /path/to/brand-system/intune
-pwsh ./00-Prerequisites.ps1              # add -UseDeviceCode if no browser opens
-pwsh ./Run-All.ps1 -WhatIf               # read the plan; nothing changes
-pwsh ./Run-All.ps1 -Target Group -GroupName 'Climb pilot devices'
-# check two or three pilot devices the next day, then:
-pwsh ./Run-All.ps1                       # all devices
-```
+Run these one at a time, on separate days where it says so. Do not paste them as one block: the last step changes every device.
 
-Make the pilot group in Entra first (a few of your own devices on each platform). Add `-IncludeAndroid` to also set the Android wallpaper (see below). `-Brand ClimbGroup` or `-Brand Climb27` and `-Design ascent`, `connections` or `contours` change the wallpaper.
+1. Sign in and install the modules. Add `-UseDeviceCode` if no browser opens.
+
+   ```bash
+   cd /path/to/brand-system/intune
+   pwsh ./00-Prerequisites.ps1
+   ```
+
+2. Read the plan. Nothing changes in the tenant.
+
+   ```bash
+   pwsh ./Run-All.ps1 -WhatIf
+   ```
+
+3. Make an Entra security group called `Climb pilot devices` with a few of your own devices on each platform, then send everything to that group only. A script stops before creating anything when the group is missing.
+
+   ```bash
+   pwsh ./Run-All.ps1 -Target Group -GroupName 'Climb pilot devices'
+   ```
+
+4. The next day, check two or three pilot devices. Only then send it to every device:
+
+   ```bash
+   pwsh ./Run-All.ps1
+   ```
+
+Re-running a step is safe: each script updates its own "Climb - " policies by name. Running step 4 after step 3 moves the assignment from the pilot group to all devices. Company Portal branding (script 40) has no assignment, so it changes for everyone at step 3.
+
+Add `-IncludeAndroid` to also set the Android wallpaper (see below). `-Brand ClimbGroup` or `-Brand Climb27` and `-Design ascent`, `connections` or `contours` change the wallpaper.
 
 Before the first run, open Intune admin center > Devices > Scripts and remediations > Remediations once and confirm the Windows Enterprise licensing prompt. E5 includes it, but Intune will not run remediations until that is ticked.
 

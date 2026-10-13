@@ -114,11 +114,12 @@ $body = @{
     roleScopeTagIds          = @('0')
 }
 
+# Resolve the assignment first, so a missing group stops the run before anything is created.
+$targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
 $id = Set-ClimbObject -Collection 'deviceManagement/deviceHealthScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
 
 $time = [timespan]::Parse($RunAt).ToString('hh\:mm\:ss')
 $schedule = @{ '@odata.type' = '#microsoft.graph.deviceHealthScriptDailySchedule'; interval = 1; useUtc = $false; time = $time }
-$targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
 Set-ClimbAssignment -Collection 'deviceManagement/deviceHealthScripts' -Id $id -Name $name -Kind healthScript -Targets $targets -RunSchedule $schedule -WhatIf:$WhatIfPreference
 
 Write-ClimbStep 'Done. PCs pick this up at their next Intune check-in; check Devices > Scripts and remediations for status.'

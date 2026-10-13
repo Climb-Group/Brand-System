@@ -15,7 +15,7 @@
 
     Each person is set once per templates version and brand, so their own later changes stay.
     People whose Word is open, or who have never opened Office, are picked up on a later run.
-    Needs 11-macOS-Templates.ps1 with templates package 1.3.0 or later.
+    Needs 11-macOS-Templates.ps1 with templates package 1.4.0 or later.
 
 .PARAMETER Brand
     ClimbGroup (default), ClimbUK or Climb27.
@@ -49,7 +49,7 @@ $lines = @(
     'exec >>"$LOG" 2>&1'
     'SCRIPT="/Library/Application Support/Climb/Templates/set-climb-defaults.sh"'
     'echo "$(date -u +%FT%TZ) start"'
-    'if [ ! -x "$SCRIPT" ]; then echo "Climb templates 1.3.0 or later not installed yet"; exit 0; fi'
+    'if [ ! -x "$SCRIPT" ]; then echo "Climb templates 1.4.0 or later not installed yet"; exit 0; fi'
     "/bin/bash `"`$SCRIPT`" --brand '$Brand'"
 )
 $script = ($lines -join "`n") + "`n"
@@ -68,8 +68,9 @@ $body = @{
     roleScopeTagIds             = @('0')
 }
 
-$id = Set-ClimbObject -Collection 'deviceManagement/deviceShellScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
+# Resolve the assignment first, so a missing group stops the run before anything is created.
 $targets = Get-ClimbAssignmentTargets -Target $Target -GroupName $GroupName
+$id = Set-ClimbObject -Collection 'deviceManagement/deviceShellScripts' -Name $name -Body $body -WhatIf:$WhatIfPreference
 Set-ClimbAssignment -Collection 'deviceManagement/deviceShellScripts' -Id $id -Name $name -Kind shellScript -Targets $targets -WhatIf:$WhatIfPreference
 
 Write-ClimbStep 'Done. Macs run it within about 8 hours of their next check-in, then daily.'
