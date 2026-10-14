@@ -115,12 +115,27 @@ node --run test        # token and AI kit tests
 
 ### Shared preferences
 
-Agents share what they learn so every session starts where the last one stopped. Brand rules go into this pack, so the brand centre shows them. How the team works, and how each person likes to work with an agent, go into the workspace's shared agent memory, tagged `pref:team` or `pref:personal`; that memory is private to workspace members and never committed here. The agent instructions (`AGENTS.md`, rule 10) give the tags, what wins when two rules disagree, and what is never stored.
+Agents share what they learn so every session starts where the last one stopped. Each preference has one home:
+
+- Brand rules go into this pack, so the brand centre shows them.
+- How the team works goes into the workspace's shared agent memory, tagged `pref:team`. It is private to workspace members and never committed here.
+- How one person likes to work with an agent stays on that person's computer only. It needs no git or GitHub account.
+
+Save a personal preference (Python 3 and, for the graph, `uv`):
+
+```bash
+python3 ai/preferences/preferences.py add "reply style" "Lead with the answer and keep it short."
+python3 ai/preferences/preferences.py show
+python3 ai/preferences/preferences.py query "reply style"
+```
+
+`add` writes a dated line to `preferences.md` in the local app data folder (`%LOCALAPPDATA%\climb-preferences` on Windows, `~/.local/share/climb-preferences` elsewhere; set `CLIMB_PREFERENCES_DIR` to move it), then builds a Graphify graph of that file and registers it, with this repository's graph, in your own Graphify global graph. `query` searches both. `index` rebuilds the graph by hand, and `path` prints where the file is. The folder sits outside OneDrive and other synced folders on purpose.
 
 Common problems:
 
-- An agent forgot a preference: check that a workspace member accepted the note in the memory review queue; unaccepted notes stay hidden from normal recall.
+- An agent forgot a team preference: check that a workspace member accepted the note in the memory review queue; unaccepted notes stay hidden from normal recall.
 - The memory does not list this repository: add it to the workspace (the memory needs the repository indexed first). Until then agents fall back to their host's project memory.
+- `add` saved the line but the graph step failed: run `sh tools/graphify/graphify setup` once, then `python3 ai/preferences/preferences.py index`.
 
 ### The code graph
 
