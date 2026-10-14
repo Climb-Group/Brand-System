@@ -239,6 +239,11 @@ End every task with a message a reader who did not watch you work can act on: wh
    - Odoo website only: `climb-odoo-pages`.
    - Anything that must stay private (an unannounced venue, internal targets, people's details): `private_rules.py` and private notes, never the public tree.
    Bump the skill's `version`, add the source to its `sources`, rebuild the generated files (`python3 ai/agents/build_agent_kits.py`, `node tools/dev/surfaces.mjs sync`), and say in the pull request which preference it records. A decision that replaces an older rule removes or rewrites the old rule in the same change, so the pack never says both.
+10. **Preferences are shared, in three homes.** Every session starts by reading what earlier sessions learnt and ends by saving what it learnt, so the whole team teaches every agent. Sort each preference by who it is about:
+   - **Brand** (how ClimbUK looks, sounds or is named): this pack, as rule 9 says. It is public, so it holds rules, never who said them.
+   - **Team** (how the team works: tools, devices, review habits, private facts about the business): Graphify Cloud memory for `Climb-Group/Brand-System`, tagged `pref:team` and a domain (`voice`, `visual`, `odoo`, `tooling`, `devices`, `process`). A checkable private copy rule also goes in `private_rules.py`.
+   - **Personal** (how one person likes to work with an agent: reply length, which device they use on which day, what they always want checked): the same memory, tagged `pref:personal` and `person:<github-login>`. Never in git, never health, contact, address or other sensitive personal details.
+   At session start, `recall` "preferences for <github-login>" and "team preferences" for this repository. At closeout, `remember` each new preference as one dated, self-contained statement with its tags. A personal preference two or more people share, or that a maintainer adopts, is promoted to `pref:team`; a team or personal preference about the brand itself is promoted into the pack. Brand rules in the pack win over team memory, and team memory wins over a personal preference, which only changes how the agent works with that person. When Graphify Cloud memory is not connected or this repository is not indexed there, use the host's project memory with the same tags and say so. See `ai-docs/src/30_preferences/index.md`.
 
 ### Adding a deliverable
 
