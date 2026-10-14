@@ -5,6 +5,7 @@ Usage:
     python3 check_copy.py --announced FILE     # after the Climb27 venue announcement
     python3 check_copy.py --no-hints FILE      # hard rules only, no reading level or abbreviation hints
     echo "text" | python3 check_copy.py -
+    python3 check_copy.py flyer.copy.md        # a copy file: checks its section markers, then only its words
 
 Exit code 1 when a rule is broken (hard rules and vague link text). Reading level and
 abbreviation lines are hints: they print as "hint" and do not change the exit code.
@@ -234,6 +235,16 @@ def main(argv):
     failed = False
     for path in paths:
         text = sys.stdin.read() if path == "-" else open(path, encoding="utf-8").read()
+        if path.endswith(".copy.md"):
+            # Copy files (references/copy-files.md): check the markers, then the words without them.
+            import copy_md
+            try:
+                copy_md.parse(text, path)
+            except copy_md.CopyError as e:
+                failed = True
+                print(e)
+                continue
+            text = copy_md.words_only(text)
         for line_no, col, found, why, snippet in check(text, announced):
             failed = True
             print("%s:%d:%d: '%s' - %s ... %s ..." % (path, line_no, col, found, why, snippet))

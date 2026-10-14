@@ -17,7 +17,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 import build as B
-from build import BLEED, CH, DB, DB_RGB, OR, OR_RGB, TI, WH, DATES
+from build import BLEED, CH, DB, DB_RGB, OR, OR_RGB, TI, WH, DATES, URL
 
 QR = "https://www.climb-uk.com/?utm_source=flyer&utm_campaign=climb27#climb27_choose"
 W, H = 148 + 2 * BLEED, 210 + 2 * BLEED
@@ -37,11 +37,11 @@ def motifs(pack):
 def rich(s, hl=OR):
     s = html.escape(s)
     s = re.sub(r"\[\[(.+?)\]\]", r'<span style="color:%s">\1</span>' % hl, s)
-    return re.sub(r"\*(.+?)\*", r"<em>\1</em>", s)
+    return re.sub(r"\*(.+?)\*", r"<em>\1</em>", s).replace("\n", "<br>")
 
 
 def plain(s):
-    return s.replace("[[", "").replace("]]", "").replace("*", "")
+    return s.replace("[[", "").replace("]]", "").replace("*", "").replace("\n", " ")
 
 
 def svg_layer(inner, x=0, y=0, w=W, h=H, extra=""):
@@ -110,7 +110,7 @@ def front_band(pack, cta, bg=CH):
     return ('<div class="abs" style="left:0;top:%smm;width:%smm;height:%smm;background:%s"></div>' % (band, W, H - band, bg)
             + eyebrow(m, band + 6, cta)
             + '<div class="abs mont" style="left:%smm;top:%smm;color:%s;font-weight:800;font-size:20pt;letter-spacing:-.01em">'
-              'climb-uk.com</div>' % (m, band + 11, WH)
+              '%s</div>' % (m, band + 11, WH, URL)
             + B.logo_tag(pack, "ClimbUK", "reversed-dark", W - m - 34, band + 12.5, 34))
 
 
@@ -122,7 +122,7 @@ def front_people(pack, M, v):
                           fade=[("y", 0.0, 0.12, DB_RGB, 1.0, 0.0), ("y", 0.6, 1.0, DB_RGB, 0.0, 1.0)]), 0, 20, W, 114))
     f.append(svg_layer(M.connections(W * PX, H * PX, seed=27, dots=26, dark=True, region=(0.58, 0.6, 0.97, 0.83))))
     f.append(B.logo_tag(pack, "Climb27", "reversed-dark", m, b + 10, 52))
-    f.append(sticker(W - m - 62, 104, "Founders. Investors. Advisers."))
+    f.append(sticker(W - m - 62, 104, v["sticker"]))
     f.append(rule(m, 124))
     f.append(eyebrow(m, 128.5, DATES))
     f.append(headline(m, 135, W - 2 * m, 30, v["head"], 50))
@@ -156,13 +156,17 @@ def front_bigger(pack, M, v):
     f.append(B.logo_tag(pack, "Climb27", "mono-white", m, b + 10, 52))
     f.append(rule(m, 38, DB))
     f.append(eyebrow(m, 42.5, DATES, DB))
+    # The highlight here is a Dark Brown block behind the words rather than a colour.
+    block = ('<span style="background:%s;padding:0 2.2mm;box-decoration-break:clone;-webkit-box-decoration-break:clone">'
+             % DB)
+    head = re.sub(r"\[\[(.+?)\]\]", lambda g: block + g.group(1) + "</span>", html.escape(v["head"]))
+    head = re.sub(r"\*(.+?)\*", r"<em>\1</em>", head).replace("\n", "<br>")
     f.append('<h1 class="abs disp" style="left:%smm;top:50mm;width:%smm;font-size:34pt;color:%s;line-height:1.02">'
-             'Your business.<br><em>Bigger</em> <span style="background:%s;padding:0 2.2mm;box-decoration-break:clone;'
-             '-webkit-box-decoration-break:clone">stage.</span></h1>' % (m, W - 2 * m, WH, DB))
+             '%s</h1>' % (m, W - 2 * m, WH, head))
     f.append(sub(m, 79, 110, v["sub"], DB, 12))
     f.append(B.img(B.bake(pack, "audience_at_stage_01", W, H - top, 300, "var_bigger_photo", pos=(0.4, 0.35)), 0, top, W, H - top,
                    "clip-path:polygon(0 10mm,100% 0,100% 100%,0 100%)"))
-    f.append(sticker(W - m - 50, top - 4, "Two days. One festival.", DB, WH))
+    f.append(sticker(W - m - 50, top - 4, v["sticker"], DB, WH))
     f.append(front_band(pack, plain(v["cta"]), DB))
     return f
 
@@ -180,83 +184,28 @@ def front_party(pack, M, v):
     f.append(B.logo_tag(pack, "Climb27", "reversed-dark", m, b + 6, 46))
     f.append(sticker(m + 50, top - 6, DATES))
     f.append(rule(m, 128))
-    f.append(eyebrow(m, 132.5, "New to ClimbUK?"))
+    f.append(eyebrow(m, 132.5, v["eyebrow"]))
     f.append(headline(m, 139, W - 2 * m, 30, v["head"], 46))
     f.append(sub(m, 170, 84, v["sub"]))
     f.append(front_band(pack, plain(v["cta"])))
     return f
 
 
-VARIANTS = [
-    dict(slug="find-your-people", front=front_people, back="connections",
-         head="Find *your* [[people]].",
-         sub="Two days with the founders, investors and advisers who help businesses grow.",
-         cta="Find *your* people", back_head="Two days. The *right* [[people]].",
-         strip=[("joy_02", (0.5, 0.4)), ("meetings_02", (0.5, 0.4)), ("climb_recap_03", (0.5, 0.3))],
-         items=[
-             ("people", "Advice from one step ahead",
-              "Founders and leaders a step further on, who will tell you what worked and what they would change."),
-             ("money-bag", "Investors looking for deal flow",
-              "Angels, funds and lenders who come to find their next deal."),
-             ("briefcase", "Advisers and experts",
-              "Professional services firms and advisers with answers you can use the next morning."),
-             ("round-table", "Roundtables and workshops",
-              "Small rooms and practical advice on what growing businesses face next."),
-             ("cheers-bottles", "The after parties",
-              "The conversations keep going when the sessions end."),
-         ]),
-    dict(slug="main-stage-moments", front=front_stage, back="stage",
-         head="[[Main stage]] *moments*.",
-         sub="Big announcements, the ClimbAwards and the stories behind growing businesses.",
-         cta="Find *your* moment", back_head="Two days of *big* [[moments]].",
-         strip=[("climb_awards_winners", (0.5, 0.4)), ("climb_isn_investors_hero", (0.5, 0.4)), ("audience_at_stage_02", (0.5, 0.4))],
-         items=[
-             ("microphone", "The main stage",
-              "Founders and investors sharing what worked, in short, sharp sessions."),
-             ("stopwatch", "Investor Speed Networking",
-              "A round of short conversations with investors from your sector. Add it to your ticket."),
-             ("medal", "The ClimbAwards",
-              "Celebrating the businesses and people driving growth."),
-             ("round-table", "Roundtables and workshops",
-              "Small rooms, practical advice and a clear next step for your business."),
-             ("party-popper", "The after parties",
-              "Where the conversations of the day carry on."),
-         ]),
-    dict(slug="bigger-stage", front=front_bigger, back="ascent",
-         head="Your business. *Bigger* [[stage]].",
-         sub="The Festival for Business Growth: two days to take your business to its next stage.",
-         cta="Find *your* stage", back_head="Your *next* [[step]] starts here.",
-         strip=[("meetings_03", (0.5, 0.4)), ("roundtable_and_workshops_02", (0.5, 0.4)), ("exhibitor_02", (0.5, 0.4))],
-         items=[
-             ("rocket", "Sessions for your next stage",
-              "New markets, hiring and funding, for businesses already trading."),
-             ("money-bag", "Funding that fits",
-              "Investors for the whole funding journey, from first cheque onwards, looking for businesses at your stage."),
-             ("target", "Practical advice",
-              "Ideas you can act on the next morning, from people who have done it."),
-             ("handshake", "Connections that lead to work",
-              "Firms, advisers and fellow founders who share what works and send each other work."),
-             ("tickets", "A ticket for every stage",
-              "Start-up and professional tickets, and teams of four or more save 25%."),
-         ]),
-    dict(slug="business-with-a-party", front=front_party, back="contours",
-         head="*Business* with a [[party]].",
-         sub="Two days of ideas, deals and good company at the Festival for Business Growth.",
-         cta="Find *your* Climb27", back_head="Two days. *One* [[community]].",
-         strip=[("food_and_vendors_01", (0.5, 0.4)), ("climb_recap_04", (0.5, 0.3)), ("joy_04", (0.5, 0.4))],
-         items=[
-             ("sparkles", "Festival energy",
-              "Stages, food, drink and good company, with business at the heart of it."),
-             ("lightbulb", "Ideas you can use",
-              "Practical sessions from the people building and backing growing businesses."),
-             ("people", "A community",
-              "People here share what they have learned and send each other work."),
-             ("medal", "The ClimbAwards",
-              "Celebrating the businesses and people driving growth."),
-             ("compass", "Where you fit",
-              "Scan the code, pick who you are, and see what Climb27 means for you."),
-         ]),
-]
+FRONTS = dict(people=front_people, stage=front_stage, bigger=front_bigger, party=front_party)
+
+
+def from_copy(path):
+    """One flyer's words, layout, photos and icons, from its copy file in copy/general/."""
+    d = B.copy_md.load(path)
+    return dict(slug=path.name[:-len(".copy.md")], order=int(d.meta["order"]), front=FRONTS[d.one("front")["layout"]],
+                back=d.one("back")["motif"], sticker=d.words("front.sticker"), eyebrow=d.words("front.eyebrow"),
+                head=d.one("front.headline").text, sub=d.one("front.subline").text, cta=d.one("button").text,
+                back_eyebrow=d.one("back.eyebrow").text, back_head=d.one("back.headline").text,
+                strip=[B.photo(p) for p in d.all("back.photo")],
+                items=[(r["icon"], r.title, r.text) for r in d.all("back.reason")], qr_note=d.one("back.qr-note").text)
+
+
+VARIANTS = sorted((from_copy(p) for p in (B.COPY / "general").glob("*.copy.md")), key=lambda v: v["order"])
 
 
 def back(pack, M, v):
@@ -273,7 +222,7 @@ def back(pack, M, v):
         else:
             r.append(svg_layer(M.contours(W * PX, H * PX, seed=4, rings=9, dark=True, marker=True, cx=1.0, cy=0.0)))
     r.append(rule(m, b + 11))
-    r.append(eyebrow(m, b + 15.5, "New to ClimbUK?"))
+    r.append(eyebrow(m, b + 15.5, v["back_eyebrow"]))
     r.append('<h2 class="abs disp" style="left:%smm;top:%smm;width:%smm;font-size:25pt;color:%s;line-height:1.02">%s</h2>'
              % (m, b + 22, 96 if kind == "ascent" else W - 2 * m, WH, rich(v["back_head"])))
     y = b + 47
@@ -294,15 +243,15 @@ def back(pack, M, v):
     assert py + ph < band - 1, v["slug"]
     r.append('<div class="abs" style="left:0;top:%smm;width:%smm;height:%smm;background:%s"></div>' % (band, W, H - band, OR))
     r.append('<div class="abs disp" style="left:%smm;top:%smm;font-size:16pt;color:%s">%s</div>' % (m, band + 5.5, WH, rich(v["cta"], WH)))
-    r.append('<div class="abs mont" style="left:%smm;top:%smm;font-weight:800;font-size:12pt;color:%s">climb-uk.com</div>'
-             % (m, band + 12.6, WH))
+    r.append('<div class="abs mont" style="left:%smm;top:%smm;font-weight:800;font-size:12pt;color:%s">%s</div>'
+             % (m, band + 12.6, WH, URL))
     r.append('<div class="abs mont" style="left:%smm;top:%smm;font-weight:700;font-size:8.5pt;color:%s">%s</div>'
              % (m, band + 18.6, DB, DATES))
     qs = 19
     r.append('<div class="abs" style="left:%smm;top:%smm;width:%smm;height:%smm;background:%s;border-radius:1.5mm;padding:1.6mm;'
              'box-sizing:border-box">%s</div>' % (W - m - qs, band + 3.5, qs, qs, WH, B.qr_svg(QR)))
     r.append('<div class="abs mont" style="left:%smm;top:%smm;width:30mm;text-align:right;font-weight:700;font-size:7.5pt;'
-             'line-height:1.25;color:%s">Scan and pick<br>who you are</div>' % (W - m - qs - 33, band + 9, DB))
+             'line-height:1.25;color:%s">%s</div>' % (W - m - qs - 33, band + 9, DB, html.escape(v["qr_note"]).replace("\n", "<br>")))
     return r
 
 
@@ -316,16 +265,12 @@ def main():
     hd, pg, out = B.HERE / "html", B.HERE / "pages", B.OUT / "general"
     for d in (hd, pg, out):
         d.mkdir(exist_ok=True)
-    jobs, copy = [], []
+    jobs = []
     for v in VARIANTS:
         for side, parts in (("front", v["front"](pack, M, v)), ("back", back(pack, M, v))):
             f = hd / ("var_%s_%s.html" % (v["slug"], side))
             f.write_text(B.page(pack, W, H, "\n".join(parts), "Climb27 flyer, %s, %s" % (v["slug"], side)))
             jobs.append(dict(html=str(f), pdf=str(pg / ("var_%s_%s.pdf" % (v["slug"], side))), w=W, h=H))
-        copy += [plain(v["head"]), v["sub"], plain(v["cta"]), plain(v["back_head"]), "Scan and pick who you are"]
-        copy += ["%s. %s" % (h, t) for _, h, t in v["items"]]
-    copy += ["Founders. Investors. Advisers.", "Two days. One festival.", "New to ClimbUK?"]
-    (B.HERE / "variant_copy.txt").write_text("\n".join(copy) + "\n")
     (B.HERE / "render_seg.cjs").write_text(S.RENDER_JS)
     (B.HERE / "jobs.json").write_text(json.dumps(jobs))
     subprocess.run(["node", str(B.HERE / "render_seg.cjs"), str(B.HERE / "jobs.json")], check=True)

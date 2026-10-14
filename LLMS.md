@@ -144,6 +144,14 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 - Every colour and size comes from `tokens/brand.tokens.json`. Never type a value that is not in it.
 - `ai/tools/brand_rules.py` answers brand questions as tools (`call(tool, arguments, venue_announced)`); `ai/kit.json` lists them.
 
+### Copy files and editable sources
+
+- Every built piece keeps its words in `<name>.copy.md` beside its build; the build reads it, so change words there and never in the script. The Climb27 flyers' copy files are in `pdf/flyers/copy/` (`segments/`, `general/` and `shared.copy.md`).
+- Mark design sections with `<!-- @part.slot key=value -->` on their own line; the words up to the next marker or `#`/`##` heading belong to it, a first `###` line is its title, and `<!-- note: ... -->` is for reviewers only. The standard is `.agents/skills/climb-voice/references/copy-files.md`.
+- Read one with `copy_md.load(path)` from `.agents/skills/climb-voice/scripts/copy_md.py`: `doc.one("front.headline").text`, `doc.words("front.subline", default)`, `[(r["icon"], r.title, r.text) for r in doc.all("back.reason")]`. A broken file raises `copy_md.CopyError` with its file and line.
+- `check_copy.py FILE.copy.md` checks the markers, then only the words. `python3 -m unittest discover -s ai/tests` runs it over every copy file in the pack.
+- Artwork ships as a layered SVG whose layer `id` and `inkscape:label` are the copy file's section names, with live text, so it opens in Inkscape and Affinity (`climb-visual-style`, "Editable sources").
+
 ### Logos and app icons
 
 - Every logo, icon, favicon and app tile is transparent by default; each also comes on solid White, Dark Brown and Climb Orange. Logo files take the suffix `-on-white`, `-on-ground` or `-on-orange` (`logos/ClimbUK/ClimbUK_icon-monogram-on-ground.svg`); app icons sit in `white/`, `ground/` and `orange/` subfolders of `app-icons/favicons/` and `app-icons/app-tiles/`.

@@ -124,6 +124,8 @@ What every audience can hear:
 4. End with one call to action that names the action: "Get your ticket", "Book your meetings", "Apply to pitch". Never "Click here" or "Submit".
 5. Read it back against the four lines and the rules above.
 
+Every designed piece keeps its words in its own copy file: one plain Markdown file per piece, with each part of the design named in a short comment (`<!-- @front.headline -->`). Review and change the words there, then rebuild the piece; nobody needs to open the design to fix a word.
+
 ## Channels
 
 | Channel | Shape | Call to action |

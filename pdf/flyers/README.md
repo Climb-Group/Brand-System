@@ -26,11 +26,13 @@ python3 pdf/flyers/_build/variants.py
 
 Add `--only <audience>` to `segments.py` to rebuild one flyer. Both scripts need Python 3 with Pillow, numpy, segno and pypdf, and Node with Playwright (Chromium) on `NODE_PATH`. They read the fonts, logos, illustrations and photos from this pack, write one HTML page per side, print it to PDF and set the print boxes.
 
-- The copy for each audience is in `SEGMENTS` in `segments.py`, and the copy for the general flyers is in `VARIANTS` in `variants.py`. Each run writes the copy to a text file; run the climb-voice checker over it.
+- Every word on these flyers is in a copy file in `copy/`: one per audience flyer in `copy/segments/`, one per general flyer in `copy/general/`, and the dates, tagline and website that every piece shares in `copy/shared.copy.md`. Edit the words there and rebuild; the build scripts hold only the layout. The copy files also set each flyer's photos, crop points, icons and layout as marker settings. The format is in the climb-voice skill, `references/copy-files.md`.
+- Check the copy before you rebuild: `python3 .agents/skills/climb-voice/scripts/check_copy.py pdf/flyers/copy/*/*.copy.md pdf/flyers/copy/shared.copy.md`.
 - `build.py` holds the shared helpers: photo cropping and fades, logos, QR codes and the print boxes. It also builds the A5 event flyer, the roller banner and the business card.
 
 ## What they follow
 
+- Copy files: the climb-voice standard for copy files, with section names such as `front.headline` and `back.reason`.
 - Tokens: the colours and type in `tokens/brand.tokens.json` (Dark Brown, Charcoal, Climb Orange, Tint, Light Grey; Montserrat and Open Sans).
 - Skills: climb-visual-style for the layout, headlines, icons and motifs, and climb-voice for the copy.
 - Every headline opens on a positive line, with one orange word and one italic word.

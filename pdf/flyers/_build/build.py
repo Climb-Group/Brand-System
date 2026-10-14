@@ -5,7 +5,8 @@ sized for print by Pillow, then prints each page to PDF with Chromium and sets t
 
     python3 build.py [--pack /path/to/Brand-System] [--phone "07..."] [--email "..."]
 
-Colours are the brand tokens (tokens/brand.tokens.json). Copy follows the climb-voice skill and its checker.
+Colours are the brand tokens (tokens/brand.tokens.json). Copy follows the climb-voice skill and its checker; the
+dates, tagline and website come from copy/shared.copy.md.
 """
 import argparse
 import html
@@ -21,18 +22,30 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent
 IMG = HERE / "img"
+COPY = OUT / "copy"
+
+# Copy files: the words of each piece live in pdf/flyers/copy/*.copy.md (climb-voice references/copy-files.md).
+sys.path.insert(0, str(HERE.parents[2] / ".agents" / "skills" / "climb-voice" / "scripts"))
+import copy_md  # noqa: E402
 
 # Brand tokens
 DB, CH, OR, TI, LG, WH = "#1E0F05", "#242322", "#E8712A", "#F2AE86", "#E9E9E9", "#FFFFFF"
 DB_RGB = (30, 15, 5)
 OR_RGB = (232, 113, 42)
 
-DATES = "30 June and 1 July 2027"
-TAGLINE = "The Festival for Business Growth"
-URL = "climb-uk.com"
+SHARED = copy_md.load(COPY / "shared.copy.md")
+DATES = SHARED.one("dates").text
+TAGLINE = SHARED.one("tagline").text
+URL = SHARED.one("website").text
 TICKETS = "https://www.climb-uk.com/shop/category/climb27-tickets-24?utm_source=print&utm_medium=%s&utm_campaign=climb27"
 CARD_QR = "https://www.climb-uk.com/shop"
 BLEED = 3.0
+
+
+def photo(section):
+    """A photo section of a copy file as (photo name, (focus x, focus y))."""
+    x, y = section["focus"].split(",")
+    return section["name"], (float(x), float(y))
 
 
 # ---------------------------------------------------------------- helpers
