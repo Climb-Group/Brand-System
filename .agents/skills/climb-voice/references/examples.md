@@ -51,6 +51,19 @@
 | Book a call (in "Still deciding?") | Says nothing about why | Interested in partnering? Book a call with the team. |
 | When is the programme published? (then a paragraph on why agendas date) | Wrong word, answer buried | When is the agenda published? A few weeks before the event, once every session is confirmed. Here is why we wait. |
 
+## From the review of the Climb27 flyers (October 2026)
+
+| Before | Problem | After |
+| --- | --- | --- |
+| Not a conference. A festival for business growth. | Opens on what ClimbUK is not | The festival for business growth. |
+| Founders at your stage | Misses the point of peers | Advice from one step ahead: founders and leaders a step further on, who tell you what worked |
+| New partners | Says nothing about what the reader gets | Connections that lead to work |
+| Time to talk | A slot, not a benefit | Roundtables and workshops: small rooms and practical advice |
+| Plan your days: book meetings in the event app | Not a reason to come | Drop the point |
+| The Investor Ladder | Makes the investor side the headline | Funding that fits: investors for the whole funding journey |
+| Angels, funds and lenders, from first cheque to Series A | Caps the funding journey | Angels, funds and lenders from across the whole funding journey |
+| Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
+
 ## ClimbVoice, corrected
 
 The 2025 ClimbVoice prompt is the root of this skill. Two things changed:

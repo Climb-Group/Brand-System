@@ -233,6 +233,12 @@ End every task with a message a reader who did not watch you work can act on: wh
 6. **ASCII only** in text you write: no em or en dashes, no emoji. Use a hyphen-minus.
 7. **Previews are real files.** Anything shown as a preview is committed here as a real file, and hub components stay live HTML and CSS.
 8. **Commits and pull requests.** Conventional commit subjects (`feat(logos): ...`), one logical change each, signed off by the accountable human, with a `Co-authored-by` trailer for each AI tool that changed it. Open pull requests as drafts and disclose AI use in the template.
+9. **The pack learns as it goes.** When a person states a brand preference or decision (in a chat, a review comment, a reply on a draft), record it in this pack in the same piece of work, without waiting to be asked. The pack is the source of the brand centre, so a rule that lives only in a chat or an agent's memory is lost. Where it goes:
+   - Words and copy: `climb-voice` (the skill, `references/examples.md` with a before and after row), `guidelines/voice.md` and `ai/skills/voice.md`. Add a checker rule in `scripts/check_copy.py` when the rule can be checked: a hard rule for something never allowed, a hint for something usually wrong.
+   - Anything visual: `climb-visual-style` and the matching `guidelines/` chapter. Values go in `tokens/brand.tokens.json`, never only in prose.
+   - Odoo website only: `climb-odoo-pages`.
+   - Anything that must stay private (an unannounced venue, internal targets, people's details): `private_rules.py` and private notes, never the public tree.
+   Bump the skill's `version`, add the source to its `sources`, rebuild the generated files (`python3 ai/agents/build_agent_kits.py`, `node tools/dev/surfaces.mjs sync`), and say in the pull request which preference it records. A decision that replaces an older rule removes or rewrites the old rule in the same change, so the pack never says both.
 
 ### Adding a deliverable
 
