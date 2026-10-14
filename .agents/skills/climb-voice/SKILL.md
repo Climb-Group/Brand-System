@@ -122,7 +122,7 @@ Social: LinkedIn, Instagram, TikTok, X and Bluesky, all as `climbuk`. In email s
 4. End with one clear call to action that names the action ("Get your ticket", "Book your meetings", "Apply to pitch").
 5. Run the checker, then re-read once against the four voice lines.
 
-Shapes for each channel (lengths, structure, CTA style) are in `references/channels.md`. Good and bad examples, including rewrites, are in `references/examples.md`.
+Shapes for each channel (lengths, structure, CTA style) are in `references/channels.md`. Good and bad examples, including rewrites, are in `references/examples.md`. For email, also read `references/email-deliverability.md`: words spam filters weigh, link, image and HTML limits, tracking, and what newsletters may relax. Add whatever a spam test flags to it.
 
 ## Check your copy
 

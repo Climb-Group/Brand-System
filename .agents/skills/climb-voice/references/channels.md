@@ -9,7 +9,7 @@ Social builds reach and free sign-ups, not ticket sales: judge it on reach. Sale
 | TikTok | Short video, ticket sales through TikTok Shop | On-screen text 3 to 6 words per beat. Caption one line. | Ticket link in the Shop |
 | X | Real-time conversation with founders and investors | One idea per post, under 200 characters, conversational. Threads for announcements. | Link only when it adds something |
 | Facebook | Full cross-posts | Same assets and copy as LinkedIn or Instagram | Same as source |
-| Email | Sales and returners | Subject 3 to 7 words, no clickbait; preheader completes it. One message per email, one primary button. | Button with an action verb |
+| Email | Sales and returners | Subject 3 to 7 words, no clickbait; preheader completes it. One message per email, one primary button. Newsletters: one button per story. Deliverability rules in `email-deliverability.md`. | Button with an action verb |
 | Web page section | Explain and convert | H1 up to 10 words, promise line up to 36 words, SEO title up to 60 characters | btn-primary with an action label |
 | Partner and speaker share kit | Partners post in their own voice | Three ready posts per partner: short, medium, long. First person plural for the partner ("We are at Climb27"). | Their own tagged link |
 | Print, signage, merch | Recognition and atmosphere | Display lines of 1 to 5 words. No body copy on merch. | A URL or QR on print only |
