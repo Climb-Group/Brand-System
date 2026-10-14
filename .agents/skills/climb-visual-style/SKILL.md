@@ -5,7 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.6"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, and the decision that every asset ships with sources the team can edit in free tools (October 2026)
+  version: "1.7"
 ---
 
 # ClimbUK visual style
@@ -115,9 +116,19 @@ See `references/elements.md` for how each motif is built and scaled.
 
 These rules hold on every platform. When the asset is built for a particular platform, also load that platform's own skill if the pack has one (for an Odoo website: `climb-odoo-pages`), and only then.
 
+## Editable sources
+
+Everything the brand makes can be edited by the team with free tools. A finished asset ships with its editable source next to it, never only as a flattened PNG or PDF:
+
+- **Words**: the copy file, `<name>.copy.md`, with the climb-voice skill's section markers (that skill's `references/copy-files.md`). The build reads it.
+- **Vector artwork** (flyers, posters, social graphics, banners, icons, call backgrounds): a layered SVG master. Name each layer or group by the copy file's section names, as both its `id` and its `inkscape:label` (`front.headline`, `back.reason`, `front.photo`), and give each text element `data-copy="<section name>"`. Keep text as live text in Montserrat and Open Sans (installed from `fonts/`), never converted to outlines, and link photos from `photos/` rather than embedding them. It opens in Inkscape and Affinity, both free, and in Illustrator, Figma and Penpot.
+- **Print**: the press-ready PDF is the printer's file, built from the sources above, not the file to edit.
+- A native file for one app (`.af`, `.ai`, `.psd`, `.fig`) is saved by a person in that app when they want one; the open source stays the master.
+
 ## Before you finish
 
 - Every colour is a token. No `#EC752A`.
+- The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG with layers named by the copy file's sections.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).

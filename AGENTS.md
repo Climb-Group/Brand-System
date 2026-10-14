@@ -239,10 +239,11 @@ End every task with a message a reader who did not watch you work can act on: wh
    - Odoo website only: `climb-odoo-pages`.
    - Anything that must stay private (an unannounced venue, internal targets, people's details): `private_rules.py` and private notes, never the public tree.
    Bump the skill's `version`, add the source to its `sources`, rebuild the generated files (`python3 ai/agents/build_agent_kits.py`, `node tools/dev/surfaces.mjs sync`), and say in the pull request which preference it records. A decision that replaces an older rule removes or rewrites the old rule in the same change, so the pack never says both.
+10. **Everything stays editable.** Every piece the pack builds keeps all its words in a `<name>.copy.md` copy file beside its build, with design sections marked `<!-- @front.headline -->` (the standard is `.agents/skills/climb-voice/references/copy-files.md`), and the build reads it: never type a printed word in a build script. Artwork ships with a layered SVG source whose layers carry the same section names, with live text, so the team can edit it in free tools (`climb-visual-style`, "Editable sources"). A press PDF or a PNG is an output, never the only file.
 
 ### Adding a deliverable
 
-Put it in the folder the README names for it (`media-kit/`, `web/`, `pdf/`, `templates/`, `ai/`), with a README that says what it is, how to rebuild it and which tokens and skills it follows. Large binaries (video templates, archives over 50 MB) go in a release, not in the tree; commit the build script and a README that links the release.
+Put it in the folder the README names for it (`media-kit/`, `web/`, `pdf/`, `templates/`, `ai/`), with its words in a copy file (rule 10) and a README that says what it is, how to rebuild it and which tokens and skills it follows. Large binaries (video templates, archives over 50 MB) go in a release, not in the tree; commit the build script and a README that links the release.
 
 ### Checks
 
