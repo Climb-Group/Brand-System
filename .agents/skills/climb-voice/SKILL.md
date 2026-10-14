@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026) and the review of the Climb27 flyers (October 2026)
-  version: "1.3"
+  version: "1.4"
 ---
 
 # ClimbUK voice
@@ -142,3 +142,4 @@ It prints each problem with the rule it breaks and exits 1 when anything fails, 
 - The piece names one audience and gives them one reason and one next step.
 - Nothing in it would still be true of any other event.
 - If you used a fact (date, price, format, speaker), it came from the brief, the website or the person who asked, not from memory.
+- Any brand preference or decision a person gave you while you worked is now in this skill, its guideline and, where it can be checked, the copy checker (see "The pack learns as it goes" in the brand pack's AGENTS.md). Do not leave it only in a chat or a memory.

@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.5"
+  version: "1.6"
 ---
 
 # ClimbUK visual style
@@ -124,3 +124,4 @@ These rules hold on every platform. When the asset is built for a particular pla
 - On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.
+- Any brand preference or decision a person gave you while you worked is now in this skill, its guideline and, where it can be checked, the copy checker (see "The pack learns as it goes" in the brand pack's AGENTS.md). Do not leave it only in a chat or a memory.
