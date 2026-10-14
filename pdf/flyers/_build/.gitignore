@@ -1,0 +1,8 @@
+html/
+img/
+pages/
+jobs.json
+render.cjs
+render_seg.cjs
+*_copy.txt
+__pycache__/
