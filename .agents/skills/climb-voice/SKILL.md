@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief and the sales and partner review of the website (October 2026)
-  version: "1.2"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026) and the review of the Climb27 flyers (October 2026)
+  version: "1.3"
 ---
 
 # ClimbUK voice
@@ -67,6 +67,18 @@ Sectors (Health, Creative) cut across the audiences: write for the audience, wit
 
 Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "and a budget to solve it", "at least three", "unmatched". A heading always carries a benefit: "Why Climb27?" says nothing on its own, "New clients, from the businesses you want to serve" does.
 
+## Headlines and titles
+
+From the review of the Climb27 flyers (October 2026). They apply to every headline, title and list heading, and most of all to flyers, banners, posters and social cards, which a stranger reads first.
+
+- **Open positive.** The first line says what ClimbUK is, never what it is not. "The Festival for Business Growth." works; "Not a conference. A festival for business growth." does not. The checker fails "not a conference" and its cousins. "Business with a party, not a party for business" describes the voice; it is never an opening line.
+- **Name the benefit, not the slot.** A title says what the reader gets: "Connections that lead to work", not "New partners"; "Roundtables and workshops", not "Time to talk". If a point is not a reason to come, drop it rather than give it a title: booking meetings in the app ("Plan your days") is not worth a place on a flyer.
+- **Advice from one step ahead.** When the point is peers, frame them as people a step further on who share what worked: "Advice from one step ahead", never "Founders at your stage".
+- **The investor side is part of the offer, not the headline of it.** The investor side can be mentioned, but it is never the main point of a message. "The Investor Ladder" is not a title on its own: lead with what the reader gets ("Funding that fits", "Your next step").
+- **The whole funding journey.** ClimbUK supports businesses through the whole funding journey. Never cap it: no "up to Series A", no "first cheque to Series A". Say "the whole funding journey" or "any stage of your funding journey". The checker fails "to Series A".
+- **Music is not a feature.** Only the grand opening has live music. Do not list live music or DJ sets as a reason to come; the big moments are the announcements, the ClimbAwards and the stories behind growing businesses. The checker prints a hint for "live music" and "DJ set".
+- **One orange word and one italic word** on designed pieces, and the headline still reads as a sentence without them.
+
 ## Answer the question
 
 - **Every claim gets its answer on the same page.** If a line makes the reader ask something ("two days", a price, who they will meet, what happens after), the same page answers it.
@@ -79,7 +91,7 @@ Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "an
 
 ## Where the name comes from
 
-"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage. It is never a heading or the main point of a piece (see Headlines and titles).
 
 ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
 
@@ -91,7 +103,7 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 
 - Company tagline: **The Festival for Business Growth.** "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
 - Climb27 working headline: **Your business. Bigger stage.**
-- Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: DJ sets, announcements, awards, our own formats). Big moments, not keynotes.
+- Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Earlier tagline, retired from new work: "where momentum meets opportunity".
 
 ## Public brand documents

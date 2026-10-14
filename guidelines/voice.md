@@ -38,7 +38,7 @@ Good copy is easy to read for everyone, including people reading in a second lan
 
 ## Where the name comes from
 
-"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage. It is never a heading or the main point of a piece.
 
 ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
 
@@ -50,7 +50,7 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 
 - Tagline: **The Festival for Business Growth.**
 - Climb27 headline: **Your business. Bigger stage.**
-- Climb27 themes: **Find Your People** (the people you meet are the reason to come) and **Main Stage Moments** (short, big moments: sets, announcements, awards, our own formats). Big moments, not keynotes.
+- Climb27 themes: **Find Your People** (the people you meet are the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Programme names, always written this way: Investor Speed Networking, Busk Your Business, the ClimbAwards, ClimbHealth.
 
 ## Words we use
@@ -70,6 +70,17 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 
 Drop "with your eyes open", "in their patch", "at least three" and "unmatched". Every heading carries a benefit: "Why Climb27?" alone says nothing.
 
+## Headlines and titles
+
+These apply to every headline, title and list heading, and most of all to flyers, banners, posters and social cards, which a stranger reads first.
+
+- **Open positive.** The first line says what ClimbUK is, never what it is not. "The Festival for Business Growth." works; "Not a conference." does not.
+- **Name the benefit, not the slot.** A title says what the reader gets: "Connections that lead to work", not "New partners"; "Roundtables and workshops", not "Time to talk". If a point is not a reason to come, leave it out.
+- **Advice from one step ahead.** Peers are people a step further on who share what worked: "Advice from one step ahead", not "Founders at your stage".
+- **The investor side is part of the offer, not the headline of it.** Mention investors where they help the reader, but lead with what the reader gets: "Funding that fits", "Your next step". The Investor Ladder is the story behind the name, not a title.
+- **The whole funding journey.** ClimbUK supports businesses through the whole funding journey. Never cap it at a round, such as "up to Series A".
+- **Music is not the offer.** Only the grand opening has live music. The big moments are the announcements, the ClimbAwards and the stories behind growing businesses.
+
 ## Answer the question
 
 - **Every claim gets its answer on the same page.** If a line makes the reader ask something (two days of what, which ticket, who will I meet, what happens after), the same page answers it.
@@ -88,7 +99,7 @@ Every piece is written for one of these audiences. Use their tone, and talk abou
 | --- | --- | --- |
 | Scaling companies | Sessions for the stage they are aiming for, peers one step ahead, people and money to grow | Peer to peer, ambitious, practical. Sell where they are going. |
 | Professional services (accountants, lawyers, banks) | New clients, and being seen by growing businesses | Credible and commercial. Return on investment goes in the body, never the headline. |
-| Founders raising investment, any stage up to Series A | Investors looking for deal flow, and advice on how to raise | Candid and founder-first. The right conversations, never promised outcomes. |
+| Founders raising investment, at any stage of the funding journey | Investors looking for deal flow, and advice on how to raise | Candid and founder-first. The right conversations, never promised outcomes. |
 | Universities: spinouts | Showcasing spinouts to investors, mentors and advisers | Bring the whole team. Spinouts, not academic language. |
 | Universities: collaboration | Industry partners, support programmes that reach small businesses, business schools | Collaborative and outcome-led. |
 | Investors (angels, funds, lenders) | Deal flow: companies already trading | Efficient and selective. Time well spent. |

@@ -29,6 +29,15 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Big moments, not keynotes. Clinics are roundtables or workshops.
 - No reports we have not agreed: never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
 
+## Headlines and titles
+
+- Open positive, above all on flyers, banners and posters: say what ClimbUK is, never what it is not. Never "Not a conference".
+- A title names the benefit, not the slot: "Connections that lead to work", not "New partners". Leave out points that are not a reason to come, such as booking in the app.
+- Peers are people one step ahead who give advice ("Advice from one step ahead"), not "founders at your stage".
+- The investor side can be mentioned but is never the main point. "The Investor Ladder" is not a title on its own.
+- ClimbUK supports the whole funding journey: never "up to Series A".
+- Only the grand opening has live music: never sell music or DJ sets as a reason to come.
+
 ## Words we use
 
 agenda (not programme, for the schedule); Affiliate Programme (not referral scheme); public sector (not councils); Partner Manager (a job title, capitalised); connect you with, bring you (not introduce you to, matched); fractional leaders are not consultants; fellow founders, peers one step ahead; find investors looking for real deal flow, investors here to find their next deal (not meet investors, investors ready to invest). A heading always carries a benefit.

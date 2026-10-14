@@ -47,6 +47,9 @@ ALWAYS = [
     (r"\b(un)?matched\b", "say 'brought to you' or 'connect'; never 'matched' or 'unmatched'"),
     (r"about \d+\s*% of tickets", "do not quote a release's share of tickets: name its state"),
     (r"\bbuy (button|now)\b", "sounds like selling: label the button with the next step ('Get your ticket', 'Book now')"),
+    # Review of the Climb27 flyers, October 2026.
+    (r"\bnot (just )?an? (conference|trade show|trade fair|expo|exhibition)\b", "open positive: say what ClimbUK is, never what it is not"),
+    (r"\bto series a\b", "ClimbUK supports the whole funding journey: never cap it at Series A"),
 ]
 
 # Case-sensitive rules.
@@ -60,6 +63,8 @@ WORD_HINTS = [
     (r"\bcouncils\b", "on pages and menus write 'public sector'"),
     (r"\bintroduc(e|es|ed|ing|tion|tions)\b", "prefer 'connect you with': we do not promise personal introductions"),
     (r"\bconsultants?\b", "if they take responsibility for a function, they are fractional leaders, not consultants"),
+    (r"\blive music\b|\bdj sets?\b", "only the grand opening has live music: do not sell music as a reason to come"),
+    (r"\bfounders at your stage\b", "frame peers as people one step ahead who give advice"),
 ]
 
 BEFORE_ANNOUNCEMENT = [
