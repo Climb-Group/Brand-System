@@ -175,6 +175,8 @@ class RepositoryTest(unittest.TestCase):
             if doc.meta.get("source") == "mirror":
                 continue  # a mirror shows what a build elsewhere prints; its rule breaks are listed in its notes
             problems = check_copy.check(copy_md.words_only(path.read_text(encoding="utf-8")))
+            allowed = doc.meta.get("allow", "").lower().split()  # staff-only words the piece must print
+            problems = [p for p in problems if p[2].lower() not in allowed]
             self.assertEqual(problems, [], path)
 
     def test_every_deliverable_has_a_copy_file(self):

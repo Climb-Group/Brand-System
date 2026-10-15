@@ -235,17 +235,20 @@ def main(argv):
     failed = False
     for path in paths:
         text = sys.stdin.read() if path == "-" else open(path, encoding="utf-8").read()
+        allowed = []
         if path.endswith(".copy.md"):
             # Copy files (references/copy-files.md): check the markers, then the words without them.
             import copy_md
             try:
-                copy_md.parse(text, path)
+                allowed = copy_md.parse(text, path).meta.get("allow", "").lower().split()
             except copy_md.CopyError as e:
                 failed = True
                 print(e)
                 continue
             text = copy_md.words_only(text)
         for line_no, col, found, why, snippet in check(text, announced):
+            if found.lower() in allowed:
+                continue
             failed = True
             print("%s:%d:%d: '%s' - %s ... %s ..." % (path, line_no, col, found, why, snippet))
         if not hints:
