@@ -60,6 +60,14 @@ Use as written. Shorten only by cutting whole sentences.
 - **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document.
 - **Plenty of exhibitors.** Fill the photo walls with exhibitors and their stands, and show a real photo of each stand type.
 - **A clear closing page.** The QR code sits centred in its own white card, beside the headline, the button and the contact details.
+- **Reading text never sits on orange.** Pages with body copy, lists or quotes use White, Light Grey, Charcoal or Dark Brown. Keep full orange pages for the cover moment and the closing call to action, where only big white lines sit on the orange.
+- **Cards stand out from their page.** On a dark page a card is one step lighter (Charcoal on Dark Brown) with a hairline; never a card the same colour as the page.
+- **Cards in a row line up.** Every card in a row has a short description, the same height and its price on one shared line at the bottom.
+- **Lists are read at a glance.** List text is at least 24px on a 1920px page, sized to match its arrow or icon, with clear space between the list and any quote box below it.
+- **Each stand type gets its own photos.** The starter pod is shown with a plain render, not another company's custom pods (those photos suit the expo stand). Pod photos go on the pod page and nowhere else.
+- **The marketplace is for makers and new businesses.** Consultants and service firms belong in the starter pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
+- **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
+- **Closing page contact lines** sit centred under the button, in white on a solid panel, with the web address written in full: www.climb-uk.com/partnerships. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK.
 
 ## The share kit
 

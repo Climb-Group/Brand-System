@@ -45,6 +45,8 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 ## Lines we own
 
 - Company tagline: The Festival for Business Growth. "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
+  In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
+- Web addresses on print and PDFs are written in full with www: www.climb-uk.com/partnerships, never "climb-uk.com/partnerships". Email addresses stay as they are.
 - Climb27 headline: Your business. Bigger stage.
 - Themes: Find Your People, and Main Stage Moments.
 
