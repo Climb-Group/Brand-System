@@ -48,13 +48,13 @@ Use as written. Shorten only by cutting whole sentences.
 - **Lines partners may use:** "In partnership with ClimbUK", "Official partner of Climb27", "Headline partner of Climb27" (headline partners only), "Speaking at Climb27", "Exhibiting at Climb27".
 - **On ClimbUK pieces,** partner logos appear in one tone (White on dark, Charcoal or grey on light) so no brand shouts over another; headline partners may appear in full colour in their own slot.
 - **Never:** merge the logos into one mark, put ClimbUK colours on a partner logo, imply ClimbUK endorses a product, or promise attendees anything ClimbUK has not.
-- Partners sell their presence with "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- Partners sell their presence with "meetings with the right people", never a number of meetings or an audience size for the event. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
 
 ## Sales brochures
 
 - **Format:** 16:9 pages, sent as a PDF or shown on screen in a call.
 - **Look:** photo-led, like the Climb26 exhibitor brochure. Big uppercase lines in orange label boxes, stands shown as renders with a round size badge, prices in a solid box, and real quotes from people who came, with their name and company.
-- **Partnerships are options.** Every partnership is built around what the partner wants. Show the level (Headline Partner or Partner), the things a partner can own and the extras they can add, then invite a call. Never fixed tiers, long text pages or figures.
+- **Partnerships are options.** Every partnership is built around what the partner wants. Show the level (Headline Partner or Partner), the things a partner can own and the extras they can add, then invite a call. Never fixed tiers or long text pages. The only figures are channel reach and follow-through, as above.
 - **Every page earns its place:** one idea per page, one photo wall or render, and a clear next step on the last page.
 - **Vary the grounds.** Dark Brown on two pages at most, and never two pages in a row on the same colour.
 - **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document.
