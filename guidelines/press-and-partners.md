@@ -75,7 +75,7 @@ Use as written. Shorten only by cutting whole sentences.
   - **Badges and lanyards:** their logo on every attendee badge, and for a large enough partnership, lanyards made for the event with their logo.
   - **A zone:** their name and branding across one zone, end to end (the Climb26 University Zone with Barclays is the example).
   - **The VIP space:** the VIP space and the VIP badges together (the Climb26 JCT600 Porsche VIP Suite is the example).
-  - **The kiosks:** the check-in kiosks for one partner, or a place on the kiosk screens.
+  - **The kiosks:** the kiosk podiums are exclusive to one partner. Logos on the kiosk screens are sold separately, to as many partners as want them.
   - Show each option with a real Climb26 photo of it, never an older edition.
 - **Closing page contact lines** sit centred under the button, in white on a solid panel, with the web address written in full: www.climb-uk.com/partnerships. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK.
 
