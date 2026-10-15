@@ -106,7 +106,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Partnerships are options.** Every partnership is built around what the partner wants. Show the level (Headline Partner or Partner), the things a partner can own and the extras they can add, then invite a call. Never fixed tiers or long text pages. The only figures are channel reach and follow-through, as above.
 - **Every page earns its place:** one idea per page, one photo wall or render, and a clear next step on the last page.
 - **Vary the grounds.** Dark Brown on two pages at most, and never two pages in a row on the same colour.
-- **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document.
+- **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document. Spread the voices: two quotes from the same person or organisation never sit on the same page or on pages next to each other.
 - **Plenty of exhibitors.** Fill the photo walls with exhibitors and their stands, and show a real photo of each stand type.
 - **A clear closing page.** The QR code sits centred in its own white card, beside the headline, the button and the contact details.
 - **Reading text never sits on orange.** Pages with body copy, lists or quotes use White, Light Grey, Charcoal or Dark Brown. Keep full orange pages for the cover moment and the closing call to action, where only big white lines sit on the orange.
