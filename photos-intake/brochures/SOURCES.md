@@ -178,3 +178,7 @@ Partner branding and app shots from the Climb26 photo library. Paths are relativ
 | branding_maf-448.jpg | Branding | Branding/MAF-448.jpg |
 | branding_052a3123.jpg | Branding | Branding/052A3123.jpg |
 | branding_052a3128.jpg | Branding | Branding/052A3128.jpg |
+| band_052a4629.jpg | Band | Band/052A4629.jpg |
+| band_052a4679.jpg | Band | Band/052A4679.jpg |
+| band_052a4447.jpg | Band | Band/052A4447.jpg |
+| band_maf-513.jpg | Band | Band/MAF-513.jpg |
