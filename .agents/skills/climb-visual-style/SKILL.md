@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the brand guidelines, the Climb27 homepage and affiliate page, the review of the Climb27 flyers (October 2026) and the review of the Climb26 sales brochures (October 2026)
-  version: "1.7"
+  sources: the brand guidelines, the Climb27 homepage and affiliate page, the review of the Climb27 flyers (October 2026) the review of the Climb26 sales brochures (October 2026) and the review of the Climb27 sales brochures (October 2026)
+  version: "1.8"
 ---
 
 # ClimbUK visual style
@@ -115,6 +115,8 @@ See `references/elements.md` for how each motif is built and scaled.
 5. Check: contrast pairs, safe zone, logo clear space, file name and format from the surface table.
 
 Sales brochures (exhibitor, partner, sponsor) follow the Climb26 exhibitor brochure, the one the team liked: 16:9 pages, photo-led, orange label boxes for the big lines, stand renders with a round size badge, prices in a solid box, and real quotes from people who came. Partnerships are shown as options to build from (a level, things to own, extras to add), never as fixed tiers with long text pages and figures. The current set is in `pdf/brochures/`.
+
+In a sales document, vary the grounds: Dark Brown on two pages at most, and never two pages in a row on the same ground (white, Light Grey, orange, Charcoal, Dark Brown). Print at least 20 real testimonials in each document, every one different; never repeat a quote inside one document. Show exhibitors in action on every page that has photos, and use a real photo of each stand type. The closing page centres its QR code in its own white card, beside the headline, the button and the contact lines.
 
 These rules hold on every platform. When the asset is built for a particular platform, also load that platform's own skill if the pack has one (for an Odoo website: `climb-odoo-pages`), and only then.
 

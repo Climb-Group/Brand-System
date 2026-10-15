@@ -8,7 +8,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 
 1. Headline energy. Short, rhythmic, confident, like a festival poster or a keynote slide.
 2. Doing, not dreaming. Move the reader to action: name the outcome and the next step.
-3. Curated, not crowded. Sell the right people in the room and the quality of conversations. Never sell size.
+3. Curated, not crowded. Sell the right people in the room and the quality of conversations. Never sell size. Say what makes them the right people for the reader, rather than repeating a list of segments.
 4. Personal, not generic. Write for one audience. If it could be about any event, rewrite it.
 
 ## Where the name comes from

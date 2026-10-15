@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026) and the review of the Climb27 flyers (October 2026)
-  version: "1.4"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026) the review of the Climb27 flyers (October 2026) and the review of the Climb27 sales brochures (October 2026)
+  version: "1.5"
 ---
 
 # ClimbUK voice
@@ -26,6 +26,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **Venue embargo.** Until ClimbUK announces it, public copy names no venue, city area, venue type or size, and does not hint ("somewhere new" and the word "venue" are both banned). After the announcement, use the line in the announcement brief. The checker takes `--announced` to switch, and loads the names it must catch from a private rules file (see the script).
 - **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them.
 - **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- **Say who the right people are.** When a page sells "the right people", explain what makes them right for the reader (a reason to talk, a need for what they do, a door they can open), in our words. Do not repeat a list of segments a page has already given.
 - **Scarcity only when it is true.** Ticket releases really do close, so say so: name the release, its price and its state ("Open now", "Next", "Final"), and that the price goes up when the release is gone. Never invent scarcity: no "sold out", "last few" or "selling fast" unless the shop says so, and no "premier", unsupported superlatives or trademark symbols. Do not quote the share of tickets in a release ("about 5% of tickets").
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.

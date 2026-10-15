@@ -43,6 +43,7 @@
 | Can I bring the team? | Asks permission instead of selling | Why your team should come (then: team tickets are 25% off). |
 | I bought a one-day ticket. Which day do I pick? | Written for someone who already bought | I want a one-day ticket. Which day should I pick? |
 | Will you introduce me to people? | "Introduce" promises a personal service | How will I connect with the right people? |
+| Find your people: founders, investors, advisers, universities and the public sector. | Repeats the segment list from the page before | Find your people: the ones with a reason to talk to you, who need what you do or can open the next door. |
 | What Climb27 does for an advisory firm | A heading with no benefit | New clients, from the growing businesses you want to serve |
 | New clients, with a return you can show | Return on investment does not belong in the headline | New clients. (The return goes in the body.) |
 | Investor Speed Networking: six founders matched to your thesis, two at a time | Times, counts and "matched" | Investor Speed Networking: founders in your sector, brought to you. |
