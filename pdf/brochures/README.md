@@ -4,8 +4,8 @@ Two brochures for selling Climb27 (30 June and 1 July 2027), as 16:9 PDFs to sen
 
 | File | Who it is for |
 | --- | --- |
-| `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types (starter pod, display stand, expo stand and marketplace table) with what each includes and its price, extras for the stand, quotes from Climb26 exhibitors and a QR code to book. 10 pages. |
-| `climb27_partner-brochure.pdf` | Partners: why partner, how a partnership is built, the branding options (website, event app, badges, a zone, the VIP space, the kiosks), the zones, sessions and awards, extra reach, quotes and a QR code to book a call. 10 pages. |
+| `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, two pages of quotes and a QR code to book. 12 pages. |
+| `climb27_partner-brochure.pdf` | Partners: why partner, how a partnership is built, the branding options (the website listing included with every partnership, then the event app, badges, a zone, the VIP space and the kiosks), the zones, sessions and awards, extra reach, three pages of quotes beside exhibitor photos and a QR code to book a call. 12 pages. |
 
 Contact sheets of every page are in `previews/`.
 
@@ -15,6 +15,9 @@ Contact sheets of every page are in `previews/`.
 - Partnerships are sold as options, not fixed tiers. Every partnership is built around what the partner wants, so the partner brochure shows the level (Headline Partner or Partner), the things a partner can own and the extras they can add, and leaves the package to a call.
 - No audience sizes, percentages or other figures. Partners and exhibitors are offered meetings with the right people.
 - Prices are shown where they are set. All prices are plus VAT.
+- Each brochure prints at least 20 real testimonials, and never the same one twice. The quotes are in the copy file in the order they print; the build stops if a brochure has fewer than 20 or repeats one.
+- The grounds vary: Dark Brown on two pages at most, and never two pages in a row on the same colour. The build stops if a brochure breaks this.
+- Every stand comes with a print voucher from the official print partner, shown on the extras page.
 
 ## Change the words
 
@@ -50,3 +53,4 @@ Set `KEEP_HTML=1` to keep the HTML files for review.
 - **The build stops at the copy checker.** A line breaks a climb-voice rule. Fix the line in the copy file, not in the script.
 - **The build stops at the contrast check.** It names the page and the text. Move the text onto a solid ground or a stronger fade.
 - **A page overflows.** Long copy pushes cards into the footer. Shorten the line in the copy file before changing sizes in the script.
+- **The build says a brochure prints too few quotes or repeats one.** Add real quotes to `exhibitor.quotes` or `partner.quotes` in the copy file. Never write a quote; copy it word for word from its source.
