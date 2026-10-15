@@ -331,8 +331,27 @@ Everything you [[need]], _included_
 - people | Your own team | A dedicated Partner Manager, with a team of support staff behind them.
 - clipboard | Easy onboarding | Tasks listed and templates ready: answer the questions and you are set, with priority support.
 - phone | Your app profile | Manage your profile in the event app from our online portal, improved for Climb27.
-- magnifier | Your leads | New for Climb27: manage the leads you collect from the same portal.
+- magnifier | Leads and engagement | See who engaged with you in the event app and what they did, and manage your leads in the portal, new for Climb27.
 - tickets | Tickets and attendees | Manage your tickets and your attendees from the same portal.
+
+## partner.app.eyebrow
+The ClimbGroup Event App
+
+## partner.app.headline
+Your brand in the [[app]] everyone _uses_
+
+## partner.app.intro
+Everyone at Climb27 plans their days, books meetings and finds their people in the event app. Every partnership includes engagement reporting. Add any of these to be seen there:
+
+## partner.app.items
+- sparkles | Featured listing | One of up to eight partners on the home page, with videos, documents and links, plus chat, appointments and a one-to-one video meeting room.
+- microphone | Sponsored sessions | Your name and logo on a session, with polls, surveys and the leads from everyone who took part.
+- slide-deck | Banners and ads | Banners and ads on the home, exhibitor and session pages, with the clicks and views reported after the festival.
+- video-camera | Link and video cards | Up to three links or videos in one card on the home page.
+- target | The app game | A challenge themed to you, worth more points, that brings people to your listing.
+- chat-dots | Discussions | A discussion with your name on it, about your product or your industry.
+- notification-bell | Notifications | Your message, sent between sessions as people choose where to go next.
+- phone | Splash screen | The screen everyone sees as the app opens, for one partner only, plus your brand in the home page images.
 
 ## partner.headline.eyebrow
 Headline Partner

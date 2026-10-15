@@ -560,7 +560,7 @@ PARTNER_PHOTOS = (B + "expo_floor_*", B + "expo_stand_*", B + "entrance_arrivals
 
 # Page 5, in collage order, all from the latest edition: the kiosks, a whole zone and its welcome panel,
 # the event app, the VIP suite and the partner cars outside.
-OWN_PHOTOS = (B + "branding_maf-381.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg", B + "branding_dsc02963.jpg",
+OWN_PHOTOS = (B + "branding_maf-381.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg", B + "branding_maf-26.jpg",
               B + "branding_maf-404.jpg", B + "branding_maf-389.jpg")
 
 
@@ -610,6 +610,16 @@ def partner():
              + '<div class="cards" style="left:120px;width:1120px;top:250px;bottom:130px;grid-template-columns:repeat(3,1fr)">%s</div>' % items
              + collage(pool, 1280, 96, 520, 844, [[1], [1, 1], [1, 1], [1]], OWN_PHOTOS + PARTNER_PHOTOS))
     bk.add("wh", inner)
+
+    # The event app, on Light Grey: what a partner can add, beside two photos of the app in use.
+    rows = "".join('<div class="row" style="align-items:flex-start;gap:20px">%s<div><h3 style="font-size:24px">%s</h3><p style="font-size:19px">%s</p></div></div>'
+                   % (illo(i[0], size=52), t(i[1]), t(i[2])) for i in C["partner.app.items"])
+    inner = ('<div style="position:absolute;left:120px;top:96px;width:1160px">%s'
+             '<p class="copy" style="margin-top:20px;font-size:23px">%s</p></div>'
+             % (head(C["partner.app.eyebrow"], C["partner.app.headline"], 64, 1160), t(C["partner.app.intro"]))
+             + '<div style="position:absolute;left:120px;width:1160px;top:380px;bottom:130px;display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;align-content:space-between">%s</div>' % rows
+             + collage(pool, 1340, 96, 460, 844, [[1], [1]], (B + "branding_dsc02963.jpg", B + "branding_maf-402.jpg") + PARTNER_PHOTOS))
+    bk.add("gr", inner)
 
     # Headline Partner, on Charcoal: the extras down the left, a stage photo and a quote on the right.
     rows = "".join('<div class="row" style="margin-top:44px;align-items:center">%s<div><h3>%s</h3><p style="font-size:23px">%s</p></div></div>'
