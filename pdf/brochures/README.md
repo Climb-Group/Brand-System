@@ -5,7 +5,7 @@ Two brochures for selling Climb27 (30 June and 1 July 2027), as 16:9 PDFs to sen
 | File | Who it is for |
 | --- | --- |
 | `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, a page of quotes, a page of exhibitor photos and a QR code to book. 12 pages. |
-| `climb27_partner-brochure.pdf` | Partners: why partner, how a partnership is built, the branding options (the website listing included with every partnership, then the event app, badges, a zone, the VIP space and the kiosks), the zones, sessions and awards, extra reach with newsletter and website figures, a page of quotes beside exhibitor photos, a page of quotes only, a page of stage, awards and crowd photos, and a QR code to book a call. 12 pages. |
+| `climb27_partner-brochure.pdf` | Partners: what Climb27 is, why partner, how a partnership is built (levels, space options and reach), everything included in every partnership, the branding options, the Headline Partner extras, a NatWest spotlight, the zones, sessions and awards, extra reach, a page of quotes, a page of stage, awards and crowd photos, and a QR code to book a call. 14 pages. |
 
 Contact sheets of every page are in `previews/`.
 

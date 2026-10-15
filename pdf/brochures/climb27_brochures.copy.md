@@ -315,7 +315,48 @@ Own a part of the [[festival]]
 - qr-scan | The kiosks | The kiosk podiums belong to one partner only. Any partner can add their logo to the kiosk screens.
 
 ## partner.own.included
-- laptop | Included with every partnership | Your logo and link on www.climb-uk.com.
+- laptop | Included with every partnership | Your website listing, social campaign, partner screens, newsletter article and Partner Manager come as standard.
+
+## partner.included.eyebrow
+In every partnership
+
+## partner.included.headline
+Everything you [[need]], _included_
+
+## partner.included.items
+- laptop | On our website | Your logo on the ClimbUK website, with links to your own site.
+- megaphone | A social campaign | A social media campaign for your partnership, on the ClimbUK channels.
+- big-screen | At the festival | Your brand on the shared partner screens and signage across the festival.
+- envelope | In our newsletter | One article in the ClimbUK newsletter, written by you.
+- people | Your own team | A dedicated Partner Manager, with a team of support staff behind them.
+- clipboard | Easy onboarding | Tasks listed and templates ready: answer the questions and you are set, with priority support.
+- phone | Your app profile | Manage your profile in the event app from our online portal, improved for Climb27.
+- magnifier | Your leads | New for Climb27: manage the leads you collect from the same portal.
+- tickets | Tickets and attendees | Manage your tickets and your attendees from the same portal.
+
+## partner.headline.eyebrow
+Headline Partner
+
+## partner.headline.headline
+Put your name at the [[top]] of _Climb27_
+
+## partner.headline.intro
+Everything in every partnership, and more of it. Headline Partners lead the festival with us, from the first post to the last night.
+
+## partner.headline.items
+- share | More reach | Extra social posts, website features and newsletter articles.
+- hashtag | Your logo everywhere we go | On every social post, every paid advert and every newsletter.
+- shopfront | More space | A bigger space at the festival, with first choice of where it sits.
+- trophy | The title | Headline Partner of Climb27, and the bragging rights that come with it.
+
+## partner.natwest.eyebrow
+Partner spotlight
+
+## partner.natwest.headline
+NatWest, here for the [[long run]]
+
+## partner.natwest.body
+At Climb26, NatWest announced a three-year partnership with ClimbUK. That makes NatWest a key partner for Climb27, Climb28 and Climb29, backing growing businesses from one festival to the next.
 
 ## partner.zones.eyebrow
 Zones
@@ -327,10 +368,10 @@ Brand a whole [[zone]]
 Each zone brings together the people one sector needs. Put your name on the zone your customers visit.
 
 ## partner.zones.items
-- ClimbAdvisory | Advisers and fractional leaders, in 24 pods.
-- ClimbHealth | The health zone.
-- ClimbCreative | The creative industries zone, with Creative UK.
-- ClimbCyber | The cyber security zone.
+- ClimbAdvisory | Advisers mentoring founders, meeting the businesses they can help and talking through the next step.
+- ClimbHealth | Healthtech, medtech and biotech founders meeting investors and researchers, in masterclasses, roundtables, live demos and on the ClimbHealth stage.
+- ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
+- ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
 
 ## partner.zones.pitch
 - Host a pitching event in a zone | £2,000 per event
@@ -339,7 +380,7 @@ Each zone brings together the people one sector needs. Put your name on the zone
 Sessions and awards
 
 ## partner.stage.headline
-Take the [[stage]] at _Climb27_
+Lead the [[conversation]] at _Climb27_
 
 ## partner.stage.items
 - round-table | Workshops and roundtables | Lead a session on what you know best, for the businesses you want to work with. | £5,000 per session

@@ -124,3 +124,4 @@ The two renders are small in the original brochure (600px wide). Replace them wi
 | branding_maf-448.jpg | photos-intake/brochures/branding_maf-448.jpg (Climb26) |
 | branding_052a3123.jpg | photos-intake/brochures/branding_052a3123.jpg (Climb26) |
 | branding_052a3128.jpg | photos-intake/brochures/branding_052a3128.jpg (Climb26) |
+| laptop_052a4221.jpg | photos-intake/brochures/meetings_052a4221.jpg (Climb26) |

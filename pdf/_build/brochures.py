@@ -70,6 +70,14 @@ class Pool:
         self.used = set()
         self.reserved = set()  # only handed out when named exactly, never through a * pattern
 
+    def take(self, who):
+        """The quote from one named source, moved up so it is handed out now and never again."""
+        rest = self.quotes[self.qi:]
+        q = next(q for q in rest if q[1] == who)
+        rest.remove(q)
+        self.quotes[self.qi:] = [q] + rest
+        return self.quote()
+
     def quote(self):
         if self.qi >= len(self.quotes):
             raise SystemExit("ran out of quotes in the copy file")
@@ -261,6 +269,7 @@ CSS = """
 .step .numo{position:absolute;top:0;left:-6px;font-size:190px}
 .step h3{font-family:Montserrat;font-weight:800;font-size:32px;text-transform:uppercase;line-height:1.05;letter-spacing:-.01em}
 .step p{font-size:22px;line-height:1.5;margin-top:16px}
+.stepsbig .step h3{font-size:36px} .stepsbig .step p{font-size:25px;margin-top:20px}
 .steps2 .step{padding:0 0 0 200px;min-height:120px} .steps2 .step .numo{font-size:130px;top:-4px} .steps2 .step p{margin-top:10px}
 .s.or .step h3,.s.or .step p{color:var(--db)} .s.or .numo{-webkit-text-stroke-color:var(--db)}
 .s.gr .step h3,.s.wh .step h3{color:var(--ch)} .s.gr .step p,.s.wh .step p{color:#404C68}
@@ -298,7 +307,7 @@ WHAT_PHOTOS = (B + "expo_floor_020726075climb26.jpg", B + "expo_floor_052a5456.j
                B + "expo_floor_dsc03001.jpg", B + "entrance_arrivals.jpg")
 # The partner brochure's page 2 shows the festival a partner puts its name to: stages, awards, crowds and a few stands.
 PARTNER_WHAT_PHOTOS = (B + "stage_020726049climb26.jpg", B + "awards_052a3981.jpg", B + "stage_maf-317.jpg",
-                       B + "busk_maf-168.jpg", B + "expo_floor_052a5456.jpg", B + "stage_maf-519.jpg",
+                       B + "busk_maf-168.jpg", B + "festival_busy_052a3708.jpg", B + "stage_maf-519.jpg",
                        B + "expo_stand_natwest_busy.jpg", B + "stage_020726080climb26.jpg")
 # Talks held on a stand: right for nothing in these brochures, which show stages for talks and stands for meetings.
 STAND_TALKS = {B + "expo_floor_052a3109.jpg", B + "expo_floor_052a3113.jpg"}
@@ -319,6 +328,18 @@ def what(bk, names, first=WHAT_PHOTOS):
     bk.add("wh", inner)
 
 
+def stretch_cols(qs, k, style_of, size_of, box, gap=20, pad="26px 30px"):
+    """Quotes in k columns that all reach the bottom of the box: each column takes the next quote while it is the
+    shortest, and its boxes grow to fill it, so no column stops early and leaves a gap above the footer."""
+    cols, load = [[] for _ in range(k)], [0] * k
+    for i, q in enumerate(qs):
+        c = load.index(min(load))
+        cols[c].append(quote(q, size_of(q), style_of(i, q), "flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;padding:%s" % pad))
+        load[c] += len(q[0]) + 120
+    inner = "".join('<div style="flex:1;display:flex;flex-direction:column;gap:%dpx;min-width:0">%s</div>' % (gap, "".join(c)) for c in cols)
+    return '<div style="position:absolute;%s;display:flex;gap:%dpx">%s</div>' % (box, gap, inner)
+
+
 def wall(bk, cls, eyebrow, headline, names, n_quotes, layout):
     """A page of quotes in two columns, with photos beside them."""
     qs = [bk.pool.quote() for _ in range(n_quotes)]
@@ -333,10 +354,10 @@ def wall(bk, cls, eyebrow, headline, names, n_quotes, layout):
         feature = ('<div class="qabs" style="left:120px;top:290px;width:760px">%s</div>'
                    % quote(first, qsize(first, 40, 30), "qbox", "padding:40px 44px"))
         pics = feature + collage(bk.pool, 120, 610, 760, 330, [[1, 1]], names)
-        grid = '<div style="position:absolute;left:920px;right:120px;top:290px;bottom:130px;columns:2;column-gap:20px">%s</div>' % cells
+        grid = stretch_cols(rest, 2, lambda i, q: styles[(i + 1) % 3], lambda q: qsize(q, 23, 19), "left:920px;right:120px;top:290px;bottom:130px")
     else:
         pics = collage(bk.pool, 1300, 96, 500, 844, [[1, 1], [("h", 1.3), 1], [1, 1]], names)
-        grid = '<div style="position:absolute;left:120px;width:1150px;top:290px;bottom:130px;columns:2;column-gap:20px">%s</div>' % cells
+        grid = stretch_cols(qs, 2, lambda i, q: styles[i % 3], lambda q: qsize(q, 24, 19), "left:120px;width:1150px;top:290px;bottom:130px")
     inner = '<div style="position:absolute;left:120px;top:96px">%s</div>%s%s' % (head(eyebrow, headline, 66, 1150), pics, grid)
     bk.add(cls, inner)
 
@@ -351,37 +372,44 @@ def quote_page(bk, cls, eyebrow, headline, n_quotes):
     cells = "".join('<div style="break-inside:avoid;margin-bottom:18px">%s</div>' % quote(q, qsize(q, 23, 20), style(i, q), "padding:26px 30px")
                     for i, q in enumerate(qs))
     inner = ('<div style="position:absolute;left:120px;top:80px">%s</div>' % head(eyebrow, headline, 60, 1600)
-             + '<div style="position:absolute;left:120px;right:120px;top:250px;bottom:120px;columns:3;column-gap:20px">%s</div>' % cells)
+             + (stretch_cols(qs, 4, style, lambda q: qsize(q, 20, 19), "left:120px;right:120px;top:230px;bottom:130px", 16, "20px 24px")
+                if len(qs) > 11 else stretch_cols(qs, 3, style, lambda q: qsize(q, 23, 20), "left:120px;right:120px;top:250px;bottom:130px")))
     bk.add(cls, inner)
 
 
-def photo_page(bk, cls, eyebrow, headline, names, n_quotes):
-    """A page that is all photos, with a quote or two beside them."""
+def photo_page(bk, cls, eyebrow, headline, names, n_quotes=0):
+    """A page of photos; with no quotes the wall runs the full width of the page."""
     qs = [bk.pool.quote() for _ in range(n_quotes)]
+    head_html = '<div style="position:absolute;left:120px;top:80px">%s</div>' % head(eyebrow, headline, 60, 1600)
+    if not qs:
+        bk.add(cls, head_html + collage(bk.pool, 120, 230, 1680, 720, [[2, 1, 1, 1], [1, 1, 2], [1, 2, 1, 1]], names))
+        return
     side = "".join('<div style="margin-bottom:20px">%s</div>' % quote(q, qsize(q, 26, 21), ("qbox", "qwhite")[i % 2]) for i, q in enumerate(qs))
-    inner = ('<div style="position:absolute;left:120px;top:80px">%s</div>' % head(eyebrow, headline, 60, 1100)
+    inner = (head_html
              + collage(bk.pool, 120, 250, 1180, 700, [[2, 1, 1], [1, 1, 1], [1, 2]], names)
              + '<div style="position:absolute;left:1330px;right:120px;top:250px;bottom:130px;display:flex;flex-direction:column;justify-content:flex-start">%s</div>' % side)
     bk.add(cls, inner)
 
 
 def cta(bk, line1, line2, button, qr_line, img, campaign):
-    """Closing page in the Climb26 manner: an orange photo ground, the QR code centred in a white card beside the big lines."""
+    """Closing page: on an orange photo ground, one centred row with the QR code in a white card beside one column
+    that holds a square headline block, the rounded call button and a card with the contact lines, all one width."""
+    x, top, h, col = 330, 230, 580, 820
     inner = (photo(img, "center 35%") + '<div class="layer" style="background:rgba(var(--or),.88)"></div>'
-             + '<div style="position:absolute;left:160px;top:240px;width:380px;height:440px;background:#fff;border-radius:16px;'
-               'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;'
+             + '<div style="position:absolute;left:%dpx;top:%dpx;width:380px;height:%dpx;background:var(--w);border-radius:16px;'
+               'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;'
                'box-shadow:0 20px 50px rgba(var(--ink),.25)">%s'
-               '<div class="mont" style="font-weight:800;font-size:24px;color:#1E0F05;text-align:center">%s</div></div>'
-             % (qr(QR_URL % campaign, 300), t(qr_line))
-             + '<div style="position:absolute;left:600px;top:250px">%s</div>' % labels([line1, line2], 104, "lbl dark")
-             + '<div style="position:absolute;left:600px;top:540px;display:flex;align-items:center;gap:22px">'
-               '<span class="arrow" style="font-size:44px" aria-hidden="true">&larr;</span><span class="ctabtn">%s</span></div>' % t(button)
-             + '<div class="mont" style="position:absolute;left:600px;top:670px;background:var(--db);color:var(--w);border-radius:14px;'
-               'padding:22px 40px;text-align:center;font-weight:700;font-size:30px;line-height:1.5">%s<br>%s'
-               '<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:8px">%s</div></div>'
-             % (t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"]))
+               '<div class="mont" style="font-weight:800;font-size:24px;color:var(--db);text-align:center">%s</div></div>'
+             % (x, top, h, qr(QR_URL % campaign, 300), t(qr_line))
+             + '<div style="position:absolute;left:%dpx;top:%dpx;width:%dpx;height:%dpx;display:flex;flex-direction:column;justify-content:space-between">'
+               '<div class="mont" style="background:var(--db);color:var(--w);padding:38px 48px;font-weight:800;font-size:76px;line-height:1;'
+               'text-transform:uppercase;letter-spacing:-.01em">%s<br><em>%s</em></div>'
+               '<div><span class="ctabtn">%s</span></div>'
+               '<div class="mont" style="background:var(--db);color:var(--w);border-radius:16px;padding:26px 48px;font-weight:700;font-size:30px;line-height:1.5">'
+               '%s<br>%s<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:6px">%s</div></div></div>'
+             % (x + 380 + 60, top, col, h, t(line1), t(line2), t(button), t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"]))
              # The edition mark leads on its own; ClimbUK is never set beside it.
-             + '<div style="position:absolute;left:160px;bottom:110px">%s</div>' % logo("Climb27", "mono-white", 60)
+             + '<div style="position:absolute;left:%dpx;bottom:80px">%s</div>' % (x, logo("Climb27", "mono-white", 60))
              )
     bk.add("or", inner, foot=False)
 
@@ -513,9 +541,9 @@ def exhibitor():
     bk.add("ch", inner)
 
     # 10 A page of quotes, 11 a page of photos.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 10)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
     photo_page(bk, "db", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
-               EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"), 3)
+               EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"))
 
     # 12 Book a call.
     cta(bk, C["exhibitor.cta.line1"], C["exhibitor.cta.line2"], C["exhibitor.cta.button"], C["exhibitor.cta.qr"],
@@ -544,26 +572,37 @@ def partner():
     what(bk, PARTNER_PHOTOS, PARTNER_WHAT_PHOTOS)
 
     # 3 Why partner, on Light Grey beside a photo wall.
-    cols = "".join('<div class="step" style="padding-top:140px"><div class="numo" aria-hidden="true" style="font-size:160px">%02d</div><h3>%s</h3><p>%s</p></div>'
+    cols = "".join('<div class="step" style="padding-top:190px"><div class="numo" aria-hidden="true" style="font-size:210px">%02d</div><h3>%s</h3><p>%s</p></div>'
                    % (n, t(p[0]), t(p[1])) for n, p in enumerate(C["partner.why.points"], 1))
     q = pool.quote()
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>' % head(C["partner.why.eyebrow"], C["partner.why.headline"], 78, 1100)
-             + '<div style="position:absolute;left:120px;width:1080px;top:380px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px">%s</div>' % cols
-             + collage(pool, 1260, 96, 540, 540, [[1], [1, 1]], PARTNER_PHOTOS)
-             + '<div class="qabs" style="left:1260px;top:660px;width:540px">%s</div>' % quote(q, qsize(q, 24, 18), "qbox"))
+             + '<div style="position:absolute;left:120px;width:1080px;top:420px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px" class="stepsbig">%s</div>' % cols
+             + collage(pool, 1260, 96, 540, 640, [[1], [1, 1]], PARTNER_PHOTOS)
+             + '<div class="qabs" style="left:1260px;top:760px;width:540px;height:180px;display:flex">%s</div>'
+             % quote(q, qsize(q, 26, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("gr", inner)
 
-    # 4 How it works, on Charcoal.
-    steps = "".join('<div class="step"><div class="numo" aria-hidden="true">%02d</div><h3>%s</h3><p>%s</p></div>'
-                    % (n, t(s[0]), t(s[1])) for n, s in enumerate(C["partner.how.steps"], 1))
+    # 4 How it works, on Charcoal: steps 01 to 03 down the left; 04, two photos and the quote on the right.
+    steps = ['<div class="step"><div class="numo" aria-hidden="true">%02d</div><h3>%s</h3><p>%s</p></div>'
+             % (n, t(s_[0]), t(s_[1])) for n, s_ in enumerate(C["partner.how.steps"], 1)]
     q = pool.quote()
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>'
-             '<div class="steps2" style="position:absolute;left:120px;right:120px;top:290px;display:grid;grid-template-columns:repeat(2,1fr);gap:44px 80px">%s</div>'
-             '<div class="qabs" style="left:120px;right:120px;top:812px">%s</div>'
-             % (head(C["partner.how.eyebrow"], C["partner.how.headline"], 76, 1680), steps, quote(q, qsize(q, 26, 20), "qbox")))
+             '<div class="steps2" style="position:absolute;left:120px;width:880px;top:270px;bottom:130px;display:flex;flex-direction:column;justify-content:space-between">%s</div>'
+             % (head(C["partner.how.eyebrow"], C["partner.how.headline"], 76, 1680), "".join(steps[:3]))
+             + collage(pool, 1060, 270, 740, 250, [[1, 1]], (B + "branding_052a3123.jpg", B + "branding_052a3128.jpg") + PARTNER_PHOTOS)
+             + '<div class="steps2" style="position:absolute;left:1060px;width:740px;top:556px">%s</div>' % steps[3]
+             + '<div class="qabs" style="left:1060px;top:730px;width:740px;height:220px;display:flex">%s</div>'
+             % quote(q, qsize(q, 24, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("ch", inner)
 
-    # 5 What a partner can own; the website is included with every partnership.
+    # 5 What comes with every partnership, on Light Grey.
+    items = "".join('<div class="icard" style="flex-direction:row;align-items:flex-start;gap:24px;padding:26px 30px">%s<div><h3>%s</h3><p style="margin-top:8px">%s</p></div></div>'
+                    % (illo(i[0], size=56), t(i[1]), t(i[2])) for i in C["partner.included.items"])
+    inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>' % head(C["partner.included.eyebrow"], C["partner.included.headline"], 70, 1680)
+             + '<div class="cards" style="left:120px;right:120px;top:250px;bottom:140px;grid-template-columns:repeat(3,1fr);gap:22px">%s</div>' % items)
+    bk.add("gr", inner)
+
+    # What a partner can own; the website is included with every partnership.
     inc = C["partner.own.included"][0]
     items = ('<div class="icard hi">%s<h3>%s</h3><p>%s</p></div>' % (illo(inc[0], color="var(--w)", size=68), t(inc[1]), t(inc[2]))
              + "".join('<div class="icard">%s<h3>%s</h3><p>%s</p></div>' % (illo(i[0], size=68), t(i[1]), t(i[2])) for i in C["partner.own.items"]))
@@ -572,17 +611,38 @@ def partner():
              + collage(pool, 1280, 96, 520, 844, [[1], [1, 1], [1, 1], [1]], OWN_PHOTOS + PARTNER_PHOTOS))
     bk.add("wh", inner)
 
-    # 6 In their words, with a wall of exhibitor photos.
-    wall(bk, "gr", C["partner.proof3.eyebrow"], C["partner.proof3.headline"], PARTNER_PHOTOS, 6, "a")
+    # Headline Partner, on Charcoal: the extras down the left, a stage photo and a quote on the right.
+    rows = "".join('<div class="row" style="margin-top:44px;align-items:center">%s<div><h3>%s</h3><p style="font-size:23px">%s</p></div></div>'
+                   % (illo(i[0], size=72), t(i[1]), t(i[2])) for i in C["partner.headline.items"])
+    q = pool.quote()
+    inner = ('<div style="position:absolute;left:120px;top:96px;width:900px">%s'
+             '<p class="copy" style="margin-top:24px;font-size:25px">%s</p>%s</div>'
+             % (head(C["partner.headline.eyebrow"], C["partner.headline.headline"], 70, 900), t(C["partner.headline.intro"]), rows)
+             + tile(pool.photo(B + "stage_020726018climb26.jpg", B + "stage_*", *PARTNER_PHOTOS), 1080, 96, 720, 520)
+             + '<div class="qabs" style="left:1080px;top:640px;width:720px;height:300px;display:flex">%s</div>'
+             % quote(q, qsize(q, 28, 22), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
+    bk.add("ch", inner)
+
+    # NatWest, the multi-year partner, on Light Grey.
+    q1 = pool.take("NatWest")
+    q2 = pool.quote()
+    inner = ('<div style="position:absolute;left:120px;top:96px;width:820px">%s'
+             '<p class="copy" style="margin-top:28px;font-size:27px">%s</p>'
+             '<div style="margin-top:40px">%s</div><div style="margin-top:20px">%s</div></div>'
+             % (head(C["partner.natwest.eyebrow"], C["partner.natwest.headline"], 70, 820), t(C["partner.natwest.body"]),
+                quote(q1, qsize(q1, 30, 24), "qbox"), quote(q2, qsize(q2, 26, 22), "qwhite"))
+             + collage(pool, 1000, 96, 800, 844, [[("h", 1.4), 1], [1, 1]],
+                       (B + "expo_stand_natwest_busy.jpg", B + "expo_stand_natwest.jpg", B + "expo_stand_natwest_02.jpg") + PARTNER_PHOTOS))
+    bk.add("gr", inner)
 
     # 7 Zones, on Charcoal.
-    zone_names = [(P + "climb_consultants_expert.jpg",), (P + "meetings_02.jpg",), (P + "exhibitor_01.jpg",), (P + "media_01.jpg",)]
-    zones = "".join('<div class="cardx"><div class="img" style="height:300px">%s</div><div class="body"><h3>%s</h3><div class="d">%s</div></div></div>'
+    zone_names = [(P + "climb_consultants_expert.jpg",), (P + "meetings_02.jpg",), (P + "exhibitor_01.jpg",), (B + "laptop_052a4221.jpg",)]
+    zones = "".join('<div class="cardx"><div class="img" style="height:250px">%s</div><div class="body"><h3>%s</h3><div class="d">%s</div></div></div>'
                     % (photo(pool.photo(*(n + PARTNER_PHOTOS))), t(z[0]), t(z[1])) for n, z in zip(zone_names, C["partner.zones.items"]))
     pitch = C["partner.zones.pitch"][0]
     inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1300px">%s</p></div>'
-             '<div class="cards" style="left:120px;right:120px;top:380px;height:500px;grid-template-columns:repeat(4,1fr)">%s</div>'
-             '<div style="position:absolute;left:120px;top:910px;display:flex;align-items:center;gap:24px">'
+             '<div class="cards" style="left:120px;right:120px;top:350px;height:530px;grid-template-columns:repeat(4,1fr)">%s</div>'
+             '<div style="position:absolute;left:120px;top:906px;display:flex;align-items:center;gap:24px">'
              '<span class="sticker" style="font-size:24px;transform:rotate(-3deg)">%s</span>'
              '<span class="mont" style="font-weight:800;font-size:30px;color:var(--w)">%s</span></div>'
              % (head(C["partner.zones.eyebrow"], C["partner.zones.headline"], 76, 1300), t(C["partner.zones.intro"]), zones, t(pitch[0]), t(pitch[1])))
@@ -590,13 +650,13 @@ def partner():
 
     # 8 Sessions and awards, on Light Grey.
     stage_names = [(P + "roundtable_and_workshops_02.jpg",), (P + "climb_awards_winners.jpg",), (P + "stage_speakers_03.jpg",)]
-    offers = "".join('<div class="cardx"><div class="img" style="height:250px">%s</div><div class="body">%s<h3 style="margin-top:16px">%s</h3>'
+    offers = "".join('<div class="cardx"><div class="img" style="height:250px">%s</div><div class="body"><h3>%s</h3>'
                      '<div class="d">%s</div><div class="end">%s</div></div></div>'
-                     % (photo(pool.photo(*(n + PARTNER_PHOTOS))), illo(o[0], size=56), t(o[1]), t(o[2]), t(o[3]))
+                     % (photo(pool.photo(*(n + PARTNER_PHOTOS))), t(o[1]), t(o[2]), t(o[3]))
                      for n, o in zip(stage_names, C["partner.stage.items"]))
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>'
              '<div class="cards" style="left:120px;right:120px;top:300px;bottom:130px;grid-template-columns:repeat(3,1fr)">%s</div>'
-             % (head(C["partner.stage.eyebrow"], C["partner.stage.headline"], 76, 1500), offers))
+             % (head(C["partner.stage.eyebrow"], C["partner.stage.headline"], 70, 1680), offers))
     bk.add("gr", inner)
 
     # 9 Add more, on white.
@@ -610,9 +670,9 @@ def partner():
     bk.add("wh", inner)
 
     # 10-11 In their words.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 8)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
     photo_page(bk, "db", C["partner.proof2.eyebrow"], C["partner.proof2.headline"],
-               (B + "stage_*", B + "awards_*", P + "stage_speakers_*", P + "vip_and_awards_*", P + "crowds_*", P + "joy_*") + PARTNER_PHOTOS, 2)
+               (B + "stage_*", B + "awards_*", P + "stage_speakers_*", P + "vip_and_awards_*", P + "crowds_*", P + "joy_*") + PARTNER_PHOTOS)
 
     cta(bk, C["partner.cta.line1"], C["partner.cta.line2"], C["partner.cta.button"], C["partner.cta.qr"],
         pool.photo(P + "climb_crowd_wide.jpg", *PARTNER_PHOTOS), "partner")
