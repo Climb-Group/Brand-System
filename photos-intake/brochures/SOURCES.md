@@ -59,6 +59,10 @@ Climb26 photos staged for the Climb27 exhibitor and partner brochures. Resized c
 | vip-and-awards_052a4029.jpg | VIP and Awards | Originals/VIP and Awards/052A4029.jpg |
 | vip-and-awards_052a3818.jpg | VIP and Awards | Originals/VIP and Awards/052A3818.jpg |
 | busk-your-business_maf-168.jpg | Busk Your Business | Originals/Busk Your Business/MAF-168.jpg |
+| meetings_052a4221.jpg | Meetings | Originals/Meetings/052A4221.jpg |
+| meetings_052a1574.jpg | Meetings | Originals/Meetings/052A1574.jpg |
+| meetings_maf-530.jpg | Meetings | Originals/Meetings/MAF-530.jpg |
+| roundtable-and-workshops_dsc07010.jpg | roundtable and workshops | Originals/roundtable and workshops/DSC07010.jpg |
 
 ## Expo Area library additions
 
