@@ -179,7 +179,7 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 
 ### Device rollout (intune/)
 
-- `intune/` holds PowerShell 7 scripts that create Intune objects named `Climb - ...` through Microsoft Graph beta (`Invoke-MgGraphRequest` only, helpers in `intune/ClimbIntune.psm1`). Every script is idempotent by that name and takes `-WhatIf`. Scripts 10 to 13 fetch the `templates-v<version>` release, so a change to the installers reaches devices only after a new templates release. `50-Outlook-Default-Font.ps1` uses Exchange Online PowerShell, not Graph.
+- `intune/` holds PowerShell 7 scripts that create Intune objects named `Climb - ...` through Microsoft Graph beta (`Invoke-MgGraphRequest` only, helpers in `intune/ClimbIntune.psm1`). Every script is idempotent by that name and takes `-WhatIf`. Scripts 10 to 13 fetch the `templates-v<version>` release, so a change to the installers reaches devices only after a new templates release. `50-Outlook-Default-Font.ps1` uses Exchange Online PowerShell, not Graph. `60-OneDrive-Brand-Library.ps1` resolves a SharePoint library ID through Graph v1.0 (`Connect-ClimbGraph -ExtraScopes Sites.Read.All`) and writes OneDrive's `TenantAutoMount` policy on Windows; macOS has no auto-mount policy, so its user script opens the library's `odopen://sync` link. `70-Claude-Tools.ps1` installs the Claude app, git, Claude Code, uv, Python and graphify and keeps a fast-forward-only clone of this repository at `~/Climb/Brand-System`, with graphify set up `--no-hooks` so the clone never goes dirty.
 - Keep the folder public-safe: no tenant ids or domains, account names or internal security settings. Tenant-specific notes and audits stay outside the repository.
 
 ### Release the templates and motion clips
