@@ -104,7 +104,7 @@ See `references/elements.md` for how each motif is built and scaled.
 - Transparent first: logos, icons, favicons and app tiles default to a transparent background; each also comes on solid White, Dark Brown and Climb Orange (`-on-white`, `-on-ground`, `-on-orange`). On orange the mark is one-colour white.
 - Clear space: the height of the large "C" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
 - Never stretch, rotate, outline, add effects, or set the logo on a busy part of a photo. On photos, sit it on the darkened area or use the filter.
-- **Partner of someone else's event:** when ClimbUK promotes an event it partners with, use the organiser's own graphics and imagery exactly as supplied. ClimbUK adds only its logo, a "Proud partner" line or a "Proud partner of" footer with both logos (the co-branding lockup). No ClimbUK headline, photo, recolour, sticker or festival device on their artwork.
+- **Partner of someone else's event:** when ClimbUK promotes an event it partners with, use the organiser's own graphics and imagery exactly as supplied. ClimbUK adds only its logo, a "Proud partner" line or a "Proud partner of" footer with both logos (the co-branding lockup). No ClimbUK headline, photo, recolour, sticker or festival device on their artwork, and never a white frame or border around it: keep it full bleed, and where a footer will not fit, set the partner lockup on a small white card in open space.
 - ClimbUK is the brand on the poster. ClimbGroup appears as the organisation (footers, legal, corporate decks). An edition mark (Climb27) leads on event pieces, with ClimbUK as the endorsement.
 
 ## Making an asset
