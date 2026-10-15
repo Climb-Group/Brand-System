@@ -118,6 +118,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
 - **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Never put two photos of the same stand or organisation side by side, and mix the organisations across a photo wall.
 - **Name what is sold.** Partners buy workshops, roundtables, ClimbAwards and zones. ClimbUK does not sell main stage sessions, so never head these offers "stage" or "take the stage"; call them sessions and awards.
+- **Crop people, not signs.** A photo that shows branding (a zone panel, a partner sign, a screen) keeps the whole sign and its logos in frame. Give it a tile of its own shape, or pick a landscape shot, rather than zooming a tall sign into a wide tile.
 - **Photo cards carry no icons.** A card with a photo at the top has its title and text only; icons are for cards without a photo.
 - **Quotes and photos get their own pages.** Put the quotes together on one quotes page and give the photos a full page of their own, rather than splitting both across two mixed pages.
 - **No empty corners.** Every page fills its frame down to the footer. When a column ends early, extend the photo wall, enlarge the photo or add another quote; never leave a blank block under a card or a quote.
