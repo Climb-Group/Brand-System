@@ -50,6 +50,29 @@ Use as written. Shorten only by cutting whole sentences.
 - **Never:** merge the logos into one mark, put ClimbUK colours on a partner logo, imply ClimbUK endorses a product, or promise attendees anything ClimbUK has not.
 - Partners sell their presence with "meetings with the right people", never a number of meetings or an audience size for the event. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
 
+## What a partnership includes
+
+Use this list when you describe partnerships. Pick the lines that suit the piece; there is no need to print them all.
+
+**Included with every partnership:**
+
+- The partner's logo on the ClimbUK website, with links to their website.
+- A social media campaign for the partnership.
+- Branding at the event, on the shared partner screens and signage.
+- One article in the ClimbUK newsletter, written by the partner.
+- A dedicated Partner Manager, backed by a support team.
+- An onboarding platform that does the work for them: the tasks are listed and the templates are ready, so they answer the questions and they are set up, with priority support.
+- An online portal where they manage their app profile (improved for Climb27), their tickets and attendees, and, new for Climb27, their leads.
+
+**Headline Partners also get:**
+
+- More social posts, website features and newsletter features.
+- Their logo on every ClimbUK social post, all paid advertising and every newsletter.
+- A bigger space, and first choice of location within reason.
+- The title of Headline Partner, and the standing that comes with it.
+
+**Multi-year partners.** NatWest announced a three-year partnership at Climb26, so it is a key partner for Climb27, Climb28 and Climb29. A partner brochure can give it a section of its own as the example of a long-term partnership, using the NatWest stand photos.
+
 ## Sales brochures
 
 - **Format:** 16:9 pages, sent as a PDF or shown on screen in a call.
