@@ -21,7 +21,7 @@ ALWAYS = [
     (r"!", "exclamation mark"),
     (r"[\U0001F300-\U0001FAFF\u2600-\u27BF]", "emoji"),
     (r"[\u2122\u00AE]", "trademark symbol"),
-    (r"(?<![.\w-])climb(?![-.\w])", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
+    (r"(?<![.\w-])climb(?![-.\w])(?! orange\b)(?! li monogram\b)", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
     (r"\bclimb app\b", "the app is the ClimbGroup Event App"),
     (r"\bthousands\b", "attendance claim"),
     (r"\b\d+\s*(\+\s*)?(meetings|investors|partners|attendees|delegates)\b", "a number of meetings, investors, partners or attendees"),

@@ -118,17 +118,24 @@ These rules hold on every platform. When the asset is built for a particular pla
 
 ## Editable sources
 
-Everything the brand makes can be edited by the team with free tools. A finished asset ships with its editable source next to it, never only as a flattened PNG or PDF:
+Everything the brand makes can be edited by the team with free tools. Every file in the pack (each PDF, slide deck, spreadsheet, document, image and logo) has a copy file beside it, and every piece of artwork also has a layered SVG. The finished PDFs, PNGs and Office files still ship as they are: the editable sources sit next to them so the team can change a piece in an editor and rebuild it.
 
-- **Words**: the copy file, `<name>.copy.md`, with the climb-voice skill's section markers (that skill's `references/copy-files.md`). The build reads it.
-- **Vector artwork** (flyers, posters, social graphics, banners, icons, call backgrounds): a layered SVG master. Name each layer or group by the copy file's section names, as both its `id` and its `inkscape:label` (`front.headline`, `back.reason`, `front.photo`), and give each text element `data-copy="<section name>"`. Keep text as live text in Montserrat and Open Sans (installed from `fonts/`), never converted to outlines, and link photos from `photos/` rather than embedding them. It opens in Inkscape and Affinity, both free, and in Illustrator, Figma and Penpot.
+- **Words**: the copy file, `<name>.copy.md`, with the climb-voice skill's section markers (that skill's `references/copy-files.md`). The build reads it. One copy file covers every file with the same words (a PDF and its SVGs, a logo on each ground); its `output:` line lists them. An image with no words gets an `@alt` section with its alt text.
+- **Vector artwork** (flyers, posters, social graphics, banners, icons, call backgrounds): always a layered SVG master beside the PDF or PNG.
+  - **Group by what belongs together on the page**, not by kind of element. On the back of a flyer each reason row is its own group holding its icon, title and text (`reasons > reason-1 > icon, title, text`), each photo in a strip is its own group, and the band at the foot holds its ground, button, link and QR code. Never one group of all the text and one of all the images.
+  - **Levels**: the top level is the side or the main area (`photo`, `text`, `band`, `background`); these become layers in Inkscape. Inside them, one group per row, card or block, then one per part.
+  - **Names**: each group's `id` and `inkscape:label` follow the copy file's section names (`front.headline`, `back.reason`), and each text element has `data-copy="<section name>"`.
+  - Keep text as live text in Montserrat and Open Sans (installed from `fonts/`), never converted to outlines.
+  - Link photos from `photos/` rather than embedding them. The photo sits full size inside a clip the size of its frame, so moving it changes the crop, and any fade is an editable gradient above it.
+  - It opens in Inkscape and Affinity, both free, and in Illustrator, Figma and Penpot.
+  - A print build gets this from `tools/svg/`: tag each element with `data-layer="back/reasons/reason-1/title"` (and `data-copy`) in the page, and the renderer writes the SVG next to the PDF.
 - **Print**: the press-ready PDF is the printer's file, built from the sources above, not the file to edit.
 - A native file for one app (`.af`, `.ai`, `.psd`, `.fig`) is saved by a person in that app when they want one; the open source stays the master.
 
 ## Before you finish
 
 - Every colour is a token. No `#EC752A`.
-- The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG with layers named by the copy file's sections.
+- The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).

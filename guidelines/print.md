@@ -34,7 +34,7 @@ The screen rules carry over at print sizes: White on Climb Orange only at 14pt b
 - **Logos:** place the vector masters from the logo downloads, never a PNG. Reversed variant on dark stock.
 - **Naming:** `<brand>_<item>_<variant>_<size>.pdf`, for example `climb27_poster_find-your-people_a1.pdf`.
 - **Proofs:** a PDF proof for every job and a hard proof for every colour-critical one. Nothing goes to press without a named person signing off the proof.
-- **Editable sources:** the press PDF is the printer's file, not the file to edit. Every piece also has its words in a Markdown copy file and its artwork as a layered SVG with live text, each layer named after the part of the design it holds (`front.headline`, `back.photo`). Both open in free tools, such as any text editor, Inkscape and Affinity.
+- **Editable sources:** the press PDF is the printer's file, not the file to edit. Every piece also has its words in a Markdown copy file and its artwork as a layered SVG with live text, grouped the way the design reads, so each row of a flyer's back (its icon, title and text) is one group, and each group named after the part of the design it holds (`front.headline`, `back.photo`). The finished PDFs and images are still supplied as before. Both open in free tools, such as any text editor, Inkscape and Affinity.
 
 ## Paper and finishes
 

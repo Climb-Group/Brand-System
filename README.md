@@ -49,6 +49,10 @@ python3 .agents/skills/climb-voice/scripts/check_copy.py pdf/flyers/copy/segment
 
 Every piece the pack builds keeps its words in a Markdown copy file beside its build, `<name>.copy.md`: the Climb27 flyers' words are in `pdf/flyers/copy/`. Open one in any text editor or on GitHub, change the words, and rebuild the piece. Each part of the design is marked with a comment that Markdown viewers hide, such as `<!-- @front.headline -->`, and notes for reviewers are `<!-- note: ... -->`. The format, with a full example, is in `.agents/skills/climb-voice/references/copy-files.md`.
 
+Every file in the pack has a copy file: one copy file covers all the files with the same words (a flyer's PDF and its SVGs) and lists them on its `output:` line. Run `python3 .agents/skills/climb-voice/scripts/copy_md.py coverage` to list any file that has none.
+
+Artwork also has a layered SVG beside its finished PDF or PNG, such as `pdf/flyers/segments/svg/`. Open it in Inkscape or Affinity, both free: the layers and groups follow the design (each reason row on the back of a flyer is one group with its icon, title and text), the text is live, and the photos link to `photos/`, so install the fonts from `fonts/ttf` and keep the pack's folders together. Change the words in the copy file and rebuild to update the PDF and the SVG together.
+
 ## Use the brand in an AI assistant
 
 The two brand skills, `climb-voice` and `climb-visual-style`, follow the open Agent Skills format, so any assistant that reads skills can use them.

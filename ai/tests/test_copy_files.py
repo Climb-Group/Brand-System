@@ -169,11 +169,27 @@ class RepositoryTest(unittest.TestCase):
             doc = copy_md.load(path)
             self.assertNotIn(doc.meta["copy"], ids, "copy id used twice: %s and %s" % (path, ids.get(doc.meta["copy"])))
             ids[doc.meta["copy"]] = path
-            for key in ("build", "output"):
-                if key in doc.meta:
-                    self.assertTrue((ROOT / doc.meta[key]).exists(), "%s: %s %s does not exist" % (path, key, doc.meta[key]))
+            if "build" in doc.meta:
+                self.assertTrue((ROOT / doc.meta["build"]).exists(), "%s: build %s does not exist" % (path, doc.meta["build"]))
+            copy_md.covered(doc, ROOT)
+            if doc.meta.get("source") == "mirror":
+                continue  # a mirror shows what a build elsewhere prints; its rule breaks are listed in its notes
             problems = check_copy.check(copy_md.words_only(path.read_text(encoding="utf-8")))
             self.assertEqual(problems, [], path)
+
+    def test_every_deliverable_has_a_copy_file(self):
+        missing, problems = copy_md.coverage(ROOT, copy_md._tracked(ROOT))
+        self.assertEqual(problems, [])
+        self.assertEqual([str(p.relative_to(ROOT)) for p in missing], [], "files with no copy file covering them")
+
+    def test_output_takes_several_paths_and_globs(self):
+        doc = copy_md.parse("---\ncopy: x\ndeliverable: x\noutput: README.md tokens/*.css\n---\n", str(ROOT / "x.copy.md"))
+        got = copy_md.covered(doc, ROOT)
+        self.assertIn((ROOT / "README.md").resolve(), got)
+        self.assertIn((ROOT / "tokens" / "tokens.css").resolve(), got)
+        bad = copy_md.parse("---\ncopy: x\ndeliverable: x\noutput: nothing/*.pdf\n---\n", str(ROOT / "x.copy.md"))
+        with self.assertRaises(copy_md.CopyError):
+            copy_md.covered(bad, ROOT)
 
 
 if __name__ == "__main__":

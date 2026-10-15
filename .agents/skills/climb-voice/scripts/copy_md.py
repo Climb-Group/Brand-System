@@ -16,6 +16,7 @@ The full standard is in references/copy-files.md next to this script.
 Usage:
     python3 copy_md.py words FILE    # print only the words, as a reader sees them
     python3 copy_md.py json FILE     # print the parsed sections as JSON, for scripts
+    python3 copy_md.py coverage [ROOT]   # list every deliverable that no copy file covers
     python3 check_copy.py FILE       # check a copy file: its markers, then its words against the copy rules
 
 Exit code 1 when a file breaks the standard. Standard library only.
@@ -236,6 +237,58 @@ def load(path):
     return parse(path.read_text(encoding="utf-8"), str(path))
 
 
+# Files a person reads, prints or opens in an editor: each one needs a copy file that covers it.
+DELIVERABLE = {".pdf", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".ico", ".gif", ".tif", ".tiff",
+               ".docx", ".dotx", ".dotm", ".odt", ".ott", ".xlsx", ".xltx", ".xltm", ".ods", ".ots",
+               ".pptx", ".potx", ".potm", ".odp", ".otp", ".thmx", ".drfx", ".html", ".mp4", ".mov", ".srt", ".cube"}
+# Folders that hold sources, tooling or build output rather than deliverables.
+NOT_DELIVERED = {"_build", "tests", "node_modules", "graphify-out", "tools", "build"}
+
+
+def covered(doc, root):
+    """The files a copy file covers: its 'output' paths (from the pack root) and its 'files' globs (from its own folder).
+
+    'output' holds one or more paths or globs separated by spaces: the finished file and its editable source, such
+    as a PDF and its layered SVGs. A copy file covers every file that carries the same words: a template in each of
+    its formats, a logo on each ground, an image at each size. Raises CopyError when a path or glob finds nothing."""
+    root, here = Path(root), Path(doc.where).parent
+    found = []
+    for pattern in doc.meta.get("output", "").split():
+        matches = sorted(p for p in root.glob(pattern) if p.is_file())
+        if not matches:
+            raise CopyError(doc.where, 1, "'output:' %s does not exist" % pattern)
+        found += matches
+    for pattern in doc.meta.get("files", "").split():
+        matches = sorted(p for p in here.glob(pattern) if p.is_file())
+        if not matches:
+            raise CopyError(doc.where, 1, "'files:' pattern %s matches no file" % pattern)
+        found += matches
+    return [p.resolve() for p in found]
+
+
+def deliverables(paths, root):
+    """The paths, from a list relative to root, that are deliverables and so need a copy file."""
+    out = []
+    for p in paths:
+        parts = Path(p).parts
+        if Path(p).suffix.lower() not in DELIVERABLE or any(x.startswith(".") or x in NOT_DELIVERED for x in parts[:-1]):
+            continue
+        out.append((Path(root) / p).resolve())
+    return out
+
+
+def coverage(root, tracked):
+    """(uncovered deliverables, problems) for a pack whose files, relative to root, are tracked."""
+    problems, have = [], set()
+    for p in tracked:
+        if p.endswith(".copy.md"):
+            try:
+                have.update(covered(load(Path(root) / p), root))
+            except CopyError as e:
+                problems.append(str(e))
+    return [d for d in deliverables(tracked, root) if d not in have], problems
+
+
 def words_only(text):
     """The text with front matter and comments blanked out, keeping every line and column in place.
 
@@ -264,7 +317,23 @@ def reader_words(doc):
     return "\n".join(out)
 
 
+def _tracked(root):
+    import subprocess
+    out = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard"], cwd=root,
+                         capture_output=True, text=True, check=True).stdout
+    return out.split("\n")[:-1]
+
+
 def main(argv):
+    if argv[:1] == ["coverage"]:
+        root = Path(argv[1] if len(argv) > 1 else ".").resolve()
+        missing, problems = coverage(root, _tracked(root))
+        for p in problems:
+            print(p)
+        for m in missing:
+            print("%s: no copy file covers it" % m.relative_to(root))
+        print("[copy-md] %d file%s without a copy file" % (len(missing), "" if len(missing) == 1 else "s"))
+        return 1 if missing or problems else 0
     if len(argv) != 2 or argv[0] not in ("words", "json"):
         print(__doc__)
         return 2
