@@ -40,7 +40,7 @@ These come from the Climb26 candid photography (the Exhibitor group), resized to
 | `print_stand_instantprint.jpg` | DSC03067.jpg |
 | `expo_stand_natwest.jpg` | DSC03104.jpg |
 | `stand_display_in-use_02.jpg` | DSC03129.jpg |
-| `expo_floor_dsc03155.jpg` | DSC03155.jpg |
+| `expo_stand_girls-and-tech.jpg` | DSC03155.jpg (the Girls & Tech stand, used on the exhibitor cover) |
 | `expo_floor_dsc03182.jpg` | DSC03182.jpg |
 | `expo_floor_dsc04102.jpg` | DSC04102.jpg |
 | `expo_floor_maf-228.jpg` | MAF-228.jpg |
@@ -90,3 +90,37 @@ These come from the Climb26 candid photography (the Exhibitor group), resized to
 | `expo_floor_maf-344.jpg` | MAF-344.jpg (Expo Area) |
 
 The two renders are small in the original brochure (600px wide). Replace them with the original render files when they are found.
+| `expo_stand_girls-and-tech_megaphone.jpg` | 020726146climb26.jpg (the Girls & Tech team with their megaphone, used on the exhibitor cover) |
+| `festival_busy_maf-75.jpg` | maf-75.jpg (busy festival, marketplace page) |
+| `festival_busy_052a3708.jpg` | 052a3708.jpg (busy festival, marketplace page) |
+| `festival_busy_052a3717.jpg` | 052a3717.jpg (busy festival, marketplace page) |
+| `festival_busy_020726104climb26.jpg` | 020726104CLIMB26.jpg (busy festival, marketplace page) |
+| `festival_busy_maf-30.jpg` | maf-30.jpg (busy festival, marketplace page) |
+| `festival_busy_maf-452.jpg` | maf-452.jpg (busy festival, marketplace page) |
+| `festival_busy_maf-479.jpg` | maf-479.jpg (busy festival, marketplace page) |
+| `festival_busy_maf-36.jpg` | maf-36.jpg (busy festival, marketplace page) |
+| stage_020726018climb26.jpg | photos-intake/brochures/stage-speakers_020726018climb26.jpg (Climb26) |
+| stage_020726049climb26.jpg | photos-intake/brochures/stage-speakers_020726049climb26.jpg (Climb26) |
+| stage_020726080climb26.jpg | photos-intake/brochures/stage-speakers_020726080climb26.jpg (Climb26) |
+| stage_dsc06150.jpg | photos-intake/brochures/stage-speakers_dsc06150.jpg (Climb26) |
+| stage_maf-278.jpg | photos-intake/brochures/stage-speakers_maf-278.jpg (Climb26) |
+| stage_maf-317.jpg | photos-intake/brochures/stage-speakers_maf-317.jpg (Climb26) |
+| stage_maf-519.jpg | photos-intake/brochures/stage-speakers_maf-519.jpg (Climb26) |
+| stage_maf-665.jpg | photos-intake/brochures/stage-speakers_maf-665.jpg (Climb26) |
+| awards_052a3818.jpg | photos-intake/brochures/vip-and-awards_052a3818.jpg (Climb26) |
+| awards_052a3981.jpg | photos-intake/brochures/vip-and-awards_052a3981.jpg (Climb26) |
+| awards_052a4029.jpg | photos-intake/brochures/vip-and-awards_052a4029.jpg (Climb26) |
+| busk_maf-168.jpg | photos-intake/brochures/busk-your-business_maf-168.jpg (Climb26) |
+| branding_052a3125.jpg | photos-intake/brochures/branding_052a3125.jpg (Climb26) |
+| branding_052a3127.jpg | photos-intake/brochures/branding_052a3127.jpg (Climb26) |
+| branding_dsc02963.jpg | photos-intake/brochures/branding_dsc02963.jpg (Climb26) |
+| branding_maf-26.jpg | photos-intake/brochures/branding_maf-26.jpg (Climb26) |
+| branding_maf-27.jpg | photos-intake/brochures/branding_maf-27.jpg (Climb26) |
+| branding_maf-381.jpg | photos-intake/brochures/branding_maf-381.jpg (Climb26) |
+| branding_maf-382.jpg | photos-intake/brochures/branding_maf-382.jpg (Climb26) |
+| branding_maf-402.jpg | photos-intake/brochures/branding_maf-402.jpg (Climb26) |
+| branding_maf-404.jpg | photos-intake/brochures/branding_maf-404.jpg (Climb26) |
+| branding_maf-389.jpg | photos-intake/brochures/branding_maf-389.jpg (Climb26) |
+| branding_maf-448.jpg | photos-intake/brochures/branding_maf-448.jpg (Climb26) |
+| branding_052a3123.jpg | photos-intake/brochures/branding_052a3123.jpg (Climb26) |
+| branding_052a3128.jpg | photos-intake/brochures/branding_052a3128.jpg (Climb26) |
