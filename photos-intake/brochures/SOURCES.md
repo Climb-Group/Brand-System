@@ -154,3 +154,18 @@ Further stand and expo-floor shots from the Climb26 photo library. Paths are rel
 | expo-area_maf-443.jpg | Expo Area | Expo Area/MAF-443.jpg |
 | expo-area_maf-444.jpg | Expo Area | Expo Area/MAF-444.jpg |
 | expo-area_maf-445.jpg | Expo Area | Expo Area/MAF-445.jpg |
+
+## Branding library additions
+
+Partner branding and app shots from the Climb26 photo library. Paths are relative to `Work - Brand Center - Images/2026 - 07 - Climb26/`.
+
+| File | Group | Original path |
+| --- | --- | --- |
+| branding_dsc02963.jpg | Branding | Branding/DSC02963.jpg |
+| branding_052a3127.jpg | Branding | Branding/052A3127.jpg |
+| branding_052a3125.jpg | Branding | Branding/052A3125.jpg |
+| branding_maf-381.jpg | Branding | Branding/MAF-381.jpg |
+| branding_maf-382.jpg | Branding | Branding/MAF-382.jpg |
+| branding_maf-26.jpg | Branding | Branding/MAF-26.jpg |
+| branding_maf-27.jpg | Branding | Branding/MAF-27.jpg |
+| branding_maf-402.jpg | Branding | Branding/MAF-402.jpg |
