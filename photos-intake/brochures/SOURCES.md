@@ -34,6 +34,8 @@ Climb26 photos staged for the Climb27 exhibitor and partner brochures. Resized c
 | audience-at-stage_052a3136.jpg | Audience at stage | Originals/Audience at stage/052A3136.jpg |
 | crowds_maf-341.jpg | Crowds | Originals/Crowds/MAF-341.jpg |
 | crowds_maf-342.jpg | Crowds | Originals/Crowds/MAF-342.jpg |
+| get-message-heard_020726146climb26.jpg | Get Message Heard | Originals/Get Message Heard/020726146Climb26.jpg |
+| get-message-heard_maf-131.jpg | Get Message Heard | Originals/Get Message Heard/MAF-131.jpg |
 
 ## Expo Area library additions
 
