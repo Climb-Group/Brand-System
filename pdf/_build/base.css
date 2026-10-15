@@ -97,7 +97,7 @@ img{display:block}
 .foot img{height:30px}
 .foot .pg{display:flex;gap:22px;align-items:center}
 .foot .pg b{color:var(--tint)}
-.s.wh .foot,.s.gr .foot{color:#595959}
+.s.wh .foot,.s.gr .foot{color:var(--slate)}
 .s.wh .foot .pg b,.s.gr .foot .pg b{color:var(--deep)}
 .s.or .foot{color:var(--db)} .s.or .foot .pg b{color:var(--db)}
 
@@ -107,9 +107,9 @@ img{display:block}
 .copy b,.lead b{color:var(--w);font-weight:700}
 .s.wh .copy b,.s.gr .copy b{color:var(--ch)}
 .small{font-size:20px;line-height:1.5;color:rgba(255,255,255,.78)}
-.s.wh .small{color:#555}
+.s.wh .small{color:var(--slate)}
 .card{background:var(--ch);border-radius:14px;border:1.5px solid rgba(255,255,255,.08)}
-.s.ch .card{background:#2f2d2b}
+.s.ch .card{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16)}
 .s.wh .card{background:#fff;border:0;box-shadow:0 4px 12px rgba(var(--ink),.1),0 2px 4px rgba(var(--ink),.06)}
 .grid{display:grid;gap:28px}
 .num{font-family:Montserrat;font-weight:800;color:var(--o);line-height:1}

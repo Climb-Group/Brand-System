@@ -4,8 +4,8 @@ Two brochures for selling Climb27 (30 June and 1 July 2027), as 16:9 PDFs to sen
 
 | File | Who it is for |
 | --- | --- |
-| `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, two pages of quotes and a QR code to book. 12 pages. |
-| `climb27_partner-brochure.pdf` | Partners: why partner, how a partnership is built, the branding options (the website listing included with every partnership, then the event app, badges, a zone, the VIP space and the kiosks), the zones, sessions and awards, extra reach, three pages of quotes beside exhibitor photos and a QR code to book a call. 12 pages. |
+| `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, a page of quotes, a page of exhibitor photos and a QR code to book. 12 pages. |
+| `climb27_partner-brochure.pdf` | Partners: why partner, how a partnership is built, the branding options (the website listing included with every partnership, then the event app, badges, a zone, the VIP space and the kiosks), the zones, sessions and awards, extra reach with newsletter and website figures, a page of quotes beside exhibitor photos, a page of quotes only, a page of stage, awards and crowd photos, and a QR code to book a call. 12 pages. |
 
 Contact sheets of every page are in `previews/`.
 
@@ -45,7 +45,9 @@ Set `KEEP_HTML=1` to keep the HTML files for review.
 - Skills: climb-visual-style for the layout and climb-voice for the copy.
 - Every headline opens on a positive line, with one orange word and one italic word.
 - Logos, labels and QR codes never sit over a face; on the closing page the photo sits in its own panel.
-- The QR codes go to the partnerships page on climb-uk.com, tagged with the brochure they came from.
+- The QR codes go to the partnerships page on www.climb-uk.com, tagged with the brochure they came from.
+- The closing page carries the Climb27 mark on its own, never beside the ClimbUK logo, with the contact lines centred in a Dark Brown card.
+- Reading text never sits on an orange page; quotes in orange boxes are white, bold and 19px or larger.
 - The venue is not named anywhere until it is announced.
 
 ## Common problems

@@ -20,7 +20,7 @@ Climb27
 Two days of [[business]] with a _party_
 
 ## shared.what.body
-Climb27 is the Festival for Business Growth: two days for growing businesses, the people who back them and the firms that help them grow. Main stage moments, practical sessions, roundtables and workshops, an expo floor full of conversations, and the after parties. Everyone leaves with real advice, real connections and a clear next step.
+Climb27 is the festival for business growth: two days for growing businesses, the people who back them and the firms that help them grow. Main stage moments, practical sessions, roundtables and workshops, an expo floor full of conversations, and the after parties. Everyone leaves with real advice, real connections and a clear next step.
 
 ## shared.what.facts
 - 30 June and 1 July 2027
@@ -45,8 +45,11 @@ All prices are plus value added tax (VAT).
 ## shared.contact
 partnerships@climb-uk.com
 
+## shared.site
+www.climb-uk.com
+
 ## shared.url
-climb-uk.com/partnerships
+www.climb-uk.com/partnerships
 
 <!-- Exhibitor brochure -->
 
@@ -81,6 +84,9 @@ Find the stand that [[fits]] your _plans_
 ## exhibitor.stands.intro
 Four ways onto the expo floor, from a starter pod to a full expo stand.
 
+## exhibitor.pod.card
+A compact meet point for quick hellos and focused chats.
+
 ## exhibitor.pod.eyebrow
 Stand type 1
 
@@ -91,7 +97,7 @@ Starter pod
 Small by design. Powerful by intent.
 
 ## exhibitor.pod.body
-A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connections. Enough room to connect, qualify and set up the next conversation.
+A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connections. Enough room to connect, qualify and set up the next conversation. Made for consultants, service firms, social enterprises and community groups.
 
 ## exhibitor.pod.size
 2.4m x 0.7m
@@ -104,7 +110,10 @@ A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connecti
 - 1 exhibitor pass
 - 3 branded panels
 - Power as an optional extra
-- £100 instantprint voucher
+- £100 instantprint voucher per exhibitor pass
+
+## exhibitor.display.card
+Room to show your products, with a screen and branded panels.
 
 ## exhibitor.display.eyebrow
 Stand type 2
@@ -132,7 +141,10 @@ A 2m x 1m space for companies that want to show their products and services to f
 - Power included
 - 1 stool
 - 32 inch monitor
-- £100 instantprint voucher
+- £100 instantprint voucher per exhibitor pass
+
+## exhibitor.expo.card
+A fully branded stand with room for demos, activity and your team.
 
 ## exhibitor.expo.eyebrow
 Stand type 3
@@ -156,13 +168,19 @@ From £4,000
 per 2m x 2m space
 
 ## exhibitor.expo.includes
-- From 2m x 2m, in 2m x 2m steps
+- From 2m x 2m
 - 2 exhibitor passes per 2m x 2m
 - From 4 branded panels
 - Power and lighting included
 - Poseur table and 2 stools
 - 32 inch screen
-- £100 instantprint voucher
+- £100 instantprint voucher per exhibitor pass
+
+## exhibitor.market.size
+One table
+
+## exhibitor.market.card
+A table on the expo floor, without a full stand.
 
 ## exhibitor.market.eyebrow
 Stand type 4
@@ -182,8 +200,6 @@ Who it is for
 ## exhibitor.market.who
 - Founders and new businesses testing their offer
 - Makers and product businesses with something to show
-- Consultants and service firms who sell face to face
-- Social enterprises and community organisations
 
 ## exhibitor.market.includes
 - A table in the marketplace
@@ -213,22 +229,22 @@ Order everything for your stand in your exhibitor portal, and it is in place whe
 - slide-deck | Printed panels | Graphics made to fit your stand, printed by instantprint, our print partner
 
 ## exhibitor.extras.print
-- Every stand comes with a £100 instantprint voucher | instantprint is the official print partner of Climb27
+- A £100 instantprint voucher with every exhibitor pass | instantprint is the official print partner of Climb27
 
 ## exhibitor.proof2.eyebrow
 In their words
 
 ## exhibitor.proof2.headline
-Heard on the _expo_ [[floor]]
+Life on the _expo_ [[floor]]
 
 ## exhibitor.quotes
 <!-- note: real quotes, word for word from ClimbUK's own pages and brochures (sales/testimonials/testimonials.json). Printed in this order; never repeat one inside the brochure. -->
-- It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
-- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance, Climb26 exhibitor
 - The calibre of people building in this space is unreal. | Girls & Tech, Climb26 exhibitor
+- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance, Climb26 exhibitor
+- The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business | Angus Young, Net-Zu
 - I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. | Daniella Wainwright, Wainwright Consulting
 - A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University, Climb26 exhibitor
-- The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business | Angus Young, Net-Zu
+- The networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections | Serena Fordham, ProspHER
 - It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
@@ -280,9 +296,9 @@ How it works
 Build your [[partnership]] your _way_
 
 ## partner.how.steps
-- Choose your level | Headline Partner, with your name across the whole festival, or Partner.
-- Own a part of the festival | Pick the spaces and moments that carry your name.
-- Add more reach | Newsletter features, social posts, tickets, space, sessions and more.
+- Choose your level | Your level sets the size of your presence. Headline Partner is the lead partner, with your name across the whole festival. Partner gives you a place sized to your goals, built from the branding options.
+- Own a part of the festival | Pick the spaces and moments that carry your name: printed panels, your logo on the screens, a space in your branding or renamed after you. Each is an option you add to your package.
+- Add more reach | Features in our newsletter, read by 40,000+ people a month. Posts on our social channels and website, which reached 150,000+ page views in its peak month. Meetings with attendees and customers, with an 80% follow-through rate. Plus tickets, space and sessions.
 - Build it together | Your Partner Manager shapes the package with you and runs it with you, through to the festival.
 
 ## partner.own.eyebrow
@@ -292,14 +308,14 @@ Branding options
 Own a part of the [[festival]]
 
 ## partner.own.items
-- phone | The event app | Your brand in the ClimbGroup Event App, where everyone plans their days and books meetings.
-- badge | The badges | Your logo on every attendee badge.
-- signpost | A whole zone | Your name across one zone, end to end.
-- crown | The VIP space | The VIP space and the VIP badges, together.
-- qr-scan | The kiosks | The kiosk podium for one partner, or a place on the kiosk screens.
+- phone | The event app | Advertise right inside the ClimbGroup Event App, where everyone plans their days and books meetings: your own dedicated section, and lead capture that brings attendees to you.
+- badge | Badges and lanyards | Your logo on every attendee badge. Go further and have the festival lanyards printed with your logo.
+- signpost | A whole zone | Your name and branding across a whole zone, from the welcome panels to every wall.
+- crown | The VIP space | Your name on the VIP lounge, where speakers, partners and VIP guests meet, and on every VIP badge.
+- qr-scan | The kiosks | The kiosk podiums belong to one partner only. Any partner can add their logo to the kiosk screens.
 
 ## partner.own.included
-- laptop | Included with every partnership | Your logo and link on climb-uk.com.
+- laptop | Included with every partnership | Your logo and link on www.climb-uk.com.
 
 ## partner.zones.eyebrow
 Zones
