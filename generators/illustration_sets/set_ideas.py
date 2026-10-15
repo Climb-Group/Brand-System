@@ -4,7 +4,7 @@ import math
 
 
 def build(k):
-    """k is the illustrations module. Return {name: (builder_fn, "what it says")}."""
+    """k is the illustrations module. Return {name: builder_fn}; what each drawing says is in illustrations/illustrations.copy.md."""
     line, curve, arc, circle, rrect, poly, text, turn, shift, sparkle = (k.line, k.curve, k.arc, k.circle, k.rrect,
                                                                          k.poly, k.text, k.turn, k.shift, k.sparkle)
 
@@ -105,7 +105,7 @@ def build(k):
                  poly((120, 124), (142, 190), (124, 180), (110, 194), (94, 130), double=True)]
         head = [scallop_ring(100, 82, 54, 12, 9, fill="ink"),
                 circle(100, 82, 36, knock=True, w=0.8),
-                text(100, 82, 26, "1ST", slot="label", width=44)]
+                text(100, 82, 26, k.word("rosette", "label"), slot="label", width=44)]
         return turn(tails + head, 6, (100, 100))
 
     def _crown():
@@ -120,9 +120,9 @@ def build(k):
         s = [rrect(20, 114, 54, 66, 4, double=True),
              rrect(126, 132, 54, 48, 4, double=True),
              rrect(73, 82, 54, 98, 4, fill="ink"),
-             text(100, 130, 44, "1", slot="first", colour="ground"),
-             text(47, 148, 30, "2", slot="second", colour="ink"),
-             text(153, 158, 26, "3", slot="third", colour="ink"),
+             text(100, 130, 44, k.word("winners-podium", "first"), slot="first", colour="ground"),
+             text(47, 148, 30, k.word("winners-podium", "second"), slot="second", colour="ink"),
+             text(153, 158, 26, k.word("winners-podium", "third"), slot="third", colour="ink"),
              line((8, 180), (192, 180), w=0.9),
              k._s(star_pts(100, 50, 22, 10), closed=True, fill="ink")]
         s += [line((66, 40), (74, 46), w=0.8), line((134, 40), (126, 46), w=0.8), line((100, 14), (100, 22), w=0.8)]
@@ -145,7 +145,7 @@ def build(k):
                   path(spline((100, 34), (126, 44), (150, 46)), spline((150, 46), (150, 96), (136, 128), (100, 164)),
                        spline((100, 164), (64, 128), (50, 96), (50, 46)), spline((50, 46), (74, 44), (100, 34)),
                        knock=True, w=0.7),
-                  text(100, 92, 34, "CPD", slot="label", width=86),
+                  text(100, 92, 34, k.word("cpd-badge", "label"), slot="label", width=86),
                   line((80, 116), (94, 130), (122, 104), knock=True, w=1.1)]
         return turn(shield, 5, (100, 100)) + sparkle(178, 42, 7) + sparkle(24, 150, 5, w=0.8)
 
@@ -303,30 +303,30 @@ def build(k):
         return s
 
     return {
-        "grad-cap": (_grad_cap, "Learning, masterclasses, graduates"),
-        "book-open": (_book_open, "Learning, guides, real advice"),
-        "brain": (_brain, "Ideas, thinking, smart growth"),
-        "lightning": (_lightning, "Energy, fast wins, quick-fire sessions"),
-        "star": (_star, "Highlights, standout moments"),
-        "medal": (_medal, "Winners, recognition"),
-        "rosette": (_rosette, "First place, ClimbAwards winners"),
-        "crown": (_crown, "Top of the pile, the best in class"),
-        "winners-podium": (_winners_podium, "Awards night, first second third"),
-        "certificate": (_certificate, "Certified, accreditation, shortlisted"),
-        "hashtag": (_hashtag, "Use the hashtag, post about it"),
-        "at-sign": (_at_sign, "Tag us, get in touch"),
-        "like-bubble": (_like_bubble, "Likes, love from the community"),
-        "share": (_share, "Share it, spread the word"),
-        "notification-bell": (_notification_bell, "Reminders, do not miss it"),
-        "globe": (_globe, "International, the wider world"),
-        "plane": (_plane, "Travel, getting here"),
-        "train": (_train, "Travel by rail, getting here"),
-        "suitcase": (_suitcase, "Pack your bags, travel"),
-        "hotel-bed": (_hotel_bed, "Stay over, hotels and accommodation"),
-        "university": (_university, "Universities, education partners"),
-        "factory": (_factory, "Manufacturing, making things"),
-        "shopfront": (_shopfront, "Retail, local business"),
-        "office-block": (_office_block, "Corporate, offices, the workplace"),
-        "skyline-generic": (_skyline_generic, "Business in the city (never a real place)"),
-        "cpd-badge": (_cpd_badge, "CPD points, professional development"),
+        "grad-cap": _grad_cap,
+        "book-open": _book_open,
+        "brain": _brain,
+        "lightning": _lightning,
+        "star": _star,
+        "medal": _medal,
+        "rosette": _rosette,
+        "crown": _crown,
+        "winners-podium": _winners_podium,
+        "certificate": _certificate,
+        "hashtag": _hashtag,
+        "at-sign": _at_sign,
+        "like-bubble": _like_bubble,
+        "share": _share,
+        "notification-bell": _notification_bell,
+        "globe": _globe,
+        "plane": _plane,
+        "train": _train,
+        "suitcase": _suitcase,
+        "hotel-bed": _hotel_bed,
+        "university": _university,
+        "factory": _factory,
+        "shopfront": _shopfront,
+        "office-block": _office_block,
+        "skyline-generic": _skyline_generic,
+        "cpd-badge": _cpd_badge,
     }
