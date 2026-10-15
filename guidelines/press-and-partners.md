@@ -87,13 +87,13 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - **Splash screen:** the full-screen image every attendee sees when they open the app. Exclusive to one partner, and priced to match.
 - **Home page and login images:** the partner in the home page cover image, the event details header or the login screen, priced by whether one partner or several share it.
 - **Lead capture:** scanning and capturing leads at their stand.
+- **The ticket:** the partner's brand on the digital ticket in the app, around the QR code every attendee shows to get in. It belongs with the app options, not with the session screens.
 
-**On the session screens and the ticket.** ClimbUK runs these itself in the rooms:
+**On the session screens.** ClimbUK runs the screens in every session room itself:
 
 - **Sponsored sessions:** the partner's logo on screen for the session.
 - **Video ads:** a partner video on the room screens before or after a session.
 - **Session intros and outros:** a custom intro or outro effect or video for a session, supplied by the partner.
-- **The ticket:** the partner's brand on the digital ticket, the QR code every attendee shows to get in.
 
 Describe these as options to build from, like the rest of a partnership. Never sell them as fixed Silver, Gold or Platinum bundles.
 
