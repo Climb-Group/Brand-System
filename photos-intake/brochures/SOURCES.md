@@ -63,6 +63,9 @@ Climb26 photos staged for the Climb27 exhibitor and partner brochures. Resized c
 | meetings_052a1574.jpg | Meetings | Originals/Meetings/052A1574.jpg |
 | meetings_maf-530.jpg | Meetings | Originals/Meetings/MAF-530.jpg |
 | roundtable-and-workshops_dsc07010.jpg | roundtable and workshops | Originals/roundtable and workshops/DSC07010.jpg |
+| food-and-vendors_052a2866.jpg | Food and vendors | Originals/Food and vendors/052A2866.jpg |
+| food-and-vendors_052a2871.jpg | Food and vendors | Originals/Food and vendors/052A2871.jpg |
+| outdoor-seating_dsc06298.jpg | Outdoor Seating | Originals/Outdoor Seating/DSC06298.jpg |
 
 ## Expo Area library additions
 
