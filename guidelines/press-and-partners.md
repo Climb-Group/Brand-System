@@ -107,7 +107,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Every page earns its place:** one idea per page, one photo wall or render, and a clear next step on the last page.
 - **Say each thing once.** When a page covers a topic (for example everything included with a partnership), other pages do not repeat it in a card or a summary; they move on to what is new.
 - **Vary the grounds.** Dark Brown on two pages at most, and never two pages in a row on the same colour.
-- **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document. Spread the voices: two quotes from the same person or organisation never sit on the same page or on pages next to each other.
+- **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document. Quotes on proof pages ("in their words") look back on what happened at the festival; a quote that looks forward to an edition ("will put", "excited to see") belongs on a page about the coming festival or a partnership, or not at all. Spread the voices: two quotes from the same person or organisation never sit on the same page or on pages next to each other.
 - **Plenty of exhibitors.** Fill the photo walls with exhibitors and their stands, and show a real photo of each stand type.
 - **A clear closing page.** The QR code sits centred in its own white card, beside the headline, the button and the contact details.
 - **Reading text never sits on orange.** Pages with body copy, lists or quotes use White, Light Grey, Charcoal or Dark Brown. Keep full orange pages for the cover moment and the closing call to action, where only big white lines sit on the orange.
