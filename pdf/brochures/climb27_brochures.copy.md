@@ -194,7 +194,7 @@ Every expo stand is built from 2m x 2m spaces, so you take the room you need. He
 How it works
 
 ## exhibitor.setup.headline
-You bring the laptop. We [[build]] the _rest_.
+You bring the product. We [[build]] the _rest_.
 
 ## exhibitor.setup.intro
 Your stand is ready when you arrive. No build crew to book and no kit to ship.
