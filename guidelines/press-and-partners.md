@@ -105,6 +105,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Look:** photo-led, like the Climb26 exhibitor brochure. Big uppercase lines in orange label boxes, stands shown as renders with a round size badge, prices in a solid box, and real quotes from people who came, with their name and company.
 - **Partnerships are options.** Every partnership is built around what the partner wants. Show the level (Headline Partner or Partner), the things a partner can own and the extras they can add, then invite a call. Never fixed tiers or long text pages. The only figures are channel reach and follow-through, as above.
 - **Every page earns its place:** one idea per page, one photo wall or render, and a clear next step on the last page.
+- **Say each thing once.** When a page covers a topic (for example everything included with a partnership), other pages do not repeat it in a card or a summary; they move on to what is new.
 - **Vary the grounds.** Dark Brown on two pages at most, and never two pages in a row on the same colour.
 - **At least 20 testimonials** in each document, real and attributed, and never the same quote twice in one document. Spread the voices: two quotes from the same person or organisation never sit on the same page or on pages next to each other.
 - **Plenty of exhibitors.** Fill the photo walls with exhibitors and their stands, and show a real photo of each stand type.
