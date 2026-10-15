@@ -11,6 +11,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 import brand as B
+from xl_copy import W
 import ooxml_theme as T
 
 ART = os.path.join(B.OUT, "_art")
@@ -73,14 +74,22 @@ def sheet(wb, b, name, eyebrow, title, sub, columns, rows, validations=(), width
     t.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True, showColumnStripes=False)
     ws.add_table(t)
     for col_letter, options, prompt in validations:
-        dv = DataValidation(type="list", formula1='"%s"' % ",".join(options), allow_blank=True,
-                            promptTitle="Pick one", prompt=prompt, showInputMessage=True, showErrorMessage=True,
-                            errorTitle="Not on the list", error="Pick a value from the list.")
+        dv = DataValidation(
+            type="list",
+            formula1='"%s"' % ",".join(options),
+            allow_blank=True,
+            promptTitle=W("sheet.pick-one"),
+            prompt=prompt,
+            showInputMessage=True,
+            showErrorMessage=True,
+            errorTitle=W("sheet.not-on-the-list"),
+            error=W("sheet.pick-a-value-from"),
+        )
         dv.add("%s%d:%s%d" % (col_letter, hr + 1, col_letter, last + 200))
         ws.add_data_validation(dv)
     if totals:
         tr = last + 2
-        ws.cell(tr, 1, "Total").font = TOTAL_FONT
+        ws.cell(tr, 1, W("sheet.total")).font = TOTAL_FONT
         for col in totals:
             cl = get_column_letter(col)
             c = ws.cell(tr, col, "=SUBTOTAL(109,%s[%s])" % (t.displayName, columns[col - 1]))
@@ -94,7 +103,7 @@ def sheet(wb, b, name, eyebrow, title, sub, columns, rows, validations=(), width
     ws.page_setup.fitToWidth, ws.page_setup.fitToHeight = 1, 0
     ws.sheet_properties.pageSetUpPr.fitToPage = True
     ws.oddFooter.left.text = B.BRANDS[b]["url"]
-    ws.oddFooter.right.text = "Page &P of &N"
+    ws.oddFooter.right.text = W("sheet.page-p-of-n")
     ws.oddFooter.left.font = ws.oddFooter.right.font = B.BODY
     return ws, t, hr, last
 

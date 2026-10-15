@@ -7,4 +7,6 @@ Files to install on people's machines so documents, sheets, decks and videos sta
 - `m365/`: Microsoft 365 and Teams Premium branding: meeting themes, 78 meeting backgrounds, branded reactions, the organisation theme, app launcher tiles, a Teams app for Odoo and the sign-in page, with an admin-centre setup guide in `m365/README.md`.
 - `_build/`: the scripts that make all of it from the tokens, logos and photos.
 
+Every template's words are in a copy file (`<name>.copy.md`) beside it, which the build reads: edit the words there and rebuild. `templates/brands.copy.md` holds the lines every template shares (legal line, websites, emails, tagline, edition dates). `_build/README.md` lists every copy file and what reads it.
+
 Each template uses the token colours and the brand fonts, and meets WCAG 2.2 AA.

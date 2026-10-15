@@ -27,6 +27,7 @@ from docx.shared import Cm, Pt, RGBColor, Emu
 import brand as B
 import catalog as K
 import ooxml_theme as T
+import copy_io as C
 import word_content as WC
 
 ART = os.path.join(B.OUT, "_art")
@@ -347,7 +348,7 @@ def standard_header(b, header, footer, label=None, landscape=False):
     r = hp.add_run()
     lg = B.logo(b, "full-colour-light", 1024)
     r.add_picture(lg, width=Cm(4.0))
-    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo" % b)
+    r._r.find(".//" + qn("wp:docPr")).set("descr", C.fill(WC.shared("alt.logo"), brand=b))
     r2 = hp.add_run("\t" + (label or B.BRANDS[b]["url"]))
     r2.font.size = Pt(8.5)
     r2.font.color.rgb = rgb(B.SLATE)
@@ -386,18 +387,10 @@ def cover_header(b, header, photo_cover=True):
     anchor_picture(r, os.path.join(ART, "a4_cover_%s.jpg" % b), 21.0, 0, 0, descr="", decorative=True, height_cm=29.7)
     r = hp.add_run()
     r.add_picture(B.logo(b, "reversed-dark", 1024), width=Cm(5.2))
-    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo" % b)
+    r._r.find(".//" + qn("wp:docPr")).set("descr", C.fill(WC.shared("alt.logo"), brand=b))
 
 
 # ---------- documents ----------
-
-COVERS = {
-    "report": dict(label="Report", title="The year in {review}", sub="What happened, what it meant, and what comes next.",
-                   meta="Prepared by [Name], [Month Year]"),
-    "proposal": dict(label="Partner proposal", title="Partner with _us_ at {%s}", sub="How we put your brand in front of the people you want to reach.",
-                     meta="Prepared for [Company], [Month Year]"),
-}
-
 
 def new_doc():
     doc = Document()
@@ -438,51 +431,46 @@ def cover_front(doc, b, info, name):
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
 
-def cover_doc(b, kind):
-    info = COVERS[kind]
+def cover_doc(b, name):
+    """The report and the proposal: a photo cover, a contents page and inner pages that show the styles in use."""
+    words, t = original_words(b, name)
+    row = [r for r in K.rows("word", b, original=True) if r["name"] == name][0]
+    info = WC.cover(b, row)
     doc = new_doc()
     sec = doc.sections[0]
     sec.different_first_page_header_footer = True
     cover_header(b, sec.first_page_header)
     standard_header(b, sec.header, sec.footer, label=info["label"])
     sec.first_page_footer.paragraphs[0].text = ""
-    name = "ClimbUK" if b == "ClimbGroup" else b  # ClimbGroup proposals sell the festival
-    cover_front(doc, b, info, name)
+    cover_front(doc, b, info, b)
 
     # Inner pages: a style guide in use.
-    doc.add_paragraph("Contents", style="Eyebrow")
+    doc.add_paragraph(WC.shared("toc.eyebrow"), style="Eyebrow")
     toc = doc.add_paragraph()
     r = toc.add_run()
     field(r, 'TOC \\o "1-2" \\h \\z \\u')
     r.text = ""
-    toc.add_run("Right-click and choose Update Field to build the contents from the headings.").italic = True
+    toc.add_run(WC.shared("toc.hint")).italic = True
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
-    doc.add_paragraph("Section one", style="Eyebrow")
+    doc.add_paragraph(t("body.eyebrow"), style="Eyebrow")
     h = doc.add_paragraph(style="Heading 1")
-    rich(h, "Why it {works}", orange=B.ORANGE)
-    doc.add_paragraph("Start each section with a lead paragraph: one or two sentences that tell the reader what they get "
-                      "from this part. Keep it short and specific.", style="Lead")
-    doc.add_paragraph("Body text is Open Sans at 10.5pt in Body Slate, with generous line spacing so long pieces stay easy to "
-                      "read. Use the styles in the Home tab rather than formatting by hand: Heading 1 to 3 build the "
-                      "contents page and the navigation pane, and screen readers use them to move around the document.")
-    doc.add_paragraph("Heading two for a topic", style="Heading 2")
-    for t in ("Main stage moments from founders who have done it",
-              "Roundtables where you bring the problem and leave with a plan",
-              "Speed networking with investors looking for real deal flow"):
-        doc.add_paragraph(t, style="List Bullet")
-    doc.add_paragraph("Heading three for a detail", style="Heading 3")
-    doc.add_paragraph("Use the Callout style for the one thing the reader must not miss: a deadline, a decision or the next "
-                      "step.", style="Callout")
-    doc.add_paragraph("Put the quote here, word for word, exactly as it was said.", style="Quote")
-    doc.add_paragraph("First name Last name, Role, Company", style="Quote Source")
+    rich(h, C.rich(t("body.h1")), orange=B.ORANGE)
+    doc.add_paragraph(t("body.lead"), style="Lead")
+    doc.add_paragraph(t("body.p"))
+    doc.add_paragraph(t("body.h2"), style="Heading 2")
+    for item in C.items(words.one("body.bullets")):
+        doc.add_paragraph(item, style="List Bullet")
+    doc.add_paragraph(t("body.h3"), style="Heading 3")
+    doc.add_paragraph(t("body.callout"), style="Callout")
+    doc.add_paragraph(t("body.quote"), style="Quote")
+    doc.add_paragraph(t("body.quote.source"), style="Quote Source")
 
-    doc.add_paragraph("At a glance", style="Heading 2")
-    tbl = doc.add_table(rows=4, cols=3)
+    doc.add_paragraph(t("body.table-heading"), style="Heading 2")
+    rows = C.table(words, words.one("body.table"))
+    tbl = doc.add_table(rows=len(rows), cols=len(rows[0]))
     tbl.style = doc.styles["Climb Table"]
     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
-    rows = [("Item", "What it is", "When"), ("Main stage", "Talks and panels", "Both days"),
-            ("Roundtables", "Small groups on one problem", "Mornings"), ("After party", "Music, drinks and the band", "Day one")]
     for i, row in enumerate(rows):
         for j, v in enumerate(row):
             tbl.cell(i, j).text = v
@@ -495,93 +483,95 @@ def cover_doc(b, kind):
                  ("w:noHBand", "0"), ("w:noVBand", "1")):
         look.set(qn(k), v)
     header_row(tbl)
-    cap = doc.add_paragraph("Table 1. Give every table a caption and keep the header row: it repeats on each page.",
-                            style="Caption")
-    doc.add_paragraph("2", style="Big Number")
-    doc.add_paragraph("days of main stage moments, roundtables and the after party. Use Big Number for one fact at a time, "
-                      "with its source.")
-    doc.add_paragraph("Next steps", style="Heading 2")
-    doc.add_paragraph("Close with what happens next and who to contact. Links use the Hyperlink style: Orange Deep, "
-                      "underlined, and the link text says where it goes.")
+    doc.add_paragraph(t("body.caption"), style="Caption")
+    big = words.one("body.big")
+    doc.add_paragraph(big.title, style="Big Number")
+    doc.add_paragraph(big.text)
+    doc.add_paragraph(t("body.next-heading"), style="Heading 2")
+    doc.add_paragraph(t("body.next"))
     return doc
 
 
+def original_words(b, name):
+    """The copy file of one of the first set, and a reader for one of its sections."""
+    row = [r for r in K.rows("word", b, original=True) if r["name"] == name][0]
+    words = WC.copy_doc(b, row)
+    return words, lambda path: words.one(path).text
+
+
 def letterhead(b):
+    words, t = original_words(b, "Letterhead")
     doc = new_doc()
     sec = doc.sections[0]
     standard_header(b, sec.header, sec.footer)
-    info = B.BRANDS[b]
     p = doc.add_paragraph()
     p.paragraph_format.space_after = Pt(0)
-    for line in ("[Recipient name]", "[Company]", "[Address line 1]", "[Town]", "[Postcode]"):
+    for line in t("letter.recipient").split("\n"):
         p.add_run(line).add_break()
     content_control(p, "Recipient", "")
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(18)
-    p.add_run("[Date]")
+    p.add_run(t("letter.date"))
     content_control(p, "Date", "")
-    p = doc.add_paragraph("Dear [Name],")
+    p = doc.add_paragraph(t("letter.greeting"))
     p.paragraph_format.space_before = Pt(18)
     h = doc.add_paragraph(style="Heading 2")
-    h.add_run("[Subject line]")
-    doc.add_paragraph("Start with the reason you are writing, in one sentence. Then give the detail the reader needs, in "
-                      "short paragraphs. Close with the one thing you would like them to do next.")
-    doc.add_paragraph("Body text is Open Sans at 10.5pt. Keep the letter to one page where you can; the header, slab marks "
-                      "and footer carry over to the second page.")
-    doc.add_paragraph("Best wishes,")
+    h.add_run(t("letter.subject"))
+    for para in words.all("letter.p"):
+        doc.add_paragraph(para.text)
+    doc.add_paragraph(t("letter.sign-off"))
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(28)
-    r = p.add_run("[Your name]")
+    r = p.add_run(t("letter.name"))
     set_font(r, B.DISPLAY, 10.5, bold=True, colour=B.CHARCOAL)
     r.add_break()
-    r = p.add_run("[Role], %s" % b)
+    r = p.add_run(t("letter.role"))
     r.font.color.rgb = rgb(B.SLATE)
     return doc
 
 
 def press_release(b):
+    words, t = original_words(b, "Press-release")
     doc = new_doc()
     sec = doc.sections[0]
-    standard_header(b, sec.header, sec.footer, label="Press release")
-    doc.add_paragraph("For immediate release, [Date]", style="Eyebrow")
-    t = doc.add_paragraph(style="Title")
-    rich(t, "Headline that says what {happened}")
-    for r in t.runs:
+    standard_header(b, sec.header, sec.footer, label=t("header.label"))
+    doc.add_paragraph(t("body.eyebrow"), style="Eyebrow")
+    title = doc.add_paragraph(style="Title")
+    rich(title, C.rich(t("body.title")))
+    for r in title.runs:
         set_font(r, B.DISPLAY_BLACK, 28)
-    content_control(t, "Headline", "")
-    doc.add_paragraph("Standfirst: who, what, when, in one or two sentences a journalist could lift as it stands.",
-                      style="Lead")
-    doc.add_paragraph("The first paragraph repeats the news with the most important facts. Use names, dates and places that "
-                      "are public. Keep sentences short.")
-    doc.add_paragraph("The second paragraph adds the detail and the context: why it matters now, and for whom.")
-    doc.add_paragraph("Put the quote here, word for word, exactly as it was said, with permission to use it.", style="Quote")
-    doc.add_paragraph("First name Last name, Role, Company", style="Quote Source")
-    doc.add_paragraph("Close with what happens next and where to find out more.")
-    p = doc.add_paragraph("Ends", style="Eyebrow")
+    content_control(title, "Headline", "")
+    doc.add_paragraph(t("body.lead"), style="Lead")
+    for para in words.all("body.p"):
+        doc.add_paragraph(para.text)
+    doc.add_paragraph(t("body.quote"), style="Quote")
+    doc.add_paragraph(t("body.quote.source"), style="Quote Source")
+    doc.add_paragraph(t("body.close"))
+    p = doc.add_paragraph(t("body.ends"), style="Eyebrow")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    doc.add_paragraph("Notes to editors", style="Heading 2")
-    doc.add_paragraph("About %s: one paragraph on what the brand does, in plain words. Do not explain company structure here."
-                      % b, style="List Bullet")
-    doc.add_paragraph("Images: link to the press photo pack, with photographer credits.", style="List Bullet")
-    doc.add_paragraph("Media contact", style="Heading 3")
-    doc.add_paragraph("[Name], [Role]\n%s, [phone number]" % B.BRANDS[b]["email"])
+    doc.add_paragraph(t("notes.heading"), style="Heading 2")
+    for item in C.items(words.one("notes.bullets")):
+        doc.add_paragraph(item, style="List Bullet")
+    doc.add_paragraph(t("contact.heading"), style="Heading 3")
+    doc.add_paragraph(t("contact.text"))
     return doc
 
 
 def meeting_notes(b):
+    words, t = original_words(b, "Meeting-notes")
     doc = new_doc()
     sec = doc.sections[0]
-    standard_header(b, sec.header, sec.footer, label="Meeting notes")
-    doc.add_paragraph("Meeting notes", style="Eyebrow")
-    t = doc.add_paragraph(style="Title")
-    rich(t, "[Meeting {name}]")
-    for r in t.runs:
+    standard_header(b, sec.header, sec.footer, label=t("header.label"))
+    doc.add_paragraph(t("body.eyebrow"), style="Eyebrow")
+    title = doc.add_paragraph(style="Title")
+    rich(title, C.rich(t("body.title")))
+    for r in title.runs:
         set_font(r, B.DISPLAY_BLACK, 26)
-    content_control(t, "Meeting name", "")
-    tbl = doc.add_table(rows=4, cols=2)
+    content_control(title, "Meeting name", "")
+    kv = [line.split(": ", 1) for line in C.items(words.one("body.kv"))]
+    tbl = doc.add_table(rows=len(kv), cols=2)
     tbl.style = doc.styles["Climb Table"]
-    for i, (k, v) in enumerate((("Date and time", "[Date], [Time]"), ("Where", "[Room or call link]"),
-                                ("Attendees", "[Names]"), ("Notes by", "[Name]"))):
+    for i, (k, v) in enumerate(kv):
         tbl.cell(i, 0).text = k
         tbl.cell(i, 1).text = v
     tblpr = tbl._tbl.tblPr
@@ -589,29 +579,29 @@ def meeting_notes(b):
     for k, v in (("w:val", "0020"), ("w:firstRow", "0"), ("w:firstColumn", "1"), ("w:noHBand", "0"), ("w:noVBand", "1")):
         look.set(qn(k), v)
     tblpr.append(look)
-    doc.add_paragraph("Agenda", style="Heading 2")
-    for t in ("[Item one]", "[Item two]", "[Item three]"):
-        doc.add_paragraph(t, style="List Number")
-    doc.add_paragraph("Decisions", style="Heading 2")
-    doc.add_paragraph("[What was decided, in one line each]", style="List Bullet")
-    doc.add_paragraph("Actions", style="Heading 2")
-    a = doc.add_table(rows=3, cols=3)
+    doc.add_paragraph(t("agenda.heading"), style="Heading 2")
+    for item in C.items(words.one("agenda.items")):
+        doc.add_paragraph(item, style="List Number")
+    doc.add_paragraph(t("decisions.heading"), style="Heading 2")
+    for item in C.items(words.one("decisions.items")):
+        doc.add_paragraph(item, style="List Bullet")
+    doc.add_paragraph(t("actions.heading"), style="Heading 2")
+    rows = C.table(words, words.one("actions.table"))
+    a = doc.add_table(rows=len(rows), cols=len(rows[0]))
     a.style = doc.styles["Climb Table"]
-    for j, v in enumerate(("Action", "Owner", "Due")):
-        a.cell(0, j).text = v
-    for i in (1, 2):
-        for j, v in enumerate(("[What]", "[Who]", "[When]")):
+    for i, row in enumerate(rows):
+        for j, v in enumerate(row):
             a.cell(i, j).text = v
     header_row(a)
-    doc.add_paragraph("Next meeting", style="Heading 2")
-    doc.add_paragraph("[Date and time]")
+    doc.add_paragraph(t("next.heading"), style="Heading 2")
+    doc.add_paragraph(t("next.text"))
     return doc
 
 
 ORIGINAL = {
     "Letterhead": letterhead,
-    "Report": lambda b: cover_doc(b, "report"),
-    "Proposal": lambda b: cover_doc(b, "proposal"),
+    "Report": lambda b: cover_doc(b, "Report"),
+    "Proposal": lambda b: cover_doc(b, "Proposal"),
     "Press-release": press_release,
     "Meeting-notes": meeting_notes,
 }
@@ -735,9 +725,9 @@ def sign_block(doc, parties):
         cell = tbl.cell(0, j)
         cell.text = ""
         p = cell.paragraphs[0]
-        r = p.add_run("Signed for and on behalf of %s" % party)
+        r = p.add_run(C.fill(WC.shared("sign.party"), party=party))
         set_font(r, B.DISPLAY, 9.5, bold=True, colour=B.CHARCOAL)
-        for line in ("Signature", "Name", "Role", "Date"):
+        for line in C.items(C.load(WC.SHARED).one("sign.lines")):
             q = cell.add_paragraph()
             q.paragraph_format.space_before = Pt(14)
             r = q.add_run("%s:  " % line)
@@ -755,7 +745,7 @@ def cert_page(doc, b, eyebrow, line, after, fields, signer):
     p.paragraph_format.space_before = Pt(70)
     r = p.add_run()
     r.add_picture(B.logo(b, "full-colour-light", 1024), width=Cm(4.6))
-    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo" % b)
+    r._r.find(".//" + qn("wp:docPr")).set("descr", C.fill(WC.shared("alt.logo"), brand=b))
     p = doc.add_paragraph(style="Eyebrow")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.space_before = Pt(26)
@@ -793,7 +783,7 @@ def cert_page(doc, b, eyebrow, line, after, fields, signer):
     p.paragraph_format.space_before = Pt(6)
     r = p.add_run()
     r.add_picture(B.logo(b, "tagline-lockup", 1024), width=Cm(5.0))
-    r._r.find(".//" + qn("wp:docPr")).set("descr", "%s logo, %s" % (b, B.BRANDS[b]["line"]))
+    r._r.find(".//" + qn("wp:docPr")).set("descr", C.fill(WC.shared("alt.lockup"), brand=b, line=B.BRANDS[b]["line"]))
 
 
 def render_blocks(doc, b, blocks):
@@ -841,26 +831,27 @@ def render_blocks(doc, b, blocks):
             n = blk[2] if len(blk) > 2 else 1
             for k, (heading, note) in enumerate(blk[1], n):
                 doc.add_paragraph("%d. %s" % (k, heading), style="Heading 2")
-                doc.add_paragraph(WC.APPROVED)
-                doc.add_paragraph("What goes here: " + note, style="Caption")
+                doc.add_paragraph(WC.shared("clause.text"))
+                doc.add_paragraph(WC.shared("clause.hint") + " " + note, style="Caption")
         elif kind == "sign":
-            doc.add_paragraph("Signatures", style="Heading 2")
+            doc.add_paragraph(WC.shared("sign.heading"), style="Heading 2")
             sign_block(doc, blk[1])
         elif kind == "sigline":
             p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(24)
-            r = p.add_run("Signed:  " + "_" * 30 + "      Date:  " + "_" * 14)
+            signed, dated = WC.shared("sigline.signed"), WC.shared("sigline.date")
+            r = p.add_run(signed + "  " + "_" * 30 + "      " + dated + "  " + "_" * 14)
             r.font.color.rgb = rgb(B.SLATE)
             doc.add_paragraph(blk[1], style="Caption")
         elif kind == "page":
             doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
         elif kind == "toc":
-            doc.add_paragraph("Contents", style="Eyebrow")
+            doc.add_paragraph(WC.shared("toc.eyebrow"), style="Eyebrow")
             toc = doc.add_paragraph()
             r = toc.add_run()
             field(r, 'TOC \\o "1-2" \\h \\z \\u')
             r.text = ""
-            toc.add_run("Right-click and choose Update Field to build the contents from the headings.").italic = True
+            toc.add_run(WC.shared("toc.hint")).italic = True
             doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
         elif kind == "cert":
             cert_page(doc, b, *blk[1:])
@@ -876,25 +867,22 @@ def landscape(sec, top=2.0, bottom=1.8):
     sec.header_distance, sec.footer_distance = Cm(0.8), Cm(0.8)
 
 
-def catalogue_doc(b, name):
-    spec = WC.DOCS[name]
+def catalogue_doc(b, row):
+    kind = WC.DOCS[row["name"]]
     doc = new_doc()
     sec = doc.sections[0]
-    kind = spec["kind"]
     if kind == "cover":
-        info = dict(WC.COVERS[name])
-        for k in ("title", "sub", "meta"):
-            info[k] = info[k].replace("[Edition]", WC.edition(b)).replace("[Dates]", WC.event_dates(b))
+        info = WC.cover(b, row)
         sec.different_first_page_header_footer = True
         cover_header(b, sec.first_page_header)
         standard_header(b, sec.header, sec.footer, label=info["label"])
         sec.first_page_footer.paragraphs[0].text = ""
         cover_front(doc, b, info, b)
     elif kind == "plain":
-        standard_header(b, sec.header, sec.footer, label=spec["label"])
+        standard_header(b, sec.header, sec.footer, label=WC.label(b, row))
     elif kind == "landscape-plain":
         landscape(sec, top=3.0, bottom=2.4)
-        standard_header(b, sec.header, sec.footer, label=spec["label"], landscape=True)
+        standard_header(b, sec.header, sec.footer, label=WC.label(b, row), landscape=True)
     elif kind == "landscape":
         landscape(sec)
         hp = sec.header.paragraphs[0]
@@ -906,7 +894,7 @@ def catalogue_doc(b, name):
         r = fp.add_run(B.LEGAL)
         r.font.size = Pt(6.5)
         r.font.color.rgb = rgb(B.SLATE)
-    render_blocks(doc, b, spec["blocks"](b))
+    render_blocks(doc, b, WC.blocks(b, row))
     return doc
 
 
@@ -927,7 +915,7 @@ def save(doc, b, row):
 def main():
     args = sys.argv[1:]
     if args[:1] == ["--copy"]:
-        print("\n".join(WC.all_copy()))
+        print("\n".join(WC.all_copy(original=True)))
         return
     only = None
     if args[:1] == ["--only"]:
@@ -938,7 +926,7 @@ def main():
             if only and row["name"] not in only:
                 continue
             fn = ORIGINAL.get(row["name"]) if row["original"] else None
-            doc = fn(b) if fn else catalogue_doc(b, row["name"])
+            doc = fn(b) if fn else catalogue_doc(b, row)
             save(doc, b, row)
 
 
