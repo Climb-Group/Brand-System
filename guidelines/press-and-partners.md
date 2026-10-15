@@ -67,6 +67,10 @@ Use as written. Shorten only by cutting whole sentences.
 - **Each stand type gets its own photos.** The starter pod is shown with a plain render, not another company's custom pods (those photos suit the expo stand). Pod photos go on the pod page and nowhere else.
 - **The marketplace is for makers and new businesses.** Consultants and service firms belong in the starter pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
 - **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
+- **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Never put two photos of the same stand or organisation side by side, and mix the organisations across a photo wall.
+- **Quotes have room.** Leave clear space above and below every quote box, so it never touches a list or a paragraph.
+- **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
+- **Show everything a partner can own or add.** For example printed panels, logos on screens, branding a space and naming a space. Each one costs extra, and all of them are options to build from.
 - **Closing page contact lines** sit centred under the button, in white on a solid panel, with the web address written in full: www.climb-uk.com/partnerships. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK.
 
 ## The share kit
