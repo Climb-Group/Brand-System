@@ -2,7 +2,7 @@
 copy: climb27-flyer-general-main-stage-moments
 deliverable: Climb27 A5 flyer for people new to ClimbUK (Main stage moments), front and back
 build: pdf/flyers/_build/variants.py
-output: pdf/flyers/general/climb27_flyer_general-3_main-stage-moments_a5.pdf
+output: pdf/flyers/general/climb27_flyer_general-3_main-stage-moments_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-3_main-stage-moments_a5_*.svg
 order: 3
 ---
 

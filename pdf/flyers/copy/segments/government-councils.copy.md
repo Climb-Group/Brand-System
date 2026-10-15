@@ -2,7 +2,7 @@
 copy: climb27-flyer-government-councils
 deliverable: Climb27 A5 flyer for the public sector, front and back
 build: pdf/flyers/_build/segments.py
-output: pdf/flyers/segments/climb27_flyer_government-councils_a5.pdf
+output: pdf/flyers/segments/climb27_flyer_government-councils_a5.pdf pdf/flyers/segments/svg/climb27_flyer_government-councils_a5_*.svg
 order: 6
 ---
 

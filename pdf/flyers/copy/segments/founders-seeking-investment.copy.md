@@ -2,7 +2,7 @@
 copy: climb27-flyer-founders-seeking-investment
 deliverable: Climb27 A5 flyer for founders raising investment, front and back
 build: pdf/flyers/_build/segments.py
-output: pdf/flyers/segments/climb27_flyer_founders-seeking-investment_a5.pdf
+output: pdf/flyers/segments/climb27_flyer_founders-seeking-investment_a5.pdf pdf/flyers/segments/svg/climb27_flyer_founders-seeking-investment_a5_*.svg
 order: 3
 ---
 

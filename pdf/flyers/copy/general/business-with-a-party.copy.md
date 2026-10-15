@@ -2,7 +2,7 @@
 copy: climb27-flyer-general-business-with-a-party
 deliverable: Climb27 A5 flyer for people new to ClimbUK (Business with a party), front and back
 build: pdf/flyers/_build/variants.py
-output: pdf/flyers/general/climb27_flyer_general-5_business-with-a-party_a5.pdf
+output: pdf/flyers/general/climb27_flyer_general-5_business-with-a-party_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-5_business-with-a-party_a5_*.svg
 order: 5
 ---
 
