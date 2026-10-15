@@ -52,6 +52,7 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 - Tagline: **The Festival for Business Growth.**
   In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
 - Web addresses on print and PDFs are written in full with www: **www.climb-uk.com/partnerships**, never "climb-uk.com/partnerships". Email addresses stay as they are.
+- Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
 - Climb27 headline: **Your business. Bigger stage.**
 - Climb27 themes: **Find Your People** (the people you meet are the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Programme names, always written this way: Investor Speed Networking, Busk Your Business, the ClimbAwards, ClimbHealth.
