@@ -47,6 +47,18 @@ Climb26 photos staged for the Climb27 exhibitor and partner brochures. Resized c
 | crowds_maf-452.jpg | Crowds | Originals/Crowds/MAF-452.jpg |
 | crowds_maf-479.jpg | Crowds | Originals/Crowds/MAF-479.jpg |
 | crowds_020726104climb26.jpg | Crowds | Originals/Crowds/020726104Climb26.jpg |
+| stage-speakers_020726049climb26.jpg | Stage Speakers | Originals/Stage Speakers/020726049Climb26.jpg |
+| stage-speakers_maf-519.jpg | Stage Speakers | Originals/Stage Speakers/MAF-519.jpg |
+| stage-speakers_020726018climb26.jpg | Stage Speakers | Originals/Stage Speakers/020726018Climb26.jpg |
+| stage-speakers_maf-317.jpg | Stage Speakers | Originals/Stage Speakers/MAF-317.jpg |
+| stage-speakers_020726080climb26.jpg | Stage Speakers | Originals/Stage Speakers/020726080Climb26.jpg |
+| stage-speakers_maf-278.jpg | Stage Speakers | Originals/Stage Speakers/MAF-278.jpg |
+| stage-speakers_maf-665.jpg | Stage Speakers | Originals/Stage Speakers/MAF-665.jpg |
+| stage-speakers_dsc06150.jpg | Stage Speakers | Originals/Stage Speakers/DSC06150.jpg |
+| vip-and-awards_052a3981.jpg | VIP and Awards | Originals/VIP and Awards/052A3981.jpg |
+| vip-and-awards_052a4029.jpg | VIP and Awards | Originals/VIP and Awards/052A4029.jpg |
+| vip-and-awards_052a3818.jpg | VIP and Awards | Originals/VIP and Awards/052A3818.jpg |
+| busk-your-business_maf-168.jpg | Busk Your Business | Originals/Busk Your Business/MAF-168.jpg |
 
 ## Expo Area library additions
 
