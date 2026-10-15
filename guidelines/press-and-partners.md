@@ -63,7 +63,7 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - A dedicated Partner Manager, backed by a support team.
 - An onboarding platform that does the work for them: the tasks are listed and the templates are ready, so they answer the questions and they are set up, with priority support.
 - An online portal where they manage their app profile (improved for Climb27), their tickets and attendees, and, new for Climb27, their leads.
-- Engagement reporting from the ClimbGroup Event App: a list of the attendees who engaged with them in the app, and what they did.
+- In the ClimbGroup Event App: their partner profile and a place in the exhibitor and partner lists, a pin on the event map, their booth staff listed so attendees can book appointments with them, appointment management, access to their leads, and engagement reporting (the attendees who engaged with them in the app, and what they did).
 
 **Headline Partners also get:**
 
@@ -72,7 +72,7 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - A bigger space, and first choice of location within reason.
 - The title of Headline Partner, and the standing that comes with it.
 
-**In the ClimbGroup Event App.** Engagement reporting is included with every partnership; everything below is an option to add. Always call it the ClimbGroup Event App, never by the platform it runs on.
+**In the ClimbGroup Event App.** The profile, lists, map pin, booth staff, appointments, leads and reporting above are included with every partnership; everything below is an option to add. Always call it the ClimbGroup Event App, never by the platform it runs on.
 
 - **Featured listing:** a place among up to eight featured partners on the app's home page, with videos, documents and links on their listing, and chat, messages, appointments and a one-to-one video meeting room with attendees.
 - **Sponsored sessions:** their name and logo on a session in the agenda, with polls and surveys, and the leads from the people who took part.
@@ -87,6 +87,13 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - **Splash screen:** the full-screen image every attendee sees when they open the app. Exclusive to one partner, and priced to match.
 - **Home page and login images:** the partner in the home page cover image, the event details header or the login screen, priced by whether one partner or several share it.
 - **Lead capture:** scanning and capturing leads at their stand.
+
+**On the session screens and the ticket.** ClimbUK runs these itself in the rooms:
+
+- **Sponsored sessions:** the partner's logo on screen for the session.
+- **Video ads:** a partner video on the room screens before or after a session.
+- **Session intros and outros:** a custom intro or outro effect or video for a session, supplied by the partner.
+- **The ticket:** the partner's brand on the digital ticket, the QR code every attendee shows to get in.
 
 Describe these as options to build from, like the rest of a partnership. Never sell them as fixed Silver, Gold or Platinum bundles.
 
