@@ -137,7 +137,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
   - **The VIP space:** the VIP space and the VIP badges together (the Climb26 JCT600 Porsche VIP Suite is the example).
   - **The kiosks:** the kiosk podiums are exclusive to one partner. Logos on the kiosk screens are sold separately, to as many partners as want them.
   - Show each option with a real Climb26 photo of it, never an older edition.
-- **The closing page is three clear blocks:** the headline in square label boxes, the round button under it, and a card below holding the contact lines (centred, the web address written in full: www.climb-uk.com/partnerships), beside the QR card. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK. Keep it uncluttered.
+- **The closing page is the poster.** A full Climb Orange page over a festival photo under the orange fade (a crowd or the stage, never a face), with a huge white headline (one word in Dark Brown italic), a round Dark Brown "Book a call" button under it, and one white card on the right holding the QR code, "Scan to book a call" and the contact lines, centred, with the web address in full (www.climb-uk.com/partnerships). One logo only, Climb27 in mono white, bottom left; the VAT line in a small Dark Brown tag, bottom right. Only large white text sits on the orange. Keep it uncluttered.
 
 ## The share kit
 
