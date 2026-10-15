@@ -68,6 +68,9 @@ Use as written. Shorten only by cutting whole sentences.
 - **The marketplace is for makers and new businesses.** Consultants and service firms belong in the starter pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
 - **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
 - **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Never put two photos of the same stand or organisation side by side, and mix the organisations across a photo wall.
+- **Name what is sold.** Partners buy workshops, roundtables, ClimbAwards and zones. ClimbUK does not sell main stage sessions, so never head these offers "stage" or "take the stage"; call them sessions and awards.
+- **Photo cards carry no icons.** A card with a photo at the top has its title and text only; icons are for cards without a photo.
+- **Quotes and photos get their own pages.** Put the quotes together on one quotes page and give the photos a full page of their own, rather than splitting both across two mixed pages.
 - **No empty corners.** Every page fills its frame down to the footer. When a column ends early, extend the photo wall, enlarge the photo or add another quote; never leave a blank block under a card or a quote.
 - **Quotes have room.** Leave clear space above and below every quote box, so it never touches a list or a paragraph.
 - **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
@@ -78,7 +81,7 @@ Use as written. Shorten only by cutting whole sentences.
   - **The VIP space:** the VIP space and the VIP badges together (the Climb26 JCT600 Porsche VIP Suite is the example).
   - **The kiosks:** the kiosk podiums are exclusive to one partner. Logos on the kiosk screens are sold separately, to as many partners as want them.
   - Show each option with a real Climb26 photo of it, never an older edition.
-- **Closing page contact lines** sit centred under the button, in white on a solid panel, with the web address written in full: www.climb-uk.com/partnerships. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK.
+- **The closing page is three clear blocks:** the headline in square label boxes, the round button under it, and a card below holding the contact lines (centred, the web address written in full: www.climb-uk.com/partnerships), beside the QR card. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK. Keep it uncluttered.
 
 ## The share kit
 
