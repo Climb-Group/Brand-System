@@ -54,5 +54,39 @@ These come from the Climb26 candid photography (the Exhibitor group), resized to
 | `stand_display_in-use.jpg` | MAF-420.jpg |
 | `expo_floor_maf-433.jpg` | MAF-433.jpg |
 | `expo_floor_maf-546.jpg` | MAF-546.jpg |
+| `expo_stand_natwest_02.jpg` | MAF-434.jpg (Expo Area) |
+| `expo_stand_natwest_busy.jpg` | DSC03168.jpg (Expo Area) |
+| `stand_pod_hero.jpg` | MAF-437.jpg (Expo Area) |
+| `stand_pod_wide.jpg` | MAF-407.jpg (Expo Area) |
+| `stand_pod_03.jpg` | DSC03179.jpg (Expo Area) |
+| `print_stand_instantprint_03.jpg` | MAF-418.jpg (Expo Area) |
+| `stand_display_example.jpg` | MAF-424.jpg (Expo Area) |
+| `stand_display_example_02.jpg` | MAF-419.jpg (Expo Area) |
+| `expo_floor_052a2054.jpg` | 052A2054.jpg (Expo Area) |
+| `expo_floor_052a3109.jpg` | 052A3109.jpg (Expo Area) |
+| `expo_floor_052a4718.jpg` | 052A4718.jpg (Expo Area) |
+| `expo_floor_052a5456.jpg` | 052A5456.jpg (Expo Area) |
+| `expo_floor_dsc02998.jpg` | DSC02998.jpg (Expo Area) |
+| `expo_floor_dsc03001.jpg` | DSC03001.jpg (Expo Area) |
+| `expo_floor_dsc03021.jpg` | DSC03021.jpg (Expo Area) |
+| `expo_floor_dsc03057.jpg` | DSC03057.jpg (Expo Area) |
+| `expo_floor_dsc03071.jpg` | DSC03071.jpg (Expo Area) |
+| `expo_floor_dsc03083.jpg` | DSC03083.jpg (Expo Area) |
+| `expo_floor_dsc03090.jpg` | DSC03090.jpg (Expo Area) |
+| `expo_floor_dsc03112.jpg` | DSC03112.jpg (Expo Area) |
+| `expo_floor_dsc03116.jpg` | DSC03116.jpg (Expo Area) |
+| `expo_floor_dsc03139.jpg` | DSC03139.jpg (Expo Area) |
+| `expo_floor_dsc03145.jpg` | DSC03145.jpg (Expo Area) |
+| `expo_floor_dsc03152.jpg` | DSC03152.jpg (Expo Area) |
+| `expo_floor_dsc03165.jpg` | DSC03165.jpg (Expo Area) |
+| `expo_floor_dsc03192.jpg` | DSC03192.jpg (Expo Area) |
+| `expo_floor_dsc03208.jpg` | DSC03208.jpg (Expo Area) |
+| `expo_floor_dsc03212.jpg` | DSC03212.jpg (Expo Area) |
+| `expo_floor_maf-232.jpg` | MAF-232.jpg (Expo Area) |
+| `expo_floor_maf-236.jpg` | MAF-236.jpg (Expo Area) |
+| `expo_floor_maf-242.jpg` | MAF-242.jpg (Expo Area) |
+| `expo_floor_maf-338.jpg` | MAF-338.jpg (Expo Area) |
+| `expo_floor_maf-339.jpg` | MAF-339.jpg (Expo Area) |
+| `expo_floor_maf-344.jpg` | MAF-344.jpg (Expo Area) |
 
 The two renders are small in the original brochure (600px wide). Replace them with the original render files when they are found.
