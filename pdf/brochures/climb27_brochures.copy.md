@@ -94,7 +94,7 @@ Stand type 1
 Starter pod
 
 ## exhibitor.pod.strap
-Small by design. Powerful by intent.
+Your own branded spot on the expo floor, made for quick, focused conversations.
 
 ## exhibitor.pod.body
 A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connections. Enough room to connect, qualify and set up the next conversation. Made for consultants, service firms, social enterprises and community groups.
@@ -122,7 +122,7 @@ Stand type 2
 Display stand
 
 ## exhibitor.display.strap
-Big enough to be seen. Sharp enough to close.
+Show your product on screen, with your brand on the panels behind you.
 
 ## exhibitor.display.body
 A 2m x 1m space for companies that want to show their products and services to founders, business leaders, investors and the people who build the ecosystem.
@@ -153,7 +153,7 @@ Stand type 3
 Expo stand
 
 ## exhibitor.expo.strap
-A bold platform for brands that want to do more than talk.
+Room for demos, your team and a crowd, built and branded to your size.
 
 ## exhibitor.expo.body
 Space for demos, live activity and a fully branded stand. This is where people stop, gather and get involved.
@@ -202,7 +202,7 @@ Your stand is ready when you arrive. No build crew to book and no kit to ship.
 ## exhibitor.setup.steps
 - Order online | Choose your stand and extras on our website, from furniture and screens to print.
 - We build it | Your stand is built, branded and ready before the doors open.
-- Just show up | Bring your laptop, products and leaflets, and start meeting people.
+- Just show up | Bring your product, laptop and leaflets, and start meeting people.
 
 ## exhibitor.setup.before
 The day before
