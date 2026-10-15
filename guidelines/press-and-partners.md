@@ -68,6 +68,7 @@ Use as written. Shorten only by cutting whole sentences.
 - **The marketplace is for makers and new businesses.** Consultants and service firms belong in the starter pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
 - **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
 - **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Never put two photos of the same stand or organisation side by side, and mix the organisations across a photo wall.
+- **No empty corners.** Every page fills its frame down to the footer. When a column ends early, extend the photo wall, enlarge the photo or add another quote; never leave a blank block under a card or a quote.
 - **Quotes have room.** Leave clear space above and below every quote box, so it never touches a list or a paragraph.
 - **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
 - **Show everything a partner can own or add.** For example printed panels, logos on screens, branding a space and naming a space. Each one costs extra, and all of them are options to build from. Describe each option by what the partner gets, not only where their logo goes:
