@@ -70,7 +70,13 @@ Use as written. Shorten only by cutting whole sentences.
 - **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Never put two photos of the same stand or organisation side by side, and mix the organisations across a photo wall.
 - **Quotes have room.** Leave clear space above and below every quote box, so it never touches a list or a paragraph.
 - **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
-- **Show everything a partner can own or add.** For example printed panels, logos on screens, branding a space and naming a space. Each one costs extra, and all of them are options to build from.
+- **Show everything a partner can own or add.** For example printed panels, logos on screens, branding a space and naming a space. Each one costs extra, and all of them are options to build from. Describe each option by what the partner gets, not only where their logo goes:
+  - **The event app:** advertising in the ClimbGroup Event App, with dedicated sections and lead capture, as well as their brand.
+  - **Badges and lanyards:** their logo on every attendee badge, and for a large enough partnership, lanyards made for the event with their logo.
+  - **A zone:** their name and branding across one zone, end to end (the Climb26 University Zone with Barclays is the example).
+  - **The VIP space:** the VIP space and the VIP badges together (the Climb26 JCT600 Porsche VIP Suite is the example).
+  - **The kiosks:** the check-in kiosks for one partner, or a place on the kiosk screens.
+  - Show each option with a real Climb26 photo of it, never an older edition.
 - **Closing page contact lines** sit centred under the button, in white on a solid panel, with the web address written in full: www.climb-uk.com/partnerships. One logo only: Climb27 (or its tagline lockup), never side by side with ClimbUK.
 
 ## The share kit
