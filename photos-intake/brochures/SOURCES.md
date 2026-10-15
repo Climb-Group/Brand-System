@@ -36,6 +36,17 @@ Climb26 photos staged for the Climb27 exhibitor and partner brochures. Resized c
 | crowds_maf-342.jpg | Crowds | Originals/Crowds/MAF-342.jpg |
 | get-message-heard_020726146climb26.jpg | Get Message Heard | Originals/Get Message Heard/020726146Climb26.jpg |
 | get-message-heard_maf-131.jpg | Get Message Heard | Originals/Get Message Heard/MAF-131.jpg |
+| audience-at-stage_maf-36.jpg | Audience at stage | Originals/Audience at stage/MAF-36.jpg |
+| audience-at-stage_maf-67.jpg | Audience at stage | Originals/Audience at stage/MAF-67.jpg |
+| audience-at-stage_maf-75.jpg | Audience at stage | Originals/Audience at stage/MAF-75.jpg |
+| audience-at-stage_052a1294.jpg | Audience at stage | Originals/Audience at stage/052A1294.jpg |
+| crowds_052a3708.jpg | Crowds | Originals/Crowds/052A3708.jpg |
+| crowds_052a3717.jpg | Crowds | Originals/Crowds/052A3717.jpg |
+| crowds_dsc02872.jpg | Crowds | Originals/Crowds/DSC02872.jpg |
+| crowds_maf-30.jpg | Crowds | Originals/Crowds/MAF-30.jpg |
+| crowds_maf-452.jpg | Crowds | Originals/Crowds/MAF-452.jpg |
+| crowds_maf-479.jpg | Crowds | Originals/Crowds/MAF-479.jpg |
+| crowds_020726104climb26.jpg | Crowds | Originals/Crowds/020726104Climb26.jpg |
 
 ## Expo Area library additions
 
