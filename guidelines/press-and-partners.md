@@ -74,7 +74,7 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 
 **In the ClimbGroup Event App.** The profile, lists, map pin, booth staff, appointments, leads and reporting above are included with every partnership; everything below is an option to add. Always call it the ClimbGroup Event App, never by the platform it runs on.
 
-- **Featured listing:** a place among up to eight featured partners on the app's home page, with videos, documents and links on their listing, and chat, messages, appointments and a one-to-one video meeting room with attendees.
+- **Featured listing:** a place among up to eight featured partners on the app's home page, with videos, documents and links on their listing, and chat, messages and appointments with attendees. Leave out the app's video meeting room: Climb27 is in person, so it is not worth selling.
 - **Sponsored sessions:** their name and logo on a session in the agenda, with polls and surveys, and the leads from the people who took part.
 - **Page banners:** a banner, or a place in a rotating set, at the top of the home, exhibitor or partner pages, linking to their listing, an app page or their website, with a click report after the event.
 - **Event ads:** ads on the home, exhibitor and session pages, targeted by attendee type, with an impressions and clicks report.
