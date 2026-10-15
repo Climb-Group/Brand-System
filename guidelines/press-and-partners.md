@@ -45,6 +45,7 @@ Use as written. Shorten only by cutting whole sentences.
 ## Co-branding with partners
 
 - **Lockup:** the partner logo and the ClimbUK logo side by side at equal optical height, separated by a 1px rule in the ground's quiet line colour, with clear space of the "C" height between each logo and the rule. ClimbUK sits on the right on partner-led pieces and on the left on ClimbUK-led pieces.
+- **Promoting an event ClimbUK partners with:** use the organiser's own graphics and imagery exactly as supplied. Add only the ClimbUK logo, a "Proud partner" line, or a "Proud partner of" footer with both logos in the lockup above. Do not add ClimbUK headlines, photos, colours or stickers to their artwork; their look leads, ClimbUK is the sign-off.
 - **Lines partners may use:** "In partnership with ClimbUK", "Official partner of Climb27", "Headline partner of Climb27" (headline partners only), "Speaking at Climb27", "Exhibiting at Climb27".
 - **On ClimbUK pieces,** partner logos appear in one tone (White on dark, Charcoal or grey on light) so no brand shouts over another; headline partners may appear in full colour in their own slot.
 - **Never:** merge the logos into one mark, put ClimbUK colours on a partner logo, imply ClimbUK endorses a product, or promise attendees anything ClimbUK has not.
