@@ -302,20 +302,17 @@ Build your [[partnership]] your _way_
 - Build it together | Your Partner Manager shapes the package with you and runs it with you, through to the festival.
 
 ## partner.own.eyebrow
-Branding options
+Branding upgrades
 
 ## partner.own.headline
 Own a part of the [[festival]]
 
 ## partner.own.items
-- phone | The event app | Advertise right inside the ClimbGroup Event App, where everyone plans their days and books meetings: your own dedicated section, and lead capture that brings attendees to you.
+- phone | The event app | Advertise right inside the ClimbGroup Event App, where everyone plans their days and books meetings. Every option is on the next page.
 - badge | Badges and lanyards | Your logo on every attendee badge. Go further and have the festival lanyards printed with your logo.
 - signpost | A whole zone | Your name and branding across a whole zone, from the welcome panels to every wall.
 - crown | The VIP space | Your name on the VIP lounge, where speakers, partners and VIP guests meet, and on every VIP badge.
 - qr-scan | The kiosks | The kiosk podiums belong to one partner only. Any partner can add their logo to the kiosk screens.
-
-## partner.own.included
-- laptop | Included with every partnership | Your website listing, social campaign, partner screens, newsletter article and Partner Manager come as standard.
 
 ## partner.included.eyebrow
 In every partnership
@@ -324,15 +321,16 @@ In every partnership
 Everything you [[need]], _included_
 
 ## partner.included.items
-- laptop | On our website | Your logo on the ClimbUK website, with links to your own site.
-- megaphone | A social campaign | A social media campaign for your partnership, on the ClimbUK channels.
-- big-screen | At the festival | Your brand on the shared partner screens and signage across the festival.
+<!-- note: each line fits two lines on its card; keep it short. -->
+- laptop | On our website | Your logo on the ClimbUK website, linked to your own site.
+- megaphone | A social campaign | A social media campaign for your partnership on our channels.
+- big-screen | At the festival | Your brand on the shared partner screens and signage.
 - envelope | In our newsletter | One article in the ClimbUK newsletter, written by you.
-- people | Your own team | A dedicated Partner Manager, with a team of support staff behind them.
-- clipboard | Easy onboarding | Tasks listed and templates ready: answer the questions and you are set, with priority support.
-- phone | Your app profile | Manage your profile in the event app from our online portal, improved for Climb27.
-- magnifier | Leads and engagement | See who engaged with you in the event app and what they did, and manage your leads in the portal, new for Climb27.
-- tickets | Tickets and attendees | Manage your tickets and your attendees from the same portal.
+- people | Your own team | A dedicated Partner Manager, backed by our support team.
+- clipboard | Easy onboarding | Tasks listed, templates ready and priority support when you need it.
+- phone | Your app profile | Your profile, map pin and staff listing, managed in our portal.
+- magnifier | Leads and engagement | Your leads and engagement reports in the portal, new for Climb27.
+- tickets | Tickets and attendees | Manage your tickets and attendees from the same portal.
 
 ## partner.app.eyebrow
 The ClimbGroup Event App
@@ -341,17 +339,34 @@ The ClimbGroup Event App
 Your brand in the [[app]] everyone _uses_
 
 ## partner.app.intro
-Everyone at Climb27 plans their days, books meetings and finds their people in the event app. Every partnership includes engagement reporting. Add any of these to be seen there:
+Everyone at Climb27 plans their days, books meetings and finds their people in the event app. Every partnership includes your profile, map pin and staff listing, appointments, a place in the exhibitor and partner lists, your leads and engagement reporting. Add any of these to be seen there:
 
 ## partner.app.items
-- sparkles | Featured listing | One of up to eight partners on the home page, with videos, documents and links, plus chat, appointments and a one-to-one video meeting room.
+- sparkles | Featured listing | One of up to eight partners on the home page, with your videos, documents and links, and chat with attendees.
 - microphone | Sponsored sessions | Your name and logo on a session, with polls, surveys and the leads from everyone who took part.
 - slide-deck | Banners and ads | Banners and ads on the home, exhibitor and session pages, with the clicks and views reported after the festival.
 - video-camera | Link and video cards | Up to three links or videos in one card on the home page.
-- target | The app game | A challenge themed to you, worth more points, that brings people to your listing.
+- target | The app game | A challenge themed to you, worth extra points, that brings people to your listing and to your stand to scan your QR code.
 - chat-dots | Discussions | A discussion with your name on it, about your product or your industry.
 - notification-bell | Notifications | Your message, sent between sessions as people choose where to go next.
 - phone | Splash screen | The screen everyone sees as the app opens, for one partner only, plus your brand in the home page images.
+
+## partner.sessions.eyebrow
+In every session room
+
+## partner.sessions.headline
+Your brand on the [[big]] _screen_
+
+## partner.sessions.intro
+We run the screens in every session room ourselves, so your brand can open, close and sit beside the sessions people came for. It starts at the door.
+
+## partner.sessions.items
+- ticket-qr | On every ticket | Your brand on the digital ticket everyone shows at the door, around the QR code that gets them in.
+- projector-screen | Sponsored sessions | Your logo on screen through every session you sponsor.
+- video-camera | Before a session | Your video advert on the screens as people take their seats.
+- clapperboard | Your intro | An intro effect or video of your own to open a session, made by you.
+- spotlight | Your outro | An outro effect or video of your own to close a session, made by you.
+- big-screen | After a session | Your video advert on the screens as people head to their next session.
 
 ## partner.headline.eyebrow
 Headline Partner
@@ -434,25 +449,25 @@ They _keep_ [[coming back]]
 
 ## partner.quotes
 <!-- note: real quotes, word for word from ClimbUK's own pages and partner posts (sales/testimonials/testimonials.json). Printed in this order; never repeat one inside the brochure. -->
-- Together with ClimbUK, we aim to create spaces where knowledge meets opportunity. | University of Huddersfield
+- It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - You really do get out what you put in when it comes to Climb26. | Rebecca Holden, Blacks Solicitors
 - This partnership is not simply about showcasing our capabilities; it is about engaging in meaningful dialogue, co-creating solutions, and strengthening the ecosystems that underpin long-term economic success. | University of Huddersfield
-- It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
-- So many wonderful people to connect with, catch up with and listen to that your feet barely touch the floor. | Michael Crinnion, Mind Body Goals
+- instantprint are proud to be supporting ClimbUK for Climb26 and excited to see where this partnership goes next. It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
+- That coffee queue conversation became something bigger. A partnership. A commitment. | Jenny Garrett Global
 - Partnerships like this are essential in creating new opportunities for innovators to connect with the right people, from clinicians and health leaders to investors and industry partners. | Dr Neville Young, Health Innovation Yorkshire & Humber
 - We left feeling energised and excited about the connections we made and the difference we can continue to make | NatWest
 - ClimbUK gets this. Inclusion isn't corporate theatre. Regional innovation isn't secondary. | Jenny Garrett Global, Women in Business Award partner
 - Climb26 will put our founders and entrepreneurs at the front of the queue for really transformative investment. | Phil Witcherley, North East Mayoral Strategic Authority
 - It was inspiring and rewarding to see the potential of the next generation of entrepreneurs who are bringing new ideas and innovations to the table | Mitchell McCombe, West Yorkshire Combined Authority
-- That coffee queue conversation became something bigger. A partnership. A commitment. | Jenny Garrett Global
 - Fantastic festival promoting business growth, encouraging founders and investors and the whole ecosystem in the north of England. | Louise Thompson, Myfolks
-- It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
+- Together with ClimbUK, we aim to create spaces where knowledge meets opportunity. | University of Huddersfield
+- We're excited to see ClimbHealth grow from year-to-year, and can't wait for the opportunities that ClimbHealth will bring - connecting you with some of the brightest minds in the sector, while bringing a range of brilliant exhibition stands, inspiring sessions and engaging content. | Medilink North of England
 - A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University
 - For us, this isn't just a calendar commitment. It's a reflection of how we've built our business. | Ryan Sorby, Palatine
+- So many wonderful people to connect with, catch up with and listen to that your feet barely touch the floor. | Michael Crinnion, Mind Body Goals
 - It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
 - Wins on stage are great. But the friendships, the collaborations and the momentum you build alongside them? That's the real prize. | Hamzah Syed, picknmixAI
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
-- Every city has its own edge and nuances, and the tour has recognised that. | Ryan Sorby, Palatine
 - A fantastic event... Great people | Jennifer Byrne, Microsoft USA
 
 ## partner.cta.line1
