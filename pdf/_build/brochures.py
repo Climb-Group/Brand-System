@@ -367,15 +367,29 @@ def cover(bk, line1, line2, img, pos, style="", fade="fade-hero"):
 
 
 # Page 2 photos, in collage order: varied stands, so shots of one area's stands never sit side by side.
-WHAT_PHOTOS = (B + "expo_floor_020726075climb26.jpg", B + "expo_floor_020726153climb26.jpg",
-               B + "expo_stand_natwest_busy.jpg", B + "expo_floor_052a4718.jpg", B + "expo_floor_busy.jpg",
-               B + "expo_floor_dsc03001.jpg", B + "expo_floor_maf-245.jpg", B + "expo_floor_dsc03139.jpg")
+# The owner's picks of general expo traffic; the two shots of one group sit apart.
+WHAT_PHOTOS = (B + "expo_floor_maf-238.jpg", B + "expo_floor_maf-341.jpg", B + "expo_floor_maf-244.jpg",
+               B + "expo_floor_maf-242.jpg", B + "expo_floor_052a3113.jpg", B + "expo_floor_maf-339.jpg",
+               B + "expo_floor_maf-342.jpg")
+# The owner's picks per stand size, the zones and setup day; handed out only where a page names them.
+POD_PHOTOS = (B + "stand_display_in-use.jpg", B + "expo_floor_dsc03145.jpg", B + "expo_floor_dsc03098.jpg",
+              B + "expo_floor_dsc03083.jpg", B + "expo_floor_maf-428.jpg")
+DISPLAY_PHOTOS = (B + "expo_floor_maf-344.jpg", B + "expo_floor_052a2042.jpg")
+EXPO_PHOTOS = (B + "expo_floor_maf-432.jpg", B + "expo_floor_maf-435.jpg", B + "expo_floor_dsc03182.jpg")
+SIZE_PHOTOS = ((B + "expo_floor_maf-431.jpg", B + "expo_floor_dsc03044.jpg"),
+               (B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
+               (B + "expo_floor_maf-410.jpg", B + "stand_pod_03.jpg"))
+ZONE_PHOTOS = (B + "branding_052a3130.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg",
+               B + "branding_maf-404.jpg", B + "branding_maf-395.jpg", B + "branding_maf-389.jpg")
+SETUP_PHOTOS = (B + "setup_maf-1.jpg", B + "setup_052a0597.jpg", B + "setup_052a0617.jpg")
+PICKS = set(POD_PHOTOS + DISPLAY_PHOTOS + EXPO_PHOTOS + sum(SIZE_PHOTOS, ()) + ZONE_PHOTOS + SETUP_PHOTOS
+            + (B + "expo_floor_maf-415.jpg",))
 # The partner brochure's page 2 shows the festival a partner puts its name to: stages, awards, crowds and a few stands.
-PARTNER_WHAT_PHOTOS = (B + "stage_020726049climb26.jpg", B + "awards_052a3981.jpg", B + "stage_maf-317.jpg",
+PARTNER_WHAT_PHOTOS = (B + "stage_020726080climb26.jpg", B + "awards_052a3981.jpg", B + "stage_maf-317.jpg",
                        B + "busk_maf-168.jpg", B + "festival_busy_052a3708.jpg", B + "stage_maf-519.jpg",
-                       B + "expo_stand_natwest_busy.jpg", B + "stage_020726080climb26.jpg")
+                       B + "expo_stand_natwest_busy.jpg")
 # Talks held on a stand: right for nothing in these brochures, which show stages for talks and stands for meetings.
-STAND_TALKS = {B + "expo_floor_052a3109.jpg", B + "expo_floor_052a3113.jpg"}
+STAND_TALKS = {B + "expo_floor_052a3109.jpg"}
 # Photos the owner asked us not to use in the brochures.
 SET_ASIDE = {B + "stage_020726018climb26.jpg", B + "expo_floor_052a5456.jpg", B + "entrance_arrivals.jpg"}
 
@@ -458,27 +472,27 @@ def photo_page(bk, cls, eyebrow, headline, names, n_quotes=0):
     bk.add(cls, inner)
 
 
-def cta(bk, line1, line2, button, qr_line, img, campaign):
-    """Closing page: on an orange photo ground, one centred row with the QR code in a white card beside one column
-    that holds a square headline block, the rounded call button and a card with the contact lines, all one width."""
-    x, top, h, col = 330, 230, 580, 820
-    inner = (photo(img, "center 35%") + '<div class="layer" style="background:rgba(var(--or),.88)"></div>'
-             + '<div style="position:absolute;left:%dpx;top:%dpx;width:380px;height:%dpx;background:var(--w);border-radius:16px;'
-               'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;'
-               'box-shadow:0 20px 50px rgba(var(--ink),.25)">%s'
-               '<div class="mont" style="font-weight:800;font-size:24px;color:var(--db);text-align:center">%s</div></div>'
-             % (x, top, h, qr(QR_URL % campaign, 300), t(qr_line))
-             + '<div style="position:absolute;left:%dpx;top:%dpx;width:%dpx;height:%dpx;display:flex;flex-direction:column;justify-content:space-between">'
-               '<div class="mont" style="background:var(--db);color:var(--w);padding:38px 48px;font-weight:800;font-size:76px;line-height:1;'
-               'text-transform:uppercase;letter-spacing:-.01em">%s<br><em>%s</em></div>'
-               '<div><span class="ctabtn">%s</span></div>'
-               '<div class="mont" style="background:var(--db);color:var(--w);border-radius:16px;padding:26px 48px;font-weight:700;font-size:30px;line-height:1.5">'
-               '%s<br>%s<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:6px">%s</div></div></div>'
-             % (x + 380 + 60, top, col, h, t(line1), t(line2), t(button), t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"]))
+def cta(bk, line1, line2, button, qr_line, img, campaign, pos="center 35%"):
+    """Closing page as a festival poster: a full photo fading into Dark Brown, one huge centred headline with its
+    button, and a footer row with the edition mark, the contact lines and the QR code."""
+    inner = (photo(img, pos)
+             + '<div class="layer" style="background:linear-gradient(180deg,rgba(var(--ink),.1) 0%,rgba(var(--ink),.7) 42%,var(--db) 68%)"></div>'
+             + '<div style="position:absolute;left:120px;right:120px;top:340px;text-align:center">'
+               '<div class="mont" style="font-weight:900;font-size:150px;line-height:.98;text-transform:uppercase;letter-spacing:-.02em;color:var(--w)">'
+               '%s<br><em style="color:var(--o)">%s</em></div>'
+               '<div style="margin-top:44px"><span class="ctabtn" style="font-size:38px">%s</span></div></div>'
+             % (t(line1), t(line2), t(button))
+             + '<div style="position:absolute;left:120px;right:120px;bottom:70px;display:flex;align-items:center;justify-content:space-between;'
+               'border-top:2px solid rgba(255,255,255,.2);padding-top:30px">'
              # The edition mark leads on its own; ClimbUK is never set beside it.
-             + '<div style="position:absolute;left:%dpx;bottom:80px">%s</div>' % (x, logo("Climb27", "mono-white", 60))
-             )
-    bk.add("or", inner, foot=False)
+             + logo("Climb27", "reversed-dark", 56)
+             + '<div class="mont" style="color:var(--w);font-weight:700;font-size:28px;line-height:1.5;text-align:center">%s<br>%s'
+               '<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:6px">%s</div></div>'
+             % (t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"]))
+             + '<div style="display:flex;align-items:center;gap:20px"><div class="mont" style="color:var(--w);font-weight:800;font-size:22px;width:160px;text-align:right">%s</div>'
+               '<div style="background:var(--w);padding:10px;border-radius:10px">%s</div></div></div>'
+             % (t(qr_line), qr(QR_URL % campaign, 150)))
+    bk.add("db", inner, foot=False)
 
 
 # ---------------------------------------------------------------- exhibitor
@@ -523,11 +537,41 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None):
     bk.add(cls, text + big + low + right + badge)
 
 
+def setup_page(bk, cls, key, after):
+    """How simple it is: three steps on the left; setup day photos beside the finished stand on the right."""
+    pool = bk.pool
+    steps = "".join('<div class="step"><div class="numo" aria-hidden="true">%02d</div><h3>%s</h3><p>%s</p></div>' % (i, t(a), t(b))
+                    for i, (a, b) in enumerate(C["%s.setup.steps" % key], 1))
+    stick = lambda txt, x, y: '<div style="position:absolute;left:%dpx;top:%dpx;z-index:3"><span class="sticker" style="font-size:24px">%s</span></div>' % (x, y, t(txt))
+    inner = ('<div style="position:absolute;left:120px;top:96px;width:820px">%s<p class="copy" style="margin-top:22px;font-size:25px">%s</p></div>'
+             '<div class="steps2" style="position:absolute;left:120px;width:820px;top:470px;bottom:130px;display:flex;flex-direction:column;justify-content:space-between">%s</div>'
+             % (head(C["%s.setup.eyebrow" % key], C["%s.setup.headline" % key], 68, 820), t(C["%s.setup.intro" % key]), steps)
+             + tile(pool.photo(SETUP_PHOTOS[0]), 1000, 96, 520, 380) + tile(pool.photo(SETUP_PHOTOS[1]), 1538, 96, 262, 181)
+             + tile(pool.photo(SETUP_PHOTOS[2]), 1538, 295, 262, 181) + tile(pool.photo(after), 1000, 512, 800, 432)
+             + stick(C["exhibitor.setup.before"], 1020, 116) + stick(C["exhibitor.setup.after"], 1020, 532))
+    bk.add(cls, inner)
+
+
+def sizes_page(bk, cls):
+    """Expo stand sizes side by side, two photos of each, so a reader sees what the room looks like."""
+    pool = bk.pool
+    cols = []
+    for i, ((size, line), names) in enumerate(zip(C["exhibitor.sizes.items"], SIZE_PHOTOS)):
+        x = 120 + i * 573
+        cols.append('<div style="position:absolute;left:%dpx;top:330px;width:533px">'
+                    '<div class="mont" style="font-weight:800;font-size:40px;color:var(--w);text-transform:uppercase">%s</div>'
+                    '<div style="font-size:22px;color:var(--lg);margin-top:6px">%s</div></div>' % (x, t(size), t(line))
+                    + tile(pool.photo(names[0]), x, 450, 533, 236) + tile(pool.photo(names[1]), x, 704, 533, 236))
+    inner = ('<div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1500px">%s</p></div>'
+             % (head(C["exhibitor.sizes.eyebrow"], C["exhibitor.sizes.headline"], 68, 1600), t(C["exhibitor.sizes.intro"])) + "".join(cols))
+    bk.add(cls, inner)
+
+
 def exhibitor():
     bk = Brochure("climb27_exhibitor-brochure", "Exhibit at Climb27", "exhibitor.quotes")
     pool = bk.pool
     # Pod photos belong on the pod pages only; a second shot of the same pod is never shown.
-    pool.reserved.update({B + "expo_floor_dsc03090.jpg", B + "expo_floor_dsc03145.jpg", B + "expo_floor_dsc03083.jpg"})
+    pool.reserved.update({B + "expo_floor_dsc03090.jpg"} | PICKS)
     pool.used.add(B + "expo_floor_maf-233.jpg")
     pool.used.update(STAND_TALKS | SET_ASIDE)
     # 1 Cover: an exhibitor team having fun on their stand, set in the right half so the words never cover a face.
@@ -549,8 +593,8 @@ def exhibitor():
 
     # 4 Stand options, each with a real photo. The colour wheel stand is a starter pod, whatever its file name says.
     cards = []
-    for key, names in (("pod", (B + "stand_display_in-use.jpg",)), ("display", (B + "stand_display_example_02.jpg",)),
-                       ("expo", (B + "expo_stand_natwest.jpg",)), ("market", (P + "food_and_vendors_01.jpg",) + EXHIBITOR_PHOTOS)):
+    for key, names in (("pod", POD_PHOTOS[:1]), ("display", DISPLAY_PHOTOS[:1]),
+                       ("expo", EXPO_PHOTOS[:1]), ("market", (P + "food_and_vendors_01.jpg",) + EXHIBITOR_PHOTOS)):
         unit = C.get("exhibitor.%s.unit" % key)
         # Every card has the same parts in the same order, and the unit line is always there, so the prices form one line.
         cards.append('<div class="cardx"><div class="img" style="height:200px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
@@ -565,12 +609,15 @@ def exhibitor():
     bk.add("gr", inner)
 
     # 5-7 One page per stand. The starter pod shows the standard pods; the custom-built pods show what an expo stand can become.
-    stand_page(bk, "wh", "pod", (B + "expo_floor_dsc03145.jpg", B + "expo_floor_dsc03083.jpg") + EXHIBITOR_PHOTOS,
+    stand_page(bk, "wh", "pod", POD_PHOTOS[1:] + EXHIBITOR_PHOTOS,
                C["exhibitor.pod.size"])
-    stand_page(bk, "gr", "display", (B + "stand_display_in-use_02.jpg", B + "stand_display_*") + EXHIBITOR_PHOTOS,
+    stand_page(bk, "gr", "display", DISPLAY_PHOTOS[1:] + EXHIBITOR_PHOTOS,
                C["exhibitor.display.size"], render=B + "stand_display_render.jpg")
-    stand_page(bk, "wh", "expo", (B + "stand_pod_hero.jpg", B + "stand_pod_growth-hub_02.jpg") + EXHIBITOR_PHOTOS,
+    stand_page(bk, "wh", "expo", EXPO_PHOTOS[1:] + EXHIBITOR_PHOTOS,
                C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"])
+    # 8 Every expo size, 9 how simple the day is.
+    sizes_page(bk, "ch")
+    setup_page(bk, "wh", "exhibitor", B + "expo_floor_maf-415.jpg")
 
     # 8 The marketplace has its own page, on Light Grey.
     who = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.who"])
@@ -611,12 +658,12 @@ def exhibitor():
 
     # 10 A page of quotes, 11 a page of photos.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
-    photo_page(bk, "db", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
+    photo_page(bk, "ch", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
                EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"))
 
-    # 12 Book a call.
+    # 14 Book a call, on a poster of the expo floor from above.
     cta(bk, C["exhibitor.cta.line1"], C["exhibitor.cta.line2"], C["exhibitor.cta.button"], C["exhibitor.cta.qr"],
-        pool.photo(B + "expo_hall_wide.jpg", *EXHIBITOR_PHOTOS), "exhibitor")
+        pool.photo(B + "expo_stands_overhead_02.jpg", B + "expo_hall_wide.jpg", *EXHIBITOR_PHOTOS), "exhibitor", "center 30%")
     return bk
 
 
@@ -629,14 +676,15 @@ PARTNER_PHOTOS = (B + "expo_floor_*", B + "expo_stand_*", B + "entrance_arrivals
 
 # Page 5, in collage order, all from the latest edition: the kiosks, a whole zone and its welcome panel,
 # the event app, the VIP suite and the partner cars outside.
-OWN_PHOTOS = (B + "branding_maf-381.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg", B + "branding_dsc02963.jpg",
-              B + "branding_maf-389.jpg", B + "branding_maf-404.jpg")
+# The branding upgrades page shows kiosks, lanyards and the app; the zone photos stay for the zones page.
+OWN_PHOTOS = (B + "branding_maf-381.jpg", B + "kiosk_lanyards.jpg", B + "branding_dsc02963.jpg", B + "branding_maf-26.jpg")
 
 
 def partner():
     bk = Brochure("climb27_partner-brochure", "Partner with Climb27", "partner.quotes")
     pool = bk.pool
     pool.used.update(STAND_TALKS | SET_ASIDE)
+    pool.reserved.update(PICKS)
     cover(bk, C["partner.cover.line1"], C["partner.cover.line2"], pool.photo(P + "stage_speakers_02.jpg"), "center 35%")
     what(bk, PARTNER_PHOTOS, PARTNER_WHAT_PHOTOS)
 
@@ -679,7 +727,7 @@ def partner():
     items = "".join('<div class="icard">%s<h3>%s</h3><p>%s</p></div>' % (illo(i[0], size=68), t(i[1]), t(i[2])) for i in C["partner.own.items"])
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>' % head(C["partner.own.eyebrow"], C["partner.own.headline"], 64, 1140)
              + '<div class="cards" style="left:120px;width:1120px;top:250px;bottom:130px;grid-template-columns:repeat(3,1fr)">%s</div>' % items
-             + collage(pool, 1280, 96, 520, 844, [[("h", 1.3), 1], [("h", .6), 1, 1], [("h", .6), 1, 1], [("h", 1.1), 1]], OWN_PHOTOS + PARTNER_PHOTOS))
+             + collage(pool, 1280, 96, 520, 844, [[("h", 1.1), 1], [("h", .9), 1, 1], [("h", 1.1), 1]], OWN_PHOTOS + PARTNER_PHOTOS))
     bk.add("wh", inner)
 
     # The event app, on Light Grey: what a partner can add, beside two photos of the app in use.
@@ -732,16 +780,21 @@ def partner():
              % (qr(C["partner.natwest.video.url"], 170), t(C["partner.natwest.video.title"]), t(C["partner.natwest.video.line"])))
     bk.add("gr", inner)
 
-    # 7 Zones, on Charcoal.
-    zone_names = [(P + "climb_consultants_expert.jpg",), (P + "meetings_02.jpg",), (P + "exhibitor_01.jpg",), (B + "laptop_052a4221.jpg",)]
-    zones = "".join('<div class="cardx"><div class="img" style="height:300px">%s</div><div class="body"><h3>%s</h3><div class="d">%s</div></div></div>'
-                    % (photo(pool.photo(*(n + PARTNER_PHOTOS))), t(z[0]), t(z[1])) for n, z in zip(zone_names, C["partner.zones.items"]))
-    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1300px">%s</p></div>'
-             '<div class="cards" style="left:120px;right:120px;top:350px;bottom:130px;grid-template-columns:repeat(4,1fr)">%s</div>'
-             % (head(C["partner.zones.eyebrow"], C["partner.zones.headline"], 76, 1300), t(C["partner.zones.intro"]), zones))
+    # 7 Zones, on Charcoal: the zones in words on the left, Climb26's branded zones on the right.
+    zones = "".join('<div class="icard" style="padding:28px 30px"><h3>%s</h3><p>%s</p></div>' % (t(z[0]), t(z[1]))
+                    for z in C["partner.zones.items"])
+    zp = [pool.photo(n) for n in ZONE_PHOTOS]
+    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px;width:880px">%s<p class="copy" style="margin-top:20px;font-size:24px">%s</p></div>'
+             '<div class="cards" style="left:120px;width:880px;top:400px;bottom:130px;grid-template-columns:1fr 1fr">%s</div>'
+             % (head(C["partner.zones.eyebrow"], C["partner.zones.headline"], 76, 880), t(C["partner.zones.intro"]), zones)
+             # The portrait zone sign gets a portrait tile.
+             + tile(zp[0], 1060, 96, 313, 470) + tile(zp[1], 1391, 96, 409, 226) + tile(zp[2], 1391, 340, 409, 226)
+             + tile(zp[3], 1060, 584, 361, 360) + tile(zp[4], 1439, 584, 361, 170) + tile(zp[5], 1439, 772, 361, 172))
     bk.add("ch", inner)
+    # 8 How simple the day is, on white.
+    setup_page(bk, "wh", "partner", B + "branding_maf-382.jpg")
 
-    # 8 Sessions and awards, on Light Grey.
+    # 9 Sessions and awards, on Light Grey.
     stage_names = [(P + "roundtable_and_workshops_02.jpg",), (P + "climb_awards_winners.jpg",), (P + "stage_speakers_03.jpg",)]
     offers = "".join('<div class="cardx"><div class="img" style="height:390px">%s</div><div class="body"><h3>%s</h3>'
                      '<div class="d">%s</div><div class="end">%s</div></div></div>'
@@ -767,14 +820,14 @@ def partner():
 
     # 10-11 In their words.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
-    photo_page(bk, "db", C["partner.proof2.eyebrow"], C["partner.proof2.headline"],
+    photo_page(bk, "ch", C["partner.proof2.eyebrow"], C["partner.proof2.headline"],
                # One photo of each kind of moment, and only one from the awards.
                (B + "stage_maf-665.jpg", B + "food_052a2866.jpg", B + "outdoor_dsc06298.jpg", P + "stage_speakers_01.jpg",
                 B + "awards_052a4029.jpg", P + "joy_*", B + "festival_busy_maf-479.jpg", P + "crowds_*", B + "festival_busy_maf-30.jpg",
                 P + "audience_at_stage_01.jpg", B + "stage_maf-278.jpg", B + "festival_busy_*", P + "crowds_*") + PARTNER_PHOTOS)
 
     cta(bk, C["partner.cta.line1"], C["partner.cta.line2"], C["partner.cta.button"], C["partner.cta.qr"],
-        pool.photo(P + "climb_crowd_wide.jpg", *PARTNER_PHOTOS), "partner")
+        pool.photo(B + "stage_020726049climb26.jpg", P + "climb_crowd_wide.jpg", *PARTNER_PHOTOS), "partner", "center 20%")
     return bk
 
 

@@ -176,6 +176,40 @@ per 2m x 2m space
 - 32 inch screen
 - £100 instantprint voucher per exhibitor pass
 
+## exhibitor.sizes.eyebrow
+Expo stands
+
+## exhibitor.sizes.headline
+Start at 2m x 2m. [[Grow]] from _there_.
+
+## exhibitor.sizes.intro
+Every expo stand is built from 2m x 2m spaces, so you take the room you need. Here is each size at Climb26.
+
+## exhibitor.sizes.items
+- 2m x 2m | 2 exhibitor passes
+- 2m x 4m | 4 exhibitor passes
+- 4m x 4m and larger | 8 exhibitor passes or more
+
+## exhibitor.setup.eyebrow
+How it works
+
+## exhibitor.setup.headline
+You bring the laptop. We [[build]] the _rest_.
+
+## exhibitor.setup.intro
+Your stand is ready when you arrive. No build crew to book and no kit to ship.
+
+## exhibitor.setup.steps
+- Order online | Choose your stand and extras on our website, from furniture and screens to print.
+- We build it | Your stand is built, branded and ready before the doors open.
+- Just show up | Bring your laptop, products and leaflets, and start meeting people.
+
+## exhibitor.setup.before
+The day before
+
+## exhibitor.setup.after
+Doors open
+
 ## exhibitor.market.size
 One table
 
@@ -416,6 +450,20 @@ Each zone brings together the people one sector needs. Put your name on the zone
 - ClimbHealth | Healthtech, medtech and biotech founders meeting investors and researchers, in masterclasses, roundtables, live demos and on the ClimbHealth stage.
 - ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
 - ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
+
+## partner.setup.eyebrow
+On the day
+
+## partner.setup.headline
+You bring the team. We [[build]] the _rest_.
+
+## partner.setup.intro
+Your branding is in place when you arrive, across every option you chose.
+
+## partner.setup.steps
+- Order online | Choose your options and send us your artwork through our website.
+- We build it | Your branding is printed, installed and checked before the doors open.
+- Just show up | Bring your team and start meeting people.
 
 ## partner.stage.eyebrow
 Sessions and awards
