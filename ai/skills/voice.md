@@ -48,6 +48,7 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
   In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
 - Web addresses on print and PDFs are written in full with www: www.climb-uk.com/partnerships, never "climb-uk.com/partnerships". Email addresses stay as they are.
 - Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
+- Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 headline: Your business. Bigger stage.
 - Themes: Find Your People, and Main Stage Moments.
 

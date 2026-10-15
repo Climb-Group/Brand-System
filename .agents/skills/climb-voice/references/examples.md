@@ -25,6 +25,7 @@
 | Climb27 is the Festival for Business Growth. | The tagline capitalised inside a sentence | Climb27 is the festival for business growth. |
 | Book a call: climb-uk.com/partnerships | Web address not written in full | Book a call: www.climb-uk.com/partnerships |
 | ClimbAdvisory: advisers and fractional leaders, in 24 pods. | Describes the furniture and a count, not what happens | ClimbAdvisory: advisers and fractional leaders mentoring founders, meeting and talking through what comes next. |
+| Display stand: Big enough to be seen. Sharp enough to close. | A slogan that says nothing about the stand | Display stand: Your product on a screen and two branded panels, without the cost of a full stand. |
 | Climb is back - and bigger than ever | Bare "Climb", dash, size claim | Climb27 is here. Your business, on a bigger stage. |
 | Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
