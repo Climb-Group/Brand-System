@@ -97,6 +97,8 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 
 Describe these as options to build from, like the rest of a partnership. Never sell them as fixed Silver, Gold or Platinum bundles.
 
+**The print partner.** instantprint is the official print partner of Climb27, and every exhibitor pass comes with a £100 instantprint voucher. Do not say instantprint prints the stand panels: describe printed panels simply as "graphics made to fit your stand".
+
 **Multi-year partners.** NatWest announced a three-year partnership at Climb26, so it is a key partner for Climb27, Climb28 and Climb29. A partner brochure can give it a section of its own as the example of a long-term partnership, using the NatWest stand photos.
 
 ## Sales brochures
