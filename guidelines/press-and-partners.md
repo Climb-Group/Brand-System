@@ -63,6 +63,7 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - A dedicated Partner Manager, backed by a support team.
 - An onboarding platform that does the work for them: the tasks are listed and the templates are ready, so they answer the questions and they are set up, with priority support.
 - An online portal where they manage their app profile (improved for Climb27), their tickets and attendees, and, new for Climb27, their leads.
+- Engagement reporting from the ClimbGroup Event App: a list of the attendees who engaged with them in the app, and what they did.
 
 **Headline Partners also get:**
 
@@ -70,6 +71,24 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - Their logo on every ClimbUK social post, all paid advertising and every newsletter.
 - A bigger space, and first choice of location within reason.
 - The title of Headline Partner, and the standing that comes with it.
+
+**In the ClimbGroup Event App.** Engagement reporting is included with every partnership; everything below is an option to add. Always call it the ClimbGroup Event App, never by the platform it runs on.
+
+- **Featured listing:** a place among up to eight featured partners on the app's home page, with videos, documents and links on their listing, and chat, messages, appointments and a one-to-one video meeting room with attendees.
+- **Sponsored sessions:** their name and logo on a session in the agenda, with polls and surveys, and the leads from the people who took part.
+- **Page banners:** a banner, or a place in a rotating set, at the top of the home, exhibitor or partner pages, linking to their listing, an app page or their website, with a click report after the event.
+- **Event ads:** ads on the home, exhibitor and session pages, targeted by attendee type, with an impressions and clicks report.
+- **Video ads:** a short advert that plays while attendees wait for a session to start.
+- **Home page link and video cards:** up to three links or videos in one card on the home page.
+- **The app game:** a challenge themed to the partner, worth extra points, so attendees visit their stand.
+- **Discussions:** a text or video discussion with their name on it, on a topic they lead.
+- **Notifications:** promotional messages sent between sessions, to all attendees or a chosen group.
+- **Custom page:** a page in the app built for the partner and their campaign.
+- **Splash screen:** the full-screen image every attendee sees when they open the app. Exclusive to one partner, and priced to match.
+- **Home page and login images:** the partner in the home page cover image, the event details header or the login screen, priced by whether one partner or several share it.
+- **Lead capture:** scanning and capturing leads at their stand.
+
+Describe these as options to build from, like the rest of a partnership. Never sell them as fixed Silver, Gold or Platinum bundles.
 
 **Multi-year partners.** NatWest announced a three-year partnership at Climb26, so it is a key partner for Climb27, Climb28 and Climb29. A partner brochure can give it a section of its own as the example of a long-term partnership, using the NatWest stand photos.
 
