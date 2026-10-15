@@ -50,6 +50,13 @@ Use as written. Shorten only by cutting whole sentences.
 - **Never:** merge the logos into one mark, put ClimbUK colours on a partner logo, imply ClimbUK endorses a product, or promise attendees anything ClimbUK has not.
 - Partners sell their presence with "meetings with the right people", never a number of meetings, a percentage or an audience size.
 
+## Sales brochures
+
+- **Format:** 16:9 pages, sent as a PDF or shown on screen in a call.
+- **Look:** photo-led, like the Climb26 exhibitor brochure. Big uppercase lines in orange label boxes, stands shown as renders with a round size badge, prices in a solid box, and real quotes from people who came, with their name and company.
+- **Partnerships are options.** Every partnership is built around what the partner wants. Show the level (Headline Partner or Partner), the things a partner can own and the extras they can add, then invite a call. Never fixed tiers, long text pages or figures.
+- **Every page earns its place:** one idea per page, one photo wall or render, and a clear next step on the last page.
+
 ## The share kit
 
 Every partner, speaker and exhibitor gets a share kit:

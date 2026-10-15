@@ -5,7 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.6"
+  sources: the brand guidelines, the Climb27 homepage and affiliate page, the review of the Climb27 flyers (October 2026) and the review of the Climb26 sales brochures (October 2026)
+  version: "1.7"
 ---
 
 # ClimbUK visual style
@@ -112,6 +113,8 @@ See `references/elements.md` for how each motif is built and scaled.
 3. Lay out: ground or photo, one display line (with its orange word and italic word), one or two festival devices or one motif, the logo in its corner, one call to action if the surface has one.
 4. Write any words with the climb-voice skill and run its checker. Before the venue announcement, no venue or city on anything.
 5. Check: contrast pairs, safe zone, logo clear space, file name and format from the surface table.
+
+Sales brochures (exhibitor, partner, sponsor) follow the Climb26 exhibitor brochure, the one the team liked: 16:9 pages, photo-led, orange label boxes for the big lines, stand renders with a round size badge, prices in a solid box, and real quotes from people who came. Partnerships are shown as options to build from (a level, things to own, extras to add), never as fixed tiers with long text pages and figures. The current set is in `pdf/brochures/`.
 
 These rules hold on every platform. When the asset is built for a particular platform, also load that platform's own skill if the pack has one (for an Odoo website: `climb-odoo-pages`), and only then.
 
