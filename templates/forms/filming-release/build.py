@@ -1,4 +1,5 @@
-"""Build the ClimbUK filming and photo release: a fillable A4 PDF that also prints.
+"""Build the ClimbUK filming and photo release: a fillable A4 PDF that also prints. Every word, label and tooltip is in
+release.copy.md (read through release_copy.py).
 
 Usage: python3 build.py [--paid] [--brand-pack PATH]
 
@@ -55,10 +56,10 @@ W, H = A4
 M = 42  # side margin
 TMP = args.out + ".tmp"
 c = canvas.Canvas(TMP, pagesize=A4)
-c.setTitle("ClimbUK filming and photo release")
-c.setAuthor("The Investor Ladder Limited, trading as ClimbUK")
-c.setSubject("Permission to film, photograph and record, and to share on ClimbUK channels")
-c.setCreator("ClimbUK brand pack")
+c.setTitle(C.META_TITLE)
+c.setAuthor(C.META_AUTHOR)
+c.setSubject(C.META_SUBJECT)
+c.setCreator(C.META_CREATOR)
 c.setLang("en-GB") if hasattr(c, "setLang") else None
 form = c.acroForm
 SIG_FIELDS = []  # (page_index, name, rect)
@@ -89,7 +90,7 @@ def field(name, label, x, y, w, h=28, hint=None, required=False, tooltip=None):
     if required or hint:
         lw = c.stringWidth(label, "OSSB", 8.5)
         c.setFillColor(SLATE); c.setFont("OS", 8)
-        c.drawString(x + lw + 4, y, "(required)" if required else hint)
+        c.drawString(x + lw + 4, y, C.REQUIRED if required else hint)
     fy = y - 5 - h
     form.textfield(name=name, tooltip=tooltip or label, x=x, y=fy, width=w, height=h,
                    borderColor=SLATE, fillColor=WHITE, textColor=CHARCOAL,
@@ -151,7 +152,7 @@ def footer(n):
     c.setFillColor(SLATE); c.setFont("OS", 7.5)
     para(C.FOOTER, M, 40, W - 2 * M - 70, size=7.5, leading=10)
     c.setFillColor(SLATE); c.setFont("OS", 7.5)
-    c.drawRightString(W - M, 31, "Page %d of 2" % n)
+    c.drawRightString(W - M, 31, C.PAGE.replace("{page}", str(n)))
 
 
 # ---------- Page 1: details ----------
@@ -177,24 +178,22 @@ y = min(y, ctop - ch) - 14
 
 y = section(C.DETAILS_TITLE, y, "01")
 full = W - 2 * M; half = (full - 16) / 2
-y = field("full_name", "Full name", M, y, full, required=True)
+y = field("full_name", C.FULL_NAME, M, y, full, required=True)
 third = (full - 32) / 3
-field("email", "Email", M, y, third, required=True)
-field("phone", "Phone number", M + third + 16, y, third, hint="(optional)")
-y = field("event_location", "Event or place", M + 2 * (third + 16), y, third,
-          hint="(optional)", tooltip="Event or place we filmed you, optional")
+field("email", C.EMAIL, M, y, third, required=True)
+field("phone", C.PHONE, M + third + 16, y, third, hint=C.OPTIONAL)
+y = field("event_location", C.EVENT, M + 2 * (third + 16), y, third,
+          hint=C.OPTIONAL, tooltip=C.EVENT_TOOLTIP)
 
 y = section(C.HANDLES_TITLE, y + 2, "02")
-c.setFillColor(SLATE); c.setFont("OS", 9); c.drawString(M, y + 4, C.HANDLES_NOTE + " All optional.")
+c.setFillColor(SLATE); c.setFont("OS", 9); c.drawString(M, y + 4, C.HANDLES_NOTE + " " + C.ALL_OPTIONAL)
 y -= 18
-handles = [("linkedin", "LinkedIn", "profile link"), ("instagram", "Instagram", "@handle"),
-           ("facebook", "Facebook", "page or profile link"), ("tiktok", "TikTok", "@handle"),
-           ("x", "X", "@handle")]
+handles = C.HANDLES
 for i, (k, label, hint) in enumerate(handles):
     col = i % 3
     x = M + col * (third + 16)
     ny = field("social_" + k, label, x, y, third, hint="(" + hint + ")",
-               tooltip=label + " " + hint + ", optional")
+               tooltip=C.HANDLE_TOOLTIP.replace("{label}", label).replace("{hint}", hint))
     if col == 2 or i == len(handles) - 1:
         y = ny
 y = checkbox("tag_consent", C.TAG_CONSENT, M, y - 2)
@@ -207,9 +206,9 @@ if args.paid:
     vy = y
     checkbox("edited_video_paid", C.VIDEO_PAID, M, vy)
     px = M + 20 + c.stringWidth(C.VIDEO_PAID, "OS", 9.5) + 6
-    c.setFillColor(CHARCOAL); c.setFont("OS", 9.5); c.drawString(px, vy, "GBP")
-    bx = px + c.stringWidth("GBP", "OS", 9.5) + 4
-    form.textfield(name="edited_video_fee", tooltip="Fee for the edited video, in pounds",
+    c.setFillColor(CHARCOAL); c.setFont("OS", 9.5); c.drawString(px, vy, C.CURRENCY)
+    bx = px + c.stringWidth(C.CURRENCY, "OS", 9.5) + 4
+    form.textfield(name="edited_video_fee", tooltip=C.FEE_TOOLTIP,
                    x=bx, y=vy - 5, width=60, height=17, borderColor=SLATE, fillColor=WHITE,
                    textColor=CHARCOAL, borderWidth=1, fontName="Helvetica", fontSize=9.5,
                    forceBorder=True)
@@ -219,7 +218,7 @@ if args.paid:
 else:
     y = checkbox("edited_video", C.VIDEO_FREE, M, y)
 c.setFillColor(SLATE); c.setFont("OS", 9)
-c.drawString(M, y - 4, "Read the release on page 2, then sign it. " + C.COPY_NOTE)
+c.drawString(M, y - 4, C.NEXT + " " + C.COPY_NOTE)
 footer(1)
 c.showPage()
 
@@ -246,26 +245,26 @@ c.setFillColor(SLATE); c.setFont("OS", 9); c.drawString(M, y + 4, C.SIGN_LEAD); 
 
 def sign_row(prefix, y, required):
     sw = 230
-    c.setFillColor(CHARCOAL); c.setFont("OSSB", 8.5); c.drawString(M, y, "Signature")
+    c.setFillColor(CHARCOAL); c.setFont("OSSB", 8.5); c.drawString(M, y, C.SIGNATURE)
     if required:
         c.setFillColor(SLATE); c.setFont("OS", 8)
-        c.drawString(M + c.stringWidth("Signature", "OSSB", 8.5) + 4, y, "(required)")
+        c.drawString(M + c.stringWidth(C.SIGNATURE, "OSSB", 8.5) + 4, y, C.REQUIRED)
     box_h = 40
     c.setStrokeColor(SLATE); c.setLineWidth(1); c.setFillColor(WHITE)
     c.rect(M, y - 5 - box_h, sw, box_h, stroke=1, fill=1)
     c.setStrokeColor(LIGHT_GREY); c.line(M + 10, y - 5 - box_h + 12, M + sw - 10, y - 5 - box_h + 12)
     SIG_FIELDS.append((1, prefix + "signature", (M, y - 5 - box_h, M + sw, y - 5)))
     rx = M + sw + 16; rw = W - M - rx; nw = rw - 110
-    field(prefix + "print_name", "Full name in capitals", rx, y, nw, required=required)
-    field(prefix + "date", "Date", rx + nw + 10, y, 100, hint="(DD/MM/YYYY)",
-          required=False, tooltip="Date signed, DD/MM/YYYY")
+    field(prefix + "print_name", C.PRINT_NAME, rx, y, nw, required=required)
+    field(prefix + "date", C.DATE, rx + nw + 10, y, 100, hint=C.DATE_HINT,
+          required=False, tooltip=C.DATE_TOOLTIP)
     return y - 5 - box_h - 16
 
 
 y = sign_row("", y, True)
 c.setFillColor(CHARCOAL); c.setFont("MB", 9.5); c.drawString(M, y, C.GUARDIAN_TITLE.upper()); y -= 16
 y = sign_row("guardian_", y, False)
-y = field("filmed_by", C.TEAM_LABEL, M, y, (W - 2 * M) / 2, hint="(for our records)")
+y = field("filmed_by", C.TEAM_LABEL, M, y, (W - 2 * M) / 2, hint=C.TEAM_HINT)
 footer(2)
 c.showPage()
 c.save()
@@ -281,8 +280,8 @@ for page_i, name, (x0, y0, x1, y1) in SIG_FIELDS:
         NameObject("/Subtype"): NameObject("/Widget"),
         NameObject("/FT"): NameObject("/Sig"),
         NameObject("/T"): TextStringObject(name),
-        NameObject("/TU"): TextStringObject("Signature" if name == "signature"
-                                            else "Parent or guardian signature"),
+        NameObject("/TU"): TextStringObject(C.SIGNATURE if name == "signature"
+                                            else C.GUARDIAN_SIGNATURE),
         NameObject("/Rect"): ArrayObject([FloatObject(v) for v in (x0, y0, x1, y1)]),
         NameObject("/F"): NumberObject(4),
         NameObject("/P"): page.indirect_reference,
@@ -305,39 +304,37 @@ print("wrote", args.out)
 def write_text(path):
     """Every word on both versions, as Markdown, for review and for e-signature set-up."""
     q = lambda t: t.replace('\\"', '"')
-    lines = ["# Filming and photo release: the text", "",
-             "Every word on the form, generated by `build.py` from `release_copy.py`. "
-             "Change the words in `release_copy.py`, then rebuild.", "",
-             "## Page 1", "", "**" + C.EYEBROW + "**", "",
+    lines = ["# " + C.TEXT_TITLE, "",
+             C.TEXT_LEAD, "",
+             "## " + C.TEXT_PAGE_1, "", "**" + C.EYEBROW + "**", "",
              "**" + "".join(t for t, _ in C.HEADLINE) + "**", "", C.INTRO, "",
              "### " + C.SUMMARY_TITLE.capitalize(), ""]
     lines += ["- " + s for s in C.SUMMARY] + ["",
               "### 01 " + C.DETAILS_TITLE, "",
-              "- Full name (required)", "- Email (required)", "- Phone number (optional)",
-              "- Event or place (optional)", "",
-              "### 02 " + C.HANDLES_TITLE, "", C.HANDLES_NOTE + " All optional.", "",
-              "- LinkedIn (profile link)", "- Instagram (@handle)",
-              "- Facebook (page or profile link)", "- TikTok (@handle)", "- X (@handle)",
-              "- [ ] " + C.TAG_CONSENT, "",
+              "- %s %s" % (C.FULL_NAME, C.REQUIRED), "- %s %s" % (C.EMAIL, C.REQUIRED),
+              "- %s %s" % (C.PHONE, C.OPTIONAL), "- %s %s" % (C.EVENT, C.OPTIONAL), "",
+              "### 02 " + C.HANDLES_TITLE, "", C.HANDLES_NOTE + " " + C.ALL_OPTIONAL, ""]
+    lines += ["- %s (%s)" % (label, hint) for _, label, hint in C.HANDLES]
+    lines += ["- [ ] " + C.TAG_CONSENT, "",
               "### 03 " + C.CHOICES_TITLE, "",
               "- [ ] " + C.NEWSLETTER, "- [ ] " + C.AFFILIATE,
-              "- [ ] " + C.VIDEO_FREE + " (free version)",
-              "- [ ] " + C.VIDEO_PAID + " GBP [amount]. " + C.VIDEO_PAID_AFTER + " (paid version)", "",
-              "Read the release on page 2, then sign it. " + C.COPY_NOTE, "",
-              "## Page 2", "", "### 04 " + C.RELEASE_TITLE, ""]
+              "- [ ] " + C.VIDEO_FREE + " " + C.TEXT_FREE,
+              "- [ ] %s %s %s. %s %s" % (C.VIDEO_PAID, C.CURRENCY, C.TEXT_AMOUNT, C.VIDEO_PAID_AFTER, C.TEXT_PAID), "",
+              C.NEXT + " " + C.COPY_NOTE, "",
+              "## " + C.TEXT_PAGE_2, "", "### 04 " + C.RELEASE_TITLE, ""]
     for n, (head, body) in enumerate(C.CLAUSES, 1):
         if "{video}" in body:
             lines.append("%d. **%s.** %s" % (n, head, body.format(video=C.VIDEO_CLAUSE_FREE)))
             lines.append("")
-            lines.append("   Paid version, last sentence instead: " + C.VIDEO_CLAUSE_PAID)
+            lines.append("   " + C.TEXT_PAID_INSTEAD + " " + C.VIDEO_CLAUSE_PAID)
         else:
             lines.append("%d. **%s.** %s" % (n, head, body))
         lines.append("")
     lines += ["### 05 " + C.SIGN_TITLE, "", C.SIGN_LEAD, "",
-              "- Signature (required), Full name in capitals (required), Date (DD/MM/YYYY)", "",
+              "- %s %s, %s %s, %s %s" % (C.SIGNATURE, C.REQUIRED, C.PRINT_NAME, C.REQUIRED, C.DATE, C.DATE_HINT), "",
               "**" + C.GUARDIAN_TITLE + "**", "",
-              "- Signature, Full name in capitals, Date (DD/MM/YYYY)", "",
-              "- " + C.TEAM_LABEL + " (for our records)", "", "---", "", C.FOOTER, ""]
+              "- %s, %s, %s %s" % (C.SIGNATURE, C.PRINT_NAME, C.DATE, C.DATE_HINT), "",
+              "- " + C.TEAM_LABEL + " " + C.TEAM_HINT, "", "---", "", C.FOOTER, ""]
     with open(path, "w") as fh:
         fh.write(q("\n".join(lines)))
 
