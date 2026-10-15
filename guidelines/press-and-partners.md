@@ -80,7 +80,7 @@ Use this list when you describe partnerships. Pick the lines that suit the piece
 - **Event ads:** ads on the home, exhibitor and session pages, targeted by attendee type, with an impressions and clicks report.
 - **Video ads:** a short advert that plays while attendees wait for a session to start.
 - **Home page link and video cards:** up to three links or videos in one card on the home page.
-- **The app game:** a challenge themed to the partner, worth extra points, so attendees visit their stand.
+- **The app game:** a challenge themed to the partner, worth extra points. It can ask attendees to do something in person, such as visit the stand and scan its QR code, so it brings people to the stand as well as the listing.
 - **Discussions:** a text or video discussion with their name on it, on a topic they lead.
 - **Notifications:** promotional messages sent between sessions, to all attendees or a chosen group.
 - **Custom page:** a page in the app built for the partner and their campaign.
