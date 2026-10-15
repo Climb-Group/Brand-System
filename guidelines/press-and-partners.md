@@ -123,6 +123,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Icon cards are centred and short.** The icon, title and text are centred, and the text is two lines at most: cut anything longer. The icon is a pin: a large Climb Orange disc with a white ring and an orange glow, sitting over the card's top edge, with the icon in White, and a Climb Orange edge along the card's foot. Never a small mark in the corner.
 - **Photo cards carry no icons.** A card with a photo at the top has its title and text only; icons are for cards without a photo.
 - **Quotes and photos get their own pages.** Put the quotes together on one quotes page and give the photos a full page of their own, rather than splitting both across two mixed pages.
+- **A price sits with its offer.** Put every price inside the box or card of the one thing it buys, so it can never be read as the price of something else on the page. An extra with its own price goes in its own card, or on its own page.
 - **No empty corners.** Every page fills its frame down to the footer. When a column ends early, extend the photo wall, enlarge the photo or add another quote; never leave a blank block under a card or a quote.
 - **Blocks have room.** Leave clear space between an intro paragraph and the list or card grid under it, and above and below every quote box: at least `space-7` (48px) on a 1920px page, so no block touches the next.
 - **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
