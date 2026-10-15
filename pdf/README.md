@@ -7,6 +7,7 @@ Shareable PDFs for each brand (ClimbUK, ClimbGroup, Climb27), built from `guidel
 | `one-page/<brand>_key-rules.pdf` | The key rules everyone must follow: logo, colour, type, voice, photography, accessibility and naming | A4, one page |
 | `guidelines/<brand>_brand-guidelines.pdf` | The full brand book: ten sections, from the big idea to print, video, partners and accessibility | 16:9 slides, 1920x1080 |
 | `flyers/` | Climb27 flyers: one per audience, plus five for people who are new to ClimbUK. See `flyers/README.md` | A5, both sides, 3 mm bleed |
+| `brochures/` | Climb27 sales brochures: one for exhibitors, one for partners. See `brochures/README.md` | 16:9 pages, 1920x1080 |
 
 The ClimbGroup editions use Charcoal grounds and the slab and peak marks, with pages on contracts, documents, decks and email signatures. The Climb27 editions add the themes, the edition mark, ticket pages and the share kit.
 
