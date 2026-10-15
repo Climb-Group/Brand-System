@@ -125,3 +125,7 @@ The two renders are small in the original brochure (600px wide). Replace them wi
 | branding_052a3123.jpg | photos-intake/brochures/branding_052a3123.jpg (Climb26) |
 | branding_052a3128.jpg | photos-intake/brochures/branding_052a3128.jpg (Climb26) |
 | laptop_052a4221.jpg | photos-intake/brochures/meetings_052a4221.jpg (Climb26) |
+| band_052a4629.jpg | photos-intake/brochures/band_052a4629.jpg (Climb26) |
+| food_052a2866.jpg | photos-intake/brochures/food-and-vendors_052a2866.jpg (Climb26) |
+| outdoor_dsc06298.jpg | photos-intake/brochures/outdoor-seating_dsc06298.jpg (Climb26) |
+| crowds_052a3708.jpg | photos-intake/brochures/crowds_052a3708.jpg (Climb26) |

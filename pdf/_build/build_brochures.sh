@@ -14,7 +14,7 @@ cp "$PACK"/pdf/brochures/_build/img/*.jpg assets/brochure/
 python3 -c 'import glob
 from PIL import Image
 for f in glob.glob("assets/photos/*.jpg"):
-    im=Image.open(f); im.thumbnail((2200,2200)); im.convert("RGB").save(f,quality=72,optimize=True,progressive=True)'
+    im=Image.open(f); im.thumbnail((2200,2200)); im.convert("RGB").save(f,quality=84,optimize=True,progressive=True)'
 cp "$PACK"/illustrations/*.svg assets/illus/
 python3 brochures.py
 # Every printed word through the climb-voice checker.
