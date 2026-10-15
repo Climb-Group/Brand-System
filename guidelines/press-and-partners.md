@@ -124,7 +124,7 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Photo cards carry no icons.** A card with a photo at the top has its title and text only; icons are for cards without a photo.
 - **Quotes and photos get their own pages.** Put the quotes together on one quotes page and give the photos a full page of their own, rather than splitting both across two mixed pages.
 - **No empty corners.** Every page fills its frame down to the footer. When a column ends early, extend the photo wall, enlarge the photo or add another quote; never leave a blank block under a card or a quote.
-- **Quotes have room.** Leave clear space above and below every quote box, so it never touches a list or a paragraph.
+- **Blocks have room.** Leave clear space between an intro paragraph and the list or card grid under it, and above and below every quote box: at least `space-7` (48px) on a 1920px page, so no block touches the next.
 - **Explain each partner level.** Say what Headline Partner and Partner each give in a full sentence or two, not a name on its own.
 - **Show everything a partner can own or add.** For example printed panels, logos on screens, branding a space and naming a space. Each one costs extra, and all of them are options to build from. Describe each option by what the partner gets, not only where their logo goes:
   - **The event app:** advertising in the ClimbGroup Event App, with dedicated sections and lead capture, as well as their brand.
