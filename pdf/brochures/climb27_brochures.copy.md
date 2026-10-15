@@ -259,8 +259,8 @@ Order everything for your stand in your exhibitor portal, and it is in place whe
 - meeting-table | Furniture | Tables, chairs and stools
 - big-screen | Screens | TVs and monitors for your demo
 - lightning | Power and light | Extra sockets and lighting
-- wifi | Wi-Fi | A dedicated line for streaming
-- slide-deck | Printed panels | Graphics made to fit your stand, printed by instantprint, our print partner
+- wifi | Wi-Fi | A dedicated connection for your stand, so live demos, video and streaming run on their own line
+- slide-deck | Printed panels | Graphics made to fit your stand, in place before the doors open
 
 ## exhibitor.extras.print
 - A £100 instantprint voucher with every exhibitor pass | instantprint is the official print partner of Climb27
