@@ -146,3 +146,4 @@ The two renders are small in the original brochure (600px wide). Replace them wi
 | setup_052a0597.jpg | photos-intake/brochures/prep-day_052a0597.jpg (Climb26) |
 | setup_052a0617.jpg | photos-intake/brochures/prep-day_052a0617.jpg (Climb26) |
 | setup_maf-1.jpg | photos-intake/brochures/prep-day_maf-1.jpg (Climb26) |
+| expo_stand_girls-and-tech_empty.jpg | photos-intake/brochures/expo-area_maf-430.jpg (Climb26; the Girls & Tech stand without people, used on the exhibitor cover) |

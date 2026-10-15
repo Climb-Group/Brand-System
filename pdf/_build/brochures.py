@@ -574,8 +574,8 @@ def exhibitor():
     pool.reserved.update({B + "expo_floor_dsc03090.jpg"} | PICKS)
     pool.used.add(B + "expo_floor_maf-233.jpg")
     pool.used.update(STAND_TALKS | SET_ASIDE)
-    # 1 Cover: an exhibitor team having fun on their stand, set in the right half so the words never cover a face.
-    cover(bk, C["exhibitor.cover.line1"], C["exhibitor.cover.line2"], pool.photo(B + "expo_stand_girls-and-tech.jpg"), "center 45%", "", "fade-cover")
+    # 1 Cover: the Girls & Tech stand without people, so the words on the left never cut a person in half.
+    cover(bk, C["exhibitor.cover.line1"], C["exhibitor.cover.line2"], pool.photo(B + "expo_stand_girls-and-tech_empty.jpg"), "right 50%", "", "fade-cover")
     # 2 What Climb27 is, beside a wall of exhibitor photos.
     what(bk, EXHIBITOR_PHOTOS)
 
