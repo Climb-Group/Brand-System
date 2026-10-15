@@ -347,7 +347,8 @@ CSS = """
 .s.gr .list li,.s.wh .list li{color:#404C68}
 .s.or .list li{color:var(--db)} .s.or .list li::before{border-color:var(--db)}
 .arrow{font-family:Montserrat;font-weight:800;color:var(--db)}
-.fade-cover{background:linear-gradient(90deg,rgba(var(--ink),.82),rgba(var(--ink),.6) 38%,rgba(var(--ink),.12) 62%,rgba(var(--ink),0) 78%),
+.fade-cover{background:radial-gradient(ellipse 70% 85% at 0% 100%,rgba(var(--or),.92),rgba(var(--or),.6) 40%,rgba(var(--or),0) 75%),
+  linear-gradient(90deg,rgba(var(--ink),.82),rgba(var(--ink),.6) 38%,rgba(var(--ink),.12) 62%,rgba(var(--ink),0) 78%),
   linear-gradient(180deg,rgba(var(--ink),0) 70%,rgba(var(--ink),.8))}
 """
 
@@ -360,30 +361,33 @@ def cover(bk, line1, line2, img, pos, style="", fade="fade-hero"):
              + '<div style="position:absolute;left:120px;top:340px">%s'
                '<div class="mont" style="margin-top:34px;font-weight:700;font-size:44px;color:var(--w)">%s</div>'
                '<div class="rule" style="margin-top:30px"></div></div>' % (labels([line1, line2], 132), t(C["shared.tagline"]))
-             + '<div style="position:absolute;left:120px;bottom:110px"><span class="sticker" style="font-size:34px">%s</span></div>'
-             % t(C["shared.dates"])
+             + '<div style="position:absolute;left:120px;bottom:110px"><span class="sticker%s" style="font-size:34px">%s</span></div>'
+             % (" dark" if fade == "fade-cover" else "", t(C["shared.dates"]))
              + '<div class="mont" style="position:absolute;right:120px;bottom:70px;font-weight:800;font-size:30px;color:var(--w)">%s</div>' % t(C["shared.site"]))
     bk.add("db", inner, foot=False)
 
 
 # Page 2 photos, in collage order: varied stands, so shots of one area's stands never sit side by side.
-# The owner's picks of general expo traffic; the two shots of one group sit apart.
-WHAT_PHOTOS = (B + "expo_floor_maf-238.jpg", B + "expo_floor_maf-341.jpg", B + "expo_floor_maf-244.jpg",
-               B + "expo_floor_maf-242.jpg", B + "expo_floor_052a3113.jpg", B + "expo_floor_maf-339.jpg",
-               B + "expo_floor_maf-342.jpg")
+# The owner's picks of general expo traffic. One moment gets one photo per page: MAF-341 and MAF-342 are one
+# conversation, as are MAF-242 and MAF-244, so only one of each pair is used.
+WHAT_PHOTOS = (B + "expo_floor_maf-238.jpg", B + "expo_floor_maf-342.jpg", B + "expo_floor_maf-244.jpg",
+               B + "expo_floor_052a4718.jpg", B + "expo_floor_052a3113.jpg", B + "expo_floor_maf-339.jpg",
+               B + "expo_floor_020726075climb26.jpg")
+SAME_MOMENT = {B + "expo_floor_maf-341.jpg", B + "expo_floor_maf-242.jpg", B + "expo_floor_maf-245.jpg"}
 # The owner's picks per stand size, the zones and setup day; handed out only where a page names them.
 POD_PHOTOS = (B + "stand_display_in-use.jpg", B + "expo_floor_dsc03145.jpg", B + "expo_floor_dsc03098.jpg",
               B + "expo_floor_dsc03083.jpg", B + "expo_floor_maf-428.jpg")
 DISPLAY_PHOTOS = (B + "expo_floor_maf-344.jpg", B + "expo_floor_052a2042.jpg")
-EXPO_PHOTOS = (B + "expo_floor_maf-432.jpg", B + "expo_floor_maf-435.jpg", B + "expo_floor_dsc03182.jpg")
-SIZE_PHOTOS = ((B + "expo_floor_maf-431.jpg", B + "expo_floor_dsc03044.jpg"),
+# Each stand page shows two different stands: MAF-435 and DSC03182 are one stand, so only DSC03182 is used.
+EXPO_PHOTOS = (B + "expo_floor_maf-432.jpg", B + "expo_floor_dsc03165.jpg", B + "expo_floor_dsc03182.jpg")
+SIZE_PHOTOS = ((B + "expo_floor_maf-415.jpg", B + "expo_floor_dsc03044.jpg"),
                (B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
                (B + "expo_floor_maf-410.jpg", B + "stand_pod_03.jpg"))
 ZONE_PHOTOS = (B + "branding_052a3130.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg",
                B + "branding_maf-404.jpg", B + "branding_maf-395.jpg", B + "branding_maf-389.jpg")
 SETUP_PHOTOS = (B + "setup_maf-1.jpg", B + "setup_052a0597.jpg", B + "setup_052a0617.jpg")
 PICKS = set(POD_PHOTOS + DISPLAY_PHOTOS + EXPO_PHOTOS + sum(SIZE_PHOTOS, ()) + ZONE_PHOTOS + SETUP_PHOTOS
-            + (B + "expo_floor_maf-415.jpg",))
+            + (B + "expo_floor_dsc03165.jpg",))
 # The partner brochure's page 2 shows the festival a partner puts its name to: stages, awards, crowds and a few stands.
 PARTNER_WHAT_PHOTOS = (B + "stage_020726080climb26.jpg", B + "awards_052a3981.jpg", B + "stage_maf-317.jpg",
                        B + "busk_maf-168.jpg", B + "festival_busy_052a3708.jpg", B + "stage_maf-519.jpg",
@@ -572,6 +576,7 @@ def exhibitor():
     pool = bk.pool
     # Pod photos belong on the pod pages only; a second shot of the same pod is never shown.
     pool.reserved.update({B + "expo_floor_dsc03090.jpg"} | PICKS)
+    pool.used.update(SAME_MOMENT)
     pool.used.add(B + "expo_floor_maf-233.jpg")
     pool.used.update(STAND_TALKS | SET_ASIDE)
     # 1 Cover: the Girls & Tech stand without people, so the words on the left never cut a person in half.
@@ -617,7 +622,7 @@ def exhibitor():
                C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"])
     # 8 Every expo size, 9 how simple the day is.
     sizes_page(bk, "ch")
-    setup_page(bk, "wh", "exhibitor", B + "expo_floor_maf-415.jpg")
+    setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
 
     # 8 The marketplace has its own page, on Light Grey.
     who = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.who"])
