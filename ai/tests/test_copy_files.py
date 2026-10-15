@@ -182,6 +182,12 @@ class RepositoryTest(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertEqual([str(p.relative_to(ROOT)) for p in missing], [], "files with no copy file covering them")
 
+    def test_example_sections_are_skipped_by_the_checker(self):
+        text = "---\ncopy: x\ndeliverable: x\n---\n<!-- @rule.bad example=avoid -->\nWe guarantee it\n\n## Next\n<!-- @rule.good -->\nWe guarantee it\n"
+        problems = check_copy.check(copy_md.words_only(text))
+        self.assertEqual(len([p for p in problems if "guarantee" in p[3]]), 1)
+        self.assertEqual(copy_md.parse(text, "x.copy.md").all("rule.bad")[0].text, "We guarantee it")
+
     def test_output_takes_several_paths_and_globs(self):
         doc = copy_md.parse("---\ncopy: x\ndeliverable: x\noutput: README.md tokens/*.css\n---\n", str(ROOT / "x.copy.md"))
         got = copy_md.covered(doc, ROOT)

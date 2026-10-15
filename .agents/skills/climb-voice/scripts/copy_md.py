@@ -301,6 +301,16 @@ def words_only(text):
             if done:
                 break
         lines[0] = ""
+    # A section marked example=... quotes words on purpose (a rule's "not this" column): the checker skips it.
+    skip = False
+    for i, line in enumerate(lines):
+        m = MARKER.match(line.strip())
+        if m:
+            skip = bool(re.search(r"\sexample=", " " + m["settings"]))
+        elif re.match(r"#{1,2}\s", line):
+            skip = False
+        elif skip and not line.lstrip().startswith("<!--"):
+            lines[i] = re.sub(r"[^\n]", " ", line)
     text = "\n".join(lines)
     return COMMENT.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
 

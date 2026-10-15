@@ -51,6 +51,7 @@ Book meetings in the ClimbGroup Event App before you arrive.
 | Settings | `icon=people`, `focus=0.5,0.35`, `label="Two words"` | Design choices for that section, after its name: which icon or photo, where to crop, which layout. Quote a value that has spaces. Each key once per marker. |
 | Title | `### Find your people`, the first line after a marker | The section's title, kept apart from its text. |
 | Text | The rest of the section | Plain Markdown. Lines wrapped by hand join into one line. A blank line starts a new paragraph. A line ending in a backslash (`\`) breaks the line there. List items keep their own lines. |
+| Example | `<!-- @rewrites.before example=avoid -->` | A section that quotes words on purpose, such as the "not this" side of a rule. The build prints it; the copy checker skips its words. Use it only for words a rule bans, never to get past the checker. |
 | Note | `<!-- note: Check the app name. -->`, on its own line, may run over several lines | For reviewers only. Builds and the copy checker ignore it. Put an explanation or a question here, never words that should print. |
 | Headings | `# Title`, `## Front`, `## Back` | For people reading the file. They end the open section and never print. |
 

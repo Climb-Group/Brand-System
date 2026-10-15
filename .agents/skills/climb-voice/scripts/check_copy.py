@@ -21,7 +21,7 @@ ALWAYS = [
     (r"!", "exclamation mark"),
     (r"[\U0001F300-\U0001FAFF\u2600-\u27BF]", "emoji"),
     (r"[\u2122\u00AE]", "trademark symbol"),
-    (r"(?<![.\w-])climb(?![-.\w])(?! orange\b)(?! li monogram\b)", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
+    (r"(?<![.\w-])(?<!\bc in )climb(?![-.\w])(?!\]\]\w)(?! orange\b)(?! li monogram\b)", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
     (r"\bclimb app\b", "the app is the ClimbGroup Event App"),
     (r"\bthousands\b", "attendance claim"),
     (r"\b\d+\s*(\+\s*)?(meetings|investors|partners|attendees|delegates)\b", "a number of meetings, investors, partners or attendees"),
@@ -35,7 +35,7 @@ ALWAYS = [
     (r"run by climbgroup|climbgroup runs|runs climbuk|organisation (that runs|behind) climbuk", "company structure line: say what the reader gets instead"),
     (r"\bodoo\b|\bcanva\b|\bcvent\b|\bstripe\b|\bhubspot\b", "vendor name in customer-facing copy"),
     (r"\bclinic(?!ian)", "clinics are roundtables or workshops"),
-    (r"keynote", "big moments, not keynotes: name the format instead"),
+    (r"(?<!not )keynote", "big moments, not keynotes: name the format instead"),
     # Sales and partner review of the Climb27 pages, October 2026.
     (r"eyes open", "reads as a warning: 'Find investors looking for real deal flow'"),
     (r"\bin (their|your|our) patch\b", "slang: say 'across their region' or name the place"),
