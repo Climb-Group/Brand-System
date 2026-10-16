@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.7"
+  version: "1.8"
 ---
 
 # ClimbUK visual style
@@ -19,7 +19,7 @@ All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_
 1. **Dark first.** Default ground is Dark Brown `#1E0F05` or Charcoal `#242322`. Light grounds (White, Light Grey) are for reading-heavy pieces: documents, long emails, forms.
 2. **Orange leads, it does not flood.** One orange button or call to action per section, slide, post or screen. Around it, orange markers are welcome: an orange word, the short orange rule, a sticker, a glow. Full orange grounds are for the big moments: the partner pitch, the final call to action.
 3. **Type does the shouting.** Montserrat Bold or Black, uppercase for display lines, tight leading (0.98 to 1.1), slightly negative tracking. One word in Climb Orange and one in italic per headline ("THE FESTIVAL FOR BUSINESS *GROWTH*.", with FESTIVAL in orange); every headline opens positive (climb-voice, Headlines and titles). A short orange rule or a tracked eyebrow sits above. Open Sans for everything you read. Never more than two sizes of display type on one view.
-4. **Real people, real light.** Photography of actual attendees, speakers and stage moments, with consent: laughing faces, orange lanyards, branded backdrops, crowds, close conversations. Full colour under a Dark Brown fade where text sits; dense photo walls rather than one lonely picture. No stock handshakes, no empty rooms, no generic skylines.
+4. **Real people, real light.** Photography of actual attendees, speakers and stage moments, with consent: laughing faces, orange lanyards, branded backdrops, crowds, close conversations. Full colour under a Dark Brown fade where text sits; dense photo walls rather than one lonely picture. No stock handshakes, no empty rooms, no generic skylines, and nothing that can be misread out of context (a hug that looks like a struggle). A cover is one photo or a three-photo header (one big, two stacked beside it).
 5. **Contrast is not optional.** Pick a preset (below) and use its pairs. White on Climb Orange only at 19px bold or larger (or the print equivalent: 14pt bold). Check anything new against the tokens build.
 
 ## Grounds and pairs (the five presets)
