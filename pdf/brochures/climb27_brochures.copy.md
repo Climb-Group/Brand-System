@@ -334,6 +334,7 @@ Build your [[partnership]] your _way_
 - Own a part of the festival | Pick the spaces and moments that carry your name: printed panels, your logo on the screens, a space in your branding or renamed after you. Each is an option you add to your package.
 - Add more reach | Features in our newsletter, read by 40,000+ people a month. Posts on our social channels and website, which reached 150,000+ page views in its peak month. Meetings with attendees and customers, with an 80% follow-through rate. Plus tickets, space and sessions.
 - Build it together | Your Partner Manager shapes the package with you and runs it with you, through to the festival.
+- See what it did | After the festival you get your leads and an engagement report, then plan what comes next with your Partner Manager.
 
 ## partner.own.eyebrow
 Branding upgrades
@@ -374,7 +375,7 @@ The ClimbGroup Event App
 Your brand in the [[app]] everyone _uses_
 
 ## partner.app.intro
-Everyone at Climb27 plans their days, books meetings and finds their people in the event app. Every partnership includes your profile, map pin and staff listing, appointments, a place in the exhibitor and partner lists, your leads and engagement reporting. Add any of these to be seen there:
+Everyone at Climb27 plans their days, books meetings and finds their people in the event app. Every partnership includes your profile, map pin and staff listing, appointments, a place in the exhibitor and partner lists, your leads and engagement reporting. Want more? Add any of these upgrades to put your brand in front of every attendee in the app:
 
 ## partner.app.items
 - star | Featured listing | One of up to eight partners on the home page, with your videos, documents and links, and chat with attendees.
@@ -396,11 +397,17 @@ Your brand on the [[big]] _screen_
 We run the screens in every session room ourselves, so your brand can open, close and sit beside the sessions people came for.
 
 ## partner.sessions.items
-- video-camera | Before a session | Your video advert on the screens as people take their seats.
-- clapperboard | Your intro | An intro effect or video of your own to open a session, made by you.
-- projector-screen | Sponsored sessions | Your logo on screen through every session you sponsor.
-- spotlight | Your outro | An outro effect or video of your own to close a session, made by you.
-- big-screen | After a session | Your video advert on the screens as people head to their next session.
+- video-camera | Before a session | Your video advert on the screens as people take their seats. | Doors open
+- clapperboard | Your intro | An intro effect or video of your own to open a session, made by you. | Lights down
+- projector-screen | Sponsored sessions | Your logo on screen through every session you sponsor. | On stage
+- spotlight | Your outro | An outro effect or video of your own to close a session, made by you. | Final words
+- big-screen | After a session | Your video advert on the screens as people head to their next session. | Room change
+
+## partner.sessions.card.title
+You make it. We [[play]] it.
+
+## partner.sessions.card.line
+Send us your video or effect and we run it on the screens in every room you book, on cue, all day.
 
 ## partner.headline.eyebrow
 Headline Partner
@@ -451,6 +458,9 @@ Each zone brings together the people one sector needs. Put your name on the zone
 - ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
 - ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
 
+## partner.what.headline
+Put your brand at the heart of [[business]] _growth_
+
 ## partner.setup.eyebrow
 On the day
 
@@ -483,7 +493,7 @@ Add more
 Reach beyond the [[two]] _days_
 
 ## partner.more.items
-- envelope | Newsletter features | One feature in the ClimbUK newsletter with every partnership, and more to add.
+- envelope | Newsletter features | Every partnership includes one feature in the ClimbUK newsletter. Book extra features to stay in front of readers all year.
 - share | Social posts | Posts about you on the ClimbUK channels.
 - stage-pass | Tickets | Bring more of your team and your clients.
 - open-door | Space | More room on the expo floor for your stand or activation.
