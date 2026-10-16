@@ -143,6 +143,17 @@ Describe these as options to build from, like the rest of a partnership. Never s
   - Show each option with a real Climb26 photo of it, never an older edition.
 - **The closing page is the poster.** A full Climb Orange page over a festival photo under the orange fade (a crowd or the stage, never a face), with a huge white headline (one word in Dark Brown italic), a round Dark Brown "Book a call" button under it, and one white card on the right holding the QR code, "Scan to book a call" and the contact lines, centred, with the web address in full (www.climb-uk.com/partnerships). One logo only, Climb27 in mono white, bottom left; the VAT line in a small Dark Brown tag, bottom right. Only large white text sits on the orange. Keep it uncluttered.
 
+## Who was there pack
+
+A short proof pack sent with the sales brochures, built from www.climb-uk.com/who-was-there. It shows the names a reader recognises, not everyone who came:
+
+1. **Speakers people will know**, from every edition: one or two pages.
+2. **Sessions people will know**, from every edition, such as those run with well-known companies: one or two pages.
+3. **Testimonials**: from Climb26 and about ClimbUK in general, as many pages as the quotes need, following the quote rules above.
+4. **In the room at ClimbUK**: one page of the best-known organisations.
+
+Leave out long lists of every exhibitor or attendee: they add length, not proof.
+
 ## The share kit
 
 Every partner, speaker and exhibitor gets a share kit:
