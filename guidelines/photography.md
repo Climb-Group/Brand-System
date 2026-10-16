@@ -31,6 +31,7 @@ For event photographers, designers choosing images and anyone briefing a shoot. 
 - **Photo cards:** title at the top, a line at the bottom, a Dark Brown fade top and bottom, rounded `radius-card` corners.
 - **Photo walls:** a mosaic of squares with one big tile. Dense is better than sparse.
 - **Crop** for the face and the gesture; leave room on one side for the headline.
+- **A fair mix of people.** Across a piece, and in each photo where you can, show the mix of people who come: women and men, ages and backgrounds. Pass over a photo where one group fills the frame.
 - One photo per hero, or on a flyer or poster cover a three-photo header: one big photo with two stacked beside it, the logo on a Dark Brown ground above. No other collages inside a hero, no cut-out people, no duotones that hide faces.
 - Alt text describes what is happening ("A brass band playing on the main stage"), following the Voice section.
 
