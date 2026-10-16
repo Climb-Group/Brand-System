@@ -190,3 +190,9 @@ Partner branding and app shots from the Climb26 photo library. Paths are relativ
 | prep-day_maf-1.jpg | Prep Day | Prep Day/MAF-1.jpg |
 | prep-day_052a0597.jpg | Prep Day | Prep Day/052A0597.jpg |
 | prep-day_052a0617.jpg | Prep Day | Prep Day/052A0617.jpg |
+| natwest_darren-perry_maf-494.jpg | NatWest | Speakers and Stage/MAF-494.jpg |
+| natwest_darren-perry_maf-495.jpg | NatWest | Speakers and Stage/MAF-495.jpg |
+| natwest_darren-perry_maf-496.jpg | NatWest | Speakers and Stage/MAF-496.jpg |
+| natwest_busk_maf-175.jpg | NatWest | Busk your business/MAF-175.jpg |
+| natwest_busk_maf-177.jpg | NatWest | Busk your business/MAF-177.jpg |
+| natwest_busk_maf-178.jpg | NatWest | Busk your business/MAF-178.jpg |
