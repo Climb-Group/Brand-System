@@ -1934,6 +1934,7 @@ Two editions so far
 - Sure Valley Ventures
 - Lifted Ventures
 - EHE Ventures
+- CRSI
 
 ## wwt.back.two.items
 <!-- note: organisation, as the page names it, found in the lists for two of those; Google, Meta and Microsoft on the owner's word -->
@@ -1974,7 +1975,6 @@ Two editions so far
 - CREATICITY
 - Genio
 - Glean
-- CRSI
 - PinPoint Data Science
 - IDS Group
 - Clubit Group

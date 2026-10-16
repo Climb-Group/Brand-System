@@ -133,7 +133,7 @@ GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim
 # the page names them; best known first. Each name is checked against the page when the file is written.
 RETURNERS = {
     "three": ["British Business Bank", "Innovate UK", "West Yorkshire Combined Authority", "Leeds City Council",
-              "Sure Valley Ventures", "Lifted Ventures", "EHE Ventures"],
+              "Sure Valley Ventures", "Lifted Ventures", "EHE Ventures", "CRSI"],  # CRSI: at every edition, on the owner's word (2026-10-16)
     # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.
     "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Channel 4", "UBS", "Thomson Reuters", "Mishcon de Reya",
             "Lewis Silkin", "Northern Gritstone", "ScaleUp Institute", "Creative UK", "Plexal", "YFM Equity Partners",
@@ -141,7 +141,7 @@ RETURNERS = {
             "Health Innovation Yorkshire & Humber", "Blacks Solicitors", "Innovation SuperNetwork", "GSG",
             "Samos Investments", "RTC North", "River Capital", "Panintelligence", "Techbuyer", "XR Games",
             "Tech North Advocates", "Tech SY", "The Data Refinery", "The Tech Dept", "Leeds Community Foundation",
-            "CREATICITY", "Genio", "Glean", "CRSI", "PinPoint Data Science", "IDS Group", "Clubit Group",
+            "CREATICITY", "Genio", "Glean", "PinPoint Data Science", "IDS Group", "Clubit Group",
             "Red Line Foundry", "Mind Body Goals", "Strength in you", "Blossom Training", "Fourth Day", "Yaba",
             "ProspHER", "Writebusinessresults"],
 }
