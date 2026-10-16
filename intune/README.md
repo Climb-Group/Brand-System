@@ -59,8 +59,41 @@ Before the first run, open Intune admin center > Devices > Scripts and remediati
 | `23-Android-Wallpaper.ps1` | Device restrictions "Climb - Android - Launcher wallpaper" | Android fully managed | Only through Microsoft Launcher, so it also needs Launcher deployed from Managed Google Play. Personal phones with a work profile cannot be given a wallpaper. Opt-in. |
 | `30-iOS-Fonts.ps1` | Custom profiles "Climb - iOS - Brand fonts 1" to "4" | iPhone, iPad | Montserrat and Open Sans for the Office apps. Works without supervision. Android has no managed font install. |
 | `40-CompanyPortal-Branding.ps1` | Updates the default Company Portal branding | All | Name ClimbGroup, colour #C55308, ClimbGroup logos, brand image. Pass `-ContactEmail`, `-ContactName` and `-WebsiteUrl` to fill the support details. |
+| `60-OneDrive-Brand-Library.ps1` | Remediations "Climb - Windows - OneDrive sign-in" and "Climb - Windows - Brand library offline"; shell scripts "Climb - macOS - OneDrive" and "Climb - macOS - Brand library sync" | Windows 10 and 11, macOS | Syncs one SharePoint library (the brand centre) with OneDrive for everyone who can open it. See below. |
+| `70-Claude-Tools.ps1` | Remediations "Climb - Windows - Claude app and Git" and "Climb - Windows - Claude Code and brand tools"; shell scripts "Climb - macOS - Claude app and Git" and "Climb - macOS - Claude Code and brand tools" | Windows 10 and 11, macOS | The Claude desktop app, Claude Code, uv, Python 3.13, graphify and a daily-updated copy of the brand system. See below. |
 
 Every script except 40 and 50 takes `-Target AllDevices` (default), `AllUsers`, `Group` with `-GroupName`, or `None` (create it but assign nothing).
+
+## Brand centre library in OneDrive
+
+`60-OneDrive-Brand-Library.ps1` syncs one SharePoint document library to every device whose person can open it. Name the site and the library; the script reads the library ID from Microsoft Graph (it asks for the extra Sites.Read.All permission once):
+
+```bash
+pwsh ./60-OneDrive-Brand-Library.ps1 -SiteUrl https://contoso.sharepoint.com/sites/BrandCenter -LibraryName Documents -WhatIf
+pwsh ./60-OneDrive-Brand-Library.ps1 -SiteUrl https://contoso.sharepoint.com/sites/BrandCenter -LibraryName Documents
+```
+
+Or pass `-LibraryId` (from the library's Sync > Copy library ID) with `-SiteTitle` and `-LibraryTitle`.
+
+- **Windows**: OneDrive signs in with the Windows account, the library is added to its automatic sync (within 8 hours of the next sign-in), and once it has synced the whole folder is marked "Always keep on this device", so every file is on the laptop.
+- **Mac**: the script installs OneDrive when it is missing and opens it at login. OneDrive on Mac has no setting that syncs a library automatically, so the daily script opens the library's sync link until it is synced; each person confirms it once. Mac also has no way to keep files offline by script: each person right-clicks the synced folder in Finder and picks Always Keep on This Device, once.
+- People without access to the library get nothing; OneDrive skips it for them.
+
+## Claude, Claude Code and the brand tools
+
+`70-Claude-Tools.ps1` installs, on Windows and Mac:
+
+- the Claude desktop app for every person (it updates itself),
+- git (Git for Windows; the Apple Command Line Tools on Mac),
+- for each signed-in person: Claude Code (updates itself), uv, Python 3.13 as `python` and `python3`, and graphify,
+- a copy of the brand system at `~/Climb/Brand-System` (Windows: `%USERPROFILE%\Climb\Brand-System`), pulled every day. The pull only fast-forwards; a copy with local edits is fetched and left alone. graphify is set up without git hooks so the copy stays clean.
+
+```bash
+pwsh ./70-Claude-Tools.ps1 -WhatIf
+pwsh ./70-Claude-Tools.ps1
+```
+
+`-PythonVersion` (default 3.13) and `-RepoUrl` (default this repository) change what is installed. Logs: `/Library/Logs/Climb/claude-app.log` and `~/Library/Logs/Climb/claude-tools.log` on Mac; the remediation output in Intune on Windows. The person-level step waits until git is installed, so the first full run can take two days.
 
 ## Default font in Outlook
 
@@ -92,6 +125,8 @@ Intune puts the templates and the brand defaults on Windows and Mac. For the tem
 - The generated bash scripts pass `bash -n`; the generated Apple profiles parse as valid property lists. The iOS font profiles come to 837 KB, 829 KB, 489 KB and 488 KB, under the 1 MB limit.
 - The templates release the scripts expect (templates-v1.2.2, its zip name, layout and SHA-256) was checked on GitHub.
 - Not tested: the brand centre manifest lookup on www.climb-uk.com was not reachable from the test machine, so the wallpaper scripts and script 40 were tested with explicit image URLs. The `-WhatIf` run on your machine will show whether each wallpaper URL resolves.
+
+- 60 and 70 ran for real against the same mock; their generated bash scripts pass `bash -n` and their generated PowerShell parses. The Mac brand tools script ran in a test home with a local copy of this repository: it cloned, then on the next run fetched without touching the copy. Neither has run against the real tenant or a real device yet.
 
 ## Common problems
 

@@ -18,4 +18,4 @@ Use this skill when you plan or write a campaign, social post, email, newsletter
 - Partner share kits: three ready posts per partner (short, medium, long), in the partner's own voice ("We are at Climb27").
 - Ticket messages name the release, its price and its state ("Open now", "Next", "Final"). Team tickets are 25% off: sell why the team should come, then the offer.
 
-Write every piece with the voice skill and pass it through the check copy tool before you offer it.
+Write every piece with the voice skill and pass it through the check copy tool before you offer it. When you hand over files (a share kit, an email, a set of posts), give their words as a copy file too: one Markdown file with each part marked, such as `<!-- @post.short -->`, so the team can review and change the words without opening the designs.

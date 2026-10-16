@@ -21,6 +21,7 @@ import sys
 import zipfile
 
 import brand as B
+import copy_io as C
 
 W, H = 3840, 2160
 FPS = 25
@@ -30,14 +31,30 @@ FPS = 25
 # stills in Resolve 21: Montserrat renders at 0.656 and Open Sans at 0.587 of the CSS size without it.
 LINE_HEIGHT = {"Montserrat": 1.219, "Open Sans": 1.362}
 
-BRANDS = {
-    "ClimbUK": dict(url="CLIMB-UK.COM", line="FIND YOUR PEOPLE",
-                    title=("FIND YOUR", "PEOPLE.")),
-    "ClimbGroup": dict(url="CLIMB-GROUP.COM", line="FIND YOUR PEOPLE",
-                       title=("BUILT FOR UK", "GROWTH.")),
-    "Climb27": dict(url="CLIMB-UK.COM", line="30 JUNE AND 1 JULY 2027",
-                    title=("YOUR BIGGER", "STAGE.")),
-}
+SHARED_COPY = "video/resolve-titles.copy.md"
+
+
+def words(key):
+    """A sample line or a control name every brand shares, from video/resolve-titles.copy.md."""
+    return C.load(SHARED_COPY).one(key).text
+
+
+def word_list(key):
+    """A list from video/resolve-titles.copy.md."""
+    return tuple(C.items(C.load(SHARED_COPY).one(key)))
+
+
+def brand_lines(b):
+    """The brand's own lines, from video/<Brand>/davinci-resolve/<Brand>-titles.copy.md and templates/brands.copy.md:
+    the end card's web address and line in capitals, and the two title card lines."""
+    doc = C.load("video/%s/davinci-resolve/%s-titles.copy.md" % (b, b))
+    info = B.BRANDS[b]
+    line = info["edition"].upper() if info["edition"] else doc.one("end-card.line").text
+    return dict(url=info["url"].upper(), line=line,
+                title=tuple(t.text for t in doc.all("title-card.line")), tagline=info["line"])
+
+
+BRANDS = {b: brand_lines(b) for b in B.BRANDS}
 
 
 # ----------------------------------------------------------------------------------------------- tokens
@@ -186,7 +203,7 @@ def rise_point(delay, x=0.5, y=0.5, rise=RISE):
 
 # ----------------------------------------------------------------------------------------------- parts
 
-VARIANT_NAMES = ("Dark Brown", "Charcoal", "Climb Orange")
+VARIANT_NAMES = word_list("variants")
 
 
 def variant_user_control(names=VARIANT_NAMES):
@@ -195,8 +212,9 @@ def variant_user_control(names=VARIANT_NAMES):
             "\t\t\t\t\t\t\tLINKID_DataType = \"Number\",\n\t\t\t\t\t\t\tINPID_InputControl = \"ComboControl\",\n"
             "\t\t\t\t\t\t\tINP_Integer = true,\n\t\t\t\t\t\t\tINP_Default = 0,\n\t\t\t\t\t\t\tINP_MinScale = 0,\n"
             "\t\t\t\t\t\t\tINP_MaxScale = %d,\n\t\t\t\t\t\t\tCC_LabelPosition = \"Horizontal\",\n"
-            "\t\t\t\t\t\t\tICS_ControlPage = \"Controls\",\n\t\t\t\t\t\t\tLINKS_Name = \"Colour variant\",\n%s"
-            "\t\t\t\t\t\t},\n\t\t\t\t\t},\n" % (len(names) - 1, items))
+            "\t\t\t\t\t\t\tICS_ControlPage = %s,\n\t\t\t\t\t\t\tLINKS_Name = %s,\n%s"
+            "\t\t\t\t\t\t},\n\t\t\t\t\t},\n"
+            % (len(names) - 1, q(words("control.page")), q(words("control.colour-variant")), items))
 
 
 def pick(values):
@@ -227,7 +245,7 @@ def canvas(m, variants=VARIANT_NAMES, ground=None):
     else:
         ins.update({"TopLeftRed": 0, "TopLeftGreen": 0, "TopLeftBlue": 0, "TopLeftAlpha": 0})
     m.tool("Canvas", "Background", ins, extra=variant_user_control(variants))
-    m.control("Canvas", "Variant", "Colour variant", default=0)
+    m.control("Canvas", "Variant", words("control.colour-variant"), default=0)
     return "Canvas"
 
 
@@ -298,16 +316,16 @@ def lower_third(T, brand):
     rise_in(m, "MergeBar", "Canvas", "Bar", 0, (left + bar_w / 2) / W, 1 - bar_y / H, rise=16 / H)
     block(m, "Rule", 12, bar_h, [T["orange"], T["orange"], T["white"]], [1, 1, 1])
     rise_in(m, "MergeRule", "MergeBar", "Rule", 2, (left + 6) / W, 1 - bar_y / H, rise=16 / H)
-    text(m, "NameText", "First name Last name", "Montserrat", "Bold", 104, T["white"], 264, 1746)
+    text(m, "NameText", words("lower-third.name"), "Montserrat", "Bold", 104, T["white"], 264, 1746)
     rise_in(m, "MergeName", "MergeRule", "NameText", 4)
-    text(m, "RoleText", "Role, Company", "Open Sans", "Regular", 60, None, 266, 1854,
+    text(m, "RoleText", words("lower-third.role"), "Open Sans", "Regular", 60, None, 266, 1854,
          var_rgb=[T["light_grey"], T["light_grey"], T["white"]])
     rise_in(m, "MergeRole", "MergeName", "RoleText", 6)
     m.output = "MergeRole"
-    m.control("NameText", "StyledText", "Name", default="First name Last name")
-    m.control("RoleText", "StyledText", "Role and company", default="Role, Company")
-    m.colour_control("NameText", "Name colour", T["white"], prefix="1")
-    m.control("Bar", "Width", "Bar width", default=bar_w)
+    m.control("NameText", "StyledText", words("control.name"), default=words("lower-third.name"))
+    m.control("RoleText", "StyledText", words("control.role"), default=words("lower-third.role"))
+    m.colour_control("NameText", words("control.name-colour"), T["white"], prefix="1")
+    m.control("Bar", "Width", words("control.bar-width"), default=bar_w)
     return m
 
 
@@ -327,25 +345,25 @@ def lower_third_festival(T, brand, logo):
     mark_w = 480
     scaled(m, "MarkSize", "MarkPick", round(mark_w / 2048, 6))
     rise_in(m, "MergeMark", "MergeSlab", "MarkSize", 3, (px + pw - 60 - mark_w / 2) / W, 1 - (py + 80) / H, rise=16 / H)
-    text(m, "FirstName", "FIRST NAME", "Montserrat", "Black", 132, T["white"], 282, 1665)
+    text(m, "FirstName", words("festival.first"), "Montserrat", "Black", 132, T["white"], 282, 1665)
     rise_in(m, "MergeFirst", "MergeMark", "FirstName", 5)
-    text(m, "LastName", "LAST NAME", "Montserrat", "Black", 132, T["white"], 282, 1795)
+    text(m, "LastName", words("festival.last"), "Montserrat", "Black", 132, T["white"], 282, 1795)
     rise_in(m, "MergeLast", "MergeFirst", "LastName", 7)
-    text(m, "RoleText", "Role, Company", "Open Sans", "SemiBold Italic", 58, None, 284, 1940,
+    text(m, "RoleText", words("festival.role"), "Open Sans", "SemiBold Italic", 58, None, 284, 1940,
          var_rgb=[T["tint"], T["tint"], T["white"]])
     rise_in(m, "MergeRole", "MergeLast", "RoleText", 9)
     m.output = "MergeRole"
-    m.control("FirstName", "StyledText", "First name", default="FIRST NAME")
-    m.control("LastName", "StyledText", "Last name", default="LAST NAME")
-    m.control("RoleText", "StyledText", "Role and company", default="Role, Company")
-    m.colour_control("FirstName", "First name colour", T["white"], prefix="1")
-    m.colour_control("LastName", "Last name colour", T["white"], prefix="1")
+    m.control("FirstName", "StyledText", words("control.first-name"), default=words("festival.first"))
+    m.control("LastName", "StyledText", words("control.last-name"), default=words("festival.last"))
+    m.control("RoleText", "StyledText", words("control.role"), default=words("festival.role"))
+    m.colour_control("FirstName", words("control.first-name-colour"), T["white"], prefix="1")
+    m.colour_control("LastName", words("control.last-name-colour"), T["white"], prefix="1")
     return m
 
 
 def title_card(T, brand):
     m = Macro("Climb_TitleCard")
-    names = VARIANT_NAMES + ("Over footage",)
+    names = VARIANT_NAMES + (words("variant.over-footage"),)
     canvas(m, names, ground=([T["dark_brown"], T["charcoal"], T["orange"], T["dark_brown"]], [1, 1, 1, 0]))
     l1, l2 = BRANDS[brand]["title"]
     block(m, "Rule", 256, 24, [T["orange"], T["orange"], T["white"], T["orange"]], [1, 1, 1, 1])
@@ -357,9 +375,9 @@ def title_card(T, brand):
          var_rgb=[T["orange"], T["orange"], T["white"], T["orange"]])
     rise_in(m, "MergeLine2", "MergeLine1", "Line2", 6)
     m.output = "MergeLine2"
-    m.control("Line1", "StyledText", "Line 1", default=l1)
-    m.control("Line2", "StyledText", "Line 2 (one orange word)", default=l2)
-    m.colour_control("Line1", "Line 1 colour", T["white"], prefix="1")
+    m.control("Line1", "StyledText", words("control.line-1"), default=l1)
+    m.control("Line2", "StyledText", words("control.line-2"), default=l2)
+    m.colour_control("Line1", words("control.line-1-colour"), T["white"], prefix="1")
     return m
 
 
@@ -378,7 +396,7 @@ def end_card(T, brand, logo):
                                                                                            num(round(lw / 2048, 6))),
                                                   round(lw / 2048, 6))})
     rise_in(m, "MergeLogo", "Canvas", "LogoSize", 0, 0.5, 1 - (648 + 260) / H)
-    text(m, "Tagline", "The Festival for Business Growth", "Montserrat", "Bold", 92, T["white"], W / 2, 1110,
+    text(m, "Tagline", info["tagline"], "Montserrat", "Bold", 92, T["white"], W / 2, 1110,
          anchor="centre")
     m.tool("TaglineShow", "Merge", {"Background": Link("MergeLogo"), "Foreground": Link("Tagline"),
                                     "Center": Expr(rise_point(1), (0.5, 0.5)),
@@ -395,18 +413,18 @@ def end_card(T, brand, logo):
          var_rgb=[T["white"], T["white"], T["orange"]])
     rise_in(m, "MergeUrl", "MergePill", "Url", 5)
     m.output = "MergeUrl"
-    m.control("Line", "StyledText", "Line", default=info["line"])
-    m.control("Url", "StyledText", "Web address", default=info["url"])
-    m.control("Pill", "Width", "Button width", default=1100 if len(info["url"]) > 12 else 920)
+    m.control("Line", "StyledText", words("control.line"), default=info["line"])
+    m.control("Url", "StyledText", words("control.url"), default=info["url"])
+    m.control("Pill", "Width", words("control.button-width"), default=1100 if len(info["url"]) > 12 else 920)
     return m
 
 
 def sticker(T, brand):
     m = Macro("Climb_Sticker")
-    canvas(m, ("Climb Orange", "Dark Brown"))
+    canvas(m, word_list("sticker.variants"))
     tw, th = 900, 170
     block(m, "Tag", tw, th, [T["orange"], T["dark_brown"]], [1, 1])
-    text(m, "Label", "MAIN STAGE", "Montserrat", "Black", 96, None, tw / 2, th / 2, frame=(tw, th), anchor="centre",
+    text(m, "Label", words("sticker.label"), "Montserrat", "Black", 96, None, tw / 2, th / 2, frame=(tw, th), anchor="centre",
          var_rgb=[T["dark_brown"], T["white"]])
     m.tool("TagLabel", "Merge", {"Background": Link("Tag"), "Foreground": Link("Label")})
     # pop on with the spring curve, cubic-bezier(0.34, 1.56, 0.64, 1), approximated by ease-out back
@@ -417,9 +435,9 @@ def sticker(T, brand):
     merge(m, "MergeTag", "Canvas", "Pop", center=(0.21094, 0.82176),
           blend=Expr("min(max(time/3,0),1)*(1-%s)" % e_out(), 1))
     m.output = "MergeTag"
-    m.control("Label", "StyledText", "Sticker text", default="MAIN STAGE")
-    m.control("Tag", "Width", "Sticker width", default=tw)
-    m.control("MergeTag", "Center", "Position", default=(0.21094, 0.82176))
+    m.control("Label", "StyledText", words("control.sticker-text"), default=words("sticker.label"))
+    m.control("Tag", "Width", words("control.sticker-width"), default=tw)
+    m.control("MergeTag", "Center", words("control.position"), default=(0.21094, 0.82176))
     return m
 
 

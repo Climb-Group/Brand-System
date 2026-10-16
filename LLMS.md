@@ -144,6 +144,15 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 - Every colour and size comes from `tokens/brand.tokens.json`. Never type a value that is not in it.
 - `ai/tools/brand_rules.py` answers brand questions as tools (`call(tool, arguments, venue_announced)`); `ai/kit.json` lists them.
 
+### Copy files and editable sources
+
+- Every built piece keeps its words in `<name>.copy.md` beside its build; the build reads it, so change words there and never in the script. The Climb27 flyers' copy files are in `pdf/flyers/copy/` (`segments/`, `general/` and `shared.copy.md`).
+- Mark design sections with `<!-- @part.slot key=value -->` on their own line; the words up to the next marker or `#`/`##` heading belong to it, a first `###` line is its title, and `<!-- note: ... -->` is for reviewers only. The standard is `.agents/skills/climb-voice/references/copy-files.md`.
+- Read one with `copy_md.load(path)` from `.agents/skills/climb-voice/scripts/copy_md.py`: `doc.one("front.headline").text`, `doc.words("front.subline", default)`, `[(r["icon"], r.title, r.text) for r in doc.all("back.reason")]`. A broken file raises `copy_md.CopyError` with its file and line.
+- `check_copy.py FILE.copy.md` checks the markers, then only the words. `python3 -m unittest discover -s ai/tests` runs it over every copy file in the pack.
+- Every file in the pack (PDF, deck, spreadsheet, document, image, logo) is covered by one copy file: its `output:` line lists paths or globs from the pack root (`pdf/flyers/segments/climb27_flyer_investors_a5.pdf pdf/flyers/segments/svg/climb27_flyer_investors_a5_*.svg`), `files:` adds globs from its own folder, and a wordless image gets an `@alt` section. `python3 .agents/skills/climb-voice/scripts/copy_md.py coverage` lists every file no copy file covers; the tests fail while it lists any.
+- Artwork also ships as a layered SVG beside the finished PDF or PNG, grouped by row and block (`back > reasons > reason-1 > icon, title, text`), with group `id` and `inkscape:label` from the copy file's section names and live text, so it opens in Inkscape and Affinity (`climb-visual-style`, "Editable sources"). In a print build, tag each element with `data-layer="back/reasons/reason-1/title"` and `data-copy="back.reason"`, load `tools/svg/layered_svg.js` in the page and call `layeredSVG()`, then pass the result to `layered_svg.finish(raw, out, pack)` from `tools/svg/layered_svg.py`, which links pack photos with their crop and fades and embeds generated textures. The flyer builds do this through `write_svgs(jobs, pack)` in `pdf/flyers/_build/build.py`.
+
 ### Logos and app icons
 
 - Every logo, icon, favicon and app tile is transparent by default; each also comes on solid White, Dark Brown and Climb Orange. Logo files take the suffix `-on-white`, `-on-ground` or `-on-orange` (`logos/ClimbUK/ClimbUK_icon-monogram-on-ground.svg`); app icons sit in `white/`, `ground/` and `orange/` subfolders of `app-icons/favicons/` and `app-icons/app-tiles/`.
@@ -179,7 +188,7 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 
 ### Device rollout (intune/)
 
-- `intune/` holds PowerShell 7 scripts that create Intune objects named `Climb - ...` through Microsoft Graph beta (`Invoke-MgGraphRequest` only, helpers in `intune/ClimbIntune.psm1`). Every script is idempotent by that name and takes `-WhatIf`. Scripts 10 to 13 fetch the `templates-v<version>` release, so a change to the installers reaches devices only after a new templates release. `50-Outlook-Default-Font.ps1` uses Exchange Online PowerShell, not Graph.
+- `intune/` holds PowerShell 7 scripts that create Intune objects named `Climb - ...` through Microsoft Graph beta (`Invoke-MgGraphRequest` only, helpers in `intune/ClimbIntune.psm1`). Every script is idempotent by that name and takes `-WhatIf`. Scripts 10 to 13 fetch the `templates-v<version>` release, so a change to the installers reaches devices only after a new templates release. `50-Outlook-Default-Font.ps1` uses Exchange Online PowerShell, not Graph. `60-OneDrive-Brand-Library.ps1` resolves a SharePoint library ID through Graph v1.0 (`Connect-ClimbGraph -ExtraScopes Sites.Read.All`) and writes OneDrive's `TenantAutoMount` policy on Windows; macOS has no auto-mount policy, so its user script opens the library's `odopen://sync` link. `70-Claude-Tools.ps1` installs the Claude app, git, Claude Code, uv, Python and graphify and keeps a fast-forward-only clone of this repository at `~/Climb/Brand-System`, with graphify set up `--no-hooks` so the clone never goes dirty.
 - Keep the folder public-safe: no tenant ids or domains, account names or internal security settings. Tenant-specific notes and audits stay outside the repository.
 
 ### Release the templates and motion clips
