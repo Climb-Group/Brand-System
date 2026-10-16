@@ -60,7 +60,7 @@ Before the first run, open Intune admin center > Devices > Scripts and remediati
 | `30-iOS-Fonts.ps1` | Custom profiles "Climb - iOS - Brand fonts 1" to "4" | iPhone, iPad | Montserrat and Open Sans for the Office apps. Works without supervision. Android has no managed font install. |
 | `40-CompanyPortal-Branding.ps1` | Updates the default Company Portal branding | All | Name ClimbGroup, colour #C55308, ClimbGroup logos, brand image. Pass `-ContactEmail`, `-ContactName` and `-WebsiteUrl` to fill the support details. |
 | `60-OneDrive-Brand-Library.ps1` | Remediations "Climb - Windows - OneDrive sign-in" and "Climb - Windows - Brand library offline"; shell scripts "Climb - macOS - OneDrive" and "Climb - macOS - Brand library sync" | Windows 10 and 11, macOS | Syncs one SharePoint library (the brand centre) with OneDrive for everyone who can open it. See below. |
-| `70-Claude-Tools.ps1` | Remediations "Climb - Windows - Claude app and Git" and "Climb - Windows - Claude Code and brand tools"; shell scripts "Climb - macOS - Claude app and Git" and "Climb - macOS - Claude Code and brand tools" | Windows 10 and 11, macOS | The Claude desktop app, Claude Code, uv, Python 3.13, graphify and a daily-updated copy of the brand system. See below. |
+| `70-Claude-Tools.ps1` | Remediations "Climb - Windows - Claude app and Git" and "Climb - Windows - Claude Code and brand tools"; shell scripts "Climb - macOS - Claude app and Git" and "Climb - macOS - Claude Code and brand tools" | Windows 10 and 11, macOS | The Claude desktop app, Claude Code, uv, Python 3.13, graphify, a daily-updated copy of the brand system, a local personal graph and an always-on graphify MCP server. See below. |
 
 Every script except 40 and 50 takes `-Target AllDevices` (default), `AllUsers`, `Group` with `-GroupName`, or `None` (create it but assign nothing).
 
@@ -95,6 +95,23 @@ pwsh ./70-Claude-Tools.ps1
 
 `-PythonVersion` (default 3.13) and `-RepoUrl` (default this repository) change what is installed. Logs: `/Library/Logs/Climb/claude-app.log` and `~/Library/Logs/Climb/claude-tools.log` on Mac; the remediation output in Intune on Windows. The person-level step waits until git is installed, so the first full run can take two days.
 
+### Personal graph and graphify for agents
+
+The same person-level step sets up graphify so agents can read the brand system and the person's own preferences together:
+
+- **Personal preferences, local only.** `preferences.md` in the person's local app data folder (`~/.local/share/climb-preferences` on Mac, `%LOCALAPPDATA%\climb-preferences` on Windows). It never goes into git or a synced folder, so nobody needs a git account. The preferences tool proposed in pull request 35 adds to it; until then agents can edit the file directly.
+- **One combined graph.** Every day the step rebuilds the personal graph and registers it with the brand system graph through `graphify global add`, as `personal-preferences` and `climb-brand-system`.
+- **An always-on MCP server.** graphify serves the combined graph from login: a LaunchAgent (`com.climbgroup.graphify-mcp`) on Mac and a logon task (`Climb graphify MCP`) on Windows, restarted if it stops. It listens on `127.0.0.1` only, on port 8765 (`-McpPort` changes it), and every request needs the person's own key, made once and readable only by them (`~/.local/share/climb-graphify/mcp-key`, Windows `%LOCALAPPDATA%\climb-graphify\mcp-key`).
+- **Claude Code** is registered with the server as `graphify-climb` for every project. **The Claude app** only runs local servers it starts itself, so it gets the same combined graph over stdio under the same name.
+
+Check it on a device:
+
+```bash
+claude mcp get graphify-climb        # Status: Connected
+```
+
+The server log on Mac is `~/Library/Logs/Climb/graphify-mcp.log`. If the port is taken by another program, re-run the script with another `-McpPort`.
+
 ## Default font in Outlook
 
 `50-Outlook-Default-Font.ps1` is not an Intune script: the compose font in Outlook on the web and the new Outlook is a mailbox setting, so it uses Exchange Online PowerShell and an Exchange Administrator account. It sets Open Sans, size 2 (10pt) and Slate #4A5878 on every user mailbox, and installs the ExchangeOnlineManagement module for you if it is missing.
@@ -123,6 +140,7 @@ Intune puts the templates and the brand defaults on Windows and Mac. For the tem
 - 12 and 13 ran with `-WhatIf` and for real against the mock; `set-climb-defaults.sh` ran against a test folder (sets each person once, keeps their old Normal.dotm, skips people who never opened Office). The ClimbGroup letterhead Normal.dotm was opened in LibreOffice, not yet in Word. 50 parses but has not run against Exchange.
 - Every script ran end to end, both with `-WhatIf` and for real, against a mock of the Graph module that records each call, so the bodies and assignment shapes were checked against the Graph beta reference. Nothing has run against the real tenant yet.
 - The generated bash scripts pass `bash -n`; the generated Apple profiles parse as valid property lists. The iOS font profiles come to 837 KB, 829 KB, 489 KB and 488 KB, under the 1 MB limit.
+- 70's generated Mac script ran end to end in a test home with git, Claude Code and graphify (launchctl and xcode-select stubbed): it built the personal graph, registered both graphs, wrote the key (mode 600), the LaunchAgent (a valid property list) and the Claude app entry, and registered Claude Code. Started as the LaunchAgent would, the server refused requests without the key (401), and `claude mcp get graphify-climb` reported Connected. A second run changed nothing. The Windows steps parse but have not run on Windows yet.
 - The templates release the scripts expect (templates-v1.2.2, its zip name, layout and SHA-256) was checked on GitHub.
 - Not tested: the brand centre manifest lookup on www.climb-uk.com was not reachable from the test machine, so the wallpaper scripts and script 40 were tested with explicit image URLs. The `-WhatIf` run on your machine will show whether each wallpaper URL resolves.
 

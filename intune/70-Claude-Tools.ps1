@@ -25,10 +25,22 @@
     queries its committed graph. graphify is set up without its git hooks, so the copy stays
     clean. The daily pull only fast-forwards; a copy with local edits is fetched but left alone.
 
+    The person-level scripts also set up graphify for agents:
+      - A personal preferences graph, local only: a preferences.md file in the person's local
+        app data folder (climb-preferences), indexed and registered next to the brand system
+        graph with graphify global add, so one graph answers for both.
+      - An always-on graphify MCP server over that combined graph, started at login (a
+        LaunchAgent on macOS, a logon scheduled task on Windows). It listens on 127.0.0.1 only
+        and needs a key made for each person and readable only by them. Claude Code is
+        registered with it; the Claude app, which takes local servers it starts itself, gets
+        the same graph over stdio.
+
 .PARAMETER RepoUrl
     Default https://github.com/Climb-Group/Brand-System.git.
 .PARAMETER PythonVersion
     Default 3.13.
+.PARAMETER McpPort
+    Local port for the graphify MCP server. Default 8765.
 .PARAMETER Target
     AllDevices (default), AllUsers, Group or None.
 .PARAMETER GroupName
@@ -41,6 +53,7 @@
 param(
     [string]$RepoUrl = 'https://github.com/Climb-Group/Brand-System.git',
     [string]$PythonVersion = '3.13',
+    [ValidateRange(1024, 65535)][int]$McpPort = 8765,
     [ValidateSet('AllDevices', 'AllUsers', 'Group', 'None')][string]$Target = 'AllDevices',
     [string[]]$GroupName,
     [string]$TenantId,
@@ -118,12 +131,100 @@ if (-not (Test-Path (Join-Path `$Bin 'claude.exe'))) { `$missing += 'Claude Code
 if (-not (Test-Path (Join-Path `$Bin 'uv.exe'))) { `$missing += 'uv' }
 if (-not (Test-Path (Join-Path `$Bin 'python.exe'))) { `$missing += 'Python' }
 if (-not (Test-Path `$Graphify)) { `$missing += 'graphify' }
+if (-not (Get-ScheduledTask -TaskName 'Climb graphify MCP' -ErrorAction SilentlyContinue)) { `$missing += 'graphify MCP service' }
+elseif (-not (Get-NetTCPConnection -LocalAddress 127.0.0.1 -LocalPort $McpPort -State Listen -ErrorAction SilentlyContinue)) { `$missing += 'graphify MCP not running' }
 `$fetch = Join-Path `$Dest '.git\FETCH_HEAD'
 if (-not (Test-Path `$fetch) -or ((Get-Date) - (Get-Item `$fetch).LastWriteTime).TotalHours -gt 20) { `$missing += 'brand system update' }
 if (`$missing) { Write-Output "To do: `$(`$missing -join ', ')"; exit 1 }
 Write-Output 'Claude Code, Python, graphify and the brand system are current'
 exit 0
 "@
+# The personal graph and the always-on graphify MCP service (runs inside remediation 2,
+# after graphify is set up; uses its $Dest, $Bin, $Graphify, $Port and $failed).
+$graphsWin = @'
+$Prefs = Join-Path $env:LOCALAPPDATA 'climb-preferences'
+$State = Join-Path $env:LOCALAPPDATA 'climb-graphify'
+$McpBin = Join-Path (Split-Path $Graphify) 'graphify-mcp.exe'
+$Sh = Join-Path $env:ProgramFiles 'Git\bin\sh.exe'
+$Me = [Security.Principal.WindowsIdentity]::GetCurrent().Name
+$Utf8 = New-Object Text.UTF8Encoding $false
+if ((Test-Path $McpBin) -and (Test-Path (Join-Path $Dest 'tools\graphify\graphify'))) {
+    Push-Location $Dest
+    try {
+        New-Item -ItemType Directory -Force -Path $Prefs, $State | Out-Null
+        # Personal preferences never leave this machine: no git, no sync.
+        $file = Join-Path $Prefs 'preferences.md'
+        if (-not (Test-Path $file)) { [IO.File]::WriteAllText($file, "# My preferences for agents`n", $Utf8) }
+        & $Sh tools/graphify/graphify -- update $Prefs 2>&1 | Out-Null
+        if ($LASTEXITCODE) { throw 'personal graph update' }
+        & $Sh tools/graphify/graphify -- global add (Join-Path $Prefs 'graphify-out\graph.json') --as personal-preferences 2>&1 | Out-Null
+        if ($LASTEXITCODE) { throw 'personal graph registration' }
+        & $Sh tools/graphify/graphify -- global add (Join-Path $Dest 'graphify-out\graph.json') --as climb-brand-system 2>&1 | Out-Null
+        if ($LASTEXITCODE) { throw 'brand system graph registration' }
+        $global = "$(& $Sh tools/graphify/graphify -- global path 2>$null | Select-Object -Last 1)".Trim()
+        if (-not $global -or -not (Test-Path $global)) { throw 'combined graph not found' }
+
+        # One key per person, readable only by them.
+        $keyFile = Join-Path $State 'mcp-key'
+        if (-not (Test-Path $keyFile)) {
+            $bytes = New-Object byte[] 32
+            [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
+            [IO.File]::WriteAllText($keyFile, (-join ($bytes | ForEach-Object { $_.ToString('x2') })), $Utf8)
+            icacls $keyFile /inheritance:r /grant:r "$($Me):(R,W)" | Out-Null
+        }
+        $key = (Get-Content $keyFile -Raw).Trim()
+
+        # The service: a hidden launcher started at logon, restarted if it stops.
+        $launcher = Join-Path $State 'graphify-mcp.ps1'
+        $script = "`$env:GRAPHIFY_API_KEY = (Get-Content '$keyFile' -Raw).Trim()`r`n`$env:GRAPHIFY_QUERY_LOG_DISABLE = '1'`r`n& '$McpBin' --graph '$global' --transport http --host 127.0.0.1 --port $Port`r`n"
+        $changed = -not (Test-Path $launcher) -or ((Get-Content $launcher -Raw) -ne $script)
+        if ($changed) { [IO.File]::WriteAllText($launcher, $script, $Utf8) }
+        $task = 'Climb graphify MCP'
+        if (-not (Get-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue)) {
+            $action = New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$launcher`""
+            $trigger = New-ScheduledTaskTrigger -AtLogOn -User $Me
+            $principal = New-ScheduledTaskPrincipal -UserId $Me -LogonType Interactive -RunLevel Limited
+            $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit ([TimeSpan]::Zero) -RestartCount 999 -RestartInterval (New-TimeSpan -Minutes 1) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -MultipleInstances IgnoreNew
+            Register-ScheduledTask -TaskName $task -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description 'graphify MCP server for the brand system and personal graphs, on 127.0.0.1 only. Managed by Intune.' | Out-Null
+        }
+        $listening = Get-NetTCPConnection -LocalAddress 127.0.0.1 -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
+        if ($changed -and $listening) { Stop-ScheduledTask -TaskName $task; Start-Sleep -Seconds 2; $listening = $null }
+        if (-not $listening) { Start-ScheduledTask -TaskName $task }
+
+        # Claude Code talks to the service.
+        $claudeExe = Join-Path $Bin 'claude.exe'
+        $claudeJson = Join-Path $env:USERPROFILE '.claude.json'
+        if ((Test-Path $claudeExe) -and -not ((Test-Path $claudeJson) -and (Select-String -Path $claudeJson -SimpleMatch "127.0.0.1:$Port/mcp" -Quiet))) {
+            & $claudeExe mcp remove -s user graphify-climb 2>&1 | Out-Null
+            & $claudeExe mcp add -s user --transport http graphify-climb "http://127.0.0.1:$Port/mcp" -H "Authorization: Bearer $key" 2>&1 | Out-Null
+            if ($LASTEXITCODE) { throw 'Claude Code registration' }
+        }
+
+        # The Claude app starts local servers itself, so it gets the same graph over stdio.
+        $entry = [pscustomobject]@{ command = $McpBin; args = @('--graph', $global, '--transport', 'stdio'); env = [pscustomobject]@{ GRAPHIFY_QUERY_LOG_DISABLE = '1' } }
+        $dirs = @(Join-Path $env:APPDATA 'Claude') + @(Get-ChildItem (Join-Path $env:LOCALAPPDATA 'Packages') -Directory -Filter 'Claude_*' -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.FullName 'LocalCache\Roaming\Claude' } | Where-Object { Test-Path $_ })
+        foreach ($dir in $dirs) {
+            $cfgPath = Join-Path $dir 'claude_desktop_config.json'
+            $cfg = if (Test-Path $cfgPath) { Get-Content $cfgPath -Raw | ConvertFrom-Json } else { $null }
+            if (-not $cfg) { $cfg = [pscustomobject]@{} }
+            if (-not $cfg.mcpServers) { $cfg | Add-Member -NotePropertyName mcpServers -NotePropertyValue ([pscustomobject]@{}) -Force }
+            $old = $cfg.mcpServers.'graphify-climb'
+            if (-not $old -or $old.command -ne $McpBin -or ($old.args -join ' ') -ne ($entry.args -join ' ')) {
+                $cfg.mcpServers | Add-Member -NotePropertyName 'graphify-climb' -NotePropertyValue $entry -Force
+                New-Item -ItemType Directory -Force -Path $dir | Out-Null
+                [IO.File]::WriteAllText($cfgPath, ($cfg | ConvertTo-Json -Depth 20), $Utf8)
+            }
+        }
+    } catch {
+        $failed += "graphify MCP: $($_.Exception.Message)"
+    } finally {
+        Pop-Location
+    }
+} else {
+    $failed += 'graphify MCP: graphify or the brand system is not ready yet'
+}
+
+'@
 $remediate2 = @"
 # Climb Claude Code and brand tools: remediation. Generated by 70-Claude-Tools.ps1.
 $common2
@@ -160,8 +261,10 @@ if (-not (Test-Path `$Graphify) -and (Test-Path (Join-Path `$Dest 'tools\graphif
     if (`$LASTEXITCODE) { `$failed += 'graphify setup' }
     Pop-Location
 }
+`$Port = $McpPort
+"@ + "`n" + $graphsWin + @"
 if (`$failed) { Write-Output "Failed: `$(`$failed -join '; ')"; exit 1 }
-Write-Output "Claude Code, Python `$Python, graphify and the brand system at `$Dest are current"
+Write-Output "Claude Code, Python `$Python, graphify, the personal graph, the graphify MCP service and the brand system at `$Dest are current"
 exit 0
 "@
 
@@ -196,6 +299,78 @@ $mac3 = @(
 )
 
 # --- 4. macOS: Claude Code and brand tools (signed-in person) ---------------------------
+# The personal graph and the always-on graphify MCP service, as in the Windows remediation.
+$macGraphs = @'
+GSTATE="$HOME/.local/share/resnovas-graphify"
+PREFS="$HOME/.local/share/climb-preferences"
+STATE="$HOME/.local/share/climb-graphify"
+LABEL="com.climbgroup.graphify-mcp"
+PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+PORT=__PORT__
+W="$DEST/tools/graphify/graphify"
+if [ -x "$GSTATE/bin/graphify-mcp" ] && [ -f "$W" ]; then
+  mkdir -p "$PREFS" "$STATE" "$(dirname "$PLIST")"
+  # Personal preferences never leave this machine: no git, no sync.
+  [ -f "$PREFS/preferences.md" ] || printf '# My preferences for agents\n' > "$PREFS/preferences.md"
+  ( cd "$DEST" && sh "$W" -- update "$PREFS" \
+    && sh "$W" -- global add "$PREFS/graphify-out/graph.json" --as personal-preferences \
+    && sh "$W" -- global add "$DEST/graphify-out/graph.json" --as climb-brand-system ) || FAILED="$FAILED graphs"
+  GLOBAL="$(cd "$DEST" && sh "$W" -- global path 2>/dev/null | tail -n1)"
+  if [ -f "$GLOBAL" ]; then
+    # One key per person, readable only by them.
+    [ -s "$STATE/mcp-key" ] || ( umask 077; openssl rand -hex 32 > "$STATE/mcp-key" )
+    KEY="$(cat "$STATE/mcp-key")"
+    cat > "$STATE/launch.new" <<EOF
+#!/bin/sh
+GRAPHIFY_API_KEY="\$(cat "$STATE/mcp-key")" GRAPHIFY_QUERY_LOG_DISABLE=1 exec "$GSTATE/bin/graphify-mcp" --graph "$GLOBAL" --transport http --host 127.0.0.1 --port $PORT
+EOF
+    cat > "$STATE/plist.new" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>$LABEL</string>
+  <key>ProgramArguments</key><array><string>/bin/sh</string><string>$STATE/graphify-mcp.sh</string></array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/Climb/graphify-mcp.log</string>
+</dict>
+</plist>
+EOF
+    CHANGED=""
+    cmp -s "$STATE/launch.new" "$STATE/graphify-mcp.sh" || { mv "$STATE/launch.new" "$STATE/graphify-mcp.sh"; CHANGED=1; }
+    cmp -s "$STATE/plist.new" "$PLIST" || { mv "$STATE/plist.new" "$PLIST"; CHANGED=1; }
+    rm -f "$STATE/launch.new" "$STATE/plist.new"
+    DOMAIN="gui/$(id -u)"
+    [ -n "$CHANGED" ] && launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null
+    launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1 || launchctl bootstrap "$DOMAIN" "$PLIST" || FAILED="$FAILED mcp-service"
+    # Claude Code talks to the service.
+    if [ -x "$HOME/.local/bin/claude" ] && ! grep -q "127.0.0.1:$PORT/mcp" "$HOME/.claude.json" 2>/dev/null; then
+      claude mcp remove -s user graphify-climb >/dev/null 2>&1
+      claude mcp add -s user --transport http graphify-climb "http://127.0.0.1:$PORT/mcp" -H "Authorization: Bearer $KEY" || FAILED="$FAILED claude-code-mcp"
+    fi
+    # The Claude app starts local servers itself, so it gets the same graph over stdio.
+    python3 - "$HOME/Library/Application Support/Claude/claude_desktop_config.json" "$GSTATE/bin/graphify-mcp" "$GLOBAL" <<'PY' || FAILED="$FAILED claude-app-mcp"
+import json, os, sys
+path, command, graph = sys.argv[1:4]
+config = {}
+if os.path.exists(path):
+    with open(path, encoding="utf-8") as handle:
+        config = json.load(handle)
+entry = {"command": command, "args": ["--graph", graph, "--transport", "stdio"], "env": {"GRAPHIFY_QUERY_LOG_DISABLE": "1"}}
+if config.get("mcpServers", {}).get("graphify-climb") != entry:
+    config.setdefault("mcpServers", {})["graphify-climb"] = entry
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(config, handle, indent=2)
+PY
+  else
+    FAILED="$FAILED combined-graph"
+  fi
+elif [ -f "$W" ]; then
+  FAILED="$FAILED graphify-not-ready"
+fi
+'@
 $mac4 = @(
     '#!/bin/bash'
     '# Climb Claude Code and brand tools for macOS. Generated by 70-Claude-Tools.ps1.'
@@ -227,8 +402,9 @@ $mac4 = @(
     'if [ ! -x "$HOME/.local/share/resnovas-graphify/bin/graphify" ] && [ -f "$DEST/tools/graphify/graphify" ]; then'
     '  (cd "$DEST" && sh tools/graphify/graphify setup --no-hooks) || FAILED="$FAILED graphify"'
     'fi'
+) + ($macGraphs.Replace('__PORT__', [string]$McpPort) -split "`r?`n") + @(
     'if [ -n "$FAILED" ]; then echo "failed:$FAILED"; exit 1; fi'
-    'echo "Claude Code, Python $PYTHON, graphify and the brand system at $DEST are current"'
+    'echo "Claude Code, Python $PYTHON, graphify, the personal graph, the graphify MCP service and the brand system at $DEST are current"'
 )
 
 # --- Write the objects --------------------------------------------------------------
