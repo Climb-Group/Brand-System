@@ -1807,7 +1807,7 @@ Banks, funds, global tech companies and government, on stage at ClimbUK.
 ## wwt.headliners.items
 <!-- note: name | role and organisation as the page gives it, or the public title in TITLES | logo file | sport sticker (blank where none) -->
 - Tracy Brabin | West Yorkshire Combined Authority | west-yorkshire-combined-authority.jpg | 
-- Jonnie Peacock | Paralympic champion sprinter |  | Paralympian
+- Claire Ward | Mayor of the East Midlands | east-midlands-combined-county-authority.png | 
 - Emily Cloke | CEO, Creative UK | creative-uk.png | 
 - Louis Taylor | CEO, British Business Bank | british-business-bank.png | 
 - Erin Platts | Chief Executive Officer, Octopus Investments | octopus-investments.png | 
@@ -1821,7 +1821,7 @@ Banks, funds, global tech companies and government, on stage at ClimbUK.
 - Stephanie Millward | Paralympic champion swimmer |  | Paralympian
 - Jamie Peacock | Former England and Leeds Rhinos captain |  | Rugby league
 - Robbie Hunter Paul | Former Bradford Bulls captain and New Zealand international |  | Rugby league
-- John Gleasure | DAZN | dazn.png | 
+- Jonnie Peacock | Paralympic champion sprinter |  | Paralympian
 
 ## wwt.known.items
 <!-- note: organisation as the page names it | logo file | name | role as the page gives it, without the organisation -->
