@@ -36,7 +36,8 @@ Needs Python 3 with Pillow, numpy and segno, and Node with Playwright (Chromium)
 2. Writes one HTML file per brochure from `pdf/_build/brochures.py` and the copy file, and the Who was there pack from `pdf/_build/who_was_there.py`.
 3. Runs every printed word through the climb-voice copy checker and stops on a hard-rule problem.
 4. Measures every run of text against what sits behind it and stops if any is under WCAG 2.2 AA.
-5. Prints the three PDFs into this folder.
+5. Checks every row of priced cards (`pdf/_build/align.cjs`) and stops if one price starts more than 1px off the others, or runs out of its card. Card titles keep room for two lines, so a title that wraps never moves its price.
+6. Prints the three PDFs into this folder.
 
 Set `KEEP_HTML=1` to keep the HTML files for review.
 

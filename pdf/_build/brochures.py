@@ -315,6 +315,7 @@ CSS = """
 .cardx .body{display:flex;flex-direction:column;flex:1;padding:28px 30px 30px}
 .cardx .k{font-family:Montserrat;font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--tint)}
 .cardx h3{font-family:Montserrat;font-weight:800;font-size:34px;text-transform:uppercase;letter-spacing:-.01em;margin-top:10px;line-height:1}
+.cardx.t2 h3{min-height:2em}
 .cardx .d{font-size:21px;line-height:1.5;color:var(--lg);margin-top:12px}
 .cardx .end{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:6px;font-family:Montserrat;font-weight:800;font-size:40px;color:var(--w)}
 .cardx .end small{font-size:19px;font-weight:700;color:var(--tint)}
@@ -619,7 +620,8 @@ def exhibitor():
                        ("expo", EXPO_PHOTOS[:1]), ("market", (P + "food_and_vendors_01.jpg",) + EXHIBITOR_PHOTOS)):
         unit = C.get("exhibitor.%s.unit" % key)
         # Every card has the same parts in the same order, and the unit line is always there, so the prices form one line.
-        cards.append('<div class="cardx"><div class="img" style="height:200px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
+        # Titles keep room for two lines, so a title that wraps never moves the description or the price.
+        cards.append('<div class="cardx t2"><div class="img" style="height:170px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
                      '<div class="d" style="font-weight:700;color:var(--ch)">%s</div><div class="d" style="margin-top:8px">%s</div>'
                      '<div class="end">%s<small>%s</small></div></div></div>'
                      % (photo(pool.photo(*(names + EXHIBITOR_PHOTOS))), t(C["exhibitor.%s.eyebrow" % key]), t(C["exhibitor.%s.name" % key]),
@@ -833,12 +835,13 @@ def partner():
 
     # 9 Sessions and awards, on Light Grey.
     stage_names = [(P + "roundtable_and_workshops_02.jpg",), (B + "awards_052a3854.jpg",), (P + "stage_speakers_03.jpg",)]
-    offers = "".join('<div class="cardx"><div class="img" style="height:390px">%s</div><div class="body"><h3>%s</h3>'
+    # Titles keep room for two lines and the price sits at the foot of each card, so the prices share one line.
+    offers = "".join('<div class="cardx t2"><div class="img" style="height:340px">%s</div><div class="body"><h3>%s</h3>'
                      '<div class="d">%s</div><div class="end">%s</div></div></div>'
                      % (photo(pool.photo(*(n + PARTNER_PHOTOS))), t(o[1]), t(o[2]), t(o[3]))
                      for n, o in zip(stage_names, C["partner.stage.items"]))
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>'
-             '<div class="cards" style="left:120px;right:120px;top:300px;bottom:130px;grid-template-columns:repeat(3,1fr)">%s</div>'
+             '<div class="cards" style="left:120px;right:120px;top:270px;bottom:120px;grid-template-columns:repeat(3,1fr)">%s</div>'
              % (head(C["partner.stage.eyebrow"], C["partner.stage.headline"], 70, 1680), offers))
     bk.add("gr", inner)
 

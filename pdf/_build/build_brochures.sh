@@ -25,6 +25,8 @@ python3 "$PACK/.agents/skills/climb-voice/scripts/check_copy.py" brochures_print
 CHK=$(mktemp -d)
 node contrast.cjs "$CHK" ./climb27_*.html
 python3 contrast.py "$CHK"
+# Every price in a row of cards on one line, inside its card.
+node align.cjs ./climb27_*.html
 rm -rf "$CHK"
 node render.cjs ./climb27_*.html
 mkdir -p ../brochures
