@@ -163,15 +163,18 @@ def names_page(bk):
 
 
 def back_page(bk):
-    """The organisations that came back: three editions as a lineup, then two editions in columns."""
-    three = '<b style="white-space:nowrap">%s</b>' % '</b><i aria-hidden="true">/</i> <b style="white-space:nowrap">'.join(t(n[0]) for n in C["wwt.back.three.items"])
+    """The organisations that came back: four and three editions as lineups, then two editions in columns."""
+    def lineup(key):
+        return '<b style="white-space:nowrap">%s</b>' % '</b><i aria-hidden="true">/</i> <b style="white-space:nowrap">'.join(t(n[0]) for n in C[key])
+    four, three = lineup("wwt.back.four.items"), lineup("wwt.back.three.items")
     two = "".join("<li>%s</li>" % t(n[0]) for n in C["wwt.back.two.items"])
     bk.add("wh", header("wwt.back", 60, 1100, top=70)
-           + '<div style="position:absolute;left:120px;right:120px;top:300px">'
+           + '<div style="position:absolute;left:120px;right:120px;top:260px">'
              '<div class="grp">%s</div><div class="lineup" style="font-size:30px">%s</div>'
-             '<div class="grp" style="margin-top:40px">%s</div>'
-             '<ul class="names" style="columns:4;column-gap:36px;font-size:23px;margin-top:6px">%s</ul></div>'
-           % (t(C["wwt.back.three.title"]), three, t(C["wwt.back.two.title"]), two))
+             '<div class="grp" style="margin-top:24px">%s</div><div class="lineup" style="font-size:23px;line-height:1.45">%s</div>'
+             '<div class="grp" style="margin-top:24px">%s</div>'
+             '<ul class="names" style="columns:4;column-gap:36px;font-size:21px;margin-top:6px">%s</ul></div>'
+           % (t(C["wwt.back.four.title"]), four, t(C["wwt.back.three.title"]), three, t(C["wwt.back.two.title"]), two))
 
 
 def headliners_page(bk):

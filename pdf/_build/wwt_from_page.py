@@ -34,7 +34,7 @@ SECTIONS = [
     ("featured-logos", "wwt.names", "Partners, speakers and sessions", None),
     ("partners", "wwt.partners", "Partners and exhibitors", "Backed by [[partners]] who _return_"),
     ("sessions", "wwt.sessions", "On stage at Climb26", None),
-    ("climb26-testimonials", "wwt.quotes26", "In their words", None),
+    ("climb26-testimonials", "wwt.quotes26", "In their words", "What people said about _ClimbUK_"),
     ("speakers", "wwt.speakers", "Who spoke", None),
     ("in-the-room", "wwt.room", "Everyone who came", None),
     ("climb25-testimonials", "wwt.quotes25", "In their words", None),
@@ -132,18 +132,22 @@ GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim
 # Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
 # the page names them; best known first. Each name is checked against the page when the file is written.
 RETURNERS = {
-    "three": ["British Business Bank", "Innovate UK", "West Yorkshire Combined Authority", "Leeds City Council",
-              "Sure Valley Ventures", "Lifted Ventures", "EHE Ventures", "CRSI"],  # CRSI: at every edition, on the owner's word (2026-10-16)
+    # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb25 exhibitor build records,
+    # Climb25 quotes and the Climb26 stand sheet and agenda; Climb25 speakers and partners are not in those records,
+    # so a count can be one short. West Yorkshire Combined Authority is in all four; CRSI on the owner's word.
+    "four": ["West Yorkshire Combined Authority", "CRSI"],
+    "three": ["British Business Bank", "Innovate UK", "Channel 4", "UBS", "Creative UK", "Leeds City Council",
+              "Mishcon de Reya", "Lewis Silkin", "Northern Gritstone", "Innovation SuperNetwork", "Sure Valley Ventures",
+              "EHE Ventures", "Lifted Ventures", "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group",
+              "Tech SY", "Leeds Community Foundation", "The Data Refinery", "The Tech Dept", "Glean", "GSG", "CREATICITY",
+              "Yaba", "Writebusinessresults"],
     # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.
-    "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Channel 4", "UBS", "Thomson Reuters", "Mishcon de Reya",
-            "Lewis Silkin", "Northern Gritstone", "ScaleUp Institute", "Creative UK", "Plexal", "YFM Equity Partners",
+    "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Thomson Reuters",
+            "ScaleUp Institute", "Plexal", "YFM Equity Partners",
             "Leeds University Business School", "University of Sheffield", "South Yorkshire Mayoral Combined Authority",
-            "Health Innovation Yorkshire & Humber", "Blacks Solicitors", "Innovation SuperNetwork", "GSG",
-            "Samos Investments", "RTC North", "River Capital", "Panintelligence", "Techbuyer", "XR Games",
-            "Tech North Advocates", "Tech SY", "The Data Refinery", "The Tech Dept", "Leeds Community Foundation",
-            "CREATICITY", "Genio", "Glean", "PinPoint Data Science", "IDS Group", "Clubit Group",
-            "Red Line Foundry", "Mind Body Goals", "Strength in you", "Blossom Training", "Fourth Day", "Yaba",
-            "ProspHER", "Writebusinessresults"],
+            "Health Innovation Yorkshire & Humber", "Blacks Solicitors",
+            "Samos Investments", "RTC North", "Tech North Advocates", "Genio", "PinPoint Data Science", "Clubit Group",
+            "Red Line Foundry", "Mind Body Goals", "Strength in you", "Blossom Training", "Fourth Day", "ProspHER"],
 }
 EDITION = {"wwt.speakers": "Climb26", "wwt.speakers24": "Climb24", "wwt.speakers23": "Climb23"}
 
@@ -160,6 +164,7 @@ PACK = {
     "wwt.back.eyebrow": "Returning partners and guests",
     "wwt.back.headline": "[[Names]] that keep coming _back_",
     "wwt.back.intro": "These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.",
+    "wwt.back.four.title": "Four editions so far",
     "wwt.back.three.title": "Three editions so far",
     "wwt.back.two.title": "Two editions so far",
     "wwt.headliners.eyebrow": "Who spoke",
@@ -171,6 +176,7 @@ PACK = {
     "wwt.sessionsall.eyebrow": "On stage",
     "wwt.sessionsall.headline": "Sessions with names _you know_",
     "wwt.sessionsall.intro": "A few of the ClimbUK sessions run with well-known companies.",
+    "wwt.quotes26.intro": "Partners, exhibitors, speakers and guests on ClimbUK, quoted word for word.",
     "wwt.general.eyebrow": "In their words",
     "wwt.general.headline": "What people say about _ClimbUK_",
     "wwt.general.intro": "Speakers, exhibitors and guests on ClimbUK, quoted word for word.",
@@ -286,17 +292,17 @@ def picks(got, notes):
     out.append(("wwt.general.items", rows))
     notes["wwt.general.items"] = ("quote | name | role and organisation. Word for word from the website, [...] included; "
                                   "a quote in ENDS stops at the end of its words, and BYLINES replaces a role.")
-    for part in ("eyebrow", "headline", "intro", "three.title", "two.title"):
+    for part in ("eyebrow", "headline", "intro", "four.title", "three.title", "two.title"):
         out.append(("wwt.back." + part, PACK["wwt.back." + part]))
     listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
     for group, names in RETURNERS.items():
         for n in names:
             assert n.lower() in listed, "%s is not on the page" % n
         out.append(("wwt.back.%s.items" % group, [[n] for n in names]))
-    notes["wwt.back.three.items"] = ("organisation, as the page names it, found in the page's lists for Climb23, Climb24 "
-                                     "and Climb25 or Climb26")
-    notes["wwt.back.two.items"] = ("organisation, as the page names it, found in the lists for two of those; Google, "
-                                   "Meta and Microsoft on the owner's word")
+    notes["wwt.back.four.items"] = "organisation, as the page names it, at all four editions (see RETURNERS for the sources)"
+    notes["wwt.back.three.items"] = "organisation, as the page names it, at three editions"
+    notes["wwt.back.two.items"] = ("organisation, as the page names it, at two editions; Google, Meta and Microsoft on "
+                                   "the owner's word")
     return out
 
 
@@ -315,7 +321,7 @@ def build(xml):
         out.append((key + ".headline", headline or PACK.get(key + ".headline") or text(re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S).group(1))))
         lead = re.search(r'climb-social-proof-lead">(.*?)</p>', body, re.S)
         if lead:
-            out.append((key + ".intro", text(lead.group(1))))
+            out.append((key + ".intro", PACK.get(key + ".intro") or text(lead.group(1))))
         if "testimonials" in sid:
             kept, left = quotes(body)
             out.append((key + ".items", kept))

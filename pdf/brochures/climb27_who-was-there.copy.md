@@ -343,10 +343,10 @@ A few of the Climb26 sessions run with well-known companies.
 In their words
 
 ## wwt.quotes26.headline
-What people said about _Climb26_
+What people said about _ClimbUK_
 
 ## wwt.quotes26.intro
-Partners, exhibitors, speakers and guests on Climb26, quoted word for word.
+Partners, exhibitors, speakers and guests on ClimbUK, quoted word for word.
 
 ## wwt.quotes26.items
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included. Left out of print because they were written before the festival, not about it: Henrietta Newble, Medilink North of England Limited, Mudrik Zubeir Ahmed, NatWest Group, Phil Witcherley, Rebecca Holden. -->
@@ -1919,39 +1919,60 @@ Returning partners and guests
 ## wwt.back.intro
 These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.
 
+## wwt.back.four.title
+Four editions so far
+
 ## wwt.back.three.title
 Three editions so far
 
 ## wwt.back.two.title
 Two editions so far
 
-## wwt.back.three.items
-<!-- note: organisation, as the page names it, found in the page's lists for Climb23, Climb24 and Climb25 or Climb26 -->
-- British Business Bank
-- Innovate UK
+## wwt.back.four.items
+<!-- note: organisation, as the page names it, at all four editions (see RETURNERS for the sources) -->
 - West Yorkshire Combined Authority
-- Leeds City Council
-- Sure Valley Ventures
-- Lifted Ventures
-- EHE Ventures
 - CRSI
 
+## wwt.back.three.items
+<!-- note: organisation, as the page names it, at three editions -->
+- British Business Bank
+- Innovate UK
+- Channel 4
+- UBS
+- Creative UK
+- Leeds City Council
+- Mishcon de Reya
+- Lewis Silkin
+- Northern Gritstone
+- Innovation SuperNetwork
+- Sure Valley Ventures
+- EHE Ventures
+- Lifted Ventures
+- River Capital
+- Panintelligence
+- Techbuyer
+- XR Games
+- IDS Group
+- Tech SY
+- Leeds Community Foundation
+- The Data Refinery
+- The Tech Dept
+- Glean
+- GSG
+- CREATICITY
+- Yaba
+- Writebusinessresults
+
 ## wwt.back.two.items
-<!-- note: organisation, as the page names it, found in the lists for two of those; Google, Meta and Microsoft on the owner's word -->
+<!-- note: organisation, as the page names it, at two editions; Google, Meta and Microsoft on the owner's word -->
 - Google
 - Meta
 - Microsoft
 - NatWest Group
 - Barclays
 - BBC
-- Channel 4
-- UBS
 - Thomson Reuters
-- Mishcon de Reya
-- Lewis Silkin
-- Northern Gritstone
 - ScaleUp Institute
-- Creative UK
 - Plexal
 - YFM Equity Partners
 - Leeds University Business School
@@ -1959,33 +1980,18 @@ Two editions so far
 - South Yorkshire Mayoral Combined Authority
 - Health Innovation Yorkshire & Humber
 - Blacks Solicitors
-- Innovation SuperNetwork
-- GSG
 - Samos Investments
 - RTC North
-- River Capital
-- Panintelligence
-- Techbuyer
-- XR Games
 - Tech North Advocates
-- Tech SY
-- The Data Refinery
-- The Tech Dept
-- Leeds Community Foundation
-- CREATICITY
 - Genio
-- Glean
 - PinPoint Data Science
-- IDS Group
 - Clubit Group
 - Red Line Foundry
 - Mind Body Goals
 - Strength in you
 - Blossom Training
 - Fourth Day
-- Yaba
 - ProspHER
-- Writebusinessresults
 
 ## wwt.cta.line1
 Join them at
