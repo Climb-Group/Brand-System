@@ -64,6 +64,16 @@ TITLES = {"Claire Ward": ("Mayor of the East Midlands", ""),  # confirmed by the
           "Stephanie Millward": ("Paralympic champion swimmer", "Paralympian"),
           "Jamie Peacock": ("Former England and Leeds Rhinos captain", "Rugby league"),
           "Robbie Hunter Paul": ("Former Bradford Bulls captain and New Zealand international", "Rugby league")}
+# Job titles for speakers the page lists by organisation only, from their current public profiles (2026-10-16), so a
+# title may be newer than the edition they spoke at. A speaker with no title here and none on the page is left off
+# the organisations page, and an organisation left with nobody is left off too.
+KNOWN_TITLES = {"Arun Aggarwal": "Business Development & Partnerships",
+                "Robert Leishman": "Senior Manager, Technical Delivery",
+                "Ian McAleese": "International HR Leader",
+                "Nick Glicher": "Chief Operating Officer, Thomson Reuters Foundation",
+                "Andy Naylor": "Investment Director",
+                "Irene Graham": "CEO",
+                "Jessica Moffatt-Owen": "Senior Lead, Growth"}
 # Speakers from organisations people will know, grouped under the organisation (best known first) with its logo
 # where we hold one. The heading is the organisation as the page names it; the role drops its trailing organisation.
 KNOWN = [("NatWest Group", "natwest-group-plc.png", ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson"]),
@@ -102,8 +112,10 @@ SESSION_LOGOS = {"Customer Acquisition with Meta": ["meta.png"],
                  "Jonnie Peacock": ["natwest-group-plc.png"],
                  "John Gleasure": ["dazn.png"]}
 # Climb23 sessions printed beside the Climb26 ones (a substring of the session's title on the page).
-SESSIONS23 = ["John Gleasure"]
+SESSIONS23 = []
 # Quotes about ClimbUK in general (Climb23 to Climb25, naming no edition): the source names, all their quotes.
+# Quotes the pack ends early, at the end of the given words (the owner's call, 2026-10-16); the rest is left off.
+ENDS = {"Gary Crotaz": "You and the team have exceeded all my (already sky-high) expectations"}
 GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
            "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
            "Talitha Heaton", "Dan Boys", "Harry Baker", "Rachel Fowler",
@@ -129,6 +141,9 @@ EDITION = {"wwt.speakers": "Climb26", "wwt.speakers24": "Climb24", "wwt.speakers
 
 PACK = {
     "wwt.cover.headline": "[[Who]] was _there_",
+    # The page's intro lists every edition; the pack names ClimbUK instead (the owner's call, 2026-10-16).
+    "wwt.cover.intro": ("The partners, exhibitors, speakers and guests who made ClimbUK the festival for business growth, "
+                        "and what they said about it in their own words."),
     "wwt.cta.line1": "Join them at",
     "wwt.cta.line2": "Climb27",
     "wwt.cta.button": "Partner with ClimbUK",
@@ -147,7 +162,7 @@ PACK = {
     "wwt.known.intro": "Banks, funds, global tech companies and government, on stage at ClimbUK.",
     "wwt.sessionsall.eyebrow": "On stage",
     "wwt.sessionsall.headline": "Sessions with names _you know_",
-    "wwt.sessionsall.intro": "A few of the ClimbUK sessions run with well-known companies, from Climb23 to Climb26.",
+    "wwt.sessionsall.intro": "A few of the ClimbUK sessions run with well-known companies.",
     "wwt.general.eyebrow": "In their words",
     "wwt.general.headline": "What people say about _ClimbUK_",
     "wwt.general.intro": "Speakers, exhibitors and guests on ClimbUK, quoted word for word.",
@@ -230,7 +245,7 @@ def picks(got, notes):
     rows = []
     for org, f, names in KNOWN:
         assert org.lower() in listed, "%s is not on the page" % org
-        rows += [[org, logo(f), n, without(role_of(n), org)] for n in names]
+        rows += [[org, logo(f), n, r] for n in names for r in [without(role_of(n), org) or KNOWN_TITLES.get(n, "")] if r]
     out.append(("wwt.known.items", rows))
     notes["wwt.known.items"] = ("organisation as the page names it | logo file | name | role as the page gives it, "
                                 "without the organisation")
@@ -240,20 +255,25 @@ def picks(got, notes):
     def session_logos(title):
         hits = [v for k, v in SESSION_LOGOS.items() if k in title]
         return ", ".join(logo(f) for f in hits[0]) if hits else ""
-    rows = [[s[0], session_logos(s[0]), "Climb26"] for s in got["wwt.sessions.items"]]
+    rows = [[s[0], session_logos(s[0])] for s in got["wwt.sessions.items"]]
     for want in SESSIONS23:
         hit = [r[0] for r in got.get("wwt.sessions23.items", []) if want in r[0]]
         assert hit, "%s is not a Climb23 session on the page" % want
-        rows.append([hit[0], session_logos(hit[0]), "Climb23"])
+        rows.append([hit[0], session_logos(hit[0])])
     out.append(("wwt.sessionsall.items", rows))
-    notes["wwt.sessionsall.items"] = "session title | logo files of the companies it names, where we hold them | edition"
+    notes["wwt.sessionsall.items"] = "session title | logo files of the companies it names, where we hold them"
     for part in ("eyebrow", "headline", "intro"):
         out.append(("wwt.general." + part, PACK["wwt.general." + part]))
     said = [q for k in ("wwt.quotes25.items", "wwt.quotes24.items", "wwt.quotes23.items") for q in got.get(k, [])]
-    rows = [q for g in GENERAL for q in said if q[1] == g]
+    rows = [list(q) for g in GENERAL for q in said if q[1] == g]
+    for q in rows:
+        if q[1] in ENDS:
+            assert q[0].startswith(ENDS[q[1]]), "%s's quote no longer starts with the words in ENDS" % q[1]
+            q[0] = ENDS[q[1]]
     assert {q[1] for q in rows} == set(GENERAL), "a GENERAL source has no quote on the page"
     out.append(("wwt.general.items", rows))
-    notes["wwt.general.items"] = "quote | name | role and organisation. Word for word from the website, [...] included."
+    notes["wwt.general.items"] = ("quote | name | role and organisation. Word for word from the website, [...] included; "
+                                  "a quote in ENDS stops at the end of its words.")
     for part in ("eyebrow", "headline", "intro", "three.title", "two.title"):
         out.append(("wwt.back." + part, PACK["wwt.back." + part]))
     listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
@@ -273,7 +293,7 @@ def build(xml):
     intro = re.search(r'<section aria-labelledby="who-was-there-title".*?</section>', xml, re.S).group(0)
     out = [("wwt.cover.eyebrow", text(re.search(r'climb-eyebrow">(.*?)</p>', intro, re.S).group(1))),
            ("wwt.cover.headline", PACK["wwt.cover.headline"]),
-           ("wwt.cover.intro", text(re.search(r"climb-social-proof-intro\">(.*?)</p>", intro, re.S).group(1)))]
+           ("wwt.cover.intro", PACK["wwt.cover.intro"])]
     notes = {}
     for sid, key, eyebrow, headline in SECTIONS:
         if sid not in secs:

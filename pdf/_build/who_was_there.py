@@ -101,11 +101,11 @@ CSS = """
 .spk h3{font-family:Montserrat;font-weight:800;font-size:27px;line-height:1.1;color:var(--ch)}
 .spk p{font-size:19px;line-height:1.3;color:#404C68}
 .orgs{columns:4;column-gap:36px}
-.org{break-inside:avoid;padding:0 0 20px}
+.org{break-inside:avoid;padding:0 0 30px}
 .org .head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.org .chip{height:46px;min-width:0;max-width:116px;padding:5px 8px;border:2px solid #E9E9E9}
-.org h3{font-family:Montserrat;font-weight:800;font-size:24px;line-height:1.1;color:var(--ch)}
-.org li{list-style:none;font-size:19px;line-height:1.28;color:#404C68;padding:0 0 4px}
+.org .chip{height:56px;min-width:0;max-width:136px;padding:5px 8px;border:2px solid #E9E9E9}
+.org h3{font-family:Montserrat;font-weight:800;font-size:28px;line-height:1.1;color:var(--ch)}
+.org li{list-style:none;font-size:22px;line-height:1.3;color:#404C68;padding:0 0 4px}
 .org li b{font-family:Montserrat;font-weight:700;color:var(--ch)}
 .intro{font-size:26px;line-height:1.5;color:var(--lg)}
 .s.wh .intro,.s.gr .intro{color:#404C68}
@@ -209,7 +209,10 @@ def sessions_page(bk):
         logos = [f.strip() for f in s[1].split(",") if f.strip()]
         chips = ('<div class="chips">%s</div>' % "".join('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(f))
                                                          for f in logos)) if logos else ""
-        cards.append('<div class="sess"><div class="yr">%s</div>%s<h3>%s</h3></div>' % (t(s[2]), chips, t(s[0])))
+        cards.append('<div class="sess">%s<h3>%s</h3></div>' % (chips, t(s[0])))
+    if len(cards) % 4 == 3:
+        # Eleven cards: the last spans two columns so the grid ends level.
+        cards[-1] = cards[-1].replace('class="sess"', 'class="sess" style="grid-column:span 2"', 1)
     grid = ('<div style="position:absolute;left:120px;right:120px;top:280px;bottom:130px;display:grid;'
             'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:16px">%s</div>' % "".join(cards))
     bk.add("ch", header("wwt.sessionsall", 54, 1100, top=70) + grid)

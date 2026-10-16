@@ -12,7 +12,7 @@ Climb23 to Climb26
 [[Who]] was _there_
 
 ## wwt.cover.intro
-The partners, exhibitors, speakers and guests who made Climb23, Climb24, Climb25 and Climb26 The Festival of Business Growth, and what they said about it in their own words.
+The partners, exhibitors, speakers and guests who made ClimbUK the festival for business growth, and what they said about it in their own words.
 
 ## wwt.names.eyebrow
 Partners, speakers and sessions
@@ -1831,27 +1831,22 @@ Banks, funds, global tech companies and government, on stage at ClimbUK.
 - NatWest Group | natwest-group-plc.png | Steve Sankson | Relationship Management Lead
 - Barclays | barclays.png | Mark Northen | Head of Innovation Banking
 - Barclays | barclays.png | Emma Walsh | Head of TMT within Barclays Business Banking
-- Lloyds Banking Group | lloyds-banking-group.png | Arun Aggarwal | 
-- Lloyds Banking Group | lloyds-banking-group.png | Claudine Reid | 
+- Lloyds Banking Group | lloyds-banking-group.png | Arun Aggarwal | Business Development & Partnerships
 - Santander UK | santander-uk.png | Gautam Sehgal | Head of Growth Solutions
 - Coutts | coutts-company.png | Chris Dale | Market Leader
-- UBS | ubs.png | Jane Bototh | 
-- PwC | pwc.png | Robert Leishman | 
+- PwC | pwc.png | Robert Leishman | Senior Manager, Technical Delivery
 - Walmart Marketplace | walmart-marketplace.png | Jason Perry | Director of Seller Success
-- Snowflake | snowflake.png | Ian McAleese | 
-- Thomson Reuters |  | Nick Glicher | 
+- Snowflake | snowflake.png | Ian McAleese | International HR Leader
+- Thomson Reuters |  | Nick Glicher | Chief Operating Officer, Thomson Reuters Foundation
 - British Business Bank | british-business-bank.png | Abs Bulbuliya | Senior Investment Manager
 - Innovate UK | innovate-uk.png | Dean Cook | Director - Business Growth and Global
-- Department for Business and Trade |  | Jonathan Crook | 
 - Octopus Ventures | octopus-investments.png | Jebran Raashed | Investment Manager
 - Mercia Ventures | mercia-asset-management.png | Chris Borrett | Investment Director
-- Northern Gritstone | northern-gritstone.png | Andy Naylor | 
-- ScaleUp Institute |  | Irene Graham | 
+- Northern Gritstone | northern-gritstone.png | Andy Naylor | Investment Director
+- ScaleUp Institute |  | Irene Graham | CEO
 - ScaleUp Institute |  | Josh Robson | Chief Policy Officer
-- Plexal | plexal-group-limited.png | Jessica Moffatt-Owen | 
+- Plexal | plexal-group-limited.png | Jessica Moffatt-Owen | Senior Lead, Growth
 - Freeths | freeths.png | Malin Svanberg Larsson | Partner
-- Squire Patton Boggs | squire-patton-boggs.png | Anna Roughley | 
-- High Value Manufacturing Catapult |  | Alfredo Ramos | 
 - Leeds University Business School | leeds-university-business-school.png | Richard Tunstall | Associate Professor of Enterprise
 
 ## wwt.sessionsall.eyebrow
@@ -1861,22 +1856,21 @@ On stage
 Sessions with names _you know_
 
 ## wwt.sessionsall.intro
-A few of the ClimbUK sessions run with well-known companies, from Climb23 to Climb26.
+A few of the ClimbUK sessions run with well-known companies.
 
 ## wwt.sessionsall.items
-<!-- note: session title | logo files of the companies it names, where we hold them | edition -->
-- Turning Attention into Action: Customer Acquisition with Meta | meta.png | Climb26
-- Scaleup Masterclass with Barclays, Google and Plexal | barclays.png, google.png, plexal-group-limited.png | Climb26
-- Google AI Build Session With Nocodelab.AI | google.png, nocodelab-ai.jpg | Climb26
-- From Prompt To Full Stack Prototype With Lovable and Nocodelab.AI | lovable.png, nocodelab-ai.jpg | Climb26
-- Scaling into the US for Consumer Brands: Lessons for B2C and D2C brands from Walmart Marketplace | walmart-marketplace.png | Climb26
-- Insight to Action - Cracking the US Market with Walmart Marketplace & Infinity Blue Group | walmart-marketplace.png, infinity-blue-group.png | Climb26
-- TikTok Changed the Rules: The New Playbook for Business Growth | tiktok.png | Climb26
-- LinkedIn ROI: What's Working Right Now | linkedin.png | Climb26
-- Solve It in Bricks; LEGO Bricks | lego.png | Climb26
-- Innovation Competition Winners Showcase sponsored by Barclays | barclays.png | Climb26
-- Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png | Climb26
-- John Gleasure - Sport, Media and OTT | dazn.png | Climb23
+<!-- note: session title | logo files of the companies it names, where we hold them -->
+- Turning Attention into Action: Customer Acquisition with Meta | meta.png
+- Scaleup Masterclass with Barclays, Google and Plexal | barclays.png, google.png, plexal-group-limited.png
+- Google AI Build Session With Nocodelab.AI | google.png, nocodelab-ai.jpg
+- From Prompt To Full Stack Prototype With Lovable and Nocodelab.AI | lovable.png, nocodelab-ai.jpg
+- Scaling into the US for Consumer Brands: Lessons for B2C and D2C brands from Walmart Marketplace | walmart-marketplace.png
+- Insight to Action - Cracking the US Market with Walmart Marketplace & Infinity Blue Group | walmart-marketplace.png, infinity-blue-group.png
+- TikTok Changed the Rules: The New Playbook for Business Growth | tiktok.png
+- LinkedIn ROI: What's Working Right Now | linkedin.png
+- Solve It in Bricks; LEGO Bricks | lego.png
+- Innovation Competition Winners Showcase sponsored by Barclays | barclays.png
+- Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png
 
 ## wwt.general.eyebrow
 In their words
@@ -1888,7 +1882,7 @@ What people say about _ClimbUK_
 Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 
 ## wwt.general.items
-<!-- note: quote | name | role and organisation. Word for word from the website, [...] included. -->
+<!-- note: quote | name | role and organisation. Word for word from the website, [...] included; a quote in ENDS stops at the end of its words. -->
 - Climb is a MUST attend event! One of the best networking events in the UK for global business. The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business! [...] on the back of Climb we were able to secure grants & business support from national (Innovate UK) / local (WYCA) government. Climb offers a unique experience to be able to meet with global leaders from all sectors. At Climb, you never know who you might get connected with... | Angus Young | Founder, Net-Zu
 - ClimbUK is a fantastic event and it was definitely worth making the leap across the pond from Los Angeles to attend. There is an electric, entrepreneurial spirit spotlighted at the Climb Events and it was illuminative to attend and a pleasure to participate as a panelist. | Jeff B. Cohen | Esq., Entertainment Attorney, Cohen Gardner LLP
 - Climb is all about building connections and creating opportunities. Being able to meet with the investment community and explore what we can do in our region to increase levels of business investment or seeing businesses we have supported continue to scale and take the next step makes this one of the key events of the year. | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
@@ -1909,7 +1903,7 @@ Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 - The energy, positivity and support in each and every room, whether presentation, workshop, socials in the square or networking was phenomenal - I saw perfect stranger connect through spending time eating their lunch together outside with us, then spend the rest of the day hanging out together. [...] I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. Utterly loved it - thank you. Can we do it each quarter!? | Daniella Wainwright | Founder, Wainwright Consulting
 - Climb25 was truly magical and it was an absolute pleasure to be involved again this year as a speaker. All the talks and workshops I was part of were authentic, inspirational and thought-provoking, and the networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections gained for myself and ProspHER. | Serena Fordham | CEO, ProspHER
 - Plenty of very insightful workshops, roundtables and panel sessions from a great selection of speakers [...] we had an absolute blast. Looking forward to Climb25 already! | Matt Wheeler | Director, madeby.studio
-- You and the team have exceeded all my (already sky-high) expectations for Climb23! Cannot wait for next year! | Gary Crotaz | Climb23 speaker
+- You and the team have exceeded all my (already sky-high) expectations | Gary Crotaz | Climb23 speaker
 
 ## wwt.back.eyebrow
 Returning partners and guests
