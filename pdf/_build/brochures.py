@@ -382,7 +382,7 @@ WHAT_PHOTOS = (B + "expo_floor_maf-238.jpg", B + "expo_floor_maf-342.jpg", B + "
 SAME_MOMENT = {B + "expo_floor_maf-341.jpg", B + "expo_floor_maf-242.jpg", B + "expo_floor_maf-338.jpg"}
 # The exhibitor photo wall in its order; the owner swapped a robots stand, a posed pair and a lone exhibitor for conversations.
 EXHIBITOR_WALL = (B + "expo_floor_busy.jpg", B + "expo_floor_dsc02998.jpg", B + "expo_floor_dsc03001.jpg", B + "expo_floor_maf-228.jpg",
-                  B + "expo_floor_dsc03057.jpg", B + "expo_floor_maf-546.jpg", B + "expo_floor_maf-340.jpg", B + "expo_floor_dsc03116.jpg",
+                  B + "expo_floor_dsc03057.jpg", B + "expo_floor_dsc03194.jpg", B + "expo_floor_maf-340.jpg", B + "expo_floor_dsc04102.jpg",
                   B + "expo_floor_maf-349.jpg", B + "expo_floor_dsc03192.jpg", B + "expo_floor_dsc03208.jpg",
                   B + "expo_floor_maf-231.jpg", B + "expo_floor_020726153climb26.jpg")
 # The owner's picks per stand size, the zones and setup day; handed out only where a page names them.
@@ -685,9 +685,11 @@ def exhibitor():
     # 10 A page of quotes, 11 a page of photos.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
     # An even grid, so no conversation is cut into a thin strip; the table chat lost its faces in a wide tile.
-    # The owner turned down the lone man at MTIF, the robots stand and the posed pairs (the funding stand too) for this wall.
+    # The owner turned down the lone man at MTIF, the robots stand and the posed pairs (the funding stand too) for this wall,
+    # wants exhibitors only (not our story wall) and each stand once (the insurance stand's posed shot is out).
     pool.used.update({B + "expo_floor_maf-245.jpg", B + "expo_floor_dsc03021.jpg", B + "expo_floor_dsc03071.jpg", B + "expo_floor_dsc03139.jpg",
-                      B + "expo_floor_dsc03112.jpg"})
+                      B + "expo_floor_dsc03112.jpg", B + "expo_floor_maf-546.jpg", B + "expo_floor_dsc03116.jpg",
+                      B + "expo_floor_maf-232.jpg", B + "expo_floor_maf-236.jpg"})
     photo_page(bk, "ch", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
                EXHIBITOR_WALL + EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"), rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 
@@ -867,12 +869,16 @@ def partner():
     # 10-11 In their words.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["partner.proof.headline"], 13)
     # Group shots that lose heads in a wide tile; the wall is an even grid so no photo is cut too thin.
-    pool.used.update({B + "stage_maf-665.jpg", P + "joy_02.jpg", P + "joy_03.jpg"})
+    # The owner swapped out the workshop handshake (crowds_04), the dancing workshop (crowds_01) and the arrivals
+    # crowds (maf-30, 020726104); the coffee group on the terrace (maf-479) went too, as crowds_03 is the same terrace.
+    pool.used.update({B + "stage_maf-665.jpg", P + "joy_02.jpg", P + "joy_03.jpg", P + "crowds_04.jpg", P + "crowds_01.jpg",
+                      B + "festival_busy_maf-30.jpg", B + "festival_busy_maf-479.jpg", B + "festival_busy_020726104climb26.jpg"})
     photo_page(bk, "ch", C["partner.proof2.eyebrow"], C["partner.proof2.headline"],
                # One photo of each kind of moment, and only one from the awards.
                (B + "food_052a2866.jpg", B + "outdoor_dsc06298.jpg", P + "stage_speakers_01.jpg",
-                B + "awards_052a4029.jpg", P + "joy_*", B + "festival_busy_maf-479.jpg", P + "crowds_*", B + "festival_busy_maf-30.jpg",
-                P + "audience_at_stage_01.jpg", B + "stage_maf-278.jpg", B + "festival_busy_*", P + "crowds_*") + PARTNER_PHOTOS,
+                B + "awards_052a4029.jpg", P + "crowds_02.jpg", P + "crowds_03.jpg", B + "band_052a4629.jpg",
+                B + "laptop_052a4221.jpg", P + "audience_at_stage_01.jpg", B + "festival_busy_maf-36.jpg",
+                B + "expo_hall_wide.jpg", B + "branding_maf-382.jpg", B + "stage_maf-278.jpg", P + "joy_*", P + "crowds_*") + PARTNER_PHOTOS,
                rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 
     cta(bk, C["partner.cta.line1"], C["partner.cta.line2"], C["partner.cta.button"], C["partner.cta.qr"],
