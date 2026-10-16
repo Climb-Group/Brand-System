@@ -1795,25 +1795,6 @@ Speakers you'll _know_
 ## wwt.headliners.intro
 Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.
 
-## wwt.headliners.items
-<!-- note: name | role and organisation as the page gives it (blank where none) | editions they spoke at -->
-- Tracy Brabin | West Yorkshire Combined Authority | Climb24, Climb26
-- Claire Ward |  | Climb26
-- Alison Lowe | West Yorkshire Combined Authority | Climb23
-- Louis Taylor | CEO, British Business Bank | Climb26
-- Erin Platts | Chief Executive Officer, Octopus Investments | Climb26
-- Jennifer Byrne | Former CTO, Microsoft | Climb23
-- John Gleasure | DAZN | Climb23
-- Spencer Hudson | Sky Sports | Climb23
-- Tanya Arnold | BBC | Climb24, Climb26
-- Jake Zim | Sony | Climb24
-- Hugo Heppell | Channel 4 | Climb24
-- Simon McCoy | News Anchor & Broadcaster, Real McCoy Media Ltd | Climb26
-- Stephanie Millward |  | Climb26
-- Jamie Peacock |  | Climb23
-- Robbie Hunter Paul |  | Climb23
-- Stevie Ward | Mantality | Climb23, Climb24
-
 ## wwt.known.eyebrow
 Who spoke
 
@@ -1823,37 +1804,55 @@ From [[organisations]] you _know_
 ## wwt.known.intro
 Banks, funds, global tech companies and government, on stage at ClimbUK.
 
+## wwt.headliners.items
+<!-- note: name | role and organisation as the page gives it (blank where none) | logo file -->
+- Tracy Brabin | West Yorkshire Combined Authority | west-yorkshire-combined-authority.jpg
+- Claire Ward |  | 
+- Emily Cloke | CEO, Creative UK | creative-uk.png
+- Louis Taylor | CEO, British Business Bank | british-business-bank.png
+- Erin Platts | Chief Executive Officer, Octopus Investments | octopus-investments.png
+- Jennifer Byrne | Former CTO, Microsoft | microsoft.png
+- Chloe Mayirou | Agency Partner, Meta | meta.png
+- Spencer Hudson | Sky Sports | sky-sports.png
+- Tanya Arnold | BBC | bbc.png
+- Jake Zim | Sony | sony.png
+- Hugo Heppell | Channel 4 | channel-4.png
+- Simon McCoy | News Anchor & Broadcaster, Real McCoy Media Ltd | 
+- Stephanie Millward |  | 
+- Jamie Peacock |  | 
+- Robbie Hunter Paul |  | 
+- John Gleasure | DAZN | dazn.png
+
 ## wwt.known.items
-<!-- note: name | role and organisation as the page gives it (blank where none) | editions they spoke at -->
-- Neil Bellamy | Head of Technology, Media, Telecoms (TMT), NatWest Group | Climb26
-- Rita Collins | Regional Director - Corporate Banking, NatWest Group | Climb26
-- Darren Pirie | Head of NatWest Group Accelerator & Strategic Partnerships, NatWest Accelerator | Climb26
-- Steve Sankson | Relationship Management Lead, NatWest | Climb26
-- Mark Northen | Head of Innovation Banking, Barclays Business Banking, Barclays Bank UK PLC | Climb26
-- Emma Walsh | Head of TMT within Barclays Business Banking | Climb26
-- Chloe Mayirou | Agency Partner, Meta | Climb26
-- Jason Perry | Director of Seller Success, Walmart Marketplace | Climb26
-- Chris Dale | Market Leader, Coutts | Climb26
-- Gautam Sehgal | Head of Growth Solutions, Navigator Global at Santander UK Plc | Climb26
-- Abs Bulbuliya | Senior Investment Manager, British Business Bank | Climb26
-- Dean Cook | Director - Business Growth and Global, Innovate UK | Climb26
-- Jebran Raashed | Investment Manager, Octopus Ventures | Climb26
-- Chris Borrett | Investment Director, Mercia Ventures | Climb26
-- Malin Svanberg Larsson | Partner, Freeths | Climb26
-- Ian McAleese | Snowflake Computing | Climb24
-- Robert Leishman | PwC | Climb24
-- Jane Bototh | UBS | Climb24
-- Arun Aggarwal | Lloyds Banking Group | Climb24
-- Claudine Reid | Lloyds Banking Group | Climb24
-- Anna Roughley | Squire Patton Boggs | Climb24
-- Jonathan Crook | Department for Business and Trade | Climb24
-- Jessica Moffatt-Owen | Plexal | Climb24
-- Andy Naylor | Northern Gritstone | Climb24
-- Irene Graham | ScaleUp Institute | Climb24
-- Josh Robson | Chief Policy Officer, ScaleUp Institute | Climb26
-- Alfredo Ramos | High Value Manufacturing Catapult | Climb24
-- Richard Tunstall | Associate Professor of Enterprise, Leeds University Business School | Climb24, Climb26
-- Nick Glicher | Thomson Reuters | Climb23
+<!-- note: organisation as the page names it | logo file | name | role as the page gives it, without the organisation -->
+- NatWest Group | natwest-group-plc.png | Neil Bellamy | Head of Technology, Media, Telecoms (TMT)
+- NatWest Group | natwest-group-plc.png | Rita Collins | Regional Director - Corporate Banking
+- NatWest Group | natwest-group-plc.png | Darren Pirie | Head of NatWest Group Accelerator & Strategic Partnerships
+- NatWest Group | natwest-group-plc.png | Steve Sankson | Relationship Management Lead
+- Barclays | barclays.png | Mark Northen | Head of Innovation Banking
+- Barclays | barclays.png | Emma Walsh | Head of TMT within Barclays Business Banking
+- Lloyds Banking Group | lloyds-banking-group.png | Arun Aggarwal | 
+- Lloyds Banking Group | lloyds-banking-group.png | Claudine Reid | 
+- Santander UK | santander-uk.png | Gautam Sehgal | Head of Growth Solutions
+- Coutts | coutts-company.png | Chris Dale | Market Leader
+- UBS | ubs.png | Jane Bototh | 
+- PwC | pwc.png | Robert Leishman | 
+- Walmart Marketplace | walmart-marketplace.png | Jason Perry | Director of Seller Success
+- Snowflake | snowflake.png | Ian McAleese | 
+- Thomson Reuters |  | Nick Glicher | 
+- British Business Bank | british-business-bank.png | Abs Bulbuliya | Senior Investment Manager
+- Innovate UK | innovate-uk.png | Dean Cook | Director - Business Growth and Global
+- Department for Business and Trade |  | Jonathan Crook | 
+- Octopus Ventures | octopus-investments.png | Jebran Raashed | Investment Manager
+- Mercia Ventures | mercia-asset-management.png | Chris Borrett | Investment Director
+- Northern Gritstone | northern-gritstone.png | Andy Naylor | 
+- ScaleUp Institute |  | Irene Graham | 
+- ScaleUp Institute |  | Josh Robson | Chief Policy Officer
+- Plexal | plexal-group-limited.png | Jessica Moffatt-Owen | 
+- Freeths | freeths.png | Malin Svanberg Larsson | Partner
+- Squire Patton Boggs | squire-patton-boggs.png | Anna Roughley | 
+- High Value Manufacturing Catapult |  | Alfredo Ramos | 
+- Leeds University Business School | leeds-university-business-school.png | Richard Tunstall | Associate Professor of Enterprise
 
 ## wwt.sessionsall.eyebrow
 On stage
@@ -1865,19 +1864,19 @@ Sessions with names _you know_
 A few of the ClimbUK sessions run with well-known companies, from Climb23 to Climb26.
 
 ## wwt.sessionsall.items
-<!-- note: session title | logo file where we hold one | edition -->
+<!-- note: session title | logo files of the companies it names, where we hold them | edition -->
 - Turning Attention into Action: Customer Acquisition with Meta | meta.png | Climb26
-- Scaleup Masterclass with Barclays, Google and Plexal | google.png | Climb26
-- Google AI Build Session With Nocodelab.AI | google.png | Climb26
-- From Prompt To Full Stack Prototype With Lovable and Nocodelab.AI |  | Climb26
-- Scaling into the US for Consumer Brands: Lessons for B2C and D2C brands from Walmart Marketplace |  | Climb26
-- Insight to Action - Cracking the US Market with Walmart Marketplace & Infinity Blue Group |  | Climb26
-- TikTok Changed the Rules: The New Playbook for Business Growth |  | Climb26
-- LinkedIn ROI: What's Working Right Now |  | Climb26
-- Solve It in Bricks; LEGO Bricks |  | Climb26
+- Scaleup Masterclass with Barclays, Google and Plexal | barclays.png, google.png, plexal-group-limited.png | Climb26
+- Google AI Build Session With Nocodelab.AI | google.png, nocodelab-ai.jpg | Climb26
+- From Prompt To Full Stack Prototype With Lovable and Nocodelab.AI | lovable.png, nocodelab-ai.jpg | Climb26
+- Scaling into the US for Consumer Brands: Lessons for B2C and D2C brands from Walmart Marketplace | walmart-marketplace.png | Climb26
+- Insight to Action - Cracking the US Market with Walmart Marketplace & Infinity Blue Group | walmart-marketplace.png, infinity-blue-group.png | Climb26
+- TikTok Changed the Rules: The New Playbook for Business Growth | tiktok.png | Climb26
+- LinkedIn ROI: What's Working Right Now | linkedin.png | Climb26
+- Solve It in Bricks; LEGO Bricks | lego.png | Climb26
 - Innovation Competition Winners Showcase sponsored by Barclays | barclays.png | Climb26
 - Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png | Climb26
-- John Gleasure - Sport, Media and OTT |  | Climb23
+- John Gleasure - Sport, Media and OTT | dazn.png | Climb23
 
 ## wwt.general.eyebrow
 In their words
@@ -1905,6 +1904,11 @@ Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 - ...A FANTASTIC EVENT! GREAT IDEAS, GREAT PEOPLE, GREAT VENUE. | Jennifer Byrne | Former CTO, Microsoft
 - There was a huge focus on building ecosystems which support entrepreneurship, with collaboration at their core. And how accessible and clearly signposted support must be for business owners, making it easy to access market, funding and talent (as opposed to sharing a list of topics or content and asking them to find the right place to start) | Talitha Heaton | MPA Group
 - Seeing young founders making great headways into the business world with ideas dreamt up in bedrooms was very inspiring. | Dan Boys | Founder, Wildfi Ltd
+- I met a TONNE of inspiring founders [...] It's clear to see leeds is an exciting place to be right now. | Harry Baker | Barclays Eagle Labs
+- Really insightful day at #Climb24 with lots of powerful speakers | Rachel Fowler | Professional Services, Lloyds Bank
+- The energy, positivity and support in each and every room, whether presentation, workshop, socials in the square or networking was phenomenal - I saw perfect stranger connect through spending time eating their lunch together outside with us, then spend the rest of the day hanging out together. [...] I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. Utterly loved it - thank you. Can we do it each quarter!? | Daniella Wainwright | Founder, Wainwright Consulting
+- Climb25 was truly magical and it was an absolute pleasure to be involved again this year as a speaker. All the talks and workshops I was part of were authentic, inspirational and thought-provoking, and the networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections gained for myself and ProspHER. | Serena Fordham | CEO, ProspHER
+- Plenty of very insightful workshops, roundtables and panel sessions from a great selection of speakers [...] we had an absolute blast. Looking forward to Climb25 already! | Matt Wheeler | Director, madeby.studio
 
 ## wwt.back.eyebrow
 Returning partners and guests

@@ -20,6 +20,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "brochures", "climb27_who-was-there.copy.md")
+LOGOS = os.path.join(HERE, "..", "brochures", "_build", "logos")
 
 # Sources whose quotes on the page were written before the festival they name.
 BEFORE = {"Phil Witcherley", "Henrietta Newble", "Mudrik Zubeir Ahmed", "Medilink North of England Limited",
@@ -46,23 +47,59 @@ SECTIONS = [
 PARTNER_GROUPS = ["wwt.partners", "wwt.partners24", "wwt.exhibitors24", "wwt.partners23"]
 
 # Speakers people will know, from every edition, with the role and organisation as one of their page entries gives it
-# (the edition named, where they gave a better known one there). The editions they spoke at are added from the page.
-HEADLINERS = [("Tracy Brabin", "wwt.speakers24"), ("Claire Ward", None), ("Alison Lowe", None), ("Louis Taylor", None),
-              ("Erin Platts", None), ("Jennifer Byrne", None), ("John Gleasure", None), ("Spencer Hudson", None),
-              ("Tanya Arnold", "wwt.speakers24"), ("Jake Zim", None), ("Hugo Heppell", None), ("Simon McCoy", None),
-              ("Stephanie Millward", None), ("Jamie Peacock", None), ("Robbie Hunter Paul", None), ("Stevie Ward", "wwt.speakers24")]
-# Speakers from organisations people will know.
-KNOWN = ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson", "Mark Northen", "Emma Walsh", "Chloe Mayirou",
-         "Jason Perry", "Chris Dale", "Gautam Sehgal", "Abs Bulbuliya", "Dean Cook", "Jebran Raashed", "Chris Borrett",
-         "Malin Svanberg Larsson", "Ian McAleese", "Robert Leishman", "Jane Bototh", "Arun Aggarwal", "Claudine Reid",
-         "Anna Roughley", "Jonathan Crook", "Jessica Moffatt-Owen", "Andy Naylor", "Irene Graham", "Josh Robson",
-         "Alfredo Ramos", "Richard Tunstall", "Nick Glicher"]
+# (the edition named, where they gave a better known one there), and their organisation's logo file where we hold one.
+# No editions are printed: the page lists Climb25 and Climb26 together, so an edition list would leave some out.
+HEADLINERS = [("Tracy Brabin", "wwt.speakers24", "west-yorkshire-combined-authority.jpg"), ("Claire Ward", None, ""),
+              ("Emily Cloke", None, "creative-uk.png"), ("Louis Taylor", None, "british-business-bank.png"),
+              ("Erin Platts", None, "octopus-investments.png"), ("Jennifer Byrne", None, "microsoft.png"),
+              ("Chloe Mayirou", None, "meta.png"), ("Spencer Hudson", None, "sky-sports.png"),
+              ("Tanya Arnold", "wwt.speakers24", "bbc.png"), ("Jake Zim", None, "sony.png"),
+              ("Hugo Heppell", None, "channel-4.png"), ("Simon McCoy", None, ""), ("Stephanie Millward", None, ""),
+              ("Jamie Peacock", None, ""), ("Robbie Hunter Paul", None, ""), ("John Gleasure", None, "dazn.png")]
+# Speakers from organisations people will know, grouped under the organisation (best known first) with its logo
+# where we hold one. The heading is the organisation as the page names it; the role drops its trailing organisation.
+KNOWN = [("NatWest Group", "natwest-group-plc.png", ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson"]),
+         ("Barclays", "barclays.png", ["Mark Northen", "Emma Walsh"]),
+         ("Lloyds Banking Group", "lloyds-banking-group.png", ["Arun Aggarwal", "Claudine Reid"]),
+         ("Santander UK", "santander-uk.png", ["Gautam Sehgal"]),
+         ("Coutts", "coutts-company.png", ["Chris Dale"]),
+         ("UBS", "ubs.png", ["Jane Bototh"]),
+         ("PwC", "pwc.png", ["Robert Leishman"]),
+         ("Walmart Marketplace", "walmart-marketplace.png", ["Jason Perry"]),
+         ("Snowflake", "snowflake.png", ["Ian McAleese"]),
+         ("Thomson Reuters", "", ["Nick Glicher"]),
+         ("British Business Bank", "british-business-bank.png", ["Abs Bulbuliya"]),
+         ("Innovate UK", "innovate-uk.png", ["Dean Cook"]),
+         ("Department for Business and Trade", "", ["Jonathan Crook"]),
+         ("Octopus Ventures", "octopus-investments.png", ["Jebran Raashed"]),
+         ("Mercia Ventures", "mercia-asset-management.png", ["Chris Borrett"]),
+         ("Northern Gritstone", "northern-gritstone.png", ["Andy Naylor"]),
+         ("ScaleUp Institute", "", ["Irene Graham", "Josh Robson"]),
+         ("Plexal", "plexal-group-limited.png", ["Jessica Moffatt-Owen"]),
+         ("Freeths", "freeths.png", ["Malin Svanberg Larsson"]),
+         ("Squire Patton Boggs", "squire-patton-boggs.png", ["Anna Roughley"]),
+         ("High Value Manufacturing Catapult", "", ["Alfredo Ramos"]),
+         ("Leeds University Business School", "leeds-university-business-school.png", ["Richard Tunstall"])]
+# Logos for the sessions, by a substring of the title: every company the title names, where we hold its logo.
+SESSION_LOGOS = {"Customer Acquisition with Meta": ["meta.png"],
+                 "Scaleup Masterclass": ["barclays.png", "google.png", "plexal-group-limited.png"],
+                 "Google AI Build Session": ["google.png", "nocodelab-ai.jpg"],
+                 "From Prompt To Full Stack": ["lovable.png", "nocodelab-ai.jpg"],
+                 "Scaling into the US for Consumer Brands": ["walmart-marketplace.png"],
+                 "Insight to Action": ["walmart-marketplace.png", "infinity-blue-group.png"],
+                 "TikTok Changed the Rules": ["tiktok.png"],
+                 "LinkedIn ROI": ["linkedin.png"],
+                 "Solve It in Bricks": ["lego.png"],
+                 "Innovation Competition Winners": ["barclays.png"],
+                 "Jonnie Peacock": ["natwest-group-plc.png"],
+                 "John Gleasure": ["dazn.png"]}
 # Climb23 sessions printed beside the Climb26 ones (a substring of the session's title on the page).
 SESSIONS23 = ["John Gleasure"]
 # Quotes about ClimbUK in general (Climb23 to Climb25, naming no edition): the source names, all their quotes.
 GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
            "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
-           "Talitha Heaton", "Dan Boys"]
+           "Talitha Heaton", "Dan Boys", "Harry Baker", "Rachel Fowler",
+           "Daniella Wainwright", "Serena Fordham", "Matt Wheeler"]
 # Organisations that came to more than one edition, found by matching the page's lists for Climb23, Climb24 and
 # Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
 # the page names them; best known first. Each name is checked against the page when the file is written.
@@ -152,28 +189,50 @@ def picks(got, notes):
     def spoke(name):
         return [(k, r) for k in EDITION if k + ".items" in got for r in got[k + ".items"] if r[0] == name]
 
-    def row(name, prefer=None):
+    def role_of(name, prefer=None):
         hits = spoke(name)
         assert hits, "%s is not a speaker on the page" % name
         role = next((r for k, r in hits if k == prefer), hits[0][1])[1:]
-        years = ", ".join(sorted(EDITION[k] for k, _ in hits))
-        return [name, role[0] if role else "", years]
+        return role[0] if role else ""
 
+    def logo(f):
+        assert not f or os.path.exists(os.path.join(LOGOS, f)), "%s is not in the logos folder" % f
+        return f
+
+    def without(role, org):
+        """The role with the trailing organisation parts that repeat the heading dropped ("..., NatWest Group")."""
+        key = org.split()[0].lower()
+        parts = [x.strip() for x in role.split(",")]
+        while parts and key in parts[-1].lower() and (len(parts) > 1 or parts[-1].lower().startswith(key)):
+            parts.pop()
+        return ", ".join(parts)
+
+    listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
     for key in ("wwt.headliners", "wwt.known"):
         for part in ("eyebrow", "headline", "intro"):
             out.append(("%s.%s" % (key, part), PACK["%s.%s" % (key, part)]))
-        rows = [row(n, p) for n, p in HEADLINERS] if key == "wwt.headliners" else [row(n) for n in KNOWN]
-        out.append((key + ".items", rows))
-        notes[key + ".items"] = "name | role and organisation as the page gives it (blank where none) | editions they spoke at"
+    out.append(("wwt.headliners.items", [[n, role_of(n, p), logo(f)] for n, p, f in HEADLINERS]))
+    notes["wwt.headliners.items"] = "name | role and organisation as the page gives it (blank where none) | logo file"
+    rows = []
+    for org, f, names in KNOWN:
+        assert org.lower() in listed, "%s is not on the page" % org
+        rows += [[org, logo(f), n, without(role_of(n), org)] for n in names]
+    out.append(("wwt.known.items", rows))
+    notes["wwt.known.items"] = ("organisation as the page names it | logo file | name | role as the page gives it, "
+                                "without the organisation")
     for part in ("eyebrow", "headline", "intro"):
         out.append(("wwt.sessionsall." + part, PACK["wwt.sessionsall." + part]))
-    rows = [s + ["Climb26"] if len(s) > 1 else [s[0], "", "Climb26"] for s in got["wwt.sessions.items"]]
+
+    def session_logos(title):
+        hits = [v for k, v in SESSION_LOGOS.items() if k in title]
+        return ", ".join(logo(f) for f in hits[0]) if hits else ""
+    rows = [[s[0], session_logos(s[0]), "Climb26"] for s in got["wwt.sessions.items"]]
     for want in SESSIONS23:
         hit = [r[0] for r in got.get("wwt.sessions23.items", []) if want in r[0]]
         assert hit, "%s is not a Climb23 session on the page" % want
-        rows.append([hit[0], "", "Climb23"])
+        rows.append([hit[0], session_logos(hit[0]), "Climb23"])
     out.append(("wwt.sessionsall.items", rows))
-    notes["wwt.sessionsall.items"] = "session title | logo file where we hold one | edition"
+    notes["wwt.sessionsall.items"] = "session title | logo files of the companies it names, where we hold them | edition"
     for part in ("eyebrow", "headline", "intro"):
         out.append(("wwt.general." + part, PACK["wwt.general." + part]))
     said = [q for k in ("wwt.quotes25.items", "wwt.quotes24.items", "wwt.quotes23.items") for q in got.get(k, [])]

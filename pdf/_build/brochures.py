@@ -37,7 +37,7 @@ def load_copy(path=COPY):
         body = body.strip()
         lines = [ln.strip() for ln in body.splitlines() if ln.strip()]
         if lines and all(ln.startswith("- ") for ln in lines):
-            out[key.strip()] = [[p.strip() for p in ln[2:].split(" | ")] for ln in lines]
+            out[key.strip()] = [[p.strip() for p in (ln[2:] + " ").split(" | ")] for ln in lines]
         else:
             out[key.strip()] = " ".join(lines)
     return out

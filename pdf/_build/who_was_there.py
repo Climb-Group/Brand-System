@@ -51,13 +51,16 @@ def balance(fixed, singles):
     return pages
 
 
-# Climb26: the sources quoted twice open the first of its three quote pages and close the last (six pages apart);
-# the singles even the pages out. The quotes about ClimbUK in general the same over two pages, with Mitchell McCombe
-# on both.
+# Climb26: the sources quoted twice open the first of its two quote pages and close the last (six pages apart);
+# the singles even the pages out. The quotes about ClimbUK in general the same over three pages, with Mitchell McCombe
+# on the first and the last.
+# The two longest Climb26 quotes speak about ClimbUK as a whole, so they go with the general quotes, which have three
+# pages, and the two Climb26 pages keep room for the rest.
 T26, O26, S26 = split_pairs(Q26)
-P26 = balance([T26, [], S26], O26)
+LONG26 = [q for q in O26 if len(q[0]) > 600]
+P26 = balance([T26, S26], [q for q in O26 if q not in LONG26])
 TG, OG, SG = split_pairs(QG)
-PG = balance([TG, SG], OG)
+PG = balance([TG, [], SG], OG + LONG26)
 
 CSS = """
 .ltile{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;
@@ -79,19 +82,27 @@ CSS = """
 .s.wh .grp{color:var(--ot)} .s.gr .grp{color:#B04902} .s.ch .grp{color:var(--tint)}
 .sess{display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);
   border-top:6px solid var(--o);border-radius:14px;padding:18px 24px}
-.sess .chip{height:52px;width:130px;background:#fff;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:center}
-.sess .chip img{max-height:100%;max-width:100%;object-fit:contain}
+.chips{display:flex;gap:8px}
+.sess .chip{height:46px;min-width:52px;max-width:108px;padding:6px 10px}
+.chip{height:52px;min-width:72px;max-width:150px;background:#fff;border-radius:8px;padding:8px 12px;display:flex;align-items:center;
+  justify-content:center}
+.chip img{max-height:100%;max-width:100%;object-fit:contain}
 .sess h3{font-family:Montserrat;font-weight:800;font-size:21px;line-height:1.2;color:var(--w)}
 .yr{font-family:Montserrat;font-weight:800;font-size:17px;letter-spacing:.12em;text-transform:uppercase}
-.s.ch .yr{color:var(--tint)} .s.wh .yr{color:var(--ot)} .s .spk .yr{color:#B04902}
-.spk{display:flex;flex-direction:column;justify-content:center;gap:6px;background:var(--lg);border-radius:14px;padding:18px 24px;
+.s.ch .yr{color:var(--tint)} .s.wh .yr{color:var(--ot)}
+.spk{display:flex;align-items:center;gap:18px;background:var(--lg);border-radius:14px;padding:18px 22px;
   border-left:6px solid var(--o)}
-.spk h3{font-family:Montserrat;font-weight:800;font-size:28px;line-height:1.1;color:var(--ch)}
+.spk .who{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.spk .chip{flex:none;width:92px;min-width:0;height:72px;padding:8px}
+.spk h3{font-family:Montserrat;font-weight:800;font-size:27px;line-height:1.1;color:var(--ch)}
 .spk p{font-size:19px;line-height:1.3;color:#404C68}
-.spl{columns:4;column-gap:36px}
-.spl li{list-style:none;break-inside:avoid;padding:0 0 16px;font-size:19px;line-height:1.3;color:#404C68}
-.spl b{display:block;font-family:Montserrat;font-weight:800;font-size:25px;color:var(--ch)}
-.spl em{font-style:normal;font-family:Montserrat;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--ot);white-space:nowrap}
+.orgs{columns:4;column-gap:36px}
+.org{break-inside:avoid;padding:0 0 20px}
+.org .head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.org .chip{height:46px;min-width:0;max-width:116px;padding:5px 8px;border:2px solid #E9E9E9}
+.org h3{font-family:Montserrat;font-weight:800;font-size:24px;line-height:1.1;color:var(--ch)}
+.org li{list-style:none;font-size:19px;line-height:1.28;color:#404C68;padding:0 0 4px}
+.org li b{font-family:Montserrat;font-weight:700;color:var(--ch)}
 .intro{font-size:26px;line-height:1.5;color:var(--lg)}
 .s.wh .intro,.s.gr .intro{color:#404C68}
 """
@@ -161,25 +172,38 @@ def back_page(bk):
 
 def headliners_page(bk):
     """Speakers people will know, one card each, with the editions they spoke at."""
-    cards = "".join('<div class="spk"><div class="yr">%s</div><h3>%s</h3><p>%s</p></div>'
-                    % (t(r[2]), t(r[0]), t(r[1])) for r in C["wwt.headliners.items"])
+    def card(r):
+        chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(r[2]))) if len(r) > 2 and r[2] else ""
+        role = "<p>%s</p>" % t(r[1]) if r[1] else ""
+        return '<div class="spk"><div class="who"><h3>%s</h3>%s</div>%s</div>' % (t(r[0]), role, chip)
+    cards = "".join(card(r) for r in C["wwt.headliners.items"])
     bk.add("wh", header("wwt.headliners", 60, 1100, top=70)
            + '<div style="position:absolute;left:120px;right:120px;top:290px;bottom:130px;display:grid;'
              'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:16px">%s</div>' % cards)
 
 
 def known_page(bk):
-    """Speakers from organisations people will know, as a lineup with the edition after each role."""
-    rows = "".join('<li><b>%s</b> <span>%s</span> <em>%s</em></li>' % (t(r[0]), t(r[1]), t(r[2])) for r in C["wwt.known.items"])
+    """Speakers grouped under their organisation, best known first, with its logo where we hold one."""
+    groups = {}
+    for org, logo, name, role in (r + [""] * (4 - len(r)) for r in C["wwt.known.items"]):
+        groups.setdefault(org, (logo, []))[1].append((name, role))
+    blocks = []
+    for org, (logo, people) in groups.items():
+        chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(logo))) if logo else ""
+        rows = "".join("<li><b>%s</b>%s</li>" % (t(n), (", " + t(r)) if r else "") for n, r in people)
+        blocks.append('<div class="org"><div class="head">%s<h3>%s</h3></div><ul>%s</ul></div>' % (chip, t(org), rows))
     bk.add("wh", header("wwt.known", 54, 1100, top=70)
-           + '<ul class="spl" style="position:absolute;left:120px;right:120px;top:250px">%s</ul>' % rows)
+           + '<div class="orgs" style="position:absolute;left:120px;right:120px;top:240px;bottom:140px;column-fill:balance">%s</div>'
+           % "".join(blocks))
 
 
 def sessions_page(bk):
     cards = []
     for s in C["wwt.sessionsall.items"]:
-        chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(s[1]))) if s[1] else ""
-        cards.append('<div class="sess"><div class="yr">%s</div>%s<h3>%s</h3></div>' % (t(s[2]), chip, t(s[0])))
+        logos = [f.strip() for f in s[1].split(",") if f.strip()]
+        chips = ('<div class="chips">%s</div>' % "".join('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(f))
+                                                         for f in logos)) if logos else ""
+        cards.append('<div class="sess"><div class="yr">%s</div>%s<h3>%s</h3></div>' % (t(s[2]), chips, t(s[0])))
     grid = ('<div style="position:absolute;left:120px;right:120px;top:280px;bottom:130px;display:grid;'
             'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:16px">%s</div>' % "".join(cards))
     bk.add("ch", header("wwt.sessionsall", 54, 1100, top=70) + grid)
@@ -204,7 +228,9 @@ def quote_page(bk, cls, key, qs, first):
         # Many short quotes: four narrower columns.
         bk.add(cls, head + b.stretch_cols(got, 4, style, lambda q: b.qsize(q, 21, 19), box, 16, "20px 24px"))
         return
-    size = (lambda q: b.qsize(q, 30, 22)) if sum(len(q[0]) for q in got) < 1300 else (lambda q: b.qsize(q, 23, 20))
+    chars = sum(len(q[0]) for q in got)
+    size = ((lambda q: b.qsize(q, 30, 22)) if chars < 1300 else (lambda q: b.qsize(q, 23, 20)) if chars < 1900
+            else (lambda q: b.qsize(q, 21, 19)))
     bk.add(cls, head + b.stretch_cols(got, 3, style, size, box))
 
 
@@ -235,15 +261,15 @@ def build():
     cover(bk)                                                       # 1
     names_page(bk)                                                  # 2 in the room
     back_page(bk)                                                   # 3 who came back
-    # The Climb26 quotes on pages 4, 8 and 10 (a source quoted twice on 4 and 10); the general quotes on 6 and 11.
+    # The Climb26 quotes on pages 4 and 10 (a source quoted twice on both); the general quotes on 6, 8 and 11.
     quote_page(bk, "ch", "wwt.quotes26", P26[0], True)              # 4
     headliners_page(bk)                                             # 5
     quote_page(bk, "gr", "wwt.general", PG[0], True)                # 6
     known_page(bk)                                                  # 7
-    quote_page(bk, "gr", "wwt.quotes26", P26[1], False)             # 8
+    quote_page(bk, "gr", "wwt.general", PG[1], False)               # 8
     sessions_page(bk)                                               # 9
-    quote_page(bk, "wh", "wwt.quotes26", P26[2], False)             # 10
-    quote_page(bk, "gr", "wwt.general", PG[1], False)               # 11
+    quote_page(bk, "wh", "wwt.quotes26", P26[1], False)             # 10
+    quote_page(bk, "gr", "wwt.general", PG[2], False)               # 11
     close(bk)                                                       # 12
     return bk
 
