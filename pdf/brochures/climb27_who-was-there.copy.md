@@ -1933,12 +1933,12 @@ Two editions so far
 - CRSI
 - Leeds City Council
 - West Yorkshire Combined Authority
-
-## wwt.back.three.items
-<!-- note: organisation, as the page names it, at three editions -->
 - British Business Bank
 - Innovate UK
 - Creative UK
+
+## wwt.back.three.items
+<!-- note: organisation, as the page names it, at three editions -->
 - Channel 4
 - UBS
 - Mishcon de Reya

@@ -135,9 +135,11 @@ RETURNERS = {
     # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb24 sponsors tracker, the
     # Climb25 agenda mastersheet and exhibitor build records, and the Climb26 stand sheet and agenda (the per-edition
     # list is photos-intake/who-was-there-returners.csv on the photo intake branch). The Climb23 records hold only
-    # partners, speakers and sessions, so a count can still be one short there. CRSI is in all four on the owner's word.
-    "four": ["CRSI", "Leeds City Council", "West Yorkshire Combined Authority"],
-    "three": ["British Business Bank", "Innovate UK", "Creative UK", "Channel 4", "UBS", "Mishcon de Reya",
+    # partners, speakers and sessions, so a count can still be one short there. CRSI, British Business Bank, Innovate UK
+    # and Creative UK are in all four on the owner's word (2026-10-16); the team may name more.
+    "four": ["CRSI", "Leeds City Council", "West Yorkshire Combined Authority", "British Business Bank", "Innovate UK",
+             "Creative UK"],
+    "three": ["Channel 4", "UBS", "Mishcon de Reya",
               "Lewis Silkin", "Northern Gritstone", "Innovation SuperNetwork", "Plexal",
               "Manchester Metropolitan University", "Sure Valley Ventures", "EHE Ventures", "Lifted Ventures",
               "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group", "Tech SY",
