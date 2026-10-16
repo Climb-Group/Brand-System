@@ -134,11 +134,13 @@ GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim
 RETURNERS = {
     # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb25 exhibitor build records,
     # Climb25 quotes and the Climb26 stand sheet and agenda; Climb25 speakers and partners are not in those records,
-    # so a count can be one short. West Yorkshire Combined Authority is in all four; CRSI on the owner's word.
-    "four": ["West Yorkshire Combined Authority", "CRSI"],
-    "three": ["British Business Bank", "Innovate UK", "Channel 4", "UBS", "Creative UK", "Leeds City Council",
-              "Mishcon de Reya", "Lewis Silkin", "Northern Gritstone", "Innovation SuperNetwork", "Sure Valley Ventures",
-              "EHE Ventures", "Lifted Ventures", "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group",
+    # so a count can be one short. West Yorkshire Combined Authority is in all four; CRSI on the owner's word. The owner
+    # says more Climb23 names still come back (2026-10-16): those at Climb23, Climb24 and Climb26 whose only gap is
+    # the missing Climb25 speaker and partner records count as four.
+    "four": ["West Yorkshire Combined Authority", "CRSI", "British Business Bank", "Innovate UK", "Leeds City Council",
+             "EHE Ventures", "Lifted Ventures"],
+    "three": ["Channel 4", "UBS", "Creative UK", "Mishcon de Reya", "Lewis Silkin", "Northern Gritstone",
+              "Innovation SuperNetwork", "Sure Valley Ventures", "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group",
               "Tech SY", "Leeds Community Foundation", "The Data Refinery", "The Tech Dept", "Glean", "GSG", "CREATICITY",
               "Yaba", "Writebusinessresults"],
     # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.

@@ -1932,22 +1932,22 @@ Two editions so far
 <!-- note: organisation, as the page names it, at all four editions (see RETURNERS for the sources) -->
 - West Yorkshire Combined Authority
 - CRSI
+- British Business Bank
+- Innovate UK
+- Leeds City Council
+- EHE Ventures
+- Lifted Ventures
 
 ## wwt.back.three.items
 <!-- note: organisation, as the page names it, at three editions -->
-- British Business Bank
-- Innovate UK
 - Channel 4
 - UBS
 - Creative UK
-- Leeds City Council
 - Mishcon de Reya
 - Lewis Silkin
 - Northern Gritstone
 - Innovation SuperNetwork
 - Sure Valley Ventures
-- EHE Ventures
-- Lifted Ventures
 - River Capital
 - Panintelligence
 - Techbuyer
