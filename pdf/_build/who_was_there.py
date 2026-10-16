@@ -210,9 +210,6 @@ def sessions_page(bk):
         chips = ('<div class="chips">%s</div>' % "".join('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(f))
                                                          for f in logos)) if logos else ""
         cards.append('<div class="sess">%s<h3>%s</h3></div>' % (chips, t(s[0])))
-    if len(cards) % 4 == 3:
-        # Eleven cards: the last spans two columns so the grid ends level.
-        cards[-1] = cards[-1].replace('class="sess"', 'class="sess" style="grid-column:span 2"', 1)
     grid = ('<div style="position:absolute;left:120px;right:120px;top:280px;bottom:130px;display:grid;'
             'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:16px">%s</div>' % "".join(cards))
     bk.add("ch", header("wwt.sessionsall", 54, 1100, top=70) + grid)

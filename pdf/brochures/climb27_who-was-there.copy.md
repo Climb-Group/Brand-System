@@ -24,7 +24,7 @@ In the room at _ClimbUK_
 Banks, funds, universities, combined authorities, global tech companies and growing firms partnered, spoke and exhibited at ClimbUK.
 
 ## wwt.names.logos
-<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page -->
+<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos -->
 - natwest-group-plc.png | Natwest Group
 - barclays.png | Barclays
 - british-business-bank.png | British Business Bank
@@ -105,6 +105,10 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - yfm-equity-partners.png | YFM Equity Partners
 - youbee-media-limited.jpg | Youbee Media
 - zally.png | Zally
+- ebay.png | eBay
+- bbc-sport.png | BBC Sport
+- coutts-company.png | Coutts & Company
+- digital-catapult.png | Digital Catapult
 
 ## wwt.partners.eyebrow
 Partners and exhibitors
@@ -1871,6 +1875,7 @@ A few of the ClimbUK sessions run with well-known companies.
 - Solve It in Bricks; LEGO Bricks | lego.png
 - Innovation Competition Winners Showcase sponsored by Barclays | barclays.png
 - Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png
+- Climb26 Opening Ceremony | innovate-uk.png, creative-uk.png
 
 ## wwt.general.eyebrow
 In their words
@@ -1882,7 +1887,7 @@ What people say about _ClimbUK_
 Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 
 ## wwt.general.items
-<!-- note: quote | name | role and organisation. Word for word from the website, [...] included; a quote in ENDS stops at the end of its words. -->
+<!-- note: quote | name | role and organisation. Word for word from the website, [...] included; a quote in ENDS stops at the end of its words, and BYLINES replaces a role. -->
 - Climb is a MUST attend event! One of the best networking events in the UK for global business. The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business! [...] on the back of Climb we were able to secure grants & business support from national (Innovate UK) / local (WYCA) government. Climb offers a unique experience to be able to meet with global leaders from all sectors. At Climb, you never know who you might get connected with... | Angus Young | Founder, Net-Zu
 - ClimbUK is a fantastic event and it was definitely worth making the leap across the pond from Los Angeles to attend. There is an electric, entrepreneurial spirit spotlighted at the Climb Events and it was illuminative to attend and a pleasure to participate as a panelist. | Jeff B. Cohen | Esq., Entertainment Attorney, Cohen Gardner LLP
 - Climb is all about building connections and creating opportunities. Being able to meet with the investment community and explore what we can do in our region to increase levels of business investment or seeing businesses we have supported continue to scale and take the next step makes this one of the key events of the year. | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
@@ -1903,7 +1908,7 @@ Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 - The energy, positivity and support in each and every room, whether presentation, workshop, socials in the square or networking was phenomenal - I saw perfect stranger connect through spending time eating their lunch together outside with us, then spend the rest of the day hanging out together. [...] I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. Utterly loved it - thank you. Can we do it each quarter!? | Daniella Wainwright | Founder, Wainwright Consulting
 - Climb25 was truly magical and it was an absolute pleasure to be involved again this year as a speaker. All the talks and workshops I was part of were authentic, inspirational and thought-provoking, and the networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections gained for myself and ProspHER. | Serena Fordham | CEO, ProspHER
 - Plenty of very insightful workshops, roundtables and panel sessions from a great selection of speakers [...] we had an absolute blast. Looking forward to Climb25 already! | Matt Wheeler | Director, madeby.studio
-- You and the team have exceeded all my (already sky-high) expectations | Gary Crotaz | Climb23 speaker
+- You and the team have exceeded all my (already sky-high) expectations | Gary Crotaz | Speaker
 
 ## wwt.back.eyebrow
 Returning partners and guests
@@ -1915,10 +1920,10 @@ Returning partners and guests
 These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.
 
 ## wwt.back.three.title
-Back for three editions
+Three editions so far
 
 ## wwt.back.two.title
-Back for a second edition
+Two editions so far
 
 ## wwt.back.three.items
 <!-- note: organisation, as the page names it, found in the page's lists for Climb23, Climb24 and Climb25 or Climb26 -->

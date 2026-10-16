@@ -22,6 +22,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "brochures", "climb27_who-was-there.copy.md")
 LOGOS = os.path.join(HERE, "..", "brochures", "_build", "logos")
 
+# In-the-room logos added to the page's featured logos so page 2 ends on a full row.
+NAMES_FILL = ["ebay.png", "bbc-sport.png", "coutts-company.png", "digital-catapult.png"]
+
 # Sources whose quotes on the page were written before the festival they name.
 BEFORE = {"Phil Witcherley", "Henrietta Newble", "Mudrik Zubeir Ahmed", "Medilink North of England Limited",
           "NatWest Group", "Rebecca Holden"}
@@ -113,9 +116,14 @@ SESSION_LOGOS = {"Customer Acquisition with Meta": ["meta.png"],
                  "John Gleasure": ["dazn.png"]}
 # Climb23 sessions printed beside the Climb26 ones (a substring of the session's title on the page).
 SESSIONS23 = []
+# Sessions from the Climb26 agenda on the website that the Who was there page does not list, with the logos of the
+# organisations on stage (Innovate UK and Creative UK spoke at the opening ceremony).
+AGENDA_SESSIONS = [("Climb26 Opening Ceremony", ["innovate-uk.png", "creative-uk.png"])]
 # Quotes about ClimbUK in general (Climb23 to Climb25, naming no edition): the source names, all their quotes.
 # Quotes the pack ends early, at the end of the given words (the owner's call, 2026-10-16); the rest is left off.
 ENDS = {"Gary Crotaz": "You and the team have exceeded all my (already sky-high) expectations"}
+# Attributions the pack prints in place of the page's, where the page names one edition for someone who came to more.
+BYLINES = {"Gary Crotaz": "Speaker"}
 GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
            "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
            "Talitha Heaton", "Dan Boys", "Harry Baker", "Rachel Fowler",
@@ -152,8 +160,8 @@ PACK = {
     "wwt.back.eyebrow": "Returning partners and guests",
     "wwt.back.headline": "[[Names]] that keep coming _back_",
     "wwt.back.intro": "These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.",
-    "wwt.back.three.title": "Back for three editions",
-    "wwt.back.two.title": "Back for a second edition",
+    "wwt.back.three.title": "Three editions so far",
+    "wwt.back.two.title": "Two editions so far",
     "wwt.headliners.eyebrow": "Who spoke",
     "wwt.headliners.headline": "Speakers you'll _know_",
     "wwt.headliners.intro": "Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.",
@@ -260,6 +268,8 @@ def picks(got, notes):
         hit = [r[0] for r in got.get("wwt.sessions23.items", []) if want in r[0]]
         assert hit, "%s is not a Climb23 session on the page" % want
         rows.append([hit[0], session_logos(hit[0])])
+    rows += [[title, ", ".join(logo(f) for f in files)] for title, files in AGENDA_SESSIONS]
+    assert len(rows) % 4 == 0, "the sessions page needs whole rows of four cards: %d" % len(rows)
     out.append(("wwt.sessionsall.items", rows))
     notes["wwt.sessionsall.items"] = "session title | logo files of the companies it names, where we hold them"
     for part in ("eyebrow", "headline", "intro"):
@@ -270,10 +280,12 @@ def picks(got, notes):
         if q[1] in ENDS:
             assert q[0].startswith(ENDS[q[1]]), "%s's quote no longer starts with the words in ENDS" % q[1]
             q[0] = ENDS[q[1]]
+        if q[1] in BYLINES:
+            q[2:] = [BYLINES[q[1]]]
     assert {q[1] for q in rows} == set(GENERAL), "a GENERAL source has no quote on the page"
     out.append(("wwt.general.items", rows))
     notes["wwt.general.items"] = ("quote | name | role and organisation. Word for word from the website, [...] included; "
-                                  "a quote in ENDS stops at the end of its words.")
+                                  "a quote in ENDS stops at the end of its words, and BYLINES replaces a role.")
     for part in ("eyebrow", "headline", "intro", "three.title", "two.title"):
         out.append(("wwt.back." + part, PACK["wwt.back." + part]))
     listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
@@ -313,8 +325,18 @@ def build(xml):
                          % ", ".join(sorted({q[1] for q in left})))
             notes[key + ".items"] = note
         elif sid in ("featured-logos", "in-the-room"):
-            out.append((key + ".logos", logos(body)))
+            got_logos = logos(body)
+            if sid == "featured-logos":
+                # Page 2 prints these logos in rows of 12; NAMES_FILL tops up the last row from the page's
+                # in-the-room logos (the owner's call, 2026-10-16).
+                room = {r[0]: r for r in logos(secs["in-the-room"])}
+                assert all(f in room for f in NAMES_FILL), "a NAMES_FILL logo is not in the page's in-the-room logos"
+                got_logos = got_logos + [room[f] for f in NAMES_FILL if f not in {r[0] for r in got_logos}]
+                assert len(got_logos) % 12 == 0, "page 2 logos do not fill whole rows of 12: %d" % len(got_logos)
+            out.append((key + ".logos", got_logos))
             notes[key + ".logos"] = "logo file | organisation, in the order the website shows them; a file alone has no name on the page"
+            if sid == "featured-logos":
+                notes[key + ".logos"] += "; the last ones are NAMES_FILL picks from the in-the-room logos"
         elif sid == "sessions":
             cards = re.findall(r'<div class="climb-proof-card">(.*?)</div>', body, re.S)
             rows = []
