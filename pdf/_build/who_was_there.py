@@ -23,10 +23,7 @@ L = "assets/wwt/"
 # The quotes in page order. A source with two quotes has one on the first Climb26 page and one on the last, so the
 # same voice never sits on one page or on neighbouring pages (Brochure.check holds the build to it).
 Q26 = [[q[0], ", ".join(p for p in q[1:] if p)] for q in C["wwt.quotes26.items"]]
-Q25 = [[q[0], ", ".join(p for p in q[1:] if p)] for q in C["wwt.quotes25.items"]]
-Q24 = [[q[0], ", ".join(p for p in q[1:] if p)] for q in C["wwt.quotes24.items"]]
-Q23 = [[q[0], ", ".join(p for p in q[1:] if p)] for q in C["wwt.quotes23.items"]]
-BOX = 260  # what a quote box's caption and padding take, counted in characters of quote text
+QG = [[q[0], ", ".join(p for p in q[1:] if p)] for q in C["wwt.general.items"]]
 
 
 def split_pairs(qs):
@@ -54,33 +51,13 @@ def balance(fixed, singles):
     return pages
 
 
-# Climb26: the five sources quoted twice open the first page and close the third (four pages apart in the pack);
-# the singles even the three pages out. Climb25 the same, with Mitchell McCombe on its first and last pages.
+# Climb26: the sources quoted twice open the first of its three quote pages and close the last (six pages apart);
+# the singles even the pages out. The quotes about ClimbUK in general the same over two pages, with Mitchell McCombe
+# on both.
 T26, O26, S26 = split_pairs(Q26)
 P26 = balance([T26, [], S26], O26)
-T25, O25, S25 = split_pairs(Q25)
-P25 = balance([T25, [], S25], O25)
-
-
-def runs(rows, weights, size):
-    """rows split, in order, into runs whose sizes follow weights (a first page that also holds a headline takes
-    less); size(row) is how much room one row takes."""
-    marks = [sum(weights[:i + 1]) / sum(weights) for i in range(len(weights))]
-    total, chunks, cur, run = sum(size(r) for r in rows), [], [], 0
-    for r in rows:
-        w = size(r)
-        if cur and len(chunks) < len(weights) - 1 and run + w / 2 > total * marks[len(chunks)]:
-            chunks.append(cur)
-            cur = []
-        cur.append(r)
-        run += w
-    chunks.append(cur)
-    assert [r for c in chunks for r in c] == list(rows), "a run dropped or repeated a row"
-    return chunks
-
-
-# Climb24 has 47 quotes from 47 people, in the page's order over five pages of about the same reading.
-P24 = runs(Q24, [1, 1, 1, 1, 1], lambda q: len(q[0]) + BOX)
+TG, OG, SG = split_pairs(QG)
+PG = balance([TG, SG], OG)
 
 CSS = """
 .ltile{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;
@@ -89,7 +66,7 @@ CSS = """
 .ltile.dark{background:var(--ch)}
 .s.ch .ltile{box-shadow:none}
 .names{columns:3;column-gap:40px;font-size:24px;line-height:1.25}
-.names li{list-style:none;break-inside:avoid;padding:0 0 8px 1.1em;position:relative;font-weight:600;color:#404C68}
+.names li{list-style:none;break-inside:avoid;padding:0 0 6px 1.1em;position:relative;font-weight:600;color:#404C68}
 .names li::before{content:"";position:absolute;left:0;top:.42em;width:.42em;height:.42em;border-right:.14em solid var(--ot);
   border-top:.14em solid var(--ot);transform:rotate(45deg)}
 .lineup{font-size:22px;line-height:1.6;hyphens:none}
@@ -100,11 +77,21 @@ CSS = """
 .s.ch .lineup b{color:var(--w)} .s.ch .lineup span{color:var(--lg)} .s.ch .lineup i{color:var(--o)}
 .grp{font-family:Montserrat;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px}
 .s.wh .grp{color:var(--ot)} .s.gr .grp{color:#B04902} .s.ch .grp{color:var(--tint)}
-.sess{display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);
-  border-top:6px solid var(--o);border-radius:14px;padding:26px 28px}
-.sess .chip{height:64px;width:150px;background:#fff;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:center}
+.sess{display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);
+  border-top:6px solid var(--o);border-radius:14px;padding:18px 24px}
+.sess .chip{height:52px;width:130px;background:#fff;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:center}
 .sess .chip img{max-height:100%;max-width:100%;object-fit:contain}
-.sess h3{font-family:Montserrat;font-weight:800;font-size:24px;line-height:1.2;color:var(--w)}
+.sess h3{font-family:Montserrat;font-weight:800;font-size:21px;line-height:1.2;color:var(--w)}
+.yr{font-family:Montserrat;font-weight:800;font-size:17px;letter-spacing:.12em;text-transform:uppercase}
+.s.ch .yr{color:var(--tint)} .s.wh .yr{color:var(--ot)} .s .spk .yr{color:#B04902}
+.spk{display:flex;flex-direction:column;justify-content:center;gap:6px;background:var(--lg);border-radius:14px;padding:18px 24px;
+  border-left:6px solid var(--o)}
+.spk h3{font-family:Montserrat;font-weight:800;font-size:28px;line-height:1.1;color:var(--ch)}
+.spk p{font-size:19px;line-height:1.3;color:#404C68}
+.spl{columns:4;column-gap:36px}
+.spl li{list-style:none;break-inside:avoid;padding:0 0 16px;font-size:19px;line-height:1.3;color:#404C68}
+.spl b{display:block;font-family:Montserrat;font-weight:800;font-size:25px;color:var(--ch)}
+.spl em{font-style:normal;font-family:Montserrat;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--ot);white-space:nowrap}
 .intro{font-size:26px;line-height:1.5;color:var(--lg)}
 .s.wh .intro,.s.gr .intro{color:#404C68}
 """
@@ -160,27 +147,42 @@ def names_page(bk):
     bk.add("gr", header("wwt.names") + logo_grid(C["wwt.names.logos"], 120, 340, 1680, 610, 12))
 
 
-def partners_page(bk):
-    items = "".join("<li>%s</li>" % t(p[0]) for p in C["wwt.partners.items"])
-    tiles = [(B + "stage_natwest_darren-perry.jpg",), (B + "expo_stand_natwest_busy.jpg", B + "expo_stand_natwest.jpg"),
-             (B + "print_stand_instantprint.jpg", B + "print_stand_instantprint_02.jpg")]
-    inner = (header("wwt.partners", 66, 900, intro=False)
-             + '<p class="intro" style="position:absolute;left:120px;top:290px;width:900px">%s</p>' % t(C["wwt.partners.intro"])
-             + '<ul class="names" style="position:absolute;left:120px;right:120px;top:440px;columns:4">%s</ul>' % items
-             + "".join(b.tile(bk.pool.photo(*names), 1080 + i * 246, 96, 228, 300, "center 30%") for i, names in enumerate(tiles)))
-    bk.add("wh", inner)
+def back_page(bk):
+    """The organisations that came back: three editions as a lineup, then two editions in columns."""
+    three = '<b style="white-space:nowrap">%s</b>' % '</b><i aria-hidden="true">/</i> <b style="white-space:nowrap">'.join(t(n[0]) for n in C["wwt.back.three.items"])
+    two = "".join("<li>%s</li>" % t(n[0]) for n in C["wwt.back.two.items"])
+    bk.add("wh", header("wwt.back", 60, 1100, top=70)
+           + '<div style="position:absolute;left:120px;right:120px;top:300px">'
+             '<div class="grp">%s</div><div class="lineup" style="font-size:30px">%s</div>'
+             '<div class="grp" style="margin-top:40px">%s</div>'
+             '<ul class="names" style="columns:4;column-gap:36px;font-size:23px;margin-top:6px">%s</ul></div>'
+           % (t(C["wwt.back.three.title"]), three, t(C["wwt.back.two.title"]), two))
+
+
+def headliners_page(bk):
+    """Speakers people will know, one card each, with the editions they spoke at."""
+    cards = "".join('<div class="spk"><div class="yr">%s</div><h3>%s</h3><p>%s</p></div>'
+                    % (t(r[2]), t(r[0]), t(r[1])) for r in C["wwt.headliners.items"])
+    bk.add("wh", header("wwt.headliners", 60, 1100, top=70)
+           + '<div style="position:absolute;left:120px;right:120px;top:290px;bottom:130px;display:grid;'
+             'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:16px">%s</div>' % cards)
+
+
+def known_page(bk):
+    """Speakers from organisations people will know, as a lineup with the edition after each role."""
+    rows = "".join('<li><b>%s</b> <span>%s</span> <em>%s</em></li>' % (t(r[0]), t(r[1]), t(r[2])) for r in C["wwt.known.items"])
+    bk.add("wh", header("wwt.known", 54, 1100, top=70)
+           + '<ul class="spl" style="position:absolute;left:120px;right:120px;top:250px">%s</ul>' % rows)
 
 
 def sessions_page(bk):
     cards = []
-    for s in C["wwt.sessions.items"]:
-        chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(s[1]))) if len(s) > 1 else ""
-        cards.append('<div class="sess">%s<h3>%s</h3></div>' % (chip, t(s[0])))
-    grid = ('<div style="position:absolute;left:120px;right:120px;top:300px;bottom:130px;display:grid;'
-            'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:20px">%s'
-            '<div class="tile" style="position:relative">%s</div></div>'
-            % ("".join(cards), b.photo(bk.pool.photo(B + "stage_maf-317.jpg", B + "stage_maf-278.jpg"), "center")))
-    bk.add("ch", header("wwt.sessions") + grid)
+    for s in C["wwt.sessionsall.items"]:
+        chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(s[1]))) if s[1] else ""
+        cards.append('<div class="sess"><div class="yr">%s</div>%s<h3>%s</h3></div>' % (t(s[2]), chip, t(s[0])))
+    grid = ('<div style="position:absolute;left:120px;right:120px;top:280px;bottom:130px;display:grid;'
+            'grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:16px">%s</div>' % "".join(cards))
+    bk.add("ch", header("wwt.sessionsall", 54, 1100, top=70) + grid)
 
 
 def quote_page(bk, cls, key, qs, first):
@@ -206,79 +208,17 @@ def quote_page(bk, cls, key, qs, first):
     bk.add(cls, head + b.stretch_cols(got, 3, style, size, box))
 
 
-def width(r):
-    """Room a lineup entry takes: names are set in bold, about a tenth wider than the role after them."""
-    return len(r[0]) * 1.1 + sum(len(x) for x in r[1:]) + 4
-
-
-def lineup(rows):
-    """Names in bold, each with the role they gave, split by orange slashes."""
-    return '<i aria-hidden="true">/</i>'.join(
-        ("<b>%s</b> <span>%s</span>" % (t(r[0]), t(r[1])) if len(r) > 1 else "<b>%s</b>" % t(r[0])) for r in rows)
-
-
-def lineup_first(bk, cls, key, rows, intro=True):
-    """The first page of a lineup: the headline, then the names."""
-    bk.add(cls, header(key, 54, 1100, intro=intro, top=70)
-           + '<div class="lineup" style="position:absolute;left:120px;right:120px;top:240px">%s</div>' % lineup(rows))
-
-
-def lineup_more(bk, cls, key, rows):
-    """A lineup page that carries on from an earlier one: the eyebrow, then the names."""
-    bk.add(cls, '<div style="position:absolute;left:120px;top:80px"><div class="eb" style="font-size:22px">%s</div></div>' % t(C[key + ".eyebrow"])
-           + '<div class="lineup" style="position:absolute;left:120px;right:120px;top:150px">%s</div>' % lineup(rows))
-
-
-def more_partners_page(bk, cls):
-    """The Climb24 partners and exhibitors and the Climb23 partners, each group under its own title."""
-    # Three lists on one page: the lineup is set a size down so all of them fit.
-    groups = "".join('<div class="grp"%s>%s</div><div class="lineup" style="font-size:20px">%s</div>'
-                     % (' style="margin-top:34px"' if i else "", t(C[k + ".title"]), lineup(C[k + ".items"]))
-                     for i, k in enumerate(("wwt.partners24", "wwt.exhibitors24", "wwt.partners23")))
-    bk.add(cls, '<div style="position:absolute;left:120px;top:80px"><div class="eb" style="font-size:22px">%s</div></div>'
-           % t(C["wwt.partners.eyebrow"])
-           + '<div style="position:absolute;left:120px;right:120px;top:140px">%s</div>' % groups)
-
-
-def climb23_page(bk, cls):
-    """The Climb23 sessions as a lineup, with the two Climb23 quotes under them."""
-    bk.pool.quotes[bk.pool.qi:bk.pool.qi] = Q23
-    got = [bk.pool.quote() for _ in Q23]
-    quotes = "".join('<div style="flex:1">%s</div>' % b.quote(q, 26, ("qbox", "qwhite")[i % 2], "height:100%;padding:26px 32px")
-                     for i, q in enumerate(got))
-    bk.add(cls, header("wwt.sessions23", 60, 1100)
-           + '<div class="lineup" style="position:absolute;left:120px;right:120px;top:270px">%s</div>' % lineup(C["wwt.sessions23.items"])
-           + '<div style="position:absolute;left:120px;top:640px">%s</div>'
-           % b.head(C["wwt.quotes23.eyebrow"], C["wwt.quotes23.headline"], 44, 1680)
-           + '<div style="position:absolute;left:120px;right:120px;top:780px;bottom:120px;display:flex;gap:20px">%s</div>' % quotes)
-
-
-def room_pages(bk, grounds):
-    logos = C["wwt.room.logos"]
-    half = -(-len(logos) // len(grounds))
-    for n, cls in enumerate(grounds):
-        part = logos[n * half:(n + 1) * half]
-        head = header("wwt.room", 54, 1100, intro=(n == 0), top=70)
-        bk.add(cls, head + logo_grid(part, 120, 240, 1680, 710, 12, 10, 8))
-
-
 def close(bk):
+    """The brochures' poster closing page, with the festival dates under the headline."""
     inner = (b.photo(bk.pool.photo(B + "stage_020726080climb26.jpg", B + "crowds_052a3708.jpg"), "center 40%")
              + '<div class="layer" style="background:linear-gradient(180deg,rgba(var(--ink),.1) 0%,rgba(var(--ink),.7) 42%,var(--db) 68%)"></div>'
-             + '<div style="position:absolute;left:120px;right:120px;top:300px;text-align:center">'
+             + '<div style="position:absolute;left:120px;right:120px;top:290px;text-align:center">'
                '<div class="mont" style="font-weight:900;font-size:150px;line-height:.98;text-transform:uppercase;letter-spacing:-.02em;color:var(--w)">'
                '%s<br><em style="color:var(--o)">%s</em></div>'
-               '<div class="mont" style="margin-top:30px;font-weight:700;font-size:40px;color:var(--w)">%s</div>'
-               '<div style="margin-top:40px"><span class="ctabtn" style="font-size:38px">%s</span></div></div>'
-             % (t(C["wwt.cta.line1"]), t(C["wwt.cta.line2"]), t(C["shared.dates"]), t(C["wwt.cta.button"]))
-             + '<div style="position:absolute;left:120px;right:120px;bottom:70px;display:flex;align-items:center;justify-content:space-between;'
-               'border-top:2px solid rgba(255,255,255,.2);padding-top:30px">'
-             + b.logo("Climb27", "reversed-dark", 56)
-             + '<div class="mont" style="color:var(--w);font-weight:700;font-size:28px;line-height:1.5;text-align:center">%s<br>%s</div>'
-             % (t(C["shared.contact"]), t(C["shared.url"]))
-             + '<div style="display:flex;align-items:center;gap:20px"><div class="mont" style="color:var(--w);font-weight:800;font-size:22px;width:160px;text-align:right">%s</div>'
-               '<div style="background:var(--w);padding:10px;border-radius:10px">%s</div></div></div>'
-             % (t(C["wwt.cta.qr"]), b.qr(b.QR_URL % "who-was-there", 150)))
+               '<div class="mont" style="margin-top:30px;font-weight:700;font-size:40px;color:var(--w)">%s</div></div>'
+             % (t(C["wwt.cta.line1"]), t(C["wwt.cta.line2"]), t(C["shared.dates"]))
+             + b.cta_footer(C["wwt.cta.button"], "%s<br>%s" % (t(C["shared.contact"]), t(C["shared.url"])),
+                            C["wwt.cta.qr"], "who-was-there"))
     bk.add("db", inner, foot=False)
 
 
@@ -292,44 +232,19 @@ class Pack(b.Brochure):
 def build():
     C["wwt.none"] = []
     bk = Pack("climb27_who-was-there", "Who was there at Climb23 to Climb26", "wwt.none")
-    sp26 = runs(C["wwt.speakers.items"], [0.88, 1, 1, 1], width)
-    orgs = runs(C["wwt.orgs.items"], [0.88, 1, 1], width)
-    sp24 = runs(C["wwt.speakers24.items"], [0.88, 1, 1], width)
-    sp23 = runs(C["wwt.speakers23.items"], [0.88, 1], width)
     cover(bk)                                                       # 1
-    names_page(bk)                                                  # 2
-    partners_page(bk)                                               # 3
-    more_partners_page(bk, "gr")                                    # 4
-    sessions_page(bk)                                               # 5
-    # Climb26: its quotes between the speaker pages. A source quoted twice is on pages 6 and 10.
-    quote_page(bk, "wh", "wwt.quotes26", P26[0], True)              # 6
-    lineup_first(bk, "gr", "wwt.speakers", sp26[0])                 # 7
-    quote_page(bk, "ch", "wwt.quotes26", P26[1], False)             # 8
-    lineup_more(bk, "wh", "wwt.speakers", sp26[1])                  # 9
-    quote_page(bk, "gr", "wwt.quotes26", P26[2], False)             # 10
-    lineup_more(bk, "ch", "wwt.speakers", sp26[2])                  # 11
-    lineup_more(bk, "wh", "wwt.speakers", sp26[3])                  # 12
-    room_pages(bk, ["gr", "ch"])                                    # 13, 14
-    # Climb25: its quotes between the pages of where speakers came from; Mitchell McCombe on pages 15 and 20.
-    quote_page(bk, "wh", "wwt.quotes25", P25[0], True)              # 15
-    lineup_first(bk, "gr", "wwt.orgs", orgs[0], intro=False)        # 16
-    quote_page(bk, "ch", "wwt.quotes25", P25[1], False)             # 17
-    lineup_more(bk, "wh", "wwt.orgs", orgs[1])                      # 18
-    lineup_more(bk, "gr", "wwt.orgs", orgs[2])                      # 19
-    quote_page(bk, "ch", "wwt.quotes25", P25[2], False)             # 20
-    # Climb24, then Climb23.
-    quote_page(bk, "wh", "wwt.quotes24", P24[0], True)              # 21
-    lineup_first(bk, "gr", "wwt.speakers24", sp24[0])               # 22
-    quote_page(bk, "ch", "wwt.quotes24", P24[1], False)             # 23
-    lineup_more(bk, "wh", "wwt.speakers24", sp24[1])                # 24
-    quote_page(bk, "gr", "wwt.quotes24", P24[2], False)             # 25
-    lineup_more(bk, "wh", "wwt.speakers24", sp24[2])                # 26
-    quote_page(bk, "ch", "wwt.quotes24", P24[3], False)             # 27
-    quote_page(bk, "gr", "wwt.quotes24", P24[4], False)             # 28
-    climb23_page(bk, "ch")                                          # 29
-    lineup_first(bk, "wh", "wwt.speakers23", sp23[0])               # 30
-    lineup_more(bk, "gr", "wwt.speakers23", sp23[1])                # 31
-    close(bk)                                                       # 32
+    names_page(bk)                                                  # 2 in the room
+    back_page(bk)                                                   # 3 who came back
+    # The Climb26 quotes on pages 4, 8 and 10 (a source quoted twice on 4 and 10); the general quotes on 6 and 11.
+    quote_page(bk, "ch", "wwt.quotes26", P26[0], True)              # 4
+    headliners_page(bk)                                             # 5
+    quote_page(bk, "gr", "wwt.general", PG[0], True)                # 6
+    known_page(bk)                                                  # 7
+    quote_page(bk, "gr", "wwt.quotes26", P26[1], False)             # 8
+    sessions_page(bk)                                               # 9
+    quote_page(bk, "wh", "wwt.quotes26", P26[2], False)             # 10
+    quote_page(bk, "gr", "wwt.general", PG[1], False)               # 11
+    close(bk)                                                       # 12
     return bk
 
 
@@ -343,7 +258,7 @@ def main():
     # The quotes are other people's words, printed word for word as the website shows them, so the house voice
     # checker (which would ask for "Climb27" in place of "Climb", or drop an exclamation mark) reads every other
     # printed string but not them. The ASCII check still covers them in the copy file.
-    said = {q[0] for q in Q26 + Q25 + Q24 + Q23}
+    said = {q[0] for q in Q26 + QG}
     with open(os.path.join(b.HERE, "brochures_printed.txt"), "a", encoding="utf-8") as f:
         f.write("\n".join(s for s in dict.fromkeys(b.PRINTED) if s not in said) + "\n")
 

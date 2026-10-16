@@ -486,26 +486,33 @@ def photo_page(bk, cls, eyebrow, headline, names, n_quotes=0, rows=((2, 1, 1, 1)
     bk.add(cls, inner)
 
 
+def cta_footer(button, contact, qr_line, campaign):
+    """The closing page's footer: the button sits on the divider, centred on it, over a row of three equal columns
+    (the edition mark, the contact lines and the QR code), so the contact lines sit under the button's centre."""
+    return ('<div style="position:absolute;left:120px;right:120px;bottom:70px;display:grid;grid-template-columns:1fr auto 1fr;'
+            'align-items:center;border-top:2px solid rgba(255,255,255,.3);padding-top:72px">'
+            '<div style="position:absolute;left:50%%;top:-1px;transform:translate(-50%%,-50%%)">'
+            '<span class="ctabtn" style="font-size:38px;white-space:nowrap">%s</span></div>'
+            # The edition mark leads on its own; ClimbUK is never set beside it.
+            '<div>%s</div>'
+            '<div class="mont" style="color:var(--w);font-weight:700;font-size:28px;line-height:1.5;text-align:center">%s</div>'
+            '<div style="justify-self:end;display:flex;align-items:center;gap:20px"><div class="mont" style="color:var(--w);'
+            'font-weight:800;font-size:22px;width:160px;text-align:right">%s</div>'
+            '<div style="background:var(--w);padding:10px;border-radius:10px">%s</div></div></div>'
+            % (t(button), logo("Climb27", "reversed-dark", 56), contact, t(qr_line), qr(QR_URL % campaign, 150)))
+
+
 def cta(bk, line1, line2, button, qr_line, img, campaign, pos="center 35%", size="cover"):
-    """Closing page as a festival poster: a full photo fading into Dark Brown, one huge centred headline with its
-    button, and a footer row with the edition mark, the contact lines and the QR code."""
+    """Closing page as a festival poster: a full photo fading into Dark Brown, one huge centred headline, and the
+    button sitting on the footer's divider above the edition mark, the contact lines and the QR code."""
     inner = (photo(img, pos, "background-size:%s" % size)
              + '<div class="layer" style="background:linear-gradient(180deg,rgba(var(--ink),.1) 0%,rgba(var(--ink),.7) 42%,var(--db) 68%)"></div>'
-             + '<div style="position:absolute;left:120px;right:120px;top:340px;text-align:center">'
+             + '<div style="position:absolute;left:120px;right:120px;top:360px;text-align:center">'
                '<div class="mont" style="font-weight:900;font-size:150px;line-height:.98;text-transform:uppercase;letter-spacing:-.02em;color:var(--w)">'
-               '%s<br><em style="color:var(--o)">%s</em></div>'
-               '<div style="margin-top:44px"><span class="ctabtn" style="font-size:38px">%s</span></div></div>'
-             % (t(line1), t(line2), t(button))
-             + '<div style="position:absolute;left:120px;right:120px;bottom:70px;display:flex;align-items:center;justify-content:space-between;'
-               'border-top:2px solid rgba(255,255,255,.2);padding-top:30px">'
-             # The edition mark leads on its own; ClimbUK is never set beside it.
-             + logo("Climb27", "reversed-dark", 56)
-             + '<div class="mont" style="color:var(--w);font-weight:700;font-size:28px;line-height:1.5;text-align:center">%s<br>%s'
-               '<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:6px">%s</div></div>'
-             % (t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"]))
-             + '<div style="display:flex;align-items:center;gap:20px"><div class="mont" style="color:var(--w);font-weight:800;font-size:22px;width:160px;text-align:right">%s</div>'
-               '<div style="background:var(--w);padding:10px;border-radius:10px">%s</div></div></div>'
-             % (t(qr_line), qr(QR_URL % campaign, 150)))
+               '%s<br><em style="color:var(--o)">%s</em></div></div>'
+             % (t(line1), t(line2))
+             + cta_footer(button, '%s<br>%s<div style="font-family:Open Sans;font-weight:600;font-size:19px;color:var(--tint);margin-top:6px">%s</div>'
+                          % (t(C["shared.contact"]), t(C["shared.url"]), t(C["shared.vat"])), qr_line, campaign))
     bk.add("db", inner, foot=False)
 
 

@@ -8,6 +8,10 @@ who_was_there.xml template in the website repository) and rebuild:
 The eyebrows, two headlines and the closing page are the pack's own words and live in PACK below. Quotes written
 before a festival (about what it would be, not what it was) stay on the website but are left out of print; their
 sources are in BEFORE.
+
+The pack prints a chosen part of the page (the owner's review, 2026-10-16): speakers and sessions people will know,
+the organisations that came back, the Climb26 quotes and quotes about ClimbUK in general. The picks are names in
+HEADLINERS, KNOWN, SESSIONS23, GENERAL and RETURNERS below; the words printed for each are still the page's.
 """
 import html
 import os
@@ -41,12 +45,66 @@ SECTIONS = [
 # The partners section lists four groups; the first is the main list, the rest get their own keys.
 PARTNER_GROUPS = ["wwt.partners", "wwt.partners24", "wwt.exhibitors24", "wwt.partners23"]
 
+# Speakers people will know, from every edition, with the role and organisation as one of their page entries gives it
+# (the edition named, where they gave a better known one there). The editions they spoke at are added from the page.
+HEADLINERS = [("Tracy Brabin", "wwt.speakers24"), ("Claire Ward", None), ("Alison Lowe", None), ("Louis Taylor", None),
+              ("Erin Platts", None), ("Jennifer Byrne", None), ("John Gleasure", None), ("Spencer Hudson", None),
+              ("Tanya Arnold", "wwt.speakers24"), ("Jake Zim", None), ("Hugo Heppell", None), ("Simon McCoy", None),
+              ("Stephanie Millward", None), ("Jamie Peacock", None), ("Robbie Hunter Paul", None), ("Stevie Ward", "wwt.speakers24")]
+# Speakers from organisations people will know.
+KNOWN = ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson", "Mark Northen", "Emma Walsh", "Chloe Mayirou",
+         "Jason Perry", "Chris Dale", "Gautam Sehgal", "Abs Bulbuliya", "Dean Cook", "Jebran Raashed", "Chris Borrett",
+         "Malin Svanberg Larsson", "Ian McAleese", "Robert Leishman", "Jane Bototh", "Arun Aggarwal", "Claudine Reid",
+         "Anna Roughley", "Jonathan Crook", "Jessica Moffatt-Owen", "Andy Naylor", "Irene Graham", "Josh Robson",
+         "Alfredo Ramos", "Richard Tunstall", "Nick Glicher"]
+# Climb23 sessions printed beside the Climb26 ones (a substring of the session's title on the page).
+SESSIONS23 = ["John Gleasure"]
+# Quotes about ClimbUK in general (Climb23 to Climb25, naming no edition): the source names, all their quotes.
+GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
+           "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
+           "Talitha Heaton", "Dan Boys"]
+# Organisations that came to more than one edition, found by matching the page's lists for Climb23, Climb24 and
+# Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
+# the page names them; best known first. Each name is checked against the page when the file is written.
+RETURNERS = {
+    "three": ["British Business Bank", "Innovate UK", "West Yorkshire Combined Authority", "Leeds City Council",
+              "Sure Valley Ventures", "Lifted Ventures", "EHE Ventures"],
+    "two": ["NatWest Group", "Barclays", "BBC", "Channel 4", "UBS", "Thomson Reuters", "Mishcon de Reya",
+            "Lewis Silkin", "Northern Gritstone", "ScaleUp Institute", "Creative UK", "Plexal", "YFM Equity Partners",
+            "Leeds University Business School", "University of Sheffield", "South Yorkshire Mayoral Combined Authority",
+            "Health Innovation Yorkshire & Humber", "Blacks Solicitors", "Innovation SuperNetwork", "GSG",
+            "Samos Investments", "RTC North", "River Capital", "Panintelligence", "Techbuyer", "XR Games",
+            "Tech North Advocates", "Tech SY", "The Data Refinery", "The Tech Dept", "Leeds Community Foundation",
+            "CREATICITY", "Genio", "Glean", "CRSI", "PinPoint Data Science", "IDS Group", "Clubit Group",
+            "Red Line Foundry", "Mind Body Goals", "Strength in you", "Blossom Training", "Fourth Day", "Yaba",
+            "ProspHER", "Writebusinessresults"],
+}
+EDITION = {"wwt.speakers": "Climb26", "wwt.speakers24": "Climb24", "wwt.speakers23": "Climb23"}
+
 PACK = {
     "wwt.cover.headline": "[[Who]] was _there_",
     "wwt.cta.line1": "Join them at",
     "wwt.cta.line2": "Climb27",
     "wwt.cta.button": "Partner with ClimbUK",
     "wwt.cta.qr": "Scan to book a call",
+    "wwt.names.headline": "In the room at _ClimbUK_",
+    "wwt.back.eyebrow": "Returning partners and guests",
+    "wwt.back.headline": "[[Names]] that keep coming _back_",
+    "wwt.back.intro": "These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.",
+    "wwt.back.three.title": "Back for three editions",
+    "wwt.back.two.title": "Back for a second edition",
+    "wwt.headliners.eyebrow": "Who spoke",
+    "wwt.headliners.headline": "Speakers you'll _know_",
+    "wwt.headliners.intro": "Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.",
+    "wwt.known.eyebrow": "Who spoke",
+    "wwt.known.headline": "From [[organisations]] you _know_",
+    "wwt.known.intro": "Banks, funds, global tech companies and government, on stage at ClimbUK.",
+    "wwt.sessionsall.eyebrow": "On stage",
+    "wwt.sessionsall.headline": "Sessions with names _you know_",
+    "wwt.sessionsall.intro": "A few of the ClimbUK sessions run with well-known companies, from Climb23 to Climb26.",
+    "wwt.general.eyebrow": "In their words",
+    "wwt.general.headline": "What people say about _ClimbUK_",
+    "wwt.general.intro": "Speakers, exhibitors and guests on ClimbUK, quoted word for word.",
 }
 
 
@@ -86,6 +144,55 @@ def quotes(body):
     return kept, left
 
 
+def picks(got, notes):
+    """The pack's chosen sections, built from the page's own entries (see HEADLINERS and the lists after it)."""
+    out = []
+
+    def spoke(name):
+        return [(k, r) for k in EDITION if k + ".items" in got for r in got[k + ".items"] if r[0] == name]
+
+    def row(name, prefer=None):
+        hits = spoke(name)
+        assert hits, "%s is not a speaker on the page" % name
+        role = next((r for k, r in hits if k == prefer), hits[0][1])[1:]
+        years = ", ".join(sorted(EDITION[k] for k, _ in hits))
+        return [name, role[0] if role else "", years]
+
+    for key in ("wwt.headliners", "wwt.known"):
+        for part in ("eyebrow", "headline", "intro"):
+            out.append(("%s.%s" % (key, part), PACK["%s.%s" % (key, part)]))
+        rows = [row(n, p) for n, p in HEADLINERS] if key == "wwt.headliners" else [row(n) for n in KNOWN]
+        out.append((key + ".items", rows))
+        notes[key + ".items"] = "name | role and organisation as the page gives it (blank where none) | editions they spoke at"
+    for part in ("eyebrow", "headline", "intro"):
+        out.append(("wwt.sessionsall." + part, PACK["wwt.sessionsall." + part]))
+    rows = [s + ["Climb26"] if len(s) > 1 else [s[0], "", "Climb26"] for s in got["wwt.sessions.items"]]
+    for want in SESSIONS23:
+        hit = [r[0] for r in got.get("wwt.sessions23.items", []) if want in r[0]]
+        assert hit, "%s is not a Climb23 session on the page" % want
+        rows.append([hit[0], "", "Climb23"])
+    out.append(("wwt.sessionsall.items", rows))
+    notes["wwt.sessionsall.items"] = "session title | logo file where we hold one | edition"
+    for part in ("eyebrow", "headline", "intro"):
+        out.append(("wwt.general." + part, PACK["wwt.general." + part]))
+    said = [q for k in ("wwt.quotes25.items", "wwt.quotes24.items", "wwt.quotes23.items") for q in got.get(k, [])]
+    rows = [q for g in GENERAL for q in said if q[1] == g]
+    assert {q[1] for q in rows} == set(GENERAL), "a GENERAL source has no quote on the page"
+    out.append(("wwt.general.items", rows))
+    notes["wwt.general.items"] = "quote | name | role and organisation. Word for word from the website, [...] included."
+    for part in ("eyebrow", "headline", "intro", "three.title", "two.title"):
+        out.append(("wwt.back." + part, PACK["wwt.back." + part]))
+    listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
+    for group, names in RETURNERS.items():
+        for n in names:
+            assert n.lower() in listed, "%s is not on the page" % n
+        out.append(("wwt.back.%s.items" % group, [[n] for n in names]))
+    notes["wwt.back.three.items"] = ("organisation, as the page names it, found in the page's lists for Climb23, Climb24 "
+                                     "and Climb25 or Climb26")
+    notes["wwt.back.two.items"] = "organisation, as the page names it, found in the lists for two of those"
+    return out
+
+
 def build(xml):
     secs = dict(re.findall(r'<section id="([^"]+)"[^>]*>(.*?)</section>', xml, re.S))
     intro = re.search(r'<section aria-labelledby="who-was-there-title".*?</section>', xml, re.S).group(0)
@@ -98,7 +205,7 @@ def build(xml):
             continue
         body = secs[sid]
         out.append((key + ".eyebrow", eyebrow))
-        out.append((key + ".headline", headline or text(re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S).group(1))))
+        out.append((key + ".headline", headline or PACK.get(key + ".headline") or text(re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S).group(1))))
         lead = re.search(r'climb-social-proof-lead">(.*?)</p>', body, re.S)
         if lead:
             out.append((key + ".intro", text(lead.group(1))))
@@ -133,6 +240,7 @@ def build(xml):
             notes[key + ".items"] = "name | role and organisation as they gave it"
         else:
             out.append((key + ".items", [[n] for n in items(body)]))
+    out += picks(dict(out), notes)
     for k in ("wwt.cta.line1", "wwt.cta.line2", "wwt.cta.button", "wwt.cta.qr"):
         out.append((k, PACK[k]))
 

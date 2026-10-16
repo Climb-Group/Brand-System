@@ -18,7 +18,7 @@ The partners, exhibitors, speakers and guests who made Climb23, Climb24, Climb25
 Partners, speakers and sessions
 
 ## wwt.names.headline
-Names you _know_
+In the room at _ClimbUK_
 
 ## wwt.names.intro
 Banks, funds, universities, combined authorities, global tech companies and growing firms partnered, spoke and exhibited at ClimbUK.
@@ -1785,6 +1785,200 @@ Everyone who spoke at Climb23, with their organisation where we hold it.
 - Tom Riordan | Leeds City Council
 - Vicki Sly
 - Zandra Moore | Panintelligence
+
+## wwt.headliners.eyebrow
+Who spoke
+
+## wwt.headliners.headline
+Speakers you'll _know_
+
+## wwt.headliners.intro
+Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.
+
+## wwt.headliners.items
+<!-- note: name | role and organisation as the page gives it (blank where none) | editions they spoke at -->
+- Tracy Brabin | West Yorkshire Combined Authority | Climb24, Climb26
+- Claire Ward |  | Climb26
+- Alison Lowe | West Yorkshire Combined Authority | Climb23
+- Louis Taylor | CEO, British Business Bank | Climb26
+- Erin Platts | Chief Executive Officer, Octopus Investments | Climb26
+- Jennifer Byrne | Former CTO, Microsoft | Climb23
+- John Gleasure | DAZN | Climb23
+- Spencer Hudson | Sky Sports | Climb23
+- Tanya Arnold | BBC | Climb24, Climb26
+- Jake Zim | Sony | Climb24
+- Hugo Heppell | Channel 4 | Climb24
+- Simon McCoy | News Anchor & Broadcaster, Real McCoy Media Ltd | Climb26
+- Stephanie Millward |  | Climb26
+- Jamie Peacock |  | Climb23
+- Robbie Hunter Paul |  | Climb23
+- Stevie Ward | Mantality | Climb23, Climb24
+
+## wwt.known.eyebrow
+Who spoke
+
+## wwt.known.headline
+From [[organisations]] you _know_
+
+## wwt.known.intro
+Banks, funds, global tech companies and government, on stage at ClimbUK.
+
+## wwt.known.items
+<!-- note: name | role and organisation as the page gives it (blank where none) | editions they spoke at -->
+- Neil Bellamy | Head of Technology, Media, Telecoms (TMT), NatWest Group | Climb26
+- Rita Collins | Regional Director - Corporate Banking, NatWest Group | Climb26
+- Darren Pirie | Head of NatWest Group Accelerator & Strategic Partnerships, NatWest Accelerator | Climb26
+- Steve Sankson | Relationship Management Lead, NatWest | Climb26
+- Mark Northen | Head of Innovation Banking, Barclays Business Banking, Barclays Bank UK PLC | Climb26
+- Emma Walsh | Head of TMT within Barclays Business Banking | Climb26
+- Chloe Mayirou | Agency Partner, Meta | Climb26
+- Jason Perry | Director of Seller Success, Walmart Marketplace | Climb26
+- Chris Dale | Market Leader, Coutts | Climb26
+- Gautam Sehgal | Head of Growth Solutions, Navigator Global at Santander UK Plc | Climb26
+- Abs Bulbuliya | Senior Investment Manager, British Business Bank | Climb26
+- Dean Cook | Director - Business Growth and Global, Innovate UK | Climb26
+- Jebran Raashed | Investment Manager, Octopus Ventures | Climb26
+- Chris Borrett | Investment Director, Mercia Ventures | Climb26
+- Malin Svanberg Larsson | Partner, Freeths | Climb26
+- Ian McAleese | Snowflake Computing | Climb24
+- Robert Leishman | PwC | Climb24
+- Jane Bototh | UBS | Climb24
+- Arun Aggarwal | Lloyds Banking Group | Climb24
+- Claudine Reid | Lloyds Banking Group | Climb24
+- Anna Roughley | Squire Patton Boggs | Climb24
+- Jonathan Crook | Department for Business and Trade | Climb24
+- Jessica Moffatt-Owen | Plexal | Climb24
+- Andy Naylor | Northern Gritstone | Climb24
+- Irene Graham | ScaleUp Institute | Climb24
+- Josh Robson | Chief Policy Officer, ScaleUp Institute | Climb26
+- Alfredo Ramos | High Value Manufacturing Catapult | Climb24
+- Richard Tunstall | Associate Professor of Enterprise, Leeds University Business School | Climb24, Climb26
+- Nick Glicher | Thomson Reuters | Climb23
+
+## wwt.sessionsall.eyebrow
+On stage
+
+## wwt.sessionsall.headline
+Sessions with names _you know_
+
+## wwt.sessionsall.intro
+A few of the ClimbUK sessions run with well-known companies, from Climb23 to Climb26.
+
+## wwt.sessionsall.items
+<!-- note: session title | logo file where we hold one | edition -->
+- Turning Attention into Action: Customer Acquisition with Meta | meta.png | Climb26
+- Scaleup Masterclass with Barclays, Google and Plexal | google.png | Climb26
+- Google AI Build Session With Nocodelab.AI | google.png | Climb26
+- From Prompt To Full Stack Prototype With Lovable and Nocodelab.AI |  | Climb26
+- Scaling into the US for Consumer Brands: Lessons for B2C and D2C brands from Walmart Marketplace |  | Climb26
+- Insight to Action - Cracking the US Market with Walmart Marketplace & Infinity Blue Group |  | Climb26
+- TikTok Changed the Rules: The New Playbook for Business Growth |  | Climb26
+- LinkedIn ROI: What's Working Right Now |  | Climb26
+- Solve It in Bricks; LEGO Bricks |  | Climb26
+- Innovation Competition Winners Showcase sponsored by Barclays | barclays.png | Climb26
+- Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png | Climb26
+- John Gleasure - Sport, Media and OTT |  | Climb23
+
+## wwt.general.eyebrow
+In their words
+
+## wwt.general.headline
+What people say about _ClimbUK_
+
+## wwt.general.intro
+Speakers, exhibitors and guests on ClimbUK, quoted word for word.
+
+## wwt.general.items
+<!-- note: quote | name | role and organisation. Word for word from the website, [...] included. -->
+- Climb is a MUST attend event! One of the best networking events in the UK for global business. The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business! [...] on the back of Climb we were able to secure grants & business support from national (Innovate UK) / local (WYCA) government. Climb offers a unique experience to be able to meet with global leaders from all sectors. At Climb, you never know who you might get connected with... | Angus Young | Founder, Net-Zu
+- ClimbUK is a fantastic event and it was definitely worth making the leap across the pond from Los Angeles to attend. There is an electric, entrepreneurial spirit spotlighted at the Climb Events and it was illuminative to attend and a pleasure to participate as a panelist. | Jeff B. Cohen | Esq., Entertainment Attorney, Cohen Gardner LLP
+- Climb is all about building connections and creating opportunities. Being able to meet with the investment community and explore what we can do in our region to increase levels of business investment or seeing businesses we have supported continue to scale and take the next step makes this one of the key events of the year. | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
+- As part of Climb, the Combined Authority supported several events supporting young people in our region. It was inspiring and rewarding to see the potential of the next generation of entrepreneurs who are bringing new ideas and innovations to the table and helping them make connections with investment professionals | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
+- What's the best event you've ever been to? Mine might have to be ClimbUK! The power of attending impactful events like this can be truly transformative, giving you the reset your mind might need. Not only does going to an event make you disconnect physically from the office and digitally from your computer, allowing you to feel present; but the learning opportunities and the new relationships that are forged are so so so valuable. | Ash Wilks | Director of Business Development, Wallbreaker
+- This was one of the best events I have exhibited at. An amazing team, speakers and delegates. Thanks for creating such a wonderful and professional experience for all | Tim Bennett | Founder, Powerhouse Digital Limited
+- What an inspiring day! Bringing together so many businesses and potential investors from around the globe, to supercharge growth, really created a buzz, and showcased the opportunity and talent that West Yorkshire has. | Mandy Ridyard | Chief Business Advisor to the Mayor of West Yorkshire
+- it was genuinely invigorating to have so many great conversations with investors, founders, enterprise agencies, government, ecosystem builders from across the UK and globally | Barry McDonald | VP Community, CodeBase
+- A day of feeling inspired and educated by so many founders, investors and brilliant people and organisations! Such a great job Gordon Bateman. Pilar Rubio and all the team! Great to see so many familiar faces and friends, too many to mention! | Richard Paxman OBE | Paxman Scalp Cooling
+- Great event, great speakers, great participants, great networking, great engagement. Just altogether great! | Ian McAleese | International HR Leader, Snowflake Computing
+- The calibre of attendees was top-notch! [...] the north knows how to do it! | Eddy Davies | Founder and CEO, mutuals
+- The event had such a fantastic atmosphere of excitement, collaboration and support, and it was a real opportunity to meet people and share ideas from across so many sectors. | Nina Hinton | Director of Business and Development, Videosign
+- ...A FANTASTIC EVENT! GREAT IDEAS, GREAT PEOPLE, GREAT VENUE. | Jennifer Byrne | Former CTO, Microsoft
+- There was a huge focus on building ecosystems which support entrepreneurship, with collaboration at their core. And how accessible and clearly signposted support must be for business owners, making it easy to access market, funding and talent (as opposed to sharing a list of topics or content and asking them to find the right place to start) | Talitha Heaton | MPA Group
+- Seeing young founders making great headways into the business world with ideas dreamt up in bedrooms was very inspiring. | Dan Boys | Founder, Wildfi Ltd
+
+## wwt.back.eyebrow
+Returning partners and guests
+
+## wwt.back.headline
+[[Names]] that keep coming _back_
+
+## wwt.back.intro
+These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.
+
+## wwt.back.three.title
+Back for three editions
+
+## wwt.back.two.title
+Back for a second edition
+
+## wwt.back.three.items
+<!-- note: organisation, as the page names it, found in the page's lists for Climb23, Climb24 and Climb25 or Climb26 -->
+- British Business Bank
+- Innovate UK
+- West Yorkshire Combined Authority
+- Leeds City Council
+- Sure Valley Ventures
+- Lifted Ventures
+- EHE Ventures
+
+## wwt.back.two.items
+<!-- note: organisation, as the page names it, found in the lists for two of those -->
+- NatWest Group
+- Barclays
+- BBC
+- Channel 4
+- UBS
+- Thomson Reuters
+- Mishcon de Reya
+- Lewis Silkin
+- Northern Gritstone
+- ScaleUp Institute
+- Creative UK
+- Plexal
+- YFM Equity Partners
+- Leeds University Business School
+- University of Sheffield
+- South Yorkshire Mayoral Combined Authority
+- Health Innovation Yorkshire & Humber
+- Blacks Solicitors
+- Innovation SuperNetwork
+- GSG
+- Samos Investments
+- RTC North
+- River Capital
+- Panintelligence
+- Techbuyer
+- XR Games
+- Tech North Advocates
+- Tech SY
+- The Data Refinery
+- The Tech Dept
+- Leeds Community Foundation
+- CREATICITY
+- Genio
+- Glean
+- CRSI
+- PinPoint Data Science
+- IDS Group
+- Clubit Group
+- Red Line Foundry
+- Mind Body Goals
+- Strength in you
+- Blossom Training
+- Fourth Day
+- Yaba
+- ProspHER
+- Writebusinessresults
 
 ## wwt.cta.line1
 Join them at
