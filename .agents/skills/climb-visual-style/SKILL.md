@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.6"
+  version: "1.7"
 ---
 
 # ClimbUK visual style
@@ -63,7 +63,7 @@ These carry the energy. Use two or three per piece, not all of them at once.
 
 - **The orange word and the italic word** in a display line.
 - **The short orange rule** (4rem by 6px, rounded) above a statement, and tracked uppercase eyebrows.
-- **Stickers:** small tags tilted -3 to -4 degrees, Climb Orange with Dark Brown text (or Dark Brown with White), pinned to a card corner or a photo.
+- **Stickers:** small tags tilted -3 to -4 degrees, Climb Orange with Dark Brown text (or Dark Brown with White), pinned to a card corner or a photo. A sticker on a diagonal cut sits with the cut running through its middle, and a date sticker is big enough to read first.
 - **Ticket cards:** a dark glass card with stub notches cut into both sides and a dashed tear line, holding the offer and the one button.
 - **Photo cards and walls:** photos with the title on top and the line at the bottom under a Dark Brown fade; a mosaic of squares with one big tile.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
@@ -120,7 +120,7 @@ These rules hold on every platform. When the asset is built for a particular pla
 - Every colour is a token. No `#EC752A`.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
-- Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
+- Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance). Hand-held print (flyers, leaflets, programmes) uses 12pt or larger for every line, with bleed of 5% of the shorter trim edge (at least 3mm): see `guidelines/print.md`. Logos sit on a calm ground (a fade or solid), never over hands or faces; move the photo down to make room rather than shrinking the logo.
 - On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.
