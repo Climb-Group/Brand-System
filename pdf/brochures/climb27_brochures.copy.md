@@ -266,7 +266,7 @@ Order everything for your stand in your exhibitor portal, and it is in place whe
 - A £100 instantprint voucher with every exhibitor pass | instantprint is the official print partner of Climb27
 
 ## exhibitor.proof2.eyebrow
-In their words
+Climb26 in pictures
 
 ## exhibitor.proof2.headline
 Life on the _expo_ [[floor]]
@@ -500,11 +500,14 @@ Reach beyond the [[two]] _days_
 - confetti-cannon | Competitions | Competitions and activations we run with you.
 - cocktail | Drinks mixer | Your brand on the drinks: £1,000 per 100 drinks.
 
+## partner.proof.headline
+Why partners _back_ [[Climb27]]
+
 ## partner.proof2.eyebrow
-In their words
+Climb26 in pictures
 
 ## partner.proof2.headline
-Why partners _back_ [[Climb27]]
+The festival in [[full]] _swing_
 
 ## partner.proof3.eyebrow
 In their words

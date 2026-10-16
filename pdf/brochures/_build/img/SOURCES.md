@@ -153,3 +153,4 @@ The two renders are small in the original brochure (600px wide). Replace them wi
 | expo_floor_maf-231.jpg | photos-intake/brochures/exhibitor_maf-231.jpg (Climb26) |
 | stage_natwest_darren-perry.jpg | photos-intake/brochures/natwest_darren-perry_maf-494.jpg (Climb26; Darren Perry of NatWest on the main stage) |
 | busk_natwest_maf-177.jpg | photos-intake/brochures/natwest_busk_maf-177.jpg (Climb26; Busk Your Business, a NatWest Accelerator shirt in front) |
+| awards_052a3854.jpg | photos-intake/brochures/awards_052a3854.jpg (Climb26; ClimbAwards trophies on the table) |

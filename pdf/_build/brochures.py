@@ -549,7 +549,7 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None):
     bk.add(cls, text + big + low + right + badge)
 
 
-def setup_page(bk, cls, key, after):
+def setup_page(bk, cls, key, after, after_pos="center"):
     """How simple it is: three steps on the left; setup day photos beside the finished stand on the right."""
     pool = bk.pool
     steps = "".join('<div class="step"><div class="numo" aria-hidden="true">%02d</div><h3>%s</h3><p>%s</p></div>' % (i, t(a), t(b))
@@ -559,7 +559,7 @@ def setup_page(bk, cls, key, after):
              '<div class="steps2" style="position:absolute;left:120px;width:820px;top:490px;bottom:130px;display:flex;flex-direction:column;justify-content:space-between">%s</div>'
              % (head(C["%s.setup.eyebrow" % key], C["%s.setup.headline" % key], 68, 820), t(C["%s.setup.intro" % key]), steps)
              + tile(pool.photo(SETUP_PHOTOS[0]), 1000, 96, 520, 380) + tile(pool.photo(SETUP_PHOTOS[1]), 1538, 96, 262, 181)
-             + tile(pool.photo(SETUP_PHOTOS[2]), 1538, 295, 262, 181) + tile(pool.photo(after), 1000, 512, 800, 432)
+             + tile(pool.photo(SETUP_PHOTOS[2]), 1538, 295, 262, 181) + tile(pool.photo(after), 1000, 512, 800, 432, after_pos)
              + stick(C["exhibitor.setup.before"], 1020, 116) + stick(C["exhibitor.setup.after"], 1020, 532))
     bk.add(cls, inner)
 
@@ -820,10 +820,10 @@ def partner():
              + tile(zp[3], 1060, 584, 361, 360) + tile(zp[4], 1439, 584, 361, 170) + tile(zp[5], 1439, 772, 361, 172))
     bk.add("ch", inner)
     # 8 How simple the day is, on white.
-    setup_page(bk, "wh", "partner", B + "expo_stand_west-yorkshire_busy.jpg")
+    setup_page(bk, "wh", "partner", B + "expo_floor_maf-238.jpg", "center 75%")
 
     # 9 Sessions and awards, on Light Grey.
-    stage_names = [(P + "roundtable_and_workshops_02.jpg",), (P + "climb_awards_winners.jpg",), (P + "stage_speakers_03.jpg",)]
+    stage_names = [(P + "roundtable_and_workshops_02.jpg",), (B + "awards_052a3854.jpg",), (P + "stage_speakers_03.jpg",)]
     offers = "".join('<div class="cardx"><div class="img" style="height:390px">%s</div><div class="body"><h3>%s</h3>'
                      '<div class="d">%s</div><div class="end">%s</div></div></div>'
                      % (photo(pool.photo(*(n + PARTNER_PHOTOS))), t(o[1]), t(o[2]), t(o[3]))
@@ -847,7 +847,7 @@ def partner():
     bk.add("wh", inner)
 
     # 10-11 In their words.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["partner.proof.headline"], 13)
     # Group shots that lose heads in a wide tile; the wall is an even grid so no photo is cut too thin.
     pool.used.update({B + "stage_maf-665.jpg", P + "joy_02.jpg", P + "joy_03.jpg"})
     photo_page(bk, "ch", C["partner.proof2.eyebrow"], C["partner.proof2.headline"],
