@@ -132,24 +132,24 @@ GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim
 # Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
 # the page names them; best known first. Each name is checked against the page when the file is written.
 RETURNERS = {
-    # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb25 exhibitor build records,
-    # Climb25 quotes and the Climb26 stand sheet and agenda; Climb25 speakers and partners are not in those records,
-    # so a count can be one short. West Yorkshire Combined Authority is in all four; CRSI on the owner's word. The owner
-    # says more Climb23 names still come back (2026-10-16): those at Climb23, Climb24 and Climb26 whose only gap is
-    # the missing Climb25 speaker and partner records count as four.
-    "four": ["West Yorkshire Combined Authority", "CRSI", "British Business Bank", "Innovate UK", "Leeds City Council",
-             "EHE Ventures", "Lifted Ventures"],
-    "three": ["Channel 4", "UBS", "Creative UK", "Mishcon de Reya", "Lewis Silkin", "Northern Gritstone",
-              "Innovation SuperNetwork", "Sure Valley Ventures", "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group",
-              "Tech SY", "Leeds Community Foundation", "The Data Refinery", "The Tech Dept", "Glean", "GSG", "CREATICITY",
-              "Yaba", "Writebusinessresults"],
+    # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb24 sponsors tracker, the
+    # Climb25 agenda mastersheet and exhibitor build records, and the Climb26 stand sheet and agenda (the per-edition
+    # list is photos-intake/who-was-there-returners.csv on the photo intake branch). The Climb23 records hold only
+    # partners, speakers and sessions, so a count can still be one short there. CRSI is in all four on the owner's word.
+    "four": ["CRSI", "Leeds City Council", "West Yorkshire Combined Authority"],
+    "three": ["British Business Bank", "Innovate UK", "Creative UK", "Channel 4", "UBS", "Mishcon de Reya",
+              "Lewis Silkin", "Northern Gritstone", "Innovation SuperNetwork", "Plexal",
+              "Manchester Metropolitan University", "Sure Valley Ventures", "EHE Ventures", "Lifted Ventures",
+              "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group", "Tech SY",
+              "Leeds Community Foundation", "The Data Refinery", "The Tech Dept", "Mind Body Goals", "Strength in you",
+              "Glean", "GSG", "CREATICITY", "Yaba", "Writebusinessresults"],
     # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.
     "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Thomson Reuters",
-            "ScaleUp Institute", "Plexal", "YFM Equity Partners",
+            "ScaleUp Institute", "YFM Equity Partners",
             "Leeds University Business School", "University of Sheffield", "South Yorkshire Mayoral Combined Authority",
             "Health Innovation Yorkshire & Humber", "Blacks Solicitors",
             "Samos Investments", "RTC North", "Tech North Advocates", "Genio", "PinPoint Data Science", "Clubit Group",
-            "Red Line Foundry", "Mind Body Goals", "Strength in you", "Blossom Training", "Fourth Day", "ProspHER"],
+            "Red Line Foundry", "Blossom Training", "Fourth Day", "ProspHER"],
 }
 EDITION = {"wwt.speakers": "Climb26", "wwt.speakers24": "Climb24", "wwt.speakers23": "Climb23"}
 

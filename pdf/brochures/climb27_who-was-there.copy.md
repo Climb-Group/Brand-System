@@ -1930,24 +1930,26 @@ Two editions so far
 
 ## wwt.back.four.items
 <!-- note: organisation, as the page names it, at all four editions (see RETURNERS for the sources) -->
-- West Yorkshire Combined Authority
 - CRSI
-- British Business Bank
-- Innovate UK
 - Leeds City Council
-- EHE Ventures
-- Lifted Ventures
+- West Yorkshire Combined Authority
 
 ## wwt.back.three.items
 <!-- note: organisation, as the page names it, at three editions -->
+- British Business Bank
+- Innovate UK
+- Creative UK
 - Channel 4
 - UBS
-- Creative UK
 - Mishcon de Reya
 - Lewis Silkin
 - Northern Gritstone
 - Innovation SuperNetwork
+- Plexal
+- Manchester Metropolitan University
 - Sure Valley Ventures
+- EHE Ventures
+- Lifted Ventures
 - River Capital
 - Panintelligence
 - Techbuyer
@@ -1957,6 +1959,8 @@ Two editions so far
 - Leeds Community Foundation
 - The Data Refinery
 - The Tech Dept
+- Mind Body Goals
+- Strength in you
 - Glean
 - GSG
 - CREATICITY
@@ -1973,7 +1977,6 @@ Two editions so far
 - BBC
 - Thomson Reuters
 - ScaleUp Institute
-- Plexal
 - YFM Equity Partners
 - Leeds University Business School
 - University of Sheffield
@@ -1987,8 +1990,6 @@ Two editions so far
 - PinPoint Data Science
 - Clubit Group
 - Red Line Foundry
-- Mind Body Goals
-- Strength in you
 - Blossom Training
 - Fourth Day
 - ProspHER
