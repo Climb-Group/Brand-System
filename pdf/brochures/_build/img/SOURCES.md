@@ -148,3 +148,8 @@ The two renders are small in the original brochure (600px wide). Replace them wi
 | setup_maf-1.jpg | photos-intake/brochures/prep-day_maf-1.jpg (Climb26) |
 | expo_stand_girls-and-tech_empty.jpg | photos-intake/brochures/expo-area_maf-430.jpg (Climb26; the Girls & Tech stand without people, used on the exhibitor cover) |
 | expo_stand_west-yorkshire_busy.jpg | photos-intake/brochures/exhibitor_maf-241.jpg (Climb26; the West Yorkshire custom stand, busy) |
+| expo_floor_maf-358.jpg | photos-intake/brochures/exhibitor_maf-358.jpg (Climb26) |
+| expo_floor_maf-349.jpg | photos-intake/brochures/exhibitor_maf-349.jpg (Climb26) |
+| expo_floor_maf-231.jpg | photos-intake/brochures/exhibitor_maf-231.jpg (Climb26) |
+| stage_natwest_darren-perry.jpg | photos-intake/brochures/natwest_darren-perry_maf-494.jpg (Climb26; Darren Perry of NatWest on the main stage) |
+| busk_natwest_maf-177.jpg | photos-intake/brochures/natwest_busk_maf-177.jpg (Climb26; Busk Your Business, a NatWest Accelerator shirt in front) |

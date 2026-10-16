@@ -394,7 +394,7 @@ In every session room
 Your brand on the [[big]] _screen_
 
 ## partner.sessions.intro
-We run the screens in every session room ourselves, so your brand can open, close and sit beside the sessions people came for.
+We run the screens in every session room ourselves. Upgrade your partnership and your brand can open, close and sit beside the sessions people came for.
 
 ## partner.sessions.items
 - video-camera | Before a session | Your video advert on the screens as people take their seats. | Doors open
@@ -407,7 +407,7 @@ We run the screens in every session room ourselves, so your brand can open, clos
 You make it. We [[play]] it.
 
 ## partner.sessions.card.line
-Send us your video or effect and we run it on the screens in every room you book, on cue, all day.
+Upgrade your package with any of these. Send us your video or effect and we run it on the screens in every room you book, on cue, all day.
 
 ## partner.headline.eyebrow
 Headline Partner
