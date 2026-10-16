@@ -6,7 +6,7 @@ Two brochures for selling Climb27 (30 June and 1 July 2027) and a Who was there 
 | --- | --- |
 | `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page of expo stand sizes, a page on how we build the stand so exhibitors just show up, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, a page of quotes, a page of exhibitor photos and a poster closing page with a QR code to book. 14 pages. |
 | `climb27_partner-brochure.pdf` | Partners: what Climb27 is, why partner, how a partnership is built (levels, space options and reach), everything included in every partnership, the branding options, the options in the event app, the session screens and the ticket, the Headline Partner extras, a NatWest spotlight, the zones, how we install the branding before the day, sessions and awards, extra reach, a page of quotes, a page of stage, awards and crowd photos, and a poster closing page with a QR code to book a call. 17 pages. |
-| `climb27_who-was-there.pdf` | Anyone weighing up Climb27 who wants to see who came before: the names they will know, the partners and exhibitors, sessions run with well-known companies, every Climb26 speaker and host, the organisations in the room, and 27 quotes from Climb25 and Climb26, with a closing page to book a partnership call. It carries the public Who was there page on the ClimbUK website word for word. 17 pages. |
+| `climb27_who-was-there.pdf` | Anyone weighing up Climb27 who wants to see who came before: the names they will know, the partners and exhibitors from Climb23 to Climb26, sessions run with well-known companies, the Climb23 agenda, every speaker from Climb23, Climb24 and Climb26, where the speakers came from, the organisations in the room, and 76 quotes from Climb23 to Climb26, with a closing page to book a partnership call. It carries the public Who was there page on the ClimbUK website word for word. 32 pages. |
 
 Contact sheets of every page are in `previews/`.
 
@@ -22,7 +22,7 @@ Contact sheets of every page are in `previews/`.
 
 ## Change the words
 
-Every printed word is in `climb27_brochures.copy.md`, or `climb27_who-was-there.copy.md` for the Who was there pack. Edit it there and rebuild. The Who was there copy file follows the website page: when the page changes, change the copy file to match. Its quotes are printed word for word, so the copy checker reads every other line in the pack but not the quotes. In a headline, `[[word]]` is set in Climb Orange and `_word_` in italic. A list is one `- ` line per item, with its parts split by ` | `.
+Every printed word is in `climb27_brochures.copy.md`, or `climb27_who-was-there.copy.md` for the Who was there pack. Edit it there and rebuild. The Who was there copy file is written from the website page: when the page changes, run `python3 pdf/_build/wwt_from_page.py <who_was_there.xml>` with the page's template from the website repository, then rebuild. Its quotes are printed word for word, so the copy checker reads every other line in the pack but not the quotes. In a headline, `[[word]]` is set in Climb Orange and `_word_` in italic. A list is one `- ` line per item, with its parts split by ` | `.
 
 ## Rebuild
 
@@ -56,5 +56,5 @@ Set `KEEP_HTML=1` to keep the HTML files for review.
 - **The build stops at the copy checker.** A line breaks a climb-voice rule. Fix the line in the copy file, not in the script.
 - **The build stops at the contrast check.** It names the page and the text. Move the text onto a solid ground or a stronger fade.
 - **A page overflows.** Long copy pushes cards into the footer. Shorten the line in the copy file before changing sizes in the script.
-- **The build says the Who was there pack quotes one person twice on a page or on pages close together.** A person with two quotes has one on the first page of quotes for that year and one on the last. Keep their two quotes next to each other in the copy file.
+- **The build says the Who was there pack quotes one person twice on a page or on pages close together.** A person with two quotes has one on the first page of quotes for that year and one on the last, with other pages between. When a year gets a new person with two quotes, check the page order in `build()` in `who_was_there.py`.
 - **The build says a brochure prints too few quotes or repeats one.** Add real quotes to `exhibitor.quotes` or `partner.quotes` in the copy file. Never write a quote; copy it word for word from its source.
