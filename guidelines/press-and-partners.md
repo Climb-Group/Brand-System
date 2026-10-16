@@ -154,6 +154,8 @@ A short proof pack sent with the sales brochures, built from www.climb-uk.com/wh
 
 Leave out long lists of every exhibitor or attendee: they add length, not proof.
 
+Name ClimbUK, not single editions, in this pack's headings, labels and attributions ("What people said about ClimbUK", "ClimbUK speaker"). Many people and organisations came to more than one edition, and the edition records are incomplete. Count returning organisations by edition only where the records support it.
+
 ## The share kit
 
 Every partner, speaker and exhibitor gets a share kit:
