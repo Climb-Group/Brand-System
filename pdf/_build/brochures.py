@@ -424,12 +424,13 @@ def what(bk, names, first=WHAT_PHOTOS, headline="shared.what.headline"):
     bk.add("wh", inner)
 
 
-def stretch_cols(qs, k, style_of, size_of, box, gap=20, pad="26px 30px"):
+def stretch_cols(qs, k, style_of, size_of, box, gap=20, pad="26px 30px", to_first=0):
     """Quotes in k columns that all reach the bottom of the box: each column takes the next quote while it is the
-    shortest, and its boxes grow to fill it, so no column stops early and leaves a gap above the footer."""
+    shortest, and its boxes grow to fill it, so no column stops early and leaves a gap above the footer. The last
+    to_first quotes go under the first one, so a short quote shares a column with a very long one."""
     cols, load = [[] for _ in range(k)], [0] * k
     for i, q in enumerate(qs):
-        c = load.index(min(load))
+        c = 0 if i >= len(qs) - to_first else load.index(min(load))
         cols[c].append(quote(q, size_of(q), style_of(i, q), "flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;padding:%s" % pad))
         load[c] += len(q[0]) + 120
     inner = "".join('<div style="flex:1;display:flex;flex-direction:column;gap:%dpx;min-width:0">%s</div>' % (gap, "".join(c)) for c in cols)

@@ -1805,23 +1805,23 @@ From [[organisations]] you _know_
 Banks, funds, global tech companies and government, on stage at ClimbUK.
 
 ## wwt.headliners.items
-<!-- note: name | role and organisation as the page gives it (blank where none) | logo file -->
-- Tracy Brabin | West Yorkshire Combined Authority | west-yorkshire-combined-authority.jpg
-- Claire Ward |  | 
-- Emily Cloke | CEO, Creative UK | creative-uk.png
-- Louis Taylor | CEO, British Business Bank | british-business-bank.png
-- Erin Platts | Chief Executive Officer, Octopus Investments | octopus-investments.png
-- Jennifer Byrne | Former CTO, Microsoft | microsoft.png
-- Chloe Mayirou | Agency Partner, Meta | meta.png
-- Spencer Hudson | Sky Sports | sky-sports.png
-- Tanya Arnold | BBC | bbc.png
-- Jake Zim | Sony | sony.png
-- Hugo Heppell | Channel 4 | channel-4.png
-- Simon McCoy | News Anchor & Broadcaster, Real McCoy Media Ltd | 
-- Stephanie Millward |  | 
-- Jamie Peacock |  | 
-- Robbie Hunter Paul |  | 
-- John Gleasure | DAZN | dazn.png
+<!-- note: name | role and organisation as the page gives it, or the public title in TITLES | logo file | sport sticker (blank where none) -->
+- Tracy Brabin | West Yorkshire Combined Authority | west-yorkshire-combined-authority.jpg | 
+- Jonnie Peacock | Paralympic champion sprinter |  | Paralympian
+- Emily Cloke | CEO, Creative UK | creative-uk.png | 
+- Louis Taylor | CEO, British Business Bank | british-business-bank.png | 
+- Erin Platts | Chief Executive Officer, Octopus Investments | octopus-investments.png | 
+- Jennifer Byrne | Former CTO, Microsoft | microsoft.png | 
+- Chloe Mayirou | Agency Partner, Meta | meta.png | 
+- Spencer Hudson | Sky Sports | sky-sports.png | 
+- Tanya Arnold | BBC | bbc.png | 
+- Jake Zim | Sony | sony.png | 
+- Hugo Heppell | Channel 4 | channel-4.png | 
+- Simon McCoy | News Anchor & Broadcaster, Real McCoy Media Ltd |  | 
+- Stephanie Millward | Paralympic champion swimmer |  | Paralympian
+- Jamie Peacock | Former England and Leeds Rhinos captain |  | Rugby league
+- Robbie Hunter Paul | Former Bradford Bulls captain and New Zealand international |  | Rugby league
+- John Gleasure | DAZN | dazn.png | 
 
 ## wwt.known.items
 <!-- note: organisation as the page names it | logo file | name | role as the page gives it, without the organisation -->
@@ -1909,6 +1909,7 @@ Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 - The energy, positivity and support in each and every room, whether presentation, workshop, socials in the square or networking was phenomenal - I saw perfect stranger connect through spending time eating their lunch together outside with us, then spend the rest of the day hanging out together. [...] I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. Utterly loved it - thank you. Can we do it each quarter!? | Daniella Wainwright | Founder, Wainwright Consulting
 - Climb25 was truly magical and it was an absolute pleasure to be involved again this year as a speaker. All the talks and workshops I was part of were authentic, inspirational and thought-provoking, and the networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections gained for myself and ProspHER. | Serena Fordham | CEO, ProspHER
 - Plenty of very insightful workshops, roundtables and panel sessions from a great selection of speakers [...] we had an absolute blast. Looking forward to Climb25 already! | Matt Wheeler | Director, madeby.studio
+- You and the team have exceeded all my (already sky-high) expectations for Climb23! Cannot wait for next year! | Gary Crotaz | Climb23 speaker
 
 ## wwt.back.eyebrow
 Returning partners and guests

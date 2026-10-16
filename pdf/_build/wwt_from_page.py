@@ -49,13 +49,20 @@ PARTNER_GROUPS = ["wwt.partners", "wwt.partners24", "wwt.exhibitors24", "wwt.par
 # Speakers people will know, from every edition, with the role and organisation as one of their page entries gives it
 # (the edition named, where they gave a better known one there), and their organisation's logo file where we hold one.
 # No editions are printed: the page lists Climb25 and Climb26 together, so an edition list would leave some out.
-HEADLINERS = [("Tracy Brabin", "wwt.speakers24", "west-yorkshire-combined-authority.jpg"), ("Claire Ward", None, ""),
+HEADLINERS = [("Tracy Brabin", "wwt.speakers24", "west-yorkshire-combined-authority.jpg"), ("Jonnie Peacock", None, ""),
               ("Emily Cloke", None, "creative-uk.png"), ("Louis Taylor", None, "british-business-bank.png"),
               ("Erin Platts", None, "octopus-investments.png"), ("Jennifer Byrne", None, "microsoft.png"),
               ("Chloe Mayirou", None, "meta.png"), ("Spencer Hudson", None, "sky-sports.png"),
               ("Tanya Arnold", "wwt.speakers24", "bbc.png"), ("Jake Zim", None, "sony.png"),
               ("Hugo Heppell", None, "channel-4.png"), ("Simon McCoy", None, ""), ("Stephanie Millward", None, ""),
               ("Jamie Peacock", None, ""), ("Robbie Hunter Paul", None, ""), ("John Gleasure", None, "dazn.png")]
+# Speakers the page lists by name only, with the title printed for them and a sticker naming their sport in place of
+# a logo. Titles come from their public profiles, not from the page, so check one before adding it. Jonnie Peacock is
+# not in the speaker lists; his Climb26 session title on the page names him ("Paralympic champion Jonnie Peacock").
+TITLES = {"Jonnie Peacock": ("Paralympic champion sprinter", "Paralympian"),
+          "Stephanie Millward": ("Paralympic champion swimmer", "Paralympian"),
+          "Jamie Peacock": ("Former England and Leeds Rhinos captain", "Rugby league"),
+          "Robbie Hunter Paul": ("Former Bradford Bulls captain and New Zealand international", "Rugby league")}
 # Speakers from organisations people will know, grouped under the organisation (best known first) with its logo
 # where we hold one. The heading is the organisation as the page names it; the role drops its trailing organisation.
 KNOWN = [("NatWest Group", "natwest-group-plc.png", ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson"]),
@@ -99,7 +106,7 @@ SESSIONS23 = ["John Gleasure"]
 GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
            "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
            "Talitha Heaton", "Dan Boys", "Harry Baker", "Rachel Fowler",
-           "Daniella Wainwright", "Serena Fordham", "Matt Wheeler"]
+           "Daniella Wainwright", "Serena Fordham", "Matt Wheeler", "Gary Crotaz"]
 # Organisations that came to more than one edition, found by matching the page's lists for Climb23, Climb24 and
 # Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
 # the page names them; best known first. Each name is checked against the page when the file is written.
@@ -211,8 +218,14 @@ def picks(got, notes):
     for key in ("wwt.headliners", "wwt.known"):
         for part in ("eyebrow", "headline", "intro"):
             out.append(("%s.%s" % (key, part), PACK["%s.%s" % (key, part)]))
-    out.append(("wwt.headliners.items", [[n, role_of(n, p), logo(f)] for n, p, f in HEADLINERS]))
-    notes["wwt.headliners.items"] = "name | role and organisation as the page gives it (blank where none) | logo file"
+    def headliner(n, p, f):
+        if n in TITLES:
+            assert n.lower() in listed, "%s is not on the page" % n
+            return [n, TITLES[n][0], logo(f), TITLES[n][1]]
+        return [n, role_of(n, p), logo(f), ""]
+    out.append(("wwt.headliners.items", [headliner(*h) for h in HEADLINERS]))
+    notes["wwt.headliners.items"] = ("name | role and organisation as the page gives it, or the public title in TITLES "
+                                     "| logo file | sport sticker (blank where none)")
     rows = []
     for org, f, names in KNOWN:
         assert org.lower() in listed, "%s is not on the page" % org

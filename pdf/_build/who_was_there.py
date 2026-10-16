@@ -60,7 +60,10 @@ T26, O26, S26 = split_pairs(Q26)
 LONG26 = [q for q in O26 if len(q[0]) > 600]
 P26 = balance([T26, S26], [q for q in O26 if q not in LONG26])
 TG, OG, SG = split_pairs(QG)
-PG = balance([TG, [], SG], OG + LONG26)
+# The one short Climb23 quote sits under the longest general quote, on page 8, so that column has no gap at the top.
+UNDER = [q for q in OG if q[1].startswith("Gary Crotaz")]
+PG = balance([TG, [], SG], [q for q in OG if q not in UNDER] + LONG26)
+PG[1] += UNDER
 
 CSS = """
 .ltile{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;
@@ -94,6 +97,7 @@ CSS = """
   border-left:6px solid var(--o)}
 .spk .who{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
 .spk .chip{flex:none;width:92px;min-width:0;height:72px;padding:8px}
+.spk .tag{flex:none;width:min-content;background:var(--db);color:var(--w);border-radius:6px;padding:8px 10px;font-family:Montserrat;font-weight:800;font-size:15px;line-height:1.15;letter-spacing:.03em;text-transform:uppercase;text-align:center;transform:rotate(-4deg)}
 .spk h3{font-family:Montserrat;font-weight:800;font-size:27px;line-height:1.1;color:var(--ch)}
 .spk p{font-size:19px;line-height:1.3;color:#404C68}
 .orgs{columns:4;column-gap:36px}
@@ -171,9 +175,11 @@ def back_page(bk):
 
 
 def headliners_page(bk):
-    """Speakers people will know, one card each, with the editions they spoke at."""
+    """Speakers people will know, one card each, with their organisation's logo or a sticker naming their sport."""
     def card(r):
         chip = ('<div class="chip"><img src="%s%s" alt=""></div>' % (L, html.escape(r[2]))) if len(r) > 2 and r[2] else ""
+        if not chip and len(r) > 3 and r[3]:
+            chip = '<div class="tag">%s</div>' % t(r[3])
         role = "<p>%s</p>" % t(r[1]) if r[1] else ""
         return '<div class="spk"><div class="who"><h3>%s</h3>%s</div>%s</div>' % (t(r[0]), role, chip)
     cards = "".join(card(r) for r in C["wwt.headliners.items"])
@@ -209,7 +215,7 @@ def sessions_page(bk):
     bk.add("ch", header("wwt.sessionsall", 54, 1100, top=70) + grid)
 
 
-def quote_page(bk, cls, key, qs, first):
+def quote_page(bk, cls, key, qs, first, to_first=0):
     bk.pool.quotes[bk.pool.qi:bk.pool.qi] = qs
     got = [bk.pool.quote() for _ in qs]
 
@@ -231,7 +237,7 @@ def quote_page(bk, cls, key, qs, first):
     chars = sum(len(q[0]) for q in got)
     size = ((lambda q: b.qsize(q, 30, 22)) if chars < 1300 else (lambda q: b.qsize(q, 23, 20)) if chars < 1900
             else (lambda q: b.qsize(q, 21, 19)))
-    bk.add(cls, head + b.stretch_cols(got, 3, style, size, box))
+    bk.add(cls, head + b.stretch_cols(got, 3, style, size, box, to_first=to_first))
 
 
 def close(bk):
@@ -266,7 +272,7 @@ def build():
     headliners_page(bk)                                             # 5
     quote_page(bk, "gr", "wwt.general", PG[0], True)                # 6
     known_page(bk)                                                  # 7
-    quote_page(bk, "gr", "wwt.general", PG[1], False)               # 8
+    quote_page(bk, "gr", "wwt.general", PG[1], False, len(UNDER))   # 8
     sessions_page(bk)                                               # 9
     quote_page(bk, "wh", "wwt.quotes26", P26[1], False)             # 10
     quote_page(bk, "gr", "wwt.general", PG[2], False)               # 11
