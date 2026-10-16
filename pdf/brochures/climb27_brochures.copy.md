@@ -282,7 +282,7 @@ Life on the _expo_ [[floor]]
 - It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
-- A fantastic event... Great people | Jennifer Byrne, Microsoft
+- A fantastic event... Great people | Jennifer Byrne, former CTO, Microsoft
 - The atmosphere was electric, driven by a genuine sense of innovation, collaboration, and ambition that made every moment inspiring. | Caroline Cartellieri, C-Squared Consulting
 - From the energy in the room to the quality of the sessions and the people I met, everything felt genuinely special. | Sanket Sunil Barmukh, Sucetas Technologies UK
 - Wins on stage are great. But the friendships, the collaborations and the momentum you build alongside them? That's the real prize. | Hamzah Syed, picknmixAI
@@ -536,7 +536,7 @@ They _keep_ [[coming back]]
 - It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
 - Wins on stage are great. But the friendships, the collaborations and the momentum you build alongside them? That's the real prize. | Hamzah Syed, picknmixAI
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
-- A fantastic event... Great people | Jennifer Byrne, Microsoft
+- A fantastic event... Great people | Jennifer Byrne, former CTO, Microsoft
 
 ## partner.cta.line1
 Let's build your
