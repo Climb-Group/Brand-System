@@ -61,10 +61,10 @@ PG = balance([TG, SG], OG)
 
 CSS = """
 .ltile{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;
-  box-shadow:0 2px 6px rgba(var(--ink),.1)}
+  border:2px solid #E9E9E9}
 .ltile img{max-width:100%;max-height:100%;object-fit:contain}
 .ltile.dark{background:var(--ch)}
-.s.ch .ltile{box-shadow:none}
+.s.ch .ltile{border:0}
 .names{columns:3;column-gap:40px;font-size:24px;line-height:1.25}
 .names li{list-style:none;break-inside:avoid;padding:0 0 6px 1.1em;position:relative;font-weight:600;color:#404C68}
 .names li::before{content:"";position:absolute;left:0;top:.42em;width:.42em;height:.42em;border-right:.14em solid var(--ot);

@@ -294,12 +294,12 @@ CSS = """
 .qbox figcaption{color:var(--w);font-weight:700;font-size:19px}
 .qdark{background:var(--db);color:var(--w);padding:32px 36px;border-radius:12px}
 .qdark figcaption{color:var(--tint)}
-.qwhite{background:var(--w);color:var(--ch);padding:32px 36px;border-radius:12px;box-shadow:0 4px 14px rgba(var(--ink),.12)}
+.qwhite{background:var(--w);color:var(--ch);padding:32px 36px;border-radius:12px;border:2px solid #E9E9E9}
 .qwhite figcaption{color:var(--deep)}
 .qabs{position:absolute}
 .badge{position:absolute;width:180px;height:180px;border-radius:50%;background:var(--o);color:var(--w);display:flex;
   flex-direction:column;align-items:center;justify-content:center;font-family:Montserrat;font-weight:800;font-size:32px;
-  line-height:1;text-align:center;box-shadow:0 14px 40px rgba(var(--or),.45)}
+  line-height:1;text-align:center}
 .badge small{font-size:19px;font-weight:700;margin-bottom:6px}
 .price{display:inline-flex;align-items:baseline;gap:14px;white-space:nowrap;background:var(--db);color:var(--w);font-family:Montserrat;font-weight:800;
   font-size:52px;padding:14px 26px;border-radius:10px}
@@ -319,12 +319,12 @@ CSS = """
 .cardx .d{font-size:21px;line-height:1.5;color:var(--lg);margin-top:12px}
 .cardx .end{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:6px;font-family:Montserrat;font-weight:800;font-size:40px;color:var(--w)}
 .cardx .end small{font-size:19px;font-weight:700;color:var(--tint)}
-.s.wh .cardx,.s.gr .cardx{background:#fff;border:0;box-shadow:0 4px 12px rgba(var(--ink),.1),0 2px 4px rgba(var(--ink),.06)}
+.s.wh .cardx,.s.gr .cardx{background:#fff;border:2px solid #E9E9E9}
 .s.wh .cardx h3,.s.gr .cardx h3,.s.wh .cardx .end,.s.gr .cardx .end{color:var(--ch)}
 .s.wh .cardx .d,.s.gr .cardx .d{color:#404C68}
 .s.wh .cardx .k,.s.gr .cardx .k,.s.wh .cardx .end small,.s.gr .cardx .end small{color:var(--deep)}
 .ctabtn{display:inline-flex;align-items:center;font-family:Montserrat;font-weight:800;font-size:32px;border-radius:999px;
-  background:var(--w);color:var(--ot);padding:22px 40px;white-space:nowrap;box-shadow:0 14px 40px rgba(var(--ink),.25)}
+  background:var(--w);color:var(--ot);padding:22px 40px;white-space:nowrap}
 .step{position:relative;padding-top:150px}
 .step .numo{position:absolute;top:0;left:-6px;font-size:190px}
 .step h3{font-family:Montserrat;font-weight:800;font-size:32px;text-transform:uppercase;line-height:1.05;letter-spacing:-.01em}
@@ -336,16 +336,16 @@ CSS = """
 .icard{display:flex;flex-direction:column;gap:12px;background:var(--ch);border-radius:14px;padding:32px 32px 34px;border:1.5px solid rgba(255,255,255,.08)}
 .icard h3{font-family:Montserrat;font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:-.005em}
 .icard p{font-size:20px;line-height:1.5;color:var(--lg)}
-.s.wh .icard,.s.gr .icard{background:#fff;border:0;box-shadow:0 4px 12px rgba(var(--ink),.1),0 2px 4px rgba(var(--ink),.06)}
+.s.wh .icard,.s.gr .icard{background:#fff;border:2px solid #E9E9E9}
 .s.wh .icard h3,.s.gr .icard h3{color:var(--ch)} .s.wh .icard p,.s.gr .icard p{color:#404C68}
 .s.ch .icard:not(.hi),.s.ch .cardx{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);border-top:6px solid var(--o)}
 .pcard{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;
-  background:#fff;border-radius:16px;padding:50px 26px 16px;box-shadow:0 4px 12px rgba(var(--ink),.1),0 2px 4px rgba(var(--ink),.06);border-bottom:6px solid var(--o)}
+  background:#fff;border-radius:16px;padding:50px 26px 16px;border:2px solid #E9E9E9;border-bottom:6px solid var(--o)}
 .pcard .pin{position:absolute;top:-46px;left:50%;width:92px;height:92px;border-radius:50%;background:var(--o);border:5px solid #fff;--doodle-ground:var(--o);
-  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(232,113,42,.35)}
+  display:flex;align-items:center;justify-content:center}
 .pcard h3{font-family:Montserrat;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:-.005em;color:var(--ch)}
 .pcard p{font-size:19px;line-height:1.4;color:#404C68;margin-top:6px;max-width:440px}
-.icard.hi,.s.wh .icard.hi,.s.gr .icard.hi{background:var(--o);border:0;box-shadow:none}
+.icard.hi,.s.wh .icard.hi,.s.gr .icard.hi{background:var(--o);border:0}
 .icard.hi h3,.icard.hi p,.s.wh .icard.hi h3,.s.wh .icard.hi p{color:var(--w)} .icard.hi p{font-weight:700}
 .s.gr .list li,.s.wh .list li{color:#404C68}
 /* The chevron scales with the text and sits centred on the first line. */

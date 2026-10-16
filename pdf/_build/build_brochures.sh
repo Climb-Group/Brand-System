@@ -28,7 +28,7 @@ python3 contrast.py "$CHK"
 # Every price in a row of cards on one line, inside its card.
 node align.cjs ./climb27_*.html
 rm -rf "$CHK"
-node render.cjs ./climb27_*.html
+node render.cjs --flat ./climb27_*.html
 mkdir -p ../brochures
 for f in climb27_*.pdf; do mv "$f" ../brochures/; done
 [ -n "${KEEP_HTML:-}" ] || rm -f ./climb27_*.html brochures_printed.txt

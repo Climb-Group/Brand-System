@@ -37,7 +37,7 @@ Needs Python 3 with Pillow, numpy and segno, and Node with Playwright (Chromium)
 3. Runs every printed word through the climb-voice copy checker and stops on a hard-rule problem.
 4. Measures every run of text against what sits behind it and stops if any is under WCAG 2.2 AA.
 5. Checks every row of priced cards (`pdf/_build/align.cjs`) and stops if one price starts more than 1px off the others, or runs out of its card. Card titles keep room for two lines, so a title that wraps never moves its price.
-6. Prints the three PDFs into this folder.
+6. Prints the three PDFs into this folder (`pdf/_build/render.cjs --flat`), and stops if any element has a shadow, glow or filter. Chrome prints those as separate soft-masked images, which Apple Preview and print software draw as boxes around the shape, so cards, pins, circles and stickers use flat edges and rings.
 
 Set `KEEP_HTML=1` to keep the HTML files for review.
 
@@ -56,6 +56,7 @@ Set `KEEP_HTML=1` to keep the HTML files for review.
 
 - **The build stops at the copy checker.** A line breaks a climb-voice rule. Fix the line in the copy file, not in the script.
 - **The build stops at the contrast check.** It names the page and the text. Move the text onto a solid ground or a stronger fade.
+- **The build stops with "shadows or filters print as boxes".** It names the elements. Replace the `box-shadow`, `filter` or `text-shadow` with a flat edge: a 2px Light Grey border on a white card, a white ring on a circle, nothing on a sticker.
 - **A page overflows.** Long copy pushes cards into the footer. Shorten the line in the copy file before changing sizes in the script.
 - **The build says the Who was there pack quotes one person twice on a page or on pages close together.** A person with two quotes has one on the first page of their quote group (Climb26, or ClimbUK in general) and one on the last, with other pages between. When a new person with two quotes is picked, check the page order in `build()` in `who_was_there.py`.
 - **The build says a brochure prints too few quotes or repeats one.** Add real quotes to `exhibitor.quotes` or `partner.quotes` in the copy file. Never write a quote; copy it word for word from its source.
