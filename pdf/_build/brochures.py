@@ -796,6 +796,9 @@ def partner():
              '<p class="copy" style="margin-top:24px;font-size:25px">%s</p><div style="margin-top:4px">%s</div></div>'
              % (head(C["partner.headline.eyebrow"], C["partner.headline.headline"], 70, 900), t(C["partner.headline.intro"]), rows)
              + tile(pool.photo(B + "festival_busy_maf-75.jpg", B + "stage_*", *PARTNER_PHOTOS), 1080, 96, 720, 520)
+             # A sticker on the photo corner says at a glance that this is an upgrade, not a separate package.
+             + '<div style="position:absolute;left:1050px;top:70px;z-index:3"><span class="sticker" style="font-size:30px">%s</span></div>'
+             % t(C["partner.headline.sticker"])
              + '<div class="qabs" style="left:1080px;top:640px;width:720px;height:300px;display:flex">%s</div>'
              % quote(q, qsize(q, 28, 22), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("ch", inner)

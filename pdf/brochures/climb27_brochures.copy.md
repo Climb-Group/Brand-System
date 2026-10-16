@@ -330,7 +330,7 @@ How it works
 Build your [[partnership]] your _way_
 
 ## partner.how.steps
-- Choose your level | Your level sets the size of your presence. Headline Partner is the lead partner, with your name across the whole festival. Partner gives you a place sized to your goals, built from the branding options.
+- Choose your level | Your level sets the size of your presence. Partner gives you a place sized to your goals, built from the branding options. Headline Partner is an upgrade on top, with your name across the whole festival.
 - Own a part of the festival | Pick the spaces and moments that carry your name: printed panels, your logo on the screens, a space in your branding or renamed after you. Each is an option you add to your package.
 - Add more reach | Features in our newsletter, read by 40,000+ people a month. Posts on our social channels and website, which reached 150,000+ page views in its peak month. Meetings with attendees and customers, with an 80% follow-through rate. Plus tickets, space and sessions.
 - Build it together | Your Partner Manager shapes the package with you and runs it with you, through to the festival.
@@ -410,13 +410,16 @@ You make it. We [[play]] it.
 Upgrade your package with any of these. Send us your video or effect and we run it on the screens in every room you book, on cue, all day.
 
 ## partner.headline.eyebrow
-Headline Partner
+Upgrade to Headline Partner
 
 ## partner.headline.headline
 Put your name at the [[top]] of _Climb27_
 
+## partner.headline.sticker
+Upgrade
+
 ## partner.headline.intro
-Everything in every partnership, and more of it. Headline Partners lead the festival with us, from the first post to the last night.
+An upgrade you add to any partnership. You keep everything your partnership includes and add the extras below. Headline Partners lead the festival with us, from the first post to the last night.
 
 ## partner.headline.items
 - share | More reach | Extra social posts, website features and newsletter articles.
