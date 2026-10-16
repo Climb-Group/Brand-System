@@ -72,3 +72,8 @@ Chosen by Jonathan for the Climb27 exhibitor and partner brochures (15 October 2
 - `exhibitor_dsc03104.jpg (the NatWest stand team)`
 - `expo-area_dsc03168.jpg (the NatWest stand, busy)`
 - `expo-area_maf-434.jpg (the NatWest stand, clean)`
+
+## ClimbAwards trophies
+
+- `awards_052a3854.jpg` (trophies lined up on the table)
+- `awards_052a3858.jpg` (trophies, close)

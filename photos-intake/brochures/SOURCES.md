@@ -196,3 +196,5 @@ Partner branding and app shots from the Climb26 photo library. Paths are relativ
 | natwest_busk_maf-175.jpg | NatWest | Busk your business/MAF-175.jpg |
 | natwest_busk_maf-177.jpg | NatWest | Busk your business/MAF-177.jpg |
 | natwest_busk_maf-178.jpg | NatWest | Busk your business/MAF-178.jpg |
+| awards_052a3854.jpg | Awards | Awards/052A3854.jpg |
+| awards_052a3858.jpg | Awards | Awards/052A3858.jpg |
