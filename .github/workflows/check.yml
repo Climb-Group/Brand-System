@@ -39,6 +39,8 @@ jobs:
         run: python3 ai/agents/build_agent_kits.py --check
       - name: Prompt library passes its rules and its exports and plugins are current
         run: python3 ai/prompts/build_prompts.py --check
+      - name: Every file in the pack has a copy file of its words
+        run: python3 .agents/skills/climb-voice/scripts/copy_md.py coverage
       - name: Copy checker passes good copy and fails banned copy
         run: |
           echo "Get your Climb27 ticket" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -

@@ -135,3 +135,10 @@ def stem(brand, row):
 def folder(brand, row):
     """The folder under templates/office for this file."""
     return "%s/%s" % (brand, "external" if row["external"] else row["app"])
+
+
+def copy_file(brand, row):
+    """The copy file with the template's words, under templates/office: beside the template, named after it. A
+    co-branded version carries its app too, because the Word and Excel risk assessments share a stem."""
+    suffix = "-" + row["app"] if row["external"] else ""
+    return "office/%s/%s%s.copy.md" % (folder(brand, row), stem(brand, row), suffix)

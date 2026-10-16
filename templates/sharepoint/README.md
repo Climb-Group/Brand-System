@@ -20,6 +20,8 @@ Everything here only adds, with one exception you ask for by name: `-ReplaceNavi
 | `brand-fonts/` | Montserrat and Open Sans as TTF, every weight and italic: for the brand center font package and for Word and PowerPoint |
 | `licences/` | The SIL Open Font License for both fonts |
 | `copy.txt` | The copy of the twelve plain pages, checked with the climb-voice copy checker |
+| `pages/` | The words of the twelve plain pages and the top menu, one copy file per page (`<page>.copy.md`, which also covers the page's banner and quick link tile) and `menu.copy.md`. `_build/pages.py` reads them, and `make_pack.py` writes `pages.json` and `copy.txt` from them: edit the words here, not in `pages.json` |
+| `brand-book-copy/` | Mirror copy files for the brand book: one per page, the component previews, and the alt text of its pictures. The brand book comes from the brand centre's own build, so change its words there |
 | `_build/` | The scripts that make all of it |
 
 ## The site

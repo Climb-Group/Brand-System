@@ -19,6 +19,7 @@ from PIL import Image
 
 import brand as B
 import catalog as K
+import copy_io as CI
 import copy_samples as C
 import deck_samples as D
 import ooxml_theme as T
@@ -28,6 +29,18 @@ W, H = 13.333, 7.5
 SW, SH = 12192000, 6858000
 M = 0.75
 ART = os.path.join(B.OUT, "_art")
+LAYOUT_COPY = "office/powerpoint-layouts.copy.md"
+
+
+def P(key):
+    """A placeholder prompt or a shared line from office/powerpoint-layouts.copy.md."""
+    return CI.load(LAYOUT_COPY).one(key).text
+
+
+def host_line(b):
+    """The host line on the co-branded layouts: Speaking at Climb27, or at a ClimbGroup event."""
+    event = P("cobrand.event-group") if b == "ClimbGroup" else b
+    return CI.fill(P("cobrand.host"), verb=P("cobrand.verb-speaking"), event=event)
 
 NS = ('xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
       'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '
@@ -205,10 +218,10 @@ def footer(t, b, light=False):
     lg = B.logo(b, "full-colour-light" if light else "reversed-dark", 512)
     iw, ih = Image.open(lg).size
     h = 0.26
-    t.pic(lg, W - M - h * iw / ih, 6.95, h=h, descr="%s logo" % b)
+    t.pic(lg, W - M - h * iw / ih, 6.95, h=h, descr=CI.fill(P("alt.logo"), brand=b))
 
 
-def eyebrow(t, x, y, w, light=False, prompt="Eyebrow line", idx=13):
+def eyebrow(t, x, y, w, light=False, prompt=P("default.eyebrow"), idx=13):
     t.ph("Eyebrow", "body", idx, x, y, w, 0.4, lst=EYEBROW_LIGHT if light else EYEBROW_DARK, prompt=prompt, anchor="b",
          autofit="none")
 
@@ -217,7 +230,7 @@ def rule(t, x, y, w=0.9):
     t.shape(x, y, w, 0.07, solid(B.ORANGE), geom="roundRect", adj='<a:gd name="adj" fmla="val 50000"/>', name="Orange rule")
 
 
-def sticker(t, x, y, w=2.1, prompt="Main stage", idx=30):
+def sticker(t, x, y, w=2.1, prompt=P("default.sticker"), idx=30):
     """Tilted Climb Orange sticker with White bold label (large text rule: 14pt bold and up)."""
     t.ph("Sticker", "body", idx, x, y, w, 0.5, rot=-4, fill=solid(B.ORANGE),
          lst=lvl(sz=16, font=B.DISPLAY, b=1, cap="all", spc=100, colour=B.WHITE, algn="ctr"),
@@ -234,22 +247,22 @@ def layouts(b, names=None, extra=()):
         L.append(dict(name=name, bg=bg, light=light, fn=fn, typ=typ))
 
     def title(t):
-        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.5, descr="%s logo" % b)
-        eyebrow(t, M, 1.3, 8.5, prompt="Eyebrow: who or what this is for")
+        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.5, descr=CI.fill(P("alt.logo"), brand=b))
+        eyebrow(t, M, 1.3, 8.5, prompt=P("title.eyebrow"))
         t.ph("Title", "ctrTitle", None, M, 2.1, 11.2, 3.2, lst=title_lst(60, font=B.DISPLAY_BLACK, ln=92), anchor="b",
-             prompt="Headline with one orange word")
-        t.ph("Subtitle", "subTitle", 1, M, 5.42, 8.0, 0.85, lst=plain_lst(20, B.GREY), prompt="One line that says what the reader gets")
+             prompt=P("title.title"))
+        t.ph("Subtitle", "subTitle", 1, M, 5.42, 8.0, 0.85, lst=plain_lst(20, B.GREY), prompt=P("title.subtitle"))
         t.ph("Date line", "body", 14, M, 6.38, 8.0, 0.45, lst=plain_lst(16, B.TINT, b=1),
-             prompt=info["edition"] or "Date, or the campaign line")
+             prompt=info["edition"] or P("title.date-line"))
     add("Title", "slide_title", False, title, "title")
 
     def title_photo(t):
-        t.ph("Photo", "pic", 15, 6.2, 0, W - 6.2, H, prompt="Add a real ClimbUK photo")
-        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.45, descr="%s logo" % b)
+        t.ph("Photo", "pic", 15, 6.2, 0, W - 6.2, H, prompt=P("title-photo.photo"))
+        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.45, descr=CI.fill(P("alt.logo"), brand=b))
         eyebrow(t, M, 2.2, 5.0)
         t.ph("Title", "title", None, M, 2.65, 5.2, 2.7, lst=title_lst(48, font=B.DISPLAY_BLACK, ln=92), anchor="t",
-             prompt="Headline with one orange word")
-        t.ph("Subtitle", "body", 1, M, 5.4, 5.0, 1.0, lst=plain_lst(18, B.GREY), prompt="One line that says what the reader gets")
+             prompt=P("title-photo.title"))
+        t.ph("Subtitle", "body", 1, M, 5.4, 5.0, 1.0, lst=plain_lst(18, B.GREY), prompt=P("title-photo.subtitle"))
         t.shape(0, H - 0.32, 3.4, 0.32, solid(B.ORANGE), geom="snip1Rect", rot=0, adj='<a:gd name="adj" fmla="val 100000"/>',
                 name="Slab")
         sticker(t, 6.55, 0.55)
@@ -257,10 +270,10 @@ def layouts(b, names=None, extra=()):
 
     def section(t):
         t.ph("Section number", "body", 13, M, 0.9, 5.0, 2.4, lst=lvl(sz=160, font=B.DISPLAY_BLACK, colour=B.WHITE, ln=85),
-             prompt="01", anchor="t", autofit="none")
+             prompt=P("section.section-number"), anchor="t", autofit="none")
         t.ph("Title", "title", None, M, 3.45, 8.2, 2.2, lst=title_lst(60, colour=B.WHITE, font=B.DISPLAY_BLACK, ln=92),
-             prompt="Section title", anchor="t")
-        t.ph("Subtitle", "body", 1, M, 5.6, 7.5, 0.6, lst=plain_lst(20, B.WHITE, b=1), prompt="What this part covers")
+             prompt=P("section.title"), anchor="t")
+        t.ph("Subtitle", "body", 1, M, 5.6, 7.5, 0.6, lst=plain_lst(20, B.WHITE, b=1), prompt=P("section.subtitle"))
     add("Section (orange)", "slide_section", False, section)
 
     def content(light):
@@ -268,9 +281,9 @@ def layouts(b, names=None, extra=()):
             eyebrow(t, M, 0.55, 10, light=light)
             rule(t, M, 1.05)
             t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.1, lst=title_lst(36, colour=B.CHARCOAL if light else None),
-                 prompt="Slide title", anchor="t")
+                 prompt=P("content.title"), anchor="t")
             t.ph("Content", None, 1, M, 2.45, W - 2 * M, 4.25, lst=body_lst(20, light=light),
-                 paras=None, prompt="Points: one idea each, short enough to read in a glance")
+                 paras=None, prompt=P("content.content"))
             footer(t, b, light)
         return f
     add("Title and content", "slide_dark", False, content(False), "obj")
@@ -281,14 +294,14 @@ def layouts(b, names=None, extra=()):
             eyebrow(t, M, 0.55, 10, light=light)
             rule(t, M, 1.05)
             t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL if light else None),
-                 prompt="Slide title", anchor="t")
+                 prompt=P("two-columns.title"), anchor="t")
             cw = (W - 2 * M - 0.6) / 2
             for k, x in enumerate((M, M + cw + 0.6)):
                 t.ph("Column heading %d" % (k + 1), "body", 16 + k, x, 2.4, cw, 0.5,
                      lst=plain_lst(20, B.ORANGE_TEXT if light else B.ORANGE, font=B.DISPLAY, b=1, cap="all"),
-                     prompt="Column heading", autofit="none")
+                     prompt=P("two-columns.column-heading"), autofit="none")
                 t.ph("Column %d" % (k + 1), None, 1 + k * 1 if k == 0 else 2, x, 2.95, cw, 3.75, lst=body_lst(18, light=light),
-                     prompt="Points for this side")
+                     prompt=P("two-columns.column"))
             footer(t, b, light)
         return f
     add("Two columns", "slide_dark", False, two(False), "twoObj")
@@ -297,23 +310,23 @@ def layouts(b, names=None, extra=()):
     def statement(t):
         rule(t, M, 1.75, 1.2)
         t.ph("Statement", "title", None, M, 1.95, 10.8, 3.4, lst=title_lst(60, font=B.DISPLAY_BLACK, ln=92),
-             prompt="One big statement. One orange word, one italic word.", anchor="t")
-        t.ph("Line", "body", 1, M, 5.45, 9, 0.7, lst=plain_lst(20, B.GREY), prompt="The line that backs it up")
+             prompt=P("statement.statement"), anchor="t")
+        t.ph("Line", "body", 1, M, 5.45, 9, 0.7, lst=plain_lst(20, B.GREY), prompt=P("statement.line"))
         footer(t, b)
     add("Big statement", "slide_charcoal", False, statement)
 
     def stats(t):
         eyebrow(t, M, 0.55, 10)
         rule(t, M, 1.05)
-        t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36), prompt="What the numbers say", anchor="t")
+        t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36), prompt=P("big-numbers.title"), anchor="t")
         cw = (W - 2 * M - 1.0) / 3
         for k in range(3):
             x = M + k * (cw + 0.5)
             t.ph("Number %d" % (k + 1), "body", 20 + k, x, 2.6, cw, 1.6, lst=lvl(sz=88, font=B.DISPLAY_BLACK, colour=B.ORANGE, ln=90),
-                 prompt="00", autofit="none", anchor="b")
+                 prompt=P("big-numbers.number"), autofit="none", anchor="b")
             t.shape(x, 4.3, 0.6, 0.06, solid(B.TINT), name="Rule")
             t.ph("Number label %d" % (k + 1), "body", 23 + k, x, 4.5, cw, 1.6, lst=plain_lst(18, B.WHITE),
-                 prompt="What the number means, with its source in the notes")
+                 prompt=P("big-numbers.number-label"))
         footer(t, b)
     add("Big numbers", "slide_stats", False, stats)
 
@@ -322,61 +335,61 @@ def layouts(b, names=None, extra=()):
                 text='<p:txBody><a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0"/><a:lstStyle/><a:p>'
                      '<a:r>%s<a:t>\u201C</a:t></a:r></a:p></p:txBody>' % rpr(150, 0, font=B.DISPLAY_BLACK, colour=B.ORANGE, tag="a:rPr"))
         t.ph("Quote", "body", 1, M, 2.15, 7.4, 3.0, lst=lvl(sz=32, font=B.DISPLAY, b=1, colour=B.WHITE, ln=115),
-             prompt="The quote, word for word, as it was said", anchor="t")
+             prompt=P("quote.quote"), anchor="t")
         rule(t, M, 5.35)
         t.ph("Title", "title", None, M, 5.5, 7.4, 0.55, lst=plain_lst(20, B.WHITE, font=B.DISPLAY, b=1, cap="all"),
-             prompt="Name", anchor="t", autofit="none")
-        t.ph("Role", "body", 13, M, 6.02, 7.4, 0.45, lst=plain_lst(16, B.TINT, i=1), prompt="Role, Company", autofit="none")
+             prompt=P("quote.title"), anchor="t", autofit="none")
+        t.ph("Role", "body", 13, M, 6.02, 7.4, 0.45, lst=plain_lst(16, B.TINT, i=1), prompt=P("quote.role"), autofit="none")
     add("Quote", "slide_quote", False, quote)
 
     def full_photo(t):
-        t.ph("Photo", "pic", 15, 0, 0, W, H - 1.55, prompt="Add a full-width photo")
-        sticker(t, M, 0.55, prompt="Climb26")
-        t.ph("Title", "title", None, M, H - 1.4, 8.6, 0.75, lst=title_lst(32), prompt="Caption headline", anchor="ctr",
+        t.ph("Photo", "pic", 15, 0, 0, W, H - 1.55, prompt=P("full-photo.photo"))
+        sticker(t, M, 0.55, prompt=P("full-photo.sticker"))
+        t.ph("Title", "title", None, M, H - 1.4, 8.6, 0.75, lst=title_lst(32), prompt=P("full-photo.title"), anchor="ctr",
              autofit="none")
-        t.ph("Caption", "body", 1, M, H - 0.68, 8.6, 0.45, lst=plain_lst(14, B.GREY), prompt="Who, where, what is happening",
+        t.ph("Caption", "body", 1, M, H - 0.68, 8.6, 0.45, lst=plain_lst(14, B.GREY), prompt=P("full-photo.caption"),
              autofit="none")
         lg = B.logo(b, "reversed-dark", 512)
         iw, ih = Image.open(lg).size
-        t.pic(lg, W - M - 0.34 * iw / ih, H - 0.98, h=0.34, descr="%s logo" % b)
+        t.pic(lg, W - M - 0.34 * iw / ih, H - 0.98, h=0.34, descr=CI.fill(P("alt.logo"), brand=b))
     add("Full photo", "slide_dark", False, full_photo)
 
     def wall(t):
-        t.ph("Photo 1", "pic", 15, 5.0, 0, 5.0, H, prompt="Big photo")
-        t.ph("Photo 2", "pic", 16, 10.08, 0, W - 10.08, H / 2 - 0.04, prompt="Photo")
-        t.ph("Photo 3", "pic", 17, 10.08, H / 2 + 0.04, W - 10.08, H / 2 - 0.04, prompt="Photo")
+        t.ph("Photo 1", "pic", 15, 5.0, 0, 5.0, H, prompt=P("photo-wall.photo-1"))
+        t.ph("Photo 2", "pic", 16, 10.08, 0, W - 10.08, H / 2 - 0.04, prompt=P("photo-wall.photo-2"))
+        t.ph("Photo 3", "pic", 17, 10.08, H / 2 + 0.04, W - 10.08, H / 2 - 0.04, prompt=P("photo-wall.photo-3"))
         eyebrow(t, M, 1.6, 3.8)
-        t.ph("Title", "title", None, M, 2.05, 3.9, 2.6, lst=title_lst(36, font=B.DISPLAY_BLACK), prompt="Photo wall headline",
+        t.ph("Title", "title", None, M, 2.05, 3.9, 2.6, lst=title_lst(36, font=B.DISPLAY_BLACK), prompt=P("photo-wall.title"),
              anchor="t")
-        t.ph("Text", "body", 1, M, 4.7, 3.8, 1.6, lst=plain_lst(16, B.GREY), prompt="Two lines on the moment in the photos")
+        t.ph("Text", "body", 1, M, 4.7, 3.8, 1.6, lst=plain_lst(16, B.GREY), prompt=P("photo-wall.text"))
         lg = B.logo(b, "reversed-dark", 512)
-        t.pic(lg, M, 0.6, h=0.32, descr="%s logo" % b)
+        t.pic(lg, M, 0.6, h=0.32, descr=CI.fill(P("alt.logo"), brand=b))
     add("Photo wall", "slide_dark", False, wall)
 
     def person(t):
-        t.ph("Photo", "pic", 15, 0, 0, 5.4, H, prompt="Portrait photo")
+        t.ph("Photo", "pic", 15, 0, 0, 5.4, H, prompt=P("speaker.photo"))
         t.shape(5.4 - 0.08, 0, 0.08, H, solid(B.ORANGE), name="Edge")
-        eyebrow(t, 6.2, 1.6, 6.3, prompt="Speaker")
+        eyebrow(t, 6.2, 1.6, 6.3, prompt=P("speaker.eyebrow"))
         t.ph("Title", "title", None, 6.2, 2.05, 6.4, 2.3, lst=title_lst(54, font=B.DISPLAY_BLACK, ln=90),
-             prompt="First name Last name", anchor="t")
+             prompt=P("speaker.title"), anchor="t")
         t.shape(6.2, 4.42, 1.6, 0.12, solid(B.ORANGE), geom="roundRect", adj='<a:gd name="adj" fmla="val 50000"/>', name="Pill bar")
-        t.ph("Role", "body", 18, 6.2, 4.7, 6.4, 0.5, lst=plain_lst(20, B.TINT, i=1, b=1), prompt="Role, Company", autofit="none")
-        t.ph("Session", "body", 1, 6.2, 5.3, 6.3, 1.2, lst=plain_lst(18, B.GREY), prompt="Session title, stage and time")
+        t.ph("Role", "body", 18, 6.2, 4.7, 6.4, 0.5, lst=plain_lst(20, B.TINT, i=1, b=1), prompt=P("speaker.role"), autofit="none")
+        t.ph("Session", "body", 1, 6.2, 5.3, 6.3, 1.2, lst=plain_lst(18, B.GREY), prompt=P("speaker.session"))
         footer(t, b)
     add("Speaker", "slide_dark", False, person)
 
     def agenda(light):
         def f(t):
-            eyebrow(t, M, 0.55, 10, light=light, prompt="Agenda")
+            eyebrow(t, M, 0.55, 10, light=light, prompt=P("agenda.eyebrow"))
             rule(t, M, 1.05)
             t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL if light else None),
-                 prompt="The running order", anchor="t")
+                 prompt=P("agenda.title"), anchor="t")
             t.ph("Times", "body", 19, M, 2.45, 1.9, 4.2,
                  lst=lvl(sz=20, font=B.DISPLAY, b=1, colour=B.ORANGE_TEXT if light else B.ORANGE, ln=125, after=14),
-                 prompt="09:30")
+                 prompt=P("agenda.times"))
             t.ph("Items", "body", 1, M + 2.0, 2.45, W - 2 * M - 2.0, 4.2,
                  lst=lvl(sz=20, font=B.BODY, colour=B.SLATE if light else B.WHITE, ln=125, after=14),
-                 prompt="What happens, and where")
+                 prompt=P("agenda.items"))
             footer(t, b, light)
         return f
     add("Agenda", "slide_dark", False, agenda(False))
@@ -387,25 +400,25 @@ def layouts(b, names=None, extra=()):
             eyebrow(t, M, 0.55, 10, light=light)
             rule(t, M, 1.05)
             t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL if light else None),
-                 prompt="Slide title", anchor="t")
+                 prompt=P("title-only.title"), anchor="t")
             footer(t, b, light)
         return f
     add("Title only", "slide_dark", False, title_only(False), "titleOnly")
     add("Title only (light)", "slide_light", True, title_only(True), "titleOnly")
 
     def blank(t):
-        t.ph("Title", "title", None, M, -1.2, 6, 0.8, lst=title_lst(28), prompt="Slide title (off the slide, for screen readers)")
+        t.ph("Title", "title", None, M, -1.2, 6, 0.8, lst=title_lst(28), prompt=P("blank.title"))
     add("Blank", "slide_dark", False, blank, "blank")
 
     def end(t):
         lk = B.logo(b, "tagline-lockup-reversed", 2048)
         iw, ih = Image.open(lk).size
         w = 6.4
-        t.pic(lk, (W - w) / 2, 1.0, w=w, descr="%s logo, %s" % (b, info["line"]))
+        t.pic(lk, (W - w) / 2, 1.0, w=w, descr=CI.fill(P("alt.lockup"), brand=b, line=info["line"]))
         t.ph("Title", "title", None, 1.5, 3.25, W - 3.0, 1.2, lst=title_lst(48, font=B.DISPLAY_BLACK, algn="ctr"),
-             prompt="See you there", anchor="ctr")
+             prompt=P("end-card.title"), anchor="ctr")
         t.ph("Date line", "body", 13, 1.5, 4.45, W - 3.0, 0.5, lst=plain_lst(20, B.GREY, algn="ctr", b=1),
-             prompt=info["edition"] or "The one thing to do next")
+             prompt=info["edition"] or P("end-card.date-line"))
         t.ph("Button", "body", 14, (W - 4.2) / 2, 5.25, 4.2, 0.8, geom="roundRect", fill=solid(B.ORANGE),
              lst=lvl(sz=22, font=B.DISPLAY, b=1, cap="all", spc=50, colour=B.WHITE, algn="ctr"),
              prompt=info["url"], anchor="ctr", autofit="none")
@@ -420,11 +433,11 @@ def layouts(b, names=None, extra=()):
 
 def _holding(b, add):
     def f(t):
-        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.5, descr="%s logo" % b)
+        t.pic(B.logo(b, "reversed-dark", 1024), M, 0.6, h=0.5, descr=CI.fill(P("alt.logo"), brand=b))
         t.ph("Title", "title", None, M, 1.9, W - 2 * M, 3.0, lst=title_lst(80, font=B.DISPLAY_BLACK, algn="ctr", ln=90),
-             prompt="Big line, readable from the back", anchor="ctr", autofit="norm")
+             prompt=P("holding.title"), anchor="ctr", autofit="norm")
         t.ph("Line", "body", 1, 1.5, 5.1, W - 3.0, 0.9, lst=plain_lst(28, B.GREY, algn="ctr"),
-             prompt="The one thing to know, or the time")
+             prompt=P("holding.line"))
         t.ph("Footer line", "body", 13, M, 6.6, W - 2 * M, 0.5, lst=plain_lst(18, B.TINT, algn="ctr", b=1),
              prompt=B.BRANDS[b]["line"], autofit="none")
     add("Holding", "slide_title", False, f)
@@ -432,65 +445,65 @@ def _holding(b, add):
 
 def _up_next(b, add):
     def f(t):
-        eyebrow(t, M, 0.55, 8, prompt="Up next")
+        eyebrow(t, M, 0.55, 8, prompt=P("up-next.eyebrow"))
         rule(t, M, 1.05)
-        t.ph("Title", "title", None, M, 1.3, 8.0, 2.6, lst=title_lst(44, font=B.DISPLAY_BLACK, ln=92), prompt="Session title",
+        t.ph("Title", "title", None, M, 1.3, 8.0, 2.6, lst=title_lst(44, font=B.DISPLAY_BLACK, ln=92), prompt=P("up-next.title"),
              anchor="t")
-        t.ph("Speakers", "body", 1, M, 4.1, 8.0, 2.2, lst=plain_lst(24, B.WHITE, ln=125), prompt="Speaker names, companies")
+        t.ph("Speakers", "body", 1, M, 4.1, 8.0, 2.2, lst=plain_lst(24, B.WHITE, ln=125), prompt=P("up-next.speakers"))
         t.ph("Time", "body", 14, 9.1, 1.3, 3.5, 1.6, lst=lvl(sz=72, font=B.DISPLAY_BLACK, colour=B.ORANGE, algn="r", ln=90),
-             prompt="11:00", anchor="t", autofit="none")
+             prompt=P("up-next.time"), anchor="t", autofit="none")
         t.ph("Stage", "body", 15, 9.1, 3.0, 3.5, 0.6, lst=plain_lst(20, B.TINT, algn="r", b=1, cap="all", spc=100),
-             prompt="Main stage", autofit="none")
+             prompt=P("up-next.stage"), autofit="none")
         footer(t, b)
     add("Up next", "slide_dark", False, f)
 
 
 def _logo_grid(b, add):
     def f(t):
-        eyebrow(t, M, 0.55, 10, light=True, prompt="Thank you to our partners")
+        eyebrow(t, M, 0.55, 10, light=True, prompt=P("logo-grid.eyebrow"))
         rule(t, M, 1.05)
-        t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL), prompt="Partner logos",
+        t.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, lst=title_lst(36, colour=B.CHARCOAL), prompt=P("logo-grid.title"),
              anchor="t")
         cw, chh, gap = 2.6, 1.5, 0.45
         for k in range(8):
             x = M + (k % 4) * (cw + gap)
             y = 2.6 + (k // 4) * (chh + gap)
-            t.ph("Logo %d" % (k + 1), "pic", 15 + k, x, y, cw, chh, prompt="Partner logo")
+            t.ph("Logo %d" % (k + 1), "pic", 15 + k, x, y, cw, chh, prompt=P("logo-grid.logo"))
         footer(t, b, light=True)
     add("Logo grid (light)", "slide_light", True, f)
 
 
 def _cobrand_title(b, add):
-    host = D.host_line(b)
+    host = host_line(b)
 
     def f(t):
-        t.ph("Your logo", "pic", 15, M, 0.55, 3.4, 1.2, prompt="Your logo")
+        t.ph("Your logo", "pic", 15, M, 0.55, 3.4, 1.2, prompt=P("cobrand-title.your-logo"))
         lg = B.logo(b, "reversed-dark", 1024)
         iw, ih = Image.open(lg).size
-        t.pic(lg, W - M - 0.5 * iw / ih, 0.55, h=0.5, descr="%s logo" % b)
+        t.pic(lg, W - M - 0.5 * iw / ih, 0.55, h=0.5, descr=CI.fill(P("alt.logo"), brand=b))
         t.ph("Host line", "body", 13, 7.0, 1.15, W - M - 7.0, 0.45, lst=plain_lst(14, B.TINT, algn="r", b=1, cap="all", spc=300),
              prompt=host, autofit="none")
         t.ph("Title", "ctrTitle", None, M, 2.3, 11.2, 2.8, lst=title_lst(54, font=B.DISPLAY_BLACK, ln=92), anchor="b",
-             prompt="Your talk title")
-        t.ph("Subtitle", "subTitle", 1, M, 5.25, 9.0, 0.8, lst=plain_lst(22, B.GREY), prompt="Your name, role, company")
-        t.ph("Date line", "body", 14, M, 6.2, 9.0, 0.5, lst=plain_lst(16, B.TINT, b=1), prompt=B.BRANDS[b]["edition"] or "Date")
+             prompt=P("cobrand-title.title"))
+        t.ph("Subtitle", "subTitle", 1, M, 5.25, 9.0, 0.8, lst=plain_lst(22, B.GREY), prompt=P("cobrand-title.subtitle"))
+        t.ph("Date line", "body", 14, M, 6.2, 9.0, 0.5, lst=plain_lst(16, B.TINT, b=1), prompt=B.BRANDS[b]["edition"] or P("cobrand-title.date-line"))
     add("Co-branded title", "slide_title", False, f, "title")
 
 
 def _cobrand_end(b, add):
-    host = D.host_line(b)
+    host = host_line(b)
 
     def f(t):
-        t.ph("Your logo", "pic", 15, (W - 3.4) / 2, 0.9, 3.4, 1.2, prompt="Your logo")
+        t.ph("Your logo", "pic", 15, (W - 3.4) / 2, 0.9, 3.4, 1.2, prompt=P("cobrand-end.your-logo"))
         t.ph("Title", "title", None, 1.5, 2.5, W - 3.0, 1.2, lst=title_lst(48, font=B.DISPLAY_BLACK, algn="ctr"),
-             prompt="Thank you", anchor="ctr")
+             prompt=P("cobrand-end.title"), anchor="ctr")
         t.ph("Contact", "body", 13, 1.5, 3.8, W - 3.0, 1.2, lst=plain_lst(20, B.GREY, algn="ctr", ln=130),
-             prompt="Your name, email and website")
+             prompt=P("cobrand-end.contact"))
         t.ph("Host line", "body", 14, 1.5, 5.4, W - 3.0, 0.5, lst=plain_lst(16, B.TINT, algn="ctr", b=1, cap="all", spc=300),
              prompt=host, autofit="none")
         lg = B.logo(b, "reversed-dark", 1024)
         iw, ih = Image.open(lg).size
-        t.pic(lg, (W - 0.5 * iw / ih) / 2, 6.1, h=0.5, descr="%s logo" % b)
+        t.pic(lg, (W - 0.5 * iw / ih) / 2, 6.1, h=0.5, descr=CI.fill(P("alt.logo"), brand=b))
     add("Co-branded end", "slide_end", False, f)
 
 
@@ -511,8 +524,8 @@ def layout_xml(spec, tree):
 
 
 def master_xml(b, tree, layout_ids):
-    tree.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, prompt="Slide title")
-    tree.ph("Text", "body", 1, M, 2.45, W - 2 * M, 4.25, prompt="Text")
+    tree.ph("Title", "title", None, M, 1.2, W - 2 * M, 1.0, prompt=P("master.title"))
+    tree.ph("Text", "body", 1, M, 2.45, W - 2 * M, 4.25, prompt=P("master.text"))
     tree.ph("Footer", "ftr", 3, M + 0.7, 6.92, 6.0, 0.32)
     tree.ph("Slide Number", "sldNum", 4, M, 6.92, 0.6, 0.32,
             paras='<a:p><a:fld id="{B6F15528-21DE-4FAA-801E-634DDDAF4B2B}" type="slidenum"><a:rPr lang="en-GB"/><a:t>&lt;#&gt;</a:t></a:fld></a:p>')
@@ -539,8 +552,14 @@ def rels(items):
                       for r, t, tg in items))
 
 
-def build(b, out_path, template=True, deck=None):
-    """deck: None for the presentation template, else a deck spec from deck_samples.DECKS."""
+def copy_path(b, row):
+    """The copy file with the example slides of one template."""
+    return CI.path(K.copy_file(b, row))
+
+
+def build(b, out_path, template=True, deck=None, words=None):
+    """deck: None for the presentation template, else a deck spec from deck_samples.DECKS. words: the copy file with
+    the example slides."""
     specs = layouts(b, deck.get("layouts") if deck else None, deck.get("extra", ()) if deck else ())
     files = {}
     media = {}  # source path -> media name
@@ -573,7 +592,7 @@ def build(b, out_path, template=True, deck=None):
 
     # Sample slides.
     by_name = {s["name"]: (i + 1, s) for i, s in enumerate(specs)}
-    slides = deck["slides"](b) if deck else C.slides(b)
+    slides = C.slides(words, D.FILLS)
     for k, (lname, fill) in enumerate(slides, 1):
         li, spec = by_name[lname]
         t = Tree()
@@ -660,7 +679,7 @@ def all_copy(brands=("ClimbUK", "ClimbGroup", "Climb27")):
                 trees.append(t)
                 out += re.findall(r"<a:t>([^<]*)</a:t>", t.xml())
             by = {sp["name"]: k for k, sp in enumerate(specs)}
-            for lname, fill in (deck["slides"](b) if deck else C.slides(b)):
+            for lname, fill in C.slides(copy_path(b, row), D.FILLS):
                 t = Tree()
                 t.layout = trees[by[lname]]
                 fill(t, specs[by[lname]])
@@ -685,8 +704,9 @@ def main():
             deck = None if row["original"] else dict(D.DECKS[(row["name"], row["external"])], title="%s %s" % (b, row["title"].lower()))
             stem = K.stem(b, row)
             d = os.path.join(B.OUT, "office", K.folder(b, row))
-            p = build(b, os.path.join(d, stem + ".potx"), deck=deck)
-            build(b, os.path.join(B.OUT, "_preview", stem + ".pptx"), template=False, deck=deck)
+            words = copy_path(b, row)
+            p = build(b, os.path.join(d, stem + ".potx"), deck=deck, words=words)
+            build(b, os.path.join(B.OUT, "_preview", stem + ".pptx"), template=False, deck=deck, words=words)
             print(p)
 
 

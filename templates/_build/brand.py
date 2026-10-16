@@ -30,17 +30,17 @@ DISPLAY_BLACK = "Montserrat Black"
 BODY = "Open Sans"
 BODY_SEMI = "Open Sans SemiBold"
 
-LEGAL = ("The Investor Ladder Limited trading as ClimbGroup. Registered in England and Wales, "
-         "company number 10289755. VAT GB335770882. Registered office: Suite 3, Bignell Park Barns, "
-         "Chesterton, Bicester, OX26 1TD.")
+# The words every template shares (legal line, website, email, tagline, edition dates) live in templates/brands.copy.md.
+sys.path.insert(0, os.path.join(REPO, ".agents", "skills", "climb-voice", "scripts"))
+import copy_md  # noqa: E402
+
+_LINES = copy_md.load(os.path.join(REPO, "templates", "brands.copy.md"))
+LEGAL = _LINES.one("legal").text
 
 BRANDS = {
-    "ClimbUK": dict(url="climb-uk.com", email="marketing@climb-uk.com",
-                    line="The Festival for Business Growth", edition=None),
-    "ClimbGroup": dict(url="climb-group.com", email="marketing@climb-group.com",
-                       line="The Festival for Business Growth", edition=None),
-    "Climb27": dict(url="climb-uk.com", email="marketing@climb-uk.com",
-                    line="The Festival for Business Growth", edition="30 June and 1 July 2027"),
+    b: dict(url=_LINES.one(b.lower() + ".url").text, email=_LINES.one(b.lower() + ".email").text,
+            line=_LINES.one(b.lower() + ".line").text, edition=_LINES.words(b.lower() + ".edition"))
+    for b in ("ClimbUK", "ClimbGroup", "Climb27")
 }
 
 

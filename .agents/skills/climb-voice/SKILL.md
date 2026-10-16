@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026) and the review of the Climb27 flyers (October 2026)
-  version: "1.4"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026) and the decision to keep every piece's words in an editable copy file (October 2026)
+  version: "1.5"
 ---
 
 # ClimbUK voice
@@ -124,12 +124,17 @@ Social: LinkedIn, Instagram, TikTok, X and Bluesky, all as `climbuk`. In email s
 
 Shapes for each channel (lengths, structure, CTA style) are in `references/channels.md`. Good and bad examples, including rewrites, are in `references/examples.md`. For email, also read `references/email-deliverability.md`: words spam filters weigh, link, image and HTML limits, tracking, and what newsletters may relax. Add whatever a spam test flags to it.
 
+## Copy files
+
+Every piece the pack builds keeps all its words in a Markdown copy file beside its build, `<name>.copy.md`, so people can review and edit the words without touching the design, and the build reads it. Design sections are marked `<!-- @front.headline -->` on their own line, with design settings after the name (`<!-- @back.reason icon=people -->`) and reviewer notes as `<!-- note: ... -->`. When you write or change words for a built piece, change its copy file, never the build script; when you make a new piece, write its copy file first. The standard, with a full example, is in `references/copy-files.md`; `scripts/copy_md.py` reads the files.
+
 ## Check your copy
 
 ```bash
 python3 .agents/skills/climb-voice/scripts/check_copy.py path/to/copy.txt            # before the venue announcement
 python3 .agents/skills/climb-voice/scripts/check_copy.py --announced path/to/copy.txt # after it
 echo "Your text" | python3 .agents/skills/climb-voice/scripts/check_copy.py -
+python3 .agents/skills/climb-voice/scripts/check_copy.py pdf/flyers/copy/segments/investors.copy.md  # a copy file: markers, then words
 ```
 
 It prints each problem with the rule it breaks and exits 1 when anything fails, including vague link text. After the problems it prints, per input, a reading level (Flesch-Kincaid grade, a rough estimate) and "hint" lines for abbreviations to spell out; hints never change the exit code. Add `--no-hints` for hard rules only. It does not judge tone: that is your job, against the four lines above. The website pages have a stricter, page-aware linter in the website repository (`docs/climb27-for-pages/deploy/lint_copy.py`); keep the two ban lists in step when either changes.
@@ -137,6 +142,7 @@ It prints each problem with the rule it breaks and exits 1 when anything fails, 
 ## Before you finish
 
 - The checker passes, and you have acted on its reading level and abbreviation hints.
+- The words of a built piece are in its copy file, and none are typed in its build script.
 - Every link says where it goes, and unusual words link to the glossary.
 - Any new term in this piece, or in supplied text going up as-is, has a glossary entry.
 - The piece names one audience and gives them one reason and one next step.

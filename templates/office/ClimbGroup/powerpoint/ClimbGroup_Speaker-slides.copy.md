@@ -1,0 +1,131 @@
+---
+copy: template-climbgroup-speaker-slides
+deliverable: ClimbGroup speaker slide template: PowerPoint template with example slides and its LibreOffice copy
+build: templates/_build/pptx_build.py
+files: ClimbGroup_Speaker-slides.potx ../../libreoffice/ClimbGroup/ClimbGroup_Speaker-slides.otp
+---
+
+# ClimbGroup speaker slide template
+
+<!-- note: One section per placeholder on each example slide, in slide order. [[Double brackets]] print in Climb Orange and *stars* in italics; [square brackets] are slots. A line break or a list item is a new paragraph. The layout prompts are in templates/office/powerpoint-layouts.copy.md. -->
+
+## Slide 1: Title
+
+<!-- @slide-1 layout=Title -->
+
+<!-- @slide-1.eyebrow -->
+Speaking at a ClimbGroup event
+
+<!-- @slide-1.title -->
+[Your talk [[title]]]
+
+<!-- @slide-1.sub -->
+[Your name], [Role], [Company]
+
+<!-- @slide-1.date -->
+climb-group.com
+
+## Slide 2: Agenda (light)
+
+<!-- @slide-2 layout="Agenda (light)" -->
+
+<!-- @slide-2.eyebrow -->
+Agenda
+
+<!-- @slide-2.title -->
+What we will [[cover]]
+
+<!-- @slide-2.times -->
+- 1
+- 2
+- 3
+
+<!-- @slide-2.body -->
+- [Point one]
+- [Point two]
+- [What to do next]
+
+## Slide 3: Title and content (light)
+
+<!-- @slide-3 layout="Title and content (light)" -->
+
+<!-- @slide-3.eyebrow -->
+[Section]
+
+<!-- @slide-3.title -->
+[Slide [[title]]]
+
+<!-- @slide-3.body -->
+- [One idea per line]
+- [Short enough to read in a glance]
+- [Three lines at most]
+
+## Slide 4: Quote
+
+<!-- @slide-4 layout=Quote -->
+
+<!-- @slide-4.body -->
+[A line worth remembering, from someone who said it, with permission.]
+
+<!-- @slide-4.title -->
+[First name Last name]
+
+<!-- @slide-4.eyebrow -->
+[Role], [Company]
+
+## Slide 5: Big numbers
+
+<!-- @slide-5 layout="Big numbers" -->
+
+<!-- @slide-5.eyebrow -->
+The number
+
+<!-- @slide-5.title -->
+One [[fact]]
+
+<!-- @slide-5.number-1 -->
+[00]
+
+<!-- @slide-5.label-1 -->
+[What it measures, and the source]
+
+<!-- @slide-5.number-2 -->
+[00]
+
+<!-- @slide-5.label-2 -->
+[What it measures, and the source]
+
+<!-- @slide-5.number-3 -->
+[00]
+
+<!-- @slide-5.label-3 -->
+[What it measures, and the source]
+
+## Slide 6: Full photo
+
+<!-- @slide-6 layout="Full photo" -->
+
+<!-- @slide-6.photo name=band_stage box=full -->
+The band playing on the main stage under orange light
+
+<!-- @slide-6.sticker -->
+[Sticker]
+
+<!-- @slide-6.title -->
+[Caption [[headline]]]
+
+<!-- @slide-6.line -->
+[Who, where, what is happening]
+
+## Slide 7: End card
+
+<!-- @slide-7 layout="End card" -->
+
+<!-- @slide-7.title -->
+Thank [[you]]
+
+<!-- @slide-7.eyebrow -->
+The Festival for Business Growth
+
+<!-- @slide-7.date -->
+[email]

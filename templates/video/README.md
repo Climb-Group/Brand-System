@@ -15,6 +15,8 @@ Motion graphics, title templates, a grade and caption settings for ClimbUK, Clim
 | `_shared/resolve-presets/` | `Climb UHD 25p Rec709 Settings.preset` (project: 3840x2160, 25fps, Rec.709 Gamma 2.4) and render presets: ProRes 4444 with alpha (master), H.264 YouTube 16:9 UHD, H.264 Social 9:16 2160x3840. Import the project preset in Project Settings (the ... menu, Import Preset) and the render presets in the Deliver page (Render Settings, the ... menu, Import Preset). Set the render location after importing. | DaVinci Resolve 18 and later (tested in 21) |
 | `_shared/captions/` | An example `.srt` showing the caption rules | Any editor or player |
 
+Words: every sample line, sticker, title and control name is in a copy file beside the files it prints on (`_shared/stills/shared-stills.copy.md`, `<Brand>/stills/<Brand>-stills.copy.md`, `resolve-titles.copy.md`, `<Brand>/davinci-resolve/<Brand>-titles.copy.md`, `_shared/luts/luts.copy.md`, `_shared/captions/captions.copy.md`). Edit the words there and rebuild with `templates/_build/`. The caption example is written by hand, so change `captions.copy.md` and the `.srt` together.
+
 Formats: transparent clips are QuickTime ProRes 4444 with alpha; full-frame clips are H.264 MP4. Clips with alpha are large, so the `motion/` folders ship as a release download next to this repository rather than in it.
 
 ## Install the fonts

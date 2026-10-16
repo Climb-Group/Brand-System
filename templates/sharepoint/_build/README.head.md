@@ -9,7 +9,7 @@ Everything here only adds. The script never deletes a page, a file or a link, an
 | Path | What it is |
 | --- | --- |
 | `build-brand-centre.ps1` | Builds the pages, uploads the images, PDFs and Office templates, and (when asked) sets the menu, home page, logo, header and footer |
-| `pages.json` | Every page, section and line of copy. The script reads it; edit it to change a page before you build |
+| `pages.json` | Every page, section and line of copy, written from the copy files in `pages/`. The script reads it; edit the copy files and rebuild to change a page |
 | `banners/` | 12 page banners, 1920x1080 JPEG under 300 KB: a festival photo with a Dark Brown fade where the page title sits |
 | `quick-link-tiles/` | 16 tiles, 1200x675 JPEG: one house drawing in orange on Dark Brown, no words (the link title is live text) |
 | `section-backgrounds/` | Contours on Dark Brown and on Charcoal, for full width sections |
