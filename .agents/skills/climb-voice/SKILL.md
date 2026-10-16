@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026) and the decision to keep every piece's words in an editable copy file (October 2026)
-  version: "1.5"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026) the decision to keep every piece's words in an editable copy file (October 2026) and the review of past testimonials (October 2026)
+  version: "1.7"
 ---
 
 # ClimbUK voice
@@ -30,6 +30,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
+- **Testimonials without the date.** When a past quote goes into marketing, credit the person and organisation only: no edition, year or "Climb24 speaker" line. Pick quotes whose own words do not name an old edition ("#Climb24", "Climb 2025 next year"); a dated quote makes the festival look old.
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.
 - **Whitelabel.** No vendor or platform names (Canva, Cvent, Stripe and the like) unless the reader must recognise the integration.
 
