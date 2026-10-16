@@ -3,6 +3,7 @@
 ## Lines that work
 
 - Your business. Bigger stage.
+- Bring your ambition. Find your people. Accelerate your growth.
 - Find your people. Then do business with them.
 - Iconic moments. Real advice. No fluff.
 - Two days. The right rooms. Conversations that move your business.
@@ -62,6 +63,7 @@
 | Plan your days: book meetings in the event app | Not a reason to come | Drop the point |
 | The Investor Ladder | Makes the investor side the headline | Funding that fits: investors for the whole funding journey |
 | Angels, funds and lenders, from first cheque to Series A | Caps the funding journey | Angels, funds and lenders from across the whole funding journey |
+| Your business. Bigger stage. (on the general flyer) | Fine as the edition line, but the general flyer needs the reasons to come | Bring your ambition. Find your people. Accelerate your growth. |
 | Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
 
 ## ClimbVoice, corrected

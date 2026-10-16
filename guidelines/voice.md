@@ -50,6 +50,7 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 
 - Tagline: **The Festival for Business Growth.**
 - Climb27 headline: **Your business. Bigger stage.**
+- General Climb27 flyer headline: **Bring your ambition. Find your people. Accelerate your growth.**
 - Climb27 themes: **Find Your People** (the people you meet are the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Programme names, always written this way: Investor Speed Networking, Busk Your Business, the ClimbAwards, ClimbHealth.
 
