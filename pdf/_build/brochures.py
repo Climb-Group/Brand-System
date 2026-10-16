@@ -382,7 +382,7 @@ WHAT_PHOTOS = (B + "expo_floor_maf-238.jpg", B + "expo_floor_maf-342.jpg", B + "
 SAME_MOMENT = {B + "expo_floor_maf-341.jpg", B + "expo_floor_maf-242.jpg", B + "expo_floor_maf-338.jpg"}
 # The exhibitor photo wall in its order; the owner swapped a robots stand, a posed pair and a lone exhibitor for conversations.
 EXHIBITOR_WALL = (B + "expo_floor_busy.jpg", B + "expo_floor_dsc02998.jpg", B + "expo_floor_dsc03001.jpg", B + "expo_floor_maf-228.jpg",
-                  B + "expo_floor_dsc03057.jpg", B + "expo_floor_maf-546.jpg", B + "expo_floor_dsc03112.jpg", B + "expo_floor_dsc03116.jpg",
+                  B + "expo_floor_dsc03057.jpg", B + "expo_floor_maf-546.jpg", B + "expo_floor_maf-340.jpg", B + "expo_floor_dsc03116.jpg",
                   B + "expo_floor_maf-349.jpg", B + "expo_floor_dsc03192.jpg", B + "expo_floor_dsc03208.jpg",
                   B + "expo_floor_maf-231.jpg", B + "expo_floor_020726153climb26.jpg")
 # The owner's picks per stand size, the zones and setup day; handed out only where a page names them.
@@ -647,6 +647,7 @@ def exhibitor():
     who = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.who"])
     inc = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.includes"])
     q = pool.quote()
+    pool.used.add(B + "festival_busy_052a3717.jpg")
     inner = ('<div style="position:absolute;left:120px;top:90px;width:860px">'
              '<div class="eb" style="font-size:22px">%s</div>'
              '<h2 class="h" style="font-size:76px;margin-top:26px">%s</h2>'
@@ -659,8 +660,9 @@ def exhibitor():
              '<div class="price" style="margin-top:22px">%s<small>%s</small></div></div>'
              % (t(C["exhibitor.market.name"]), hl(C["exhibitor.market.strap"]), t(C["exhibitor.market.body"]),
                 t(C["exhibitor.market.who.eyebrow"]), who, inc, t(C["exhibitor.market.price"]), t(C["exhibitor.market.unit"]))
+             # The second New Dock celebration shot repeats the fist pump beside it, so the smoothie stall queue takes its place.
              + collage(pool, 1060, 90, 740, 540, [[1, 1, 1], [1, 1], [1, 1]],
-                       (B + "festival_busy_*", P + "food_and_vendors_*", P + "crowds_*", P + "joy_*", B + "expo_floor_busy.jpg",
+                       (B + "food_052a2871.jpg", B + "festival_busy_*", P + "food_and_vendors_*", P + "crowds_*", P + "joy_*", B + "expo_floor_busy.jpg",
                         B + "floor_joy.jpg", B + "entrance_arrivals.jpg", P + "climb_recap_*") + EXHIBITOR_PHOTOS)
              + '<div class="qabs" style="left:1060px;top:654px;width:740px">%s</div>' % quote(q, qsize(q, 26, 19), "qbox"))
     bk.add("gr", inner)
@@ -683,8 +685,9 @@ def exhibitor():
     # 10 A page of quotes, 11 a page of photos.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
     # An even grid, so no conversation is cut into a thin strip; the table chat lost its faces in a wide tile.
-    # The owner turned down the lone man at MTIF, the robots stand and the posed pair for this wall.
-    pool.used.update({B + "expo_floor_maf-245.jpg", B + "expo_floor_dsc03021.jpg", B + "expo_floor_dsc03071.jpg", B + "expo_floor_dsc03139.jpg"})
+    # The owner turned down the lone man at MTIF, the robots stand and the posed pairs (the funding stand too) for this wall.
+    pool.used.update({B + "expo_floor_maf-245.jpg", B + "expo_floor_dsc03021.jpg", B + "expo_floor_dsc03071.jpg", B + "expo_floor_dsc03139.jpg",
+                      B + "expo_floor_dsc03112.jpg"})
     photo_page(bk, "ch", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
                EXHIBITOR_WALL + EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"), rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 
