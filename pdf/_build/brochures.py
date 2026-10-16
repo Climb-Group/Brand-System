@@ -245,6 +245,10 @@ class Brochure:
                 '<link rel="stylesheet" href="base.css"><style>%s</style></head><body>%s</body></html>'
                 % (html.escape(self.title), CSS, "".join(out)))
 
+    def sources(self, q):
+        """Who a quote is from: each part of the attribution except roles such as "Climb26 exhibitor"."""
+        return [p.strip().lower() for p in q[1].split(",") if not re.search(r"\b(exhibitor|partner)\b", p, re.I)]
+
     def check(self):
         quotes = self.pool.quotes[:self.pool.qi]
         if len(quotes) < MIN_QUOTES:
@@ -252,9 +256,7 @@ class Brochure:
         if len({q[0] for q in quotes}) != len(quotes):
             raise SystemExit("%s repeats a quote" % self.slug)
         # Two quotes from the same person or organisation never share a page or sit on neighbouring pages.
-        # A source is each part of the attribution except roles such as "Climb26 exhibitor".
-        def who(q):
-            return [p.strip().lower() for p in q[1].split(",") if not re.search(r"\b(exhibitor|partner)\b", p, re.I)]
+        who = self.sources
         starts = [0] + self.marks[:-1]
         sources = [{p for q in quotes[a:b] for p in who(q)} for a, b in zip(starts, self.marks)]
         for n, here in enumerate(sources):

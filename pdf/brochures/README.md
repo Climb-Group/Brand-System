@@ -1,11 +1,12 @@
 # Climb27 sales brochures
 
-Two brochures for selling Climb27 (30 June and 1 July 2027), as 16:9 PDFs to send by email or show on screen in a sales call.
+Two brochures for selling Climb27 (30 June and 1 July 2027) and a Who was there pack to send with them, as 16:9 PDFs to send by email or show on screen in a sales call.
 
 | File | Who it is for |
 | --- | --- |
 | `climb27_exhibitor-brochure.pdf` | Companies taking a stand: why exhibit, the four stand types with a real photo of each, a page for each stand with what it includes and its price, a page of expo stand sizes, a page on how we build the stand so exhibitors just show up, a page on the marketplace (what it is and who it is for), extras for the stand with the print partner, a page of quotes, a page of exhibitor photos and a poster closing page with a QR code to book. 14 pages. |
 | `climb27_partner-brochure.pdf` | Partners: what Climb27 is, why partner, how a partnership is built (levels, space options and reach), everything included in every partnership, the branding options, the options in the event app, the session screens and the ticket, the Headline Partner extras, a NatWest spotlight, the zones, how we install the branding before the day, sessions and awards, extra reach, a page of quotes, a page of stage, awards and crowd photos, and a poster closing page with a QR code to book a call. 17 pages. |
+| `climb27_who-was-there.pdf` | Anyone weighing up Climb27 who wants to see who came before: the names they will know, the partners and exhibitors, sessions run with well-known companies, every Climb26 speaker and host, the organisations in the room, and 27 quotes from Climb25 and Climb26, with a closing page to book a partnership call. It carries the public Who was there page on the ClimbUK website word for word. 17 pages. |
 
 Contact sheets of every page are in `previews/`.
 
@@ -21,7 +22,7 @@ Contact sheets of every page are in `previews/`.
 
 ## Change the words
 
-Every printed word is in `climb27_brochures.copy.md`. Edit it there and rebuild. In a headline, `[[word]]` is set in Climb Orange and `_word_` in italic. A list is one `- ` line per item, with its parts split by ` | `.
+Every printed word is in `climb27_brochures.copy.md`, or `climb27_who-was-there.copy.md` for the Who was there pack. Edit it there and rebuild. The Who was there copy file follows the website page: when the page changes, change the copy file to match. Its quotes are printed word for word, so the copy checker reads every other line in the pack but not the quotes. In a headline, `[[word]]` is set in Climb Orange and `_word_` in italic. A list is one `- ` line per item, with its parts split by ` | `.
 
 ## Rebuild
 
@@ -31,11 +32,11 @@ NODE_PATH=$(npm root -g) bash pdf/_build/build_brochures.sh
 
 Needs Python 3 with Pillow, numpy and segno, and Node with Playwright (Chromium) on `NODE_PATH`. The script:
 
-1. Copies the fonts, the ClimbUK and Climb27 logos, the photos, the illustrations and the images in `_build/img/` into a working folder.
-2. Writes one HTML file per brochure from `pdf/_build/brochures.py` and the copy file.
+1. Copies the fonts, the ClimbUK and Climb27 logos, the photos, the illustrations, the images in `_build/img/` and the organisation logos in `_build/logos/` into a working folder.
+2. Writes one HTML file per brochure from `pdf/_build/brochures.py` and the copy file, and the Who was there pack from `pdf/_build/who_was_there.py`.
 3. Runs every printed word through the climb-voice copy checker and stops on a hard-rule problem.
 4. Measures every run of text against what sits behind it and stops if any is under WCAG 2.2 AA.
-5. Prints both PDFs into this folder.
+5. Prints the three PDFs into this folder.
 
 Set `KEEP_HTML=1` to keep the HTML files for review.
 
@@ -55,4 +56,5 @@ Set `KEEP_HTML=1` to keep the HTML files for review.
 - **The build stops at the copy checker.** A line breaks a climb-voice rule. Fix the line in the copy file, not in the script.
 - **The build stops at the contrast check.** It names the page and the text. Move the text onto a solid ground or a stronger fade.
 - **A page overflows.** Long copy pushes cards into the footer. Shorten the line in the copy file before changing sizes in the script.
+- **The build says the Who was there pack quotes one person twice on a page or on pages close together.** A person with two quotes has one on the first page of quotes for that year and one on the last. Keep their two quotes next to each other in the copy file.
 - **The build says a brochure prints too few quotes or repeats one.** Add real quotes to `exhibitor.quotes` or `partner.quotes` in the copy file. Never write a quote; copy it word for word from its source.
