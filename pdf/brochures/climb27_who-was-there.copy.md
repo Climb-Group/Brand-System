@@ -1932,7 +1932,10 @@ Back for a second edition
 - EHE Ventures
 
 ## wwt.back.two.items
-<!-- note: organisation, as the page names it, found in the lists for two of those -->
+<!-- note: organisation, as the page names it, found in the lists for two of those; Google, Meta and Microsoft on the owner's word -->
+- Google
+- Meta
+- Microsoft
 - NatWest Group
 - Barclays
 - BBC

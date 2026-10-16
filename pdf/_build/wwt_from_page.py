@@ -69,7 +69,8 @@ GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim
 RETURNERS = {
     "three": ["British Business Bank", "Innovate UK", "West Yorkshire Combined Authority", "Leeds City Council",
               "Sure Valley Ventures", "Lifted Ventures", "EHE Ventures"],
-    "two": ["NatWest Group", "Barclays", "BBC", "Channel 4", "UBS", "Thomson Reuters", "Mishcon de Reya",
+    # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.
+    "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Channel 4", "UBS", "Thomson Reuters", "Mishcon de Reya",
             "Lewis Silkin", "Northern Gritstone", "ScaleUp Institute", "Creative UK", "Plexal", "YFM Equity Partners",
             "Leeds University Business School", "University of Sheffield", "South Yorkshire Mayoral Combined Authority",
             "Health Innovation Yorkshire & Humber", "Blacks Solicitors", "Innovation SuperNetwork", "GSG",
@@ -189,7 +190,8 @@ def picks(got, notes):
         out.append(("wwt.back.%s.items" % group, [[n] for n in names]))
     notes["wwt.back.three.items"] = ("organisation, as the page names it, found in the page's lists for Climb23, Climb24 "
                                      "and Climb25 or Climb26")
-    notes["wwt.back.two.items"] = "organisation, as the page names it, found in the lists for two of those"
+    notes["wwt.back.two.items"] = ("organisation, as the page names it, found in the lists for two of those; Google, "
+                                   "Meta and Microsoft on the owner's word")
     return out
 
 
