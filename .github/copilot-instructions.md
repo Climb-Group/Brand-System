@@ -30,3 +30,9 @@ Everything else you report is advisory, so say so.
 
 <!-- house:managed:end -->
 <!-- house:local - add this repository's own review instructions below this line. -->
+
+## Brand pack review
+
+- A new or changed deliverable (PDF, deck, spreadsheet, document, image, logo, component) with no copy file covering it is a finding: its words must sit in a `<name>.copy.md` beside it, listed in that copy file's `output:` or `files:` line (`python3 .agents/skills/climb-voice/scripts/copy_md.py coverage`).
+- Printed words typed in a build script instead of read from its copy file are a finding.
+- Artwork without a layered SVG source, or an SVG grouped by kind (all text in one group) instead of by row and block, is a finding.

@@ -15,8 +15,9 @@ It collects:
 | --- | --- |
 | `ClimbUK_filming-and-photo-release.pdf` | The form with a free copy of the edited video. |
 | `ClimbUK_filming-and-photo-release_paid-video.pdf` | The same form where the edited video is sold. The person filming writes the price in pounds on page 1, and the video is sent once the invoice is paid. |
-| `release-text.md` | Every word on both versions, for review and for setting the form up in an e-signature tool. |
-| `release_copy.py` | The words. Change them here. |
+| `release.copy.md` | Every word on both versions: the release, the field labels and hints, the tooltips screen readers announce, the document properties and the extra words of `release-text.md`. Change the words here, then rebuild. |
+| `release-text.md` | Every word on both versions, for review and for setting the form up in an e-signature tool. Generated from `release.copy.md`. |
+| `release_copy.py` | Reads `release.copy.md` and gives each line the name `build.py` uses. Holds no words. |
 | `build.py` | Builds both PDFs and `release-text.md`. |
 
 Both PDFs are fillable on screen and print cleanly for a pen signature. The signature boxes are signature fields; to collect signatures through an e-signature tool, upload the PDF as a template and place the tool's own fields over the printed boxes, so the signed copy is emailed to the signer.
@@ -27,8 +28,10 @@ Both PDFs are fillable on screen and print cleanly for a pen signature. The sign
 python3 -m pip install reportlab pypdf
 python3 templates/forms/filming-release/build.py
 python3 templates/forms/filming-release/build.py --paid
-python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints templates/forms/filming-release/release-text.md
+python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints templates/forms/filming-release/release.copy.md templates/forms/filming-release/release-text.md
 ```
+
+To change a word, edit `release.copy.md` and run the three build and check lines above. Each section in it is marked with a comment such as `<!-- @sign.lead -->`; keep the markers, and keep `{version}`, `{video}`, `{page}`, `{label}` and `{hint}`, which the build fills in. The release clauses are legal terms: have a change approved before you rebuild.
 
 `--brand-pack PATH` points the build at another checkout of the brand pack; it defaults to this one.
 

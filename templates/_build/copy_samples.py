@@ -1,6 +1,10 @@
-"""Sample slides for the PowerPoint templates, in the ClimbUK voice (checked with climb-voice check_copy.py).
+"""The example slides of every PowerPoint template, read from the template's copy file, and the helpers that place them.
 
-Rich text: {word} is Climb Orange, _word_ is italic. A new line starts a new paragraph.
+The words live in office/<Brand>/powerpoint/<Brand>_<Name>.copy.md (or external/): one marker per slide naming its
+layout (<!-- @slide-3 layout="Big numbers" -->), then one section per placeholder (slide-3.title, slide-3.number-1,
+slide-3.photo name=band_stage box=full for a photo and its alt text). SLOTS names the placeholders.
+
+Rich text in the builders: {word} is Climb Orange, _word_ is italic. A new line starts a new paragraph.
 """
 import re
 from xml.sax.saxutils import escape
@@ -8,33 +12,7 @@ from xml.sax.saxutils import escape
 from PIL import Image
 
 import brand as B
-
-COPY = {
-    "ClimbUK": dict(
-        eyebrow="ClimbUK",
-        title="Not a conference. A {festival} for _business_ growth.",
-        sub="Two days of main stage moments, roundtables and the people who move businesses forward.",
-        date="climb-uk.com",
-        end="See you {there}",
-        end_line="The Festival for Business Growth",
-    ),
-    "ClimbGroup": dict(
-        eyebrow="ClimbGroup",
-        title="We build the {stage} for _UK_ growth.",
-        sub="Festivals, programmes and the communities that keep growing between them.",
-        date="Company presentation",
-        end="Thank {you}",
-        end_line="marketing@climb-group.com",
-    ),
-    "Climb27": dict(
-        eyebrow="Climb27",
-        title="Your business. _Bigger_ {stage}.",
-        sub="The Festival for Business Growth.",
-        date="30 June and 1 July 2027",
-        end="See you at {Climb27}",
-        end_line="30 June and 1 July 2027",
-    ),
-}
+import copy_io
 
 
 def runs(text, base_colour=None, orange=B.ORANGE, sz=None):
@@ -98,126 +76,61 @@ def sphoto(t, idx, photo, box, descr):
 
 
 W, H = 13.333, 7.5
+# Where a photo sits on its layout (x, y, w, h in inches): box= in a copy file's photo section.
+BOXES = {"full": (0, 0, W, H - 1.55), "title": (6.2, 0, W - 6.2, H), "wall-1": (5.0, 0, 5.0, H),
+         "wall-2": (10.08, 0, W - 10.08, H / 2), "wall-3": (10.08, H / 2, W - 10.08, H / 2)}
+# A copy file's slot names and the placeholder (type, idx) each fills.
+SLOTS = {"eyebrow": ("body", 13), "title": ("title", None), "sub": ("subTitle", 1), "body": (None, 1),
+         "body-2": (None, 2), "line": ("body", 1), "column-1": ("body", 16), "column-2": ("body", 17),
+         "date": ("body", 14), "times": ("body", 19), "role": ("body", 18), "number-1": ("body", 20),
+         "number-2": ("body", 21), "number-3": ("body", 22), "label-1": ("body", 23), "label-2": ("body", 24),
+         "label-3": ("body", 25), "sticker": ("body", 30), "time": ("body", 14), "stage": ("body", 15),
+         "host": ("body", 14), "contact": ("body", 13)}
 
 
-def slides(b):
-    c = COPY[b]
-    S = []
+def resolve(slot, phs):
+    """The placeholder a slot fills on a layout: the title is the centred title on the title layouts, and the same slot
+    is a body or an object placeholder, by layout."""
+    typ, idx = SLOTS[slot]
+    if slot == "title" and ("title", None) not in phs and ("ctrTitle", None) in phs:
+        return ("ctrTitle", None)
+    if (typ, idx) not in phs:
+        for alt in ((None, idx), ("body", idx)):
+            if alt in phs:
+                typ, idx = alt
+    return typ, idx
 
-    def s(layout):
-        def deco(fn):
-            S.append((layout, fn))
-            return fn
-        return deco
 
-    @s("Title")
-    def _(t, spec):
-        sph(t, "body", 13, c["eyebrow"])
-        sph(t, "ctrTitle", None, c["title"])
-        sph(t, "subTitle", 1, c["sub"])
-        sph(t, "body", 14, c["date"])
+def section_text(s):
+    """A section's words as the builders' rich text, one paragraph per list item or line break."""
+    lines = copy_io.items(s) if s.text.lstrip().startswith(("- ", "* ")) else s.text.split("\n")
+    return [copy_io.rich(x) for x in lines]
 
-    @s("Title with photo")
-    def _(t, spec):
-        sphoto(t, 15, "crowd_wide", (6.2, 0, W - 6.2, H), "A packed festival crowd watching the main stage")
-        sph(t, "body", 13, "Find your people")
-        sph(t, "title", None, "The room where {deals} _start_.")
-        sph(t, "body", 1, "Founders, investors and partners in one place, with the time to talk properly.")
-        sph(t, "body", 30, "Main stage")
 
-    @s("Section (orange)")
-    def _(t, spec):
-        sph(t, "body", 13, "01")
-        sph(t, "title", None, "Why it _works_")
-        sph(t, "body", 1, "The stage, the room and the follow-ups.")
+def fill_from(sections, extra=None):
+    """The fill for one slide from its copy file sections, in order."""
+    def fill(t, spec):
+        for s in sections:
+            slot = s.path.split(".", 1)[1]
+            if slot == "photo":
+                sphoto(t, int(s.get("slot", 15)), s["name"], BOXES[s["box"]], s.text)
+            elif slot.startswith("org-"):
+                continue
+            else:
+                typ, idx = resolve(slot, t.layout.phs)
+                sph(t, typ, idx, section_text(s))
+        if extra:
+            extra(t, sections)
+    return fill
 
-    @s("Title and content")
-    def _(t, spec):
-        sph(t, "body", 13, "The day")
-        sph(t, "title", None, "What happens on the {day}")
-        sph(t, None, 1, ["Main stage moments from founders who have done it",
-                         "Roundtables where you bring the problem and leave with a plan",
-                         "Speed networking with investors looking for real deal flow",
-                         "An after party that keeps the conversation going"])
 
-    @s("Two columns (light)")
-    def _(t, spec):
-        sph(t, "body", 13, "Who it is for")
-        sph(t, "title", None, "Two ways to get {more} from it")
-        sph(t, "body", 16, "For founders")
-        sph(t, "body", 17, "For partners")
-        sph(t, None, 1, ["Learn from people a few steps ahead", "Find investors looking for real deal flow",
-                         "Leave with follow-ups that matter"])
-        sph(t, None, 2, ["Put your brand in front of the people you want to reach",
-                         "Host a roundtable on the problem you solve", "Meet the room, not just the stand"])
-
-    @s("Big statement")
-    def _(t, spec):
-        sph(t, "title", None, "Business {growth} with a _party_.")
-        sph(t, "body", 1, "Real conversations, real stage light, real follow-ups.")
-
-    @s("Big numbers")
-    def _(t, spec):
-        sph(t, "body", 13, "At a glance")
-        sph(t, "title", None, "The festival in {numbers}")
-        sph(t, "body", 20, "2")
-        sph(t, "body", 23, "days of main stage moments, roundtables and the after party")
-        sph(t, "body", 21, "00")
-        sph(t, "body", 24, "Your number here, with its source in the speaker notes")
-        sph(t, "body", 22, "00")
-        sph(t, "body", 25, "One fact per number, never a guess")
-
-    @s("Quote")
-    def _(t, spec):
-        sph(t, "body", 1, "Put the quote here, word for word, exactly as it was said.")
-        sph(t, "title", None, "First name Last name")
-        sph(t, "body", 13, "Role, Company")
-
-    @s("Full photo")
-    def _(t, spec):
-        sphoto(t, 15, "band_stage", (0, 0, W, H - 1.55), "The band playing on the main stage under orange light")
-        sph(t, "body", 30, "Climb26")
-        sph(t, "title", None, "The band opens the {main stage}")
-        sph(t, "body", 1, "Climb26, the opening of day one")
-
-    @s("Photo wall")
-    def _(t, spec):
-        sphoto(t, 15, "awards_winners", (5.0, 0, 5.0, H), "ClimbAwards winners celebrating on stage")
-        sphoto(t, 16, "drinks_reception", (10.08, 0, W - 10.08, H / 2), "Drinks being served at the evening reception")
-        sphoto(t, 17, "expo_floor", (10.08, H / 2, W - 10.08, H / 2), "People talking at stands on the expo floor")
-        sph(t, "body", 13, "Climb26")
-        sph(t, "title", None, "Moments worth {coming} back for")
-        sph(t, "body", 1, "The ClimbAwards walk-up, the reception and the busiest expo floor of the year.")
-
-    @s("Speaker")
-    def _(t, spec):
-        sph(t, "body", 13, "Speaker")
-        sph(t, "title", None, "First name\nLast name")
-        sph(t, "body", 18, "Role, _Company_")
-        sph(t, "body", 1, "Session title, main stage, 11:00")
-
-    @s("Agenda (light)")
-    def _(t, spec):
-        sph(t, "body", 13, "Agenda")
-        sph(t, "title", None, "How the day {runs}")
-        sph(t, "body", 19, ["09:00", "09:30", "11:00", "13:00", "15:00", "18:00"])
-        sph(t, "body", 1, ["Doors open, coffee and badges", "Opening on the main stage", "Roundtables and workshops",
-                           "Lunch on the expo floor", "Investor speed networking", "ClimbAwards and the after party"])
-
-    @s("Title and content (light)")
-    def _(t, spec):
-        sph(t, "body", 13, "Before you start")
-        sph(t, "title", None, "Using this {template}")
-        sph(t, None, 1, ["Install Montserrat and Open Sans from the fonts folder first",
-                         "Pick a layout from Home, Layout: dark first, light for reading-heavy slides",
-                         "One orange word and one italic word per headline, one orange button per slide",
-                         "Use real photos with consent, never stock handshakes",
-                         "Keep text at 18pt or larger and give every slide a title, so screen readers can find it"])
-
-    @s("End card")
-    def _(t, spec):
-        sph(t, "title", None, c["end"])
-        sph(t, "body", 13, c["end_line"])
-        sph(t, "body", 14, B.BRANDS[b]["url"])
-
-    return S
+def slides(path, fills=None):
+    """[(layout name, fill(tree, spec)), ...] for the example slides in a copy file. A slide marker names its layout
+    (layout=) and may name a special fill (fill=org-chart) from fills."""
+    doc = copy_io.load(path)
+    out = []
+    for s in doc.sections:
+        if "." not in s.path:
+            parts = [x for x in doc.sections if x.path.startswith(s.path + ".")]
+            out.append((s["layout"], fill_from(parts, (fills or {}).get(s.get("fill")))))
+    return out

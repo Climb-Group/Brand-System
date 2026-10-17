@@ -28,12 +28,40 @@ The Office builders take `--only <Name> ...` to rebuild a few templates and `--c
 for s in word excel pptx; do python3 ${s}_build.py --copy; done | python3 ../../.agents/skills/climb-voice/scripts/check_copy.py --no-hints -
 ```
 
-`catalog.py` is the one table of templates: app, name, brands, group (Company or Events) and whether it is a co-branded external version. Adding a template is one row there plus its content: a block list in `word_content.py`, a builder in `excel_books.py` (on the helpers in `xl.py`) or a slide list in `deck_samples.py`. The first set (letterhead, report, proposal, press release, meeting notes, the four event sheets and the presentation template) keeps its hand-written builders and is never remade. `previews_build.py --new` renders only the catalogue templates, so the first set's sheets stay as they are.
+## Words: the copy files
+
+Every word a template prints is in a copy file (`<name>.copy.md`) beside the template, never in a script. The builders read them through `copy_io.py` and keep only layout and logic. Change the words in the copy file, rebuild, and the template follows. The standard is `.agents/skills/climb-voice/references/copy-files.md`.
+
+| Copy file | Holds | Read by |
+| --- | --- | --- |
+| `templates/brands.copy.md` | The legal line, and each brand's website, email, tagline and edition dates | `brand.py`, so every script |
+| `office/<Brand>/word/<Template>.copy.md`, `office/<Brand>/external/<Template>-word.copy.md` | One Word template's words, covering its `.dotx` and its LibreOffice `.ott` | `word_build.py` (through `word_content.py`) |
+| `office/word-shared.copy.md` | Lines every Word template shares: signature blocks, contents, alt text | `word_build.py` |
+| `office/<Brand>/powerpoint/<Template>.copy.md`, `.../external/<Template>-powerpoint.copy.md` | One deck's example slides, one marker per slide (`<!-- @slide-3 layout="Two columns" -->`) and one section per placeholder | `pptx_build.py` (through `copy_samples.py`) |
+| `office/powerpoint-layouts.copy.md` | The layout prompts every deck shares | `pptx_build.py` |
+| `office/<Brand>/excel/<Template>.copy.md`, `.../external/<Template>-excel.copy.md` | One workbook's labels, headings, hints and sample rows | `excel_build.py`, `excel_books.py`, `xl.py` (through `xl_copy.py`) |
+| `office/excel-shared.copy.md` | Lines every workbook shares | the same |
+| `video/_shared/stills/shared-stills.copy.md`, `video/<Brand>/stills/<Brand>-stills.copy.md` | The lower thirds, stickers, caption guide, end card and title card | `video_build.py` |
+| `video/resolve-titles.copy.md`, `video/<Brand>/davinci-resolve/<Brand>-titles.copy.md` | The Resolve titles' sample text, control names and brand lines | `resolve_build.py` |
+| `video/_shared/luts/luts.copy.md` | The LUT title and header lines | `lut_build.py` |
+
+A file with no words of its own (a preview sheet, a logo copy, a background) gets an `@alt` section with its alt text. A copy file marked `source: mirror` holds words a build here cannot read yet, as they print (the default files, the Office theme, the example captions): change those words where its note says, and in the mirror.
+
+Some names stay in the scripts because other parts look them up by name: Word content-control names, PowerPoint layout and shape names, Excel sheet names and the codes in the leave planner and feedback sheets, the Resolve title names, and the core-property titles in `catalog.py`.
+
+Check every copy file and find any template without one:
+
+```bash
+python3 ../../.agents/skills/climb-voice/scripts/check_copy.py --no-hints $(find .. -name '*.copy.md')
+python3 ../../.agents/skills/climb-voice/scripts/copy_md.py coverage ../.. | grep templates/
+```
+
+`catalog.py` is the one table of templates: app, name, brands, group (Company or Events) and whether it is a co-branded external version. Adding a template is one row there plus its copy file and its content: body sections in its Word copy file, a builder in `excel_books.py` (on the helpers in `xl.py`, with its words in the workbook's copy file) or slide sections in its deck copy file (and its layouts in `deck_samples.py`). The first set (letterhead, report, proposal, press release, meeting notes, the four event sheets and the presentation template) keeps its hand-written builders and is never remade. `previews_build.py --new` renders only the catalogue templates, so the first set's sheets stay as they are.
 
 | Script | Follows |
 | --- | --- |
 | `brand.py`, `ooxml_theme.py` | `tokens/brand.tokens.json` colours and fonts, the legal line, brand URLs and edition dates |
-| `copy_samples.py`, `deck_samples.py`, `word_content.py`, `word_build.py`, `excel_build.py`, `excel_books.py` | the climb-voice skill; all sample copy passes `check_copy.py` |
+| `copy_io.py`, `xl_copy.py`, `copy_samples.py`, `deck_samples.py`, `word_content.py`, `word_build.py`, `excel_build.py`, `excel_books.py` | the climb-voice skill and its copy file standard; all sample copy passes `check_copy.py` |
 | `art.py`, `pptx_build.py`, `video_build.py` | the climb-visual-style skill, `guidelines/video.md` and `guidelines/motion.md` |
 
 The motion clips (`video/*/motion/`) and the install package (`templates/dist/`) are not committed. The `release` workflow builds both and attaches them to GitHub releases, so nothing is uploaded by hand:

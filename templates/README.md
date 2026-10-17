@@ -8,4 +8,6 @@ Files to install on people's machines so documents, sheets, decks and videos sta
 - `forms/`: forms people fill in and sign, such as the filming and photo release in `forms/filming-release/`, each with its build script and a Markdown copy of its text.
 - `_build/`: the scripts that make all of it from the tokens, logos and photos.
 
+Every template's words are in a copy file (`<name>.copy.md`) beside it, which the build reads: edit the words there and rebuild. `templates/brands.copy.md` holds the lines every template shares (legal line, websites, emails, tagline, edition dates). `_build/README.md` lists every copy file and what reads it.
+
 Each template uses the token colours and the brand fonts, and meets WCAG 2.2 AA.

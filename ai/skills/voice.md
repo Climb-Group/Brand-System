@@ -64,6 +64,8 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 5. Call the check copy tool on the full text. Fix every problem, act on the hints, then check again until it passes.
 6. Use only facts (dates, prices, formats, speakers) that the person gave you or that are in the record you are working on. Never invent them.
 
+When a piece has a copy file (a Markdown file of its words, with each part of the design marked `<!-- @front.headline -->`), write and change its words in that file, keep every marker and note as it is, and never move words into the design itself.
+
 Social handles: LinkedIn, Instagram, TikTok, X and Bluesky, all as climbuk.
 
 For examples and rewrites, call the guide tool with the topic "rewrites" or "lines that work".

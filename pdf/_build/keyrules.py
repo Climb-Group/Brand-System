@@ -1,13 +1,16 @@
-"""Builds the one-page key rules sheet (A4 portrait) for ClimbUK, ClimbGroup and Climb27 as HTML, ready for render.cjs."""
+"""Builds the one-page key rules sheet (A4 portrait) for ClimbUK, ClimbGroup and Climb27 as HTML, ready for render.cjs.
+
+The words come from pdf/one-page/<brand>_key-rules.copy.md; this script holds only the layout."""
 import os
 import sys
 
 import motifs
-from brands import BRANDS, COMMON, contact
+from brands import BRANDS, Words, copy_path, md
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 P = "assets/photos/"
 W, H = 794, 1123
+ALT = ""
 
 CSS = """
 @page{size:210mm 297mm;margin:0}
@@ -38,7 +41,7 @@ CSS = """
 
 def logo(b, variant, h=None, w=None, style=""):
     size = ("height:%dpx;" % h if h else "") + ("width:%dpx;" % w if w else "")
-    return '<img src="assets/logos/%s/%s_%s.svg" style="%s%s" alt="%s logo">' % (b, b, variant, size, style, b)
+    return '<img src="assets/logos/%s/%s_%s.svg" style="%s%s" alt="%s">' % (b, b, variant, size, style, ALT)
 
 
 def card(n, title, items, vis=""):
@@ -48,7 +51,10 @@ def card(n, title, items, vis=""):
 
 
 def build(b):
+    global ALT
     B = BRANDS[b]
+    w = Words(copy_path("one-page", "%s_key-rules.copy.md" % B["key"]))
+    ALT = w.t("logo.alt")
     ground = B["ground"]
     hero_photo = {"ClimbUK": "climb_crowd_wide.jpg", "ClimbGroup": "climb_recap_03.jpg", "Climb27": "joy_02.jpg"}[b]
     hero = (
@@ -56,71 +62,47 @@ def build(b):
         '<div class="layer fade-hero"></div><div class="glow"></div>'
         '%s'
         '<div style="position:absolute;left:30px;top:28px">%s</div>'
-        '<span class="sticker" style="position:absolute;right:30px;top:28px;font-size:13px">Everyone follows these</span>'
+        '<span class="sticker" style="position:absolute;right:30px;top:28px;font-size:13px">%s</span>'
         '<div style="position:absolute;left:30px;bottom:14px;width:720px">'
-        '<div class="eb" style="font-size:13px;margin-bottom:10px">The key rules</div>'
+        '<div class="eb" style="font-size:13px;margin-bottom:10px">%s</div>'
         '<div class="h" style="font-size:42px;text-shadow:0 2px 12px rgba(0,0,0,.6)">%s</div>'
         '<p style="font-size:13px;line-height:1.4;margin-top:8px;color:#fff;max-width:600px">%s</p></div></div>'
         % (P, hero_photo,
            '<svg viewBox="0 0 794 330" width="794" height="330" style="position:absolute;inset:0">%s</svg>' % motifs.slabs(794, 330, corners=("br",), length=230, thick=26) if b == "ClimbGroup" else "",
-           logo(b, "reversed-dark", h=26), B["sheet_h"],
-           "For anyone making anything with the %s name on it: designers, agencies, partners, printers, press and the team. "
-           "The brand book has the rest." % B["name"])
+           logo(b, "reversed-dark", h=26), w.t("hero.sticker"), w.t("hero.eyebrow"), w.t("hero.headline"), w.t("hero.intro"))
     )
-    other_ground = "Charcoal" if b == "ClimbGroup" else "Dark Brown"
-    cards = [
-        card("01", "Logo", [
-            "<b>Master files only.</b> Never redraw, recolour, stretch or add effects.",
-            "<b>Reversed on dark by default.</b> Full colour on White, grey on Light Grey, mono white on orange.",
-            "<b>Clear space:</b> the height of the C in Climb. <b>Minimum:</b> 120px or 30mm, then the li monogram.",
-        ], '<div class="vis"><div style="flex:1.3;background:var(--db);border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12)">%s</div>'
-           '<div style="flex:1.3;background:#fff;border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center">%s</div>'
-           '<div style="width:44px;height:44px;flex:none">%s</div></div>'
-           % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram-on-ground", w=44, style="border-radius:6px"))),
-        card("02", "Colour", [
-            "<b>Dark first:</b> %s is the ground. Light grounds are for long reading." % other_ground,
-            "<b>Orange leads, never floods:</b> one orange call to action per view.",
-            "<b>White on orange</b> only at 19px bold or 14pt bold and up. Small orange text: Orange Tint on dark, Deep Orange on white.",
-        ], '<div class="vis">%s</div>' % "".join(
+    # What each rule shows under its title, in the order of the rules in the copy file.
+    vis = [
+        '<div class="vis"><div style="flex:1.3;background:var(--db);border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12)">%s</div>'
+        '<div style="flex:1.3;background:#fff;border-radius:7px;height:44px;display:flex;align-items:center;justify-content:center">%s</div>'
+        '<div style="width:44px;height:44px;flex:none">%s</div></div>'
+        % (logo(b, "reversed-dark", h=14), logo(b, "full-colour-light", h=14), logo(b, "icon-monogram-on-ground", w=44, style="border-radius:6px")),
+        '<div class="vis">%s</div>' % "".join(
             '<div class="sw" style="background:%s;%s"></div>' % (bg, bd) for bg, fg, bd, hx in [
                 ("var(--o)", "var(--db)", "flex:1.6;", "#E8712A"), ("var(--db)", "#fff", "border:1px solid rgba(255,255,255,.2);", "#1E0F05"),
                 ("var(--ch)", "#fff", "border:1px solid rgba(255,255,255,.2);", "#242322"), ("var(--lg)", "var(--ch)", "", "#E9E9E9"),
-                ("var(--tint)", "var(--db)", "", "#F2AE86"), ("#fff", "var(--ch)", "", "#FFFFFF")])),
-        card("03", "Type", [
-            "<b>Montserrat</b> headings: uppercase, tight, 3 to 8 words. <b>Open Sans</b> for reading.",
-            "<b>One word orange, one word italic</b> in every display line.",
-            "<b>Nothing under 13px</b> on screen or 9pt in print.",
-        ], '<div class="vis"><div class="h" style="font-size:19px;line-height:1">ICONIC <em>MOMENTS</em>. REAL ADVICE. NO <span class="o">FLUFF</span>.</div></div>'),
-        card("04", "Voice", [
-            "<b>Headline energy. Doing, not dreaming. Curated, not crowded. Personal, not generic.</b>",
-            "<b>No emojis, exclamation marks or dashes.</b> Full names only, never \u201cClimb\u201d alone.",
-            "<b>No unpublished numbers, no guarantees, no hedges.</b> Scarcity only when true.",
-            "<b>Real, named people</b> in quotes. Links say where they go.",
-        ]),
-        card("05", "Photography and graphics", [
-            "<b>Real people, real light,</b> warm and full colour, with consent. Never stock.",
-            "<b>Words sit on a Dark Brown fade,</b> never on a busy part of a photo.",
-            "<b>One motif family</b> and two or three festival devices per piece.",
-        ], '<div class="vis" style="gap:5px">%s</div>' % "".join(
+                ("var(--tint)", "var(--db)", "", "#F2AE86"), ("#fff", "var(--ch)", "", "#FFFFFF")]),
+        '<div class="vis"><div class="h" style="font-size:19px;line-height:1">%s</div></div>' % w.t("rule.type-sample"),
+        "",
+        '<div class="vis" style="gap:5px">%s</div>' % "".join(
             '<div style="flex:1;height:34px;border-radius:7px;background:url(%s%s) center/cover"></div>' % (P, f)
-            for f in ("joy_01.jpg", "crowds_02.jpg", "stage_speakers_02.jpg", "meetings_01.jpg", "food_and_vendors_01.jpg"))),
-        card("06", "Everyone in the room", [
-            "<b>WCAG 2.2 AA everywhere,</b> AAA where it is easy.",
-            "<b>44px targets,</b> a visible focus ring, colour never the only signal.",
-            "<b>Plain words,</b> alt text that says what is happening, captions on video.",
-            "<b>4K by default,</b> never upscaled. Print PDF/X-4 with 3mm bleed.",
-        ]),
+            for f in ("joy_01.jpg", "crowds_02.jpg", "stage_speakers_02.jpg", "meetings_01.jpg", "food_and_vendors_01.jpg")),
+        "",
     ]
-    naming = "".join('<p><b>%s</b> %s</p>' % (k, v) for k, v in B["naming"])
+    rules = w.secs("rule")
+    assert len(rules) == len(vis), "%d rules in the copy file, the layout has %d" % (len(rules), len(vis))
+    cards = [card("%02d" % (i + 1), md(r.title), [md(x[2:], quotes=r.get("quotes") == "curly") for x in r.text.split("\n")], v)
+             for i, (r, v) in enumerate(zip(rules, vis))]
+    naming = "".join('<p><b>%s</b> %s</p>' % (k, v) for k, v in w.pairs("naming.item"))
     html = (
         '<section class="a4 %s">%s<div class="rules">%s</div>'
-        '<div class="name"><div class="k">Get the<br>name right</div>%s</div>'
-        '<div class="bot"><div>%s</div><div style="text-align:right">Press <b>%s</b> &nbsp;|&nbsp; Partners <b>%s</b><br>%s &nbsp;|&nbsp; <b>%s</b></div></div></section>'
-        % (ground, hero, "".join(cards), naming, logo(b, "tagline-lockup-reversed", h=30), *contact(b), COMMON["phone"], COMMON["web"])
+        '<div class="name"><div class="k">%s</div>%s</div>'
+        '<div class="bot"><div>%s</div><div style="text-align:right">%s <b>%s</b> &nbsp;|&nbsp; %s <b>%s</b><br>%s &nbsp;|&nbsp; <b>%s</b></div></div></section>'
+        % (ground, hero, "".join(cards), w.t("naming.heading"), naming, logo(b, "tagline-lockup-reversed", h=30),
+           w.t("footer.press-label"), w.t("footer.press"), w.t("footer.partners-label"), w.t("footer.partners"), w.t("footer.phone"), w.t("footer.web"))
     )
-    title = "%s key rules" % b
     doc = ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>%s</title>'
-           '<link rel="stylesheet" href="base.css"><style>%s</style></head><body>%s</body></html>' % (title, CSS, html))
+           '<link rel="stylesheet" href="base.css"><style>%s</style></head><body>%s</body></html>' % (w.t("document.title"), CSS, html))
     path = os.path.join(HERE, "%s_key-rules.html" % B["key"])
     open(path, "w").write(doc)
     return path
