@@ -3,6 +3,7 @@
 ## Lines that work
 
 - Your business. Bigger stage.
+- Bring your ambition. Find your people. Accelerate your growth.
 - Find your people. Then do business with them.
 - Iconic moments. Real advice. No fluff.
 - Two days. The right rooms. Conversations that move your business.
@@ -26,6 +27,7 @@
 | Book a call: climb-uk.com/partnerships | Web address not written in full | Book a call: www.climb-uk.com/partnerships |
 | ClimbAdvisory: advisers and fractional leaders, in 24 pods. | Describes the furniture and a count, not what happens | ClimbAdvisory: advisers and fractional leaders mentoring founders, meeting and talking through what comes next. |
 | Display stand: Big enough to be seen. Sharp enough to close. | A slogan that says nothing about the stand | Display stand: Your product on a screen and two branded panels, without the cost of a full stand. |
+| "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd, Climb24 | The edition dates the quote and makes the festival look old | "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd |
 | Climb is back - and bigger than ever | Bare "Climb", dash, size claim | Climb27 is here. Your business, on a bigger stage. |
 | Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
@@ -67,6 +69,7 @@
 | Plan your days: book meetings in the event app | Not a reason to come | Drop the point |
 | The Investor Ladder | Makes the investor side the headline | Funding that fits: investors for the whole funding journey |
 | Angels, funds and lenders, from first cheque to Series A | Caps the funding journey | Angels, funds and lenders from across the whole funding journey |
+| Your business. Bigger stage. (on the general flyer) | Fine as the edition line, but the general flyer needs the reasons to come | Bring your ambition. Find your people. Accelerate your growth. |
 | Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
 
 ## ClimbVoice, corrected

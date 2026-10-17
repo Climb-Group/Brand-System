@@ -16,6 +16,7 @@ Sizes and limits were checked against Microsoft's documentation on 10 October 20
 | `teams-app-odoo/`, `teams-app-odoo.zip` | A Teams app that opens Odoo in a personal tab: manifest, 192x192 colour icon (mark inside the 120x120 safe area) and 32x32 white outline icon |
 | `sign-in-page/` | Sign-in page branding: 1920x1080 background (under 300 KB), banner and header logos (245x36), square logos (240x240, light and dark) and favicon (32x32) |
 | `_build/build_m365.py` | The script that makes all of it |
+| `*.copy.md` | The words and alt text, beside the files they cover. The build reads the meeting theme headline (`teams-themes/<Brand>/<Brand>-teams-theme.copy.md`), the app tile names and descriptions (`app-tiles/app-tiles.copy.md`) and the Teams app's name and descriptions (`teams-app-odoo/teams-app-odoo.copy.md`); the sticker is the edition dates or the tagline from `templates/brands.copy.md`. The meeting background copy files are mirrors: their festival sticker comes from the image generators' poster kit |
 
 ## Settings to enter
 

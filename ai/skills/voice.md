@@ -25,6 +25,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
+- Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
 - Big moments, not keynotes. Clinics are roundtables or workshops.
 - No reports we have not agreed: never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
@@ -50,6 +51,7 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 - Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
 - Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 headline: Your business. Bigger stage.
+- General Climb27 flyer headline: Bring your ambition. Find your people. Accelerate your growth.
 - Themes: Find Your People, and Main Stage Moments.
 
 ## Clear for everyone
@@ -67,6 +69,8 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 4. End with one call to action that names the action ("Get your ticket", "Book your meetings").
 5. Call the check copy tool on the full text. Fix every problem, act on the hints, then check again until it passes.
 6. Use only facts (dates, prices, formats, speakers) that the person gave you or that are in the record you are working on. Never invent them.
+
+When a piece has a copy file (a Markdown file of its words, with each part of the design marked `<!-- @front.headline -->`), write and change its words in that file, keep every marker and note as it is, and never move words into the design itself.
 
 Social handles: LinkedIn, Instagram, TikTok, X and Bluesky, all as climbuk.
 
