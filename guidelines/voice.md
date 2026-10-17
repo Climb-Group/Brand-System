@@ -15,11 +15,13 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 
 - **No emojis, no exclamation marks, no em or en dashes.** Use full stops, commas and colons. Let design and photography carry the energy.
 - **Names.** Never "Climb" on its own. Write **ClimbUK** (the brand and the festival), **ClimbGroup** (the company name, for legal lines and corporate pieces) or the edition: **Climb27**, **Climb26**. The app is the **ClimbGroup Event App**. Never "Climb UK" with a space, and never "CLIMBUK" in running text.
-- **No numbers we have not published.** No audience sizes, attendance claims or counts of partners or meetings. Figures from a past edition appear only as ClimbUK publishes them, cited to that edition ("at Climb26").
-- **No promises we cannot keep.** No guarantees, and never a promised number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine: "Find investors looking for real deal flow", never "meet investors". Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- **No numbers we have not published.** No audience sizes, attendance claims or counts of partners or meetings. Figures from a past edition appear only as ClimbUK publishes them, cited to that edition ("at Climb26"). Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
+- **No promises we cannot keep.** No guarantees, and never a promised number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine: "Find investors looking for real deal flow", never "meet investors". Partners are sold "meetings with the right people", never a number of meetings or an audience size for the event.
+- **Say who the right people are.** When you sell "the right people", explain what makes them right for the reader, in our words, rather than repeating a list of segments.
 - **Scarcity only when it is true.** Ticket releases really do close, so name the release, its price and its state (open now, next, final), and say the price goes up when it is gone. No invented scarcity, no "last few" unless it is so, no "premier", no superlatives we cannot prove, no trademark symbols in copy. Prices are round numbers people remember: 250, not 252.
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
+- **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.
 - **No vendor names.** Do not name the tools and platforms behind the scenes. Say what the reader can do ("Book your meetings before you arrive"), not what powers it.
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never knock them.
@@ -49,7 +51,12 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 ## Words and lines we own
 
 - Tagline: **The Festival for Business Growth.**
+  In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
+- Web addresses on print and PDFs are written in full with www: **www.climb-uk.com/partnerships**, never "climb-uk.com/partnerships". Email addresses stay as they are.
+- Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
+- Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 headline: **Your business. Bigger stage.**
+- General Climb27 flyer headline: **Bring your ambition. Find your people. Accelerate your growth.**
 - Climb27 themes: **Find Your People** (the people you meet are the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Programme names, always written this way: Investor Speed Networking, Busk Your Business, the ClimbAwards, ClimbHealth.
 

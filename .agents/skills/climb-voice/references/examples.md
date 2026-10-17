@@ -3,6 +3,7 @@
 ## Lines that work
 
 - Your business. Bigger stage.
+- Bring your ambition. Find your people. Accelerate your growth.
 - Find your people. Then do business with them.
 - Iconic moments. Real advice. No fluff.
 - Two days. The right rooms. Conversations that move your business.
@@ -22,6 +23,11 @@
 | Before | Problem | After |
 | --- | --- | --- |
 | Join thousands of founders at the UK's premier startup event! | Size claim, unsupported superlative, exclamation mark | Two days with the founders, investors and advisers who move businesses forward. |
+| Climb27 is the Festival for Business Growth. | The tagline capitalised inside a sentence | Climb27 is the festival for business growth. |
+| Book a call: climb-uk.com/partnerships | Web address not written in full | Book a call: www.climb-uk.com/partnerships |
+| ClimbAdvisory: advisers and fractional leaders, in 24 pods. | Describes the furniture and a count, not what happens | ClimbAdvisory: advisers and fractional leaders mentoring founders, meeting and talking through what comes next. |
+| Display stand: Big enough to be seen. Sharp enough to close. | A slogan that says nothing about the stand | Display stand: Your product on a screen and two branded panels, without the cost of a full stand. |
+| "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd, Climb24 | The edition dates the quote and makes the festival look old | "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd |
 | Climb is back - and bigger than ever | Bare "Climb", dash, size claim | Climb27 is here. Your business, on a bigger stage. |
 | Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
@@ -43,6 +49,7 @@
 | Can I bring the team? | Asks permission instead of selling | Why your team should come (then: team tickets are 25% off). |
 | I bought a one-day ticket. Which day do I pick? | Written for someone who already bought | I want a one-day ticket. Which day should I pick? |
 | Will you introduce me to people? | "Introduce" promises a personal service | How will I connect with the right people? |
+| Find your people: founders, investors, advisers, universities and the public sector. | Repeats the segment list from the page before | Find your people: the ones with a reason to talk to you, who need what you do or can open the next door. |
 | What Climb27 does for an advisory firm | A heading with no benefit | New clients, from the growing businesses you want to serve |
 | New clients, with a return you can show | Return on investment does not belong in the headline | New clients. (The return goes in the body.) |
 | Investor Speed Networking: six founders matched to your thesis, two at a time | Times, counts and "matched" | Investor Speed Networking: founders in your sector, brought to you. |
@@ -62,6 +69,7 @@
 | Plan your days: book meetings in the event app | Not a reason to come | Drop the point |
 | The Investor Ladder | Makes the investor side the headline | Funding that fits: investors for the whole funding journey |
 | Angels, funds and lenders, from first cheque to Series A | Caps the funding journey | Angels, funds and lenders from across the whole funding journey |
+| Your business. Bigger stage. (on the general flyer) | Fine as the edition line, but the general flyer needs the reasons to come | Bring your ambition. Find your people. Accelerate your growth. |
 | Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
 
 ## ClimbVoice, corrected
