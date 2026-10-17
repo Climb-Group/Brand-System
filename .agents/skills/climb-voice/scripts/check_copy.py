@@ -57,6 +57,11 @@ CASED = [
     (r"\b[Pp]artner manager\b", "job title: Partner Manager"),
 ]
 
+# Case-sensitive hints.
+CASED_HINTS = [
+    (r"\bthe Festival for Business Growth\b", "in a sentence write 'the festival for business growth'; capitals only for the tagline on its own"),
+]
+
 # Preferred words. Printed as hints, because each has legitimate uses elsewhere.
 WORD_HINTS = [
     (r"\bprogramme\b", "for the event schedule write 'agenda'; 'programme' is for the affiliate programme and accelerator programmes"),
@@ -65,6 +70,9 @@ WORD_HINTS = [
     (r"\bconsultants?\b", "if they take responsibility for a function, they are fractional leaders, not consultants"),
     (r"\blive music\b|\bdj sets?\b", "only the grand opening has live music: do not sell music as a reason to come"),
     (r"\bfounders at your stage\b", "frame peers as people one step ahead who give advice"),
+    # Second review of the Climb27 sales brochures, October 2026.
+    (r"(?<![@\w./-])climb-uk\.com", "write the web address in full on print and PDFs: www.climb-uk.com/..."),
+    (r"\bdeal flow\b", "jargon: explain it in the sentence or link it to the glossary"),
 ]
 
 BEFORE_ANNOUNCEMENT = [
@@ -219,6 +227,10 @@ def word_hints(text):
     prose = _prose(text)
     for pattern, why in WORD_HINTS:
         m = re.search(pattern, prose, flags=re.IGNORECASE)
+        if m:
+            found.append((m.group(0), why))
+    for pattern, why in CASED_HINTS:
+        m = re.search(pattern, prose)
         if m:
             found.append((m.group(0), why))
     return found

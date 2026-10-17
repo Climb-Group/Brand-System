@@ -31,6 +31,8 @@ For event photographers, designers choosing images and anyone briefing a shoot. 
 - **Photo cards:** title at the top, a line at the bottom, a Dark Brown fade top and bottom, rounded `radius-card` corners.
 - **Photo walls:** a mosaic of squares with one big tile. Dense is better than sparse.
 - **Crop** for the face and the gesture; leave room on one side for the headline.
+- **Conversations** keep everyone who is talking in frame; never crop a two-person moment down to one person in a narrow tile.
+- **Signs and branding** stay whole: when the photo is there to show a partner's sign, zone or screen, every logo on it stays in frame. Match the tile to the photo's shape rather than zooming in.
 - One photo per hero. No collages inside a hero, no cut-out people, no duotones that hide faces.
 - Alt text describes what is happening ("A brass band playing on the main stage"), following the Voice section.
 
