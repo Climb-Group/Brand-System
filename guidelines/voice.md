@@ -20,6 +20,7 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **Scarcity only when it is true.** Ticket releases really do close, so name the release, its price and its state (open now, next, final), and say the price goes up when it is gone. No invented scarcity, no "last few" unless it is so, no "premier", no superlatives we cannot prove, no trademark symbols in copy. Prices are round numbers people remember: 250, not 252.
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
+- **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.
 - **No vendor names.** Do not name the tools and platforms behind the scenes. Say what the reader can do ("Book your meetings before you arrive"), not what powers it.
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never knock them.
@@ -124,6 +125,8 @@ What every audience can hear:
 3. Write the body as short, complete paragraphs, each a small pitch: what happens, why it matters to this reader, what to do next. Strong verbs, varied sentence length, no filler.
 4. End with one call to action that names the action: "Get your ticket", "Book your meetings", "Apply to pitch". Never "Click here" or "Submit".
 5. Read it back against the four lines and the rules above.
+
+Every designed piece keeps its words in its own copy file: one plain Markdown file per piece, with each part of the design named in a short comment (`<!-- @front.headline -->`). Review and change the words there, then rebuild the piece; nobody needs to open the design to fix a word.
 
 ## Channels
 

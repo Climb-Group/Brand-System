@@ -3,7 +3,7 @@ import math
 
 
 def build(k):
-    """k is the illustrations module. Return {name: (builder_fn, "what it says")}."""
+    """k is the illustrations module. Return {name: builder_fn}; what each drawing says is in illustrations/illustrations.copy.md."""
     line, curve, arc, circle, rrect, poly, text, turn, shift, sparkle = (k.line, k.curve, k.arc, k.circle, k.rrect,
                                                                          k.poly, k.text, k.turn, k.shift, k.sparkle)
 
@@ -164,7 +164,7 @@ def build(k):
              line(*bot_back, w=0.6),
              poly(*(top_front + bot_front[::-1]), fill="ink"),
              line((26, 86), (26, 112)), line((174, 86), (174, 112)),
-             text(100, 132, 15, "VIP", slot="label", width=40),
+             text(100, 132, 15, k.word("wristband", "label"), slot="label", width=40),
              rrect(140, 132, 16, 34, 4, fill="ground", w=0.9),
              line((148, 140), (148, 158), w=0.7)]
         s += sparkle(36, 40, 7) + sparkle(170, 34, 5, w=0.8)
@@ -265,7 +265,7 @@ def build(k):
                         (40, 86), (36, 50), (60, 26), double=True)]
         bubble += _qmark(108, 60, 1.0)
         card = [rrect(22, 92, 118, 82, 10, fill="ink"),
-                text(81, 135, 30, "Q&A", slot="label", width=86),
+                text(81, 135, 30, k.word("qa-card", "label"), slot="label", width=86),
                 line((40, 154), (122, 154), knock=True, w=0.7)]
         return bubble + turn(card, -8, (80, 134))
 
@@ -380,7 +380,7 @@ def build(k):
         card = [rrect(50, 64, 100, 130, 12, double=True),
                 rrect(86, 74, 28, 8, 4, w=0.8),
                 poly((50, 136), (150, 98), (150, 136), (50, 174), fill="ink", ink=False),
-                text(100, 142, 16, "ACCESS", slot="label", width=78, rotate=-21),
+                text(100, 142, 16, k.word("stage-pass", "label"), slot="label", width=78, rotate=-21),
                 star(100, 104, 12, fill="ink", ink=False),
                 line((66, 182), (110, 182), w=0.7)]
         return cord + turn(card, 6, (100, 60))
@@ -410,30 +410,30 @@ def build(k):
         return s
 
     return {
-        "headset-mic": (_headset_mic, "Speakers mic up, host, AV crew"),
-        "lectern": (_lectern, "Keynote at the lectern, main stage talks"),
-        "lighting-rig": (_lighting_rig, "Stage lights, production, the show"),
-        "loudspeaker": (_loudspeaker, "Sound, turn it up, the after party"),
-        "video-camera": (_video_camera, "Filming, livestream, content"),
-        "clapperboard": (_clapperboard, "Video, take one, behind the scenes"),
-        "projector-screen": (_projector_screen, "Presentations, workshops"),
-        "slide-deck": (_slide_deck, "Slides, pitch deck, sessions"),
-        "confetti-cannon": (_confetti_cannon, "Celebrate, launches, winners"),
-        "wristband": (_wristband, "Festival wristband, VIP access"),
-        "bunting": (_bunting, "Festival feel, celebration"),
-        "big-screen": (_big_screen, "Big screen, keynote, audience"),
-        "stopwatch": (_stopwatch, "Countdown, quick fire sessions, time running out"),
-        "applause": (_applause, "Applause, well done, thank you"),
-        "hand-raised": (_hand_raised, "Ask a question, get involved, pick me"),
-        "qa-card": (_qa_card, "Q&A sessions, your questions"),
-        "dj-decks": (_dj_decks, "DJ sets, after parties"),
-        "headphones": (_headphones, "Listen, podcast, the playlist"),
-        "mixing-desk": (_mixing_desk, "Sound desk, production, behind the scenes"),
-        "disco-ball": (_disco_ball, "After parties, dance floor"),
-        "fireworks": (_fireworks, "Big moments, celebration, the finale"),
-        "music-notes": (_music_notes, "Music, live acts, playlist"),
-        "ticket-qr": (_ticket_qr, "E-ticket, scan in, fast entry"),
-        "stage-pass": (_stage_pass, "Backstage access, all access"),
-        "backstage-door": (_backstage_door, "Behind the scenes, backstage, green room"),
-        "spotlight-beam": (_spotlight_beam, "In the spotlight, your moment"),
+        "headset-mic": _headset_mic,
+        "lectern": _lectern,
+        "lighting-rig": _lighting_rig,
+        "loudspeaker": _loudspeaker,
+        "video-camera": _video_camera,
+        "clapperboard": _clapperboard,
+        "projector-screen": _projector_screen,
+        "slide-deck": _slide_deck,
+        "confetti-cannon": _confetti_cannon,
+        "wristband": _wristband,
+        "bunting": _bunting,
+        "big-screen": _big_screen,
+        "stopwatch": _stopwatch,
+        "applause": _applause,
+        "hand-raised": _hand_raised,
+        "qa-card": _qa_card,
+        "dj-decks": _dj_decks,
+        "headphones": _headphones,
+        "mixing-desk": _mixing_desk,
+        "disco-ball": _disco_ball,
+        "fireworks": _fireworks,
+        "music-notes": _music_notes,
+        "ticket-qr": _ticket_qr,
+        "stage-pass": _stage_pass,
+        "backstage-door": _backstage_door,
+        "spotlight-beam": _spotlight_beam,
     }

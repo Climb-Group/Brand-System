@@ -4,3 +4,8 @@ __pycache__/
 *.pyc
 .DS_Store
 private_rules.py
+
+# Team-only material: never committed. Kept on the team's computers and in the
+# team's brand centre library; only internal/README.md is public.
+/internal/*
+!/internal/README.md

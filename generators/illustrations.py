@@ -28,6 +28,14 @@ import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent / "illustrations"
+# The words (what each drawing says, and the words printed inside some drawings) live in the copy file
+# illustrations/illustrations.copy.md (climb-voice references/copy-files.md), never in this script.
+sys.path.insert(0, str(HERE.parent / ".agents" / "skills" / "climb-voice" / "scripts"))
+import copy_md  # noqa: E402
+
+COPY = copy_md.load(OUT / "illustrations.copy.md")
+MESSAGES = {s["file"][:-4]: s.text for s in COPY.all("alt")}
+WORDS = {(s["file"][:-4], s["slot"]): s.text for s in COPY.all("label")}
 INK = "#E8712A"
 GROUND = "#1E0F05"
 BOX = 200.0
@@ -138,6 +146,13 @@ def ticket_outline(x, y, wd, ht, r=9, **kw):
         pts += [(cx + r * math.cos(math.radians(a - i * 90 / 6)) * 1, cy + r * math.sin(math.radians(a - i * 90 / 6)))
                 for i in range(7)]
     return _s(pts, closed=True, **kw)
+
+
+def word(name, slot="label"):
+    """A word printed inside a drawing, from its '@label file=<name>.svg slot=<slot>' section in the copy file."""
+    if (name, slot) not in WORDS:
+        raise copy_md.CopyError(COPY.where, 1, "no '@label file=%s.svg slot=%s' section" % (name, slot))
+    return WORDS[(name, slot)]
 
 
 def text(x, y, size, default, slot="label", width=None, rotate=0, colour="ground", weight=800):
@@ -348,7 +363,7 @@ def _badge():
             rrect(86, 100, 28, 7, 3.5, knock=True, w=0.7),
             line((60, 166), (140, 166), knock=True, w=0.8),
             line((70, 177), (130, 177), knock=True, w=0.7),
-            text(100, 148, 21, "EXHIBITOR", slot="label", width=96)]
+            text(100, 148, 21, word("badge", "label"), slot="label", width=96)]
     return strap + clip + turn(card, 5, (100, 92))
 
 
@@ -357,7 +372,7 @@ def _tickets():
             line((44, 86), (110, 86), w=0.7), line((44, 108), (96, 108), w=0.7)]
     front = [ticket_outline(32, 80, 140, 64, 10, fill="ink", double=True),
              line((136, 86), (136, 138), knock=True, dash=(5, 6), w=0.8),
-             text(84, 119, 19, "ADMIT ONE", slot="label", width=86)]
+             text(84, 119, 19, word("tickets", "label"), slot="label", width=86)]
     star = sparkle(154, 112, 7, knock=True, w=0.8)
     return turn(back, -16, (100, 96)) + turn(shift(front + star, 0, 14), 9, (100, 110))
 
@@ -548,9 +563,9 @@ def _calendar():
          rrect(28, 42, 144, 36, 10, fill="ink", ink=False),
          line((28, 78), (172, 78)),
          rrect(56, 28, 10, 26, 5, fill="ground"), rrect(134, 28, 10, 26, 5, fill="ground"),
-         text(100, 68, 17, "JUNE . JULY", slot="month", width=104),
-         text(76, 140, 46, "30", slot="day", colour="ink", width=50),
-         text(138, 140, 46, "1", slot="day2", colour="ink")]
+         text(100, 68, 17, word("calendar", "month"), slot="month", width=104),
+         text(76, 140, 46, word("calendar", "day"), slot="day", colour="ink", width=50),
+         text(138, 140, 46, word("calendar", "day2"), slot="day2", colour="ink")]
     s.append(curve((44, 108), (78, 92), (110, 112), (98, 150), (60, 156), (44, 132), (52, 104), w=0.9))
     for x in (40, 62, 84, 106, 128, 150):
         s.append(circle(x + 6, 170, 1.8, fill="ink", ink=False))
@@ -656,40 +671,40 @@ def _arrow():
 
 
 DRAWINGS = {
-    # name: (builder, what it says)
-    "microphone": (_microphone, "Speaking, main stage moments"),
-    "badge": (_badge, "Lanyard badge with a role label: EXHIBITOR, SPEAKER, PARTNER, DELEGATE"),
-    "tickets": (_tickets, "Admission tickets: get your ticket"),
-    "handshake": (_handshake, "Partners, deals, meetings with the right people"),
-    "rocket": (_rocket, "Growth, launches, bigger stage"),
-    "envelope": (_envelope, "Check your inbox, invitations"),
-    "clipboard": (_clipboard, "Agenda, plan your two days"),
-    "trophy": (_trophy, "ClimbAwards"),
-    "spotlight": (_spotlight, "Stage light, main stage moments"),
-    "megaphone": (_megaphone, "Announcements, tell people you are going"),
-    "coffee": (_coffee, "Close conversations, meetings"),
-    "glasses": (_glasses, "After parties, the drinks reception"),
-    "bubbles": (_bubbles, "Conversations, find your people"),
-    "chart": (_chart, "Growth, investors"),
-    "lightbulb": (_lightbulb, "Ideas, real advice"),
-    "calendar": (_calendar, "Save the dates: 30 June and 1 July 2027"),
-    "pin": (_pin, "Where to be (never a place name)"),
-    "laptop": (_laptop, "Book meetings, the event app, online"),
-    "people": (_people, "Find your people"),
-    "stage": (_stage, "Main stage moments"),
-    "summit": (_summit, "Your business. Bigger stage. The climb"),
-    "record": (_record, "DJ sets, after parties"),
-    "sneaker": (_sneaker, "Merch, two days on your feet"),
-    "phone": (_phone, "The ClimbGroup Event App, sharing"),
-    "sparkles": (_sparkles, "Small accent for corners"),
-    "arrow": (_arrow, "Hand drawn pointer"),
+    # name: builder. What each drawing says comes from the copy file (MESSAGES).
+    "microphone": _microphone,
+    "badge": _badge,
+    "tickets": _tickets,
+    "handshake": _handshake,
+    "rocket": _rocket,
+    "envelope": _envelope,
+    "clipboard": _clipboard,
+    "trophy": _trophy,
+    "spotlight": _spotlight,
+    "megaphone": _megaphone,
+    "coffee": _coffee,
+    "glasses": _glasses,
+    "bubbles": _bubbles,
+    "chart": _chart,
+    "lightbulb": _lightbulb,
+    "calendar": _calendar,
+    "pin": _pin,
+    "laptop": _laptop,
+    "people": _people,
+    "stage": _stage,
+    "summit": _summit,
+    "record": _record,
+    "sneaker": _sneaker,
+    "phone": _phone,
+    "sparkles": _sparkles,
+    "arrow": _arrow,
 }
 
 
 
 def _load_sets():
     """Extra drawings live in illustration_sets/*.py. Each module has build(k), where k is this module, and returns
-    {name: (builder, what it says)}. Names must be new."""
+    {name: builder}. Names must be new."""
     import importlib.util
     folder = HERE / "illustration_sets"
     for f in sorted(folder.glob("set_*.py")) if folder.exists() else []:
@@ -708,6 +723,11 @@ def _load_sets():
 
 
 _load_sets()
+# Every drawing pairs its builder with what it says, from the copy file.
+for _name, _builder in list(DRAWINGS.items()):
+    if _name not in MESSAGES:
+        raise copy_md.CopyError(COPY.where, 1, "no '@alt file=%s.svg' section for drawing %r" % (_name, _name))
+    DRAWINGS[_name] = (_builder, MESSAGES[_name])
 
 
 # ---------------------------------------------------------------- rendering
@@ -813,9 +833,9 @@ def write_all(out=OUT):
     for name in DRAWINGS:
         (out / ("%s.svg" % name)).write_text(standalone(name), encoding="utf-8")
         names.append(name)
-    for label in ("SPEAKER", "PARTNER", "DELEGATE"):
-        (out / ("badge-%s.svg" % label.lower())).write_text(standalone("badge", label), encoding="utf-8")
-        names.append("badge-" + label.lower())
+    for v in COPY.all("variant"):
+        (out / v["file"]).write_text(standalone(v["drawing"], v.text), encoding="utf-8")
+        names.append(v["file"][:-4])
     return names
 
 

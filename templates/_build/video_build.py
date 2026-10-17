@@ -19,12 +19,19 @@ from PIL import Image
 
 import art
 import brand as B
+import copy_io as C
 import motifs as M
 
 FPS = 25
 W, H = 3840, 2160
 TMP = os.path.join(B.OUT, "_video_tmp")
 VOUT = os.path.join(B.OUT, "video")
+SHARED_COPY = "video/_shared/stills/shared-stills.copy.md"
+
+
+def words(b=None):
+    """The copy file with the words of the shared stills, or of one brand's stills and clips."""
+    return C.load("video/%s/stills/%s-stills.copy.md" % (b, b) if b else SHARED_COPY)
 
 
 # ---------- easing ----------
@@ -161,9 +168,11 @@ def still(im, out):
 SAFE_X, SAFE_BOTTOM = 192, 2052   # 5% title safe at 4K
 
 
-def lt_classic_specs(name="First name Last name", role="Role, Company", plate=False):
+def lt_classic_specs(name=None, role=None, plate=False):
     """guidelines/video.md lower third: Dark Brown bar at 85%, 12px Climb Orange rule on the left (6px at HD)."""
     bx, by, bw, bh = SAFE_X, 1640, 1720, 300
+    name = C.html(words().one("lower-third.name").text) if name is None else name
+    role = C.html(words().one("lower-third.role").text) if role is None else role
     specs = {
         "bar": '<div style="position:absolute;left:%dpx;top:%dpx;width:%dpx;height:%dpx;background:rgba(30,15,5,.85)"></div>'
                % (bx, by, bw, bh),
@@ -177,9 +186,12 @@ def lt_classic_specs(name="First name Last name", role="Role, Company", plate=Fa
     return specs
 
 
-def lt_pill_specs(b, first="First name", last="Last name", role="Role, <span class='i'>Company</span>", plate=False):
+def lt_pill_specs(b, first=None, last=None, role=None, plate=False):
     """Festival kit lower third v2: Dark Brown panel, huge name with the orange pill bar, edition mark, slab corner."""
     px, py, pw, ph = SAFE_X, 1420, 2000, 560
+    first = C.html(words(b).one("lower-third.first").text) if first is None else first
+    last = C.html(words(b).one("lower-third.last").text) if last is None else last
+    role = C.html(words(b).one("lower-third.role").text) if role is None else role
     mark = B.logo(b, "reversed-dark", 1024)
     specs = {
         "panel": ('<div style="position:absolute;left:%dpx;top:%dpx;width:%dpx;height:%dpx;background:#1E0F05;'
@@ -241,7 +253,7 @@ def shared():
     still(full_still(P, ["bar", "rule"]), os.path.join(d, "stills", "LowerThird_Classic_Plate_4K.png"))
 
     # Stickers: Climb Orange tag tilted -4 degrees, White Montserrat Black (large text), spring pop.
-    for word in ("Main stage", "VIP", "ClimbAwards", "Live", "Find your people", "New"):
+    for word in [C.html(st.text) for st in words().all("sticker")]:
         key = word.replace(" ", "")
         S = render_layers({"st_" + key: '<div class="disp black" style="position:absolute;left:360px;top:300px;'
                            'transform:rotate(-4deg);transform-origin:left top;background:#E8712A;color:#fff;font-size:96px;'
@@ -309,8 +321,8 @@ def shared():
     still(sa, os.path.join(d, "stills", "Guide_SafeAreas_16x9_4K.png"))
     cap = render_layers({"caption": '<div class="body" style="position:absolute;left:50%%;transform:translateX(-50%%);'
                          'bottom:%dpx;background:rgba(30,15,5,.7);color:#fff;font-weight:600;font-size:84px;line-height:1.3;'
-                         'padding:18px 36px;text-align:center;max-width:2900px">Captions sit here, two lines at most,<br>'
-                         '42 characters a line, Open Sans Semibold.</div>' % (H - SAFE_BOTTOM + 40)})
+                         'padding:18px 36px;text-align:center;max-width:2900px">%s</div>'
+                         % (H - SAFE_BOTTOM + 40, C.html(words().one("captions.guide").text))})
     still(full_still(cap, ["caption"]), os.path.join(d, "stills", "Guide_Captions_16x9_4K.png"))
 
 
@@ -352,9 +364,7 @@ def per_brand(b):
         lw = int(w * (0.5 if orient == "16x9" else 0.78))
         lk = B.logo(b, "tagline-lockup-reversed", 2048)
         ly = int(h * (0.3 if orient == "16x9" else 0.36))
-        line = info["edition"] or info["line"]
-        if not info["edition"]:
-            line = "Find your people"
+        line = info["edition"] or C.html(words(b).one("end-card.line").text)
         fs = int(w * (0.026 if orient == "16x9" else 0.045))
         Ls = render_layers({
             "%s_end_logo_%s" % (b, orient): '<img src="file://%s" style="position:absolute;left:%dpx;top:%dpx;width:%dpx">'
@@ -383,9 +393,7 @@ def per_brand(b):
         still(last.convert("RGB"), os.path.join(d, "stills", "%s_EndCard_%s_4K.png" % (b, orient)))
 
     # Title card sample (opaque): headline lines rise in one at a time over the loop ground.
-    titles = {"ClimbUK": ["Not a conference.", "A <span class='o'>festival</span>."],
-              "ClimbGroup": ["Business growth", "with a <span class='i'>party</span><span class='o'>.</span>"],
-              "Climb27": ["Your business.", "<span class='i'>Bigger</span> <span class='o'>stage</span>."]}[b]
+    titles = [C.html(t.text) for t in words(b).all("title-card.line")]
     ground = Image.open(os.path.join(TMP, "loopbase_16x9.png")).convert("RGBA")
     TL = render_layers({"%s_title_%d" % (b, i): '<div class="disp black" style="position:absolute;left:%dpx;top:%dpx;'
                         'font-size:260px">%s</div>' % (SAFE_X + 60, 700 + i * 270, t) for i, t in enumerate(titles)})

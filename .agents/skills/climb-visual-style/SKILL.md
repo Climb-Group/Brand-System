@@ -5,7 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  version: "1.9"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026) and the reviews of the Climb27 flyers (October 2026)
+  version: "1.10"
 ---
 
 # ClimbUK visual style
@@ -67,6 +68,7 @@ These carry the energy. Use two or three per piece, not all of them at once.
 - **Ticket cards:** a dark glass card with stub notches cut into both sides and a dashed tear line, holding the offer and the one button.
 - **Photo cards and walls:** photos with the title on top and the line at the bottom under a Dark Brown fade; a mosaic of squares with one big tile.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
+- **Past-event logo walls:** one wall for every year under one heading ("In the room at ClimbUK"), never a section per year. A partner logo made for a dark ground is recoloured to charcoal on a light wall.
 - **Cut edges and glow:** a diagonal top edge from one section into the next; an orange stage-light glow in a dark corner; orange glows (not grey shadows) under orange buttons.
 - **Photo fades:** a full-width photo faded to Dark Brown on the words' side (or Climb Orange on an orange section), the photo showing through on the other, ending solid so it runs into the next section. Recipes in `guidelines/photography.md`.
 - **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Ticket pages".
@@ -92,6 +94,7 @@ Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); pri
 | Office and video templates, with install guides | `templates/office/`, `templates/video/` (motion clips in the release download) |
 | Tools and skills for AI assistants | `ai/` (`kit.json`, `tools/brand_rules.py`) |
 | Media kit downloads and interactive brand pages | `media-kit/`, `web/` |
+| Team-only material (research, testimonial maps, sales notes): never committed or published, only on the team's computers and the team's brand centre library | `internal/` |
 
 See `references/elements.md` for how each motif is built and scaled.
 
@@ -103,6 +106,7 @@ See `references/elements.md` for how each motif is built and scaled.
 - Transparent first: logos, icons, favicons and app tiles default to a transparent background; each also comes on solid White, Dark Brown and Climb Orange (`-on-white`, `-on-ground`, `-on-orange`). On orange the mark is one-colour white.
 - Clear space: the height of the large "C" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
 - Never stretch, rotate, outline, add effects, or set the logo on a busy part of a photo. On photos, sit it on the darkened area or use the filter.
+- **Partner of someone else's event:** when ClimbUK promotes an event it partners with, use the organiser's own graphics and imagery exactly as supplied. ClimbUK adds only its logo, a "Proud partner" line or a "Proud partner of" footer with both logos (the co-branding lockup). No ClimbUK headline, photo, recolour, sticker or festival device on their artwork, and never a white frame or border around it: keep it full bleed, and where a footer will not fit, set the partner lockup on a small white card in open space.
 - ClimbUK is the brand on the poster. ClimbGroup appears as the organisation (footers, legal, corporate decks). An edition mark (Climb27) leads on event pieces, with ClimbUK as the endorsement.
 
 ## Making an asset
@@ -115,9 +119,26 @@ See `references/elements.md` for how each motif is built and scaled.
 
 These rules hold on every platform. When the asset is built for a particular platform, also load that platform's own skill if the pack has one (for an Odoo website: `climb-odoo-pages`), and only then.
 
+## Editable sources
+
+Everything the brand makes can be edited by the team with free tools. Every file in the pack (each PDF, slide deck, spreadsheet, document, image and logo) has a copy file beside it, and every piece of artwork also has a layered SVG. The finished PDFs, PNGs and Office files still ship as they are: the editable sources sit next to them so the team can change a piece in an editor and rebuild it.
+
+- **Words**: the copy file, `<name>.copy.md`, with the climb-voice skill's section markers (that skill's `references/copy-files.md`). The build reads it. One copy file covers every file with the same words (a PDF and its SVGs, a logo on each ground); its `output:` line lists them. An image with no words gets an `@alt` section with its alt text.
+- **Vector artwork** (flyers, posters, social graphics, banners, icons, call backgrounds): always a layered SVG master beside the PDF or PNG.
+  - **Group by what belongs together on the page**, not by kind of element. On the back of a flyer each reason row is its own group holding its icon, title and text (`reasons > reason-1 > icon, title, text`), each photo in a strip is its own group, and the band at the foot holds its ground, button, link and QR code. Never one group of all the text and one of all the images.
+  - **Levels**: the top level is the side or the main area (`photo`, `text`, `band`, `background`); these become layers in Inkscape. Inside them, one group per row, card or block, then one per part.
+  - **Names**: each group's `id` and `inkscape:label` follow the copy file's section names (`front.headline`, `back.reason`), and each text element has `data-copy="<section name>"`.
+  - Keep text as live text in Montserrat and Open Sans (installed from `fonts/`), never converted to outlines.
+  - Link photos from `photos/` rather than embedding them. The photo sits full size inside a clip the size of its frame, so moving it changes the crop, and any fade is an editable gradient above it.
+  - It opens in Inkscape and Affinity, both free, and in Illustrator, Figma and Penpot.
+  - A print build gets this from `tools/svg/`: tag each element with `data-layer="back/reasons/reason-1/title"` (and `data-copy`) in the page, and the renderer writes the SVG next to the PDF.
+- **Print**: the press-ready PDF is the printer's file, built from the sources above, not the file to edit.
+- A native file for one app (`.af`, `.ai`, `.psd`, `.fig`) is saved by a person in that app when they want one; the open source stays the master.
+
 ## Before you finish
 
 - Every colour is a token. No `#EC752A`.
+- The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
 - Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance). Hand-held print (flyers, leaflets, programmes) uses 12pt or larger for every line, with bleed of 5% of the shorter trim edge (at least 3mm): see `guidelines/print.md`. Logos sit on a calm ground (a fade or solid), never over hands or faces; move the photo down to make room rather than shrinking the logo.

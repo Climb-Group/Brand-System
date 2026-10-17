@@ -5,7 +5,8 @@ sized for print by Pillow, then prints each page to PDF with Chromium and sets t
 
     python3 build.py [--pack /path/to/Brand-System] [--phone "07..."] [--email "..."]
 
-Colours are the brand tokens (tokens/brand.tokens.json). Copy follows the climb-voice skill and its checker.
+Colours are the brand tokens (tokens/brand.tokens.json). Copy follows the climb-voice skill and its checker; the
+dates, tagline and website come from copy/shared.copy.md.
 """
 import argparse
 import html
@@ -21,18 +22,37 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent
 IMG = HERE / "img"
+COPY = OUT / "copy"
+
+# Copy files: the words of each piece live in pdf/flyers/copy/*.copy.md (climb-voice references/copy-files.md).
+sys.path.insert(0, str(HERE.parents[2] / ".agents" / "skills" / "climb-voice" / "scripts"))
+import copy_md  # noqa: E402
+
+# Layered SVG sources (climb-visual-style, "Editable sources"): every printed side is also written as an SVG.
+SVG_TOOLS = HERE.parents[2] / "tools" / "svg"
+sys.path.insert(0, str(SVG_TOOLS))
+import layered_svg  # noqa: E402
+
+PHOTOS = {}  # baked image path -> how it was cut from its pack photo, so the SVG can link the photo itself
 
 # Brand tokens
 DB, CH, OR, TI, LG, WH = "#1E0F05", "#242322", "#E8712A", "#F2AE86", "#E9E9E9", "#FFFFFF"
 DB_RGB = (30, 15, 5)
 OR_RGB = (232, 113, 42)
 
-DATES = "30 June and 1 July 2027"
-TAGLINE = "The Festival for Business Growth"
-URL = "climb-uk.com"
+SHARED = copy_md.load(COPY / "shared.copy.md")
+DATES = SHARED.one("dates").text
+TAGLINE = SHARED.one("tagline").text
+URL = SHARED.one("website").text
 TICKETS = "https://www.climb-uk.com/shop/category/climb27-tickets-24?utm_source=print&utm_medium=%s&utm_campaign=climb27"
 CARD_QR = "https://www.climb-uk.com/shop"
 BLEED = 3.0
+
+
+def photo(section):
+    """A photo section of a copy file as (photo name, (focus x, focus y))."""
+    x, y = section["focus"].split(",")
+    return section["name"], (float(x), float(y))
 
 
 # ---------------------------------------------------------------- helpers
@@ -69,6 +89,8 @@ def bake(pack, photo, w_mm, h_mm, ppi, name, pos=(0.5, 0.5), fade=None):
     IMG.mkdir(exist_ok=True)
     out = IMG / (name + ".jpg")
     im.save(out, quality=92, dpi=(ppi, ppi))
+    PHOTOS[str(out)] = json.dumps(dict(photo=src.relative_to(pack).as_posix(), size=[sw, sh], crop=[int(x0), int(y0), cw, ch],
+                                       fade=[[ax, s0, e0, list(rgb), a0, a1] for ax, s0, e0, rgb, a0, a1 in (fade or [])]))
     eff = min(ow / w_mm * 25.4, oh / h_mm * 25.4)
     print("  %-28s %5dx%-5d px  %4.0f ppi at %.0fx%.0fmm" % (name, ow, oh, eff, w_mm, h_mm))
     return out
@@ -147,7 +169,31 @@ img.ph{position:absolute;display:block;object-fit:cover}
 
 
 def img(path, x, y, w, h, extra=""):
-    return '<img class="ph" alt="" src="%s" style="left:%smm;top:%smm;width:%smm;height:%smm;%s">' % (path.as_uri(), x, y, w, h, extra)
+    data = " data-photo='%s'" % html.escape(PHOTOS[str(path)], quote=False) if str(path) in PHOTOS else ""
+    return '<img class="ph" alt="" src="%s"%s style="left:%smm;top:%smm;width:%smm;height:%smm;%s">' % (
+        path.as_uri(), data, x, y, w, h, extra)
+
+
+def layer(path, element, copy=None, label=None):
+    """Tag the first element of an HTML snippet with its group in the layered SVG: 'back/reasons/reason-1/title'.
+
+    copy names the copy file section its words come from; label is the group's name in an editor."""
+    extra = ' data-layer="%s"' % path
+    if copy:
+        extra += ' data-copy="%s"' % copy
+    if label:
+        extra += ' data-label="%s"' % html.escape(label)
+    i = element.index("<") + 1
+    while element[i].isalnum():
+        i += 1
+    return element[:i] + extra + element[i:]
+
+
+def write_svgs(jobs, pack):
+    """Finish the raw SVGs the renderer wrote next to each job (job["svg"]) into their final place (job["svg_out"])."""
+    for j in jobs:
+        if j.get("svg"):
+            layered_svg.finish(Path(j["svg"]).read_text(encoding="utf-8"), j["svg_out"], pack)
 
 
 # ---------------------------------------------------------------- flyer (A5, two sides)

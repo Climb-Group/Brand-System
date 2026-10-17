@@ -60,6 +60,11 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 - **A dialogue-only track.** Deliver a separate dialogue-only mix (speech with no music) alongside the full mix for every film with speech. Where the player or platform supports more than one audio track, add it as an alternate audio track and label it "Dialogue only (no music)".
 - **Transcripts.** Every recorded video with speech gets a full text transcript next to it: what is said, who says it, and any on-screen text or action that matters. Start from an automatic transcript, then correct it by hand. Captions follow the rules in Type on screen.
 
+## Editable sources
+
+- Every video, still and title card has its words in a Markdown copy file beside it: titles, lower thirds, captions and end card lines, each marked with the part of the film it belongs to. Change the words there and rebuild, so the film, the stills and the transcript stay the same.
+- Stills and title cards also come as layered SVG with live text, grouped by part of the frame, so they can be changed in a free editor. The finished video and images are still supplied as before.
+
 ## Consent and accuracy
 
 - Every identifiable person who speaks to camera signs a release. Crowds are covered by the event's filming notice; honour any opt-out lanyard or badge.

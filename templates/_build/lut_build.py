@@ -14,8 +14,10 @@ import numpy as np
 from PIL import Image
 
 import brand as B
+import copy_io as C
 
 N = 33
+COPY = "video/_shared/luts/luts.copy.md"
 
 
 def grade(rgb):
@@ -47,9 +49,10 @@ def grade(rgb):
 def write_cube(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
-        f.write('TITLE "Climb grade v1"\n# ClimbUK, ClimbGroup and Climb27 starting grade for Rec.709 footage.\n'
-                "# Apply after exposure and white balance. Check on real footage before sharing.\n"
-                "LUT_3D_SIZE %d\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n" % N)
+        words = C.load(COPY)
+        f.write('TITLE "%s"\n' % words.one("cube.title").text)
+        f.write("".join("# %s\n" % line for line in C.items(words.one("cube.comment"))))
+        f.write("LUT_3D_SIZE %d\nDOMAIN_MIN 0.0 0.0 0.0\nDOMAIN_MAX 1.0 1.0 1.0\n" % N)
         for bi in range(N):
             for gi in range(N):
                 for ri in range(N):

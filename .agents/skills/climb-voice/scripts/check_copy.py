@@ -5,6 +5,7 @@ Usage:
     python3 check_copy.py --announced FILE     # after the Climb27 venue announcement
     python3 check_copy.py --no-hints FILE      # hard rules only, no reading level or abbreviation hints
     echo "text" | python3 check_copy.py -
+    python3 check_copy.py flyer.copy.md        # a copy file: checks its section markers, then only its words
 
 Exit code 1 when a rule is broken (hard rules and vague link text). Reading level and
 abbreviation lines are hints: they print as "hint" and do not change the exit code.
@@ -20,7 +21,7 @@ ALWAYS = [
     (r"!", "exclamation mark"),
     (r"[\U0001F300-\U0001FAFF\u2600-\u27BF]", "emoji"),
     (r"[\u2122\u00AE]", "trademark symbol"),
-    (r"(?<![.\w-])climb(?![-.\w])", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
+    (r"(?<![.\w-])(?<!\bc in )climb(?![-.\w])(?!\]\]\w)(?! orange\b)(?! li monogram\b)", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
     (r"\bclimb app\b", "the app is the ClimbGroup Event App"),
     (r"\bthousands\b", "attendance claim"),
     (r"\b\d+\s*(\+\s*)?(meetings|investors|partners|attendees|delegates)\b", "a number of meetings, investors, partners or attendees"),
@@ -34,7 +35,7 @@ ALWAYS = [
     (r"run by climbgroup|climbgroup runs|runs climbuk|organisation (that runs|behind) climbuk", "company structure line: say what the reader gets instead"),
     (r"\bodoo\b|\bcanva\b|\bcvent\b|\bstripe\b|\bhubspot\b", "vendor name in customer-facing copy"),
     (r"\bclinic(?!ian)", "clinics are roundtables or workshops"),
-    (r"keynote", "big moments, not keynotes: name the format instead"),
+    (r"(?<!not )keynote", "big moments, not keynotes: name the format instead"),
     # Sales and partner review of the Climb27 pages, October 2026.
     (r"eyes open", "reads as a warning: 'Find investors looking for real deal flow'"),
     (r"\bin (their|your|our) patch\b", "slang: say 'across their region' or name the place"),
@@ -234,7 +235,20 @@ def main(argv):
     failed = False
     for path in paths:
         text = sys.stdin.read() if path == "-" else open(path, encoding="utf-8").read()
+        allowed = []
+        if path.endswith(".copy.md"):
+            # Copy files (references/copy-files.md): check the markers, then the words without them.
+            import copy_md
+            try:
+                allowed = copy_md.parse(text, path).meta.get("allow", "").lower().split()
+            except copy_md.CopyError as e:
+                failed = True
+                print(e)
+                continue
+            text = copy_md.words_only(text)
         for line_no, col, found, why, snippet in check(text, announced):
+            if found.lower() in allowed:
+                continue
             failed = True
             print("%s:%d:%d: '%s' - %s ... %s ..." % (path, line_no, col, found, why, snippet))
         if not hints:

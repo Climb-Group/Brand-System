@@ -1,4 +1,4 @@
-TITLE "Climb grade v1"
+TITLE "ClimbUK grade v1"
 # ClimbUK, ClimbGroup and Climb27 starting grade for Rec.709 footage.
 # Apply after exposure and white balance. Check on real footage before sharing.
 LUT_3D_SIZE 33

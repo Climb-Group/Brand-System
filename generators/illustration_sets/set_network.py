@@ -3,7 +3,7 @@ import math
 
 
 def build(k):
-    """k is the illustrations module. Return {name: (builder_fn, "what it says")}."""
+    """k is the illustrations module. Return {name: builder_fn}; what each drawing says is in illustrations/illustrations.copy.md."""
     line, curve, arc, circle, rrect, poly, text, turn, shift, sparkle = (k.line, k.curve, k.arc, k.circle, k.rrect,
                                                                          k.poly, k.text, k.turn, k.shift, k.sparkle)
     layer, solid_ = k.layer, k.solid
@@ -79,7 +79,7 @@ def build(k):
         s = [rrect(26, 50, 148, 104, 14, double=True),
              poly(*band, fill="ink", ink=False),
              line((26, 94), (174, 94), w=0.9),
-             text(100, 82, 26, "HELLO", width=100),
+             text(100, 82, 26, k.word("hello-tag", "label"), width=100),
              curve((50, 130), (60, 114), (70, 132), (82, 116), (92, 134), (104, 118), (116, 130), (130, 120),
                    (150, 126), w=0.9)]
         return turn(s, -8) + sparkle(172, 34, 7) + sparkle(30, 168, 5, w=0.8)
@@ -349,30 +349,30 @@ def build(k):
         return turn(s, 4)
 
     return {
-        "hello-tag": (_hello_tag, "Say hello, name tags, meet new people"),
-        "business-card": (_business_card, "Swap details, business cards"),
-        "wave-hand": (_wave_hand, "Hello, welcome, come and say hi"),
-        "high-five": (_high_five, "Wins together, great connections"),
-        "thumbs-up": (_thumbs_up, "Approval, good to go, recommended"),
-        "heart": (_heart, "Love it, favourite moments, community"),
-        "smiley": (_smiley, "Good vibes, friendly faces"),
-        "selfie": (_selfie, "Share your photos, selfie moments"),
-        "qr-scan": (_qr_scan, "Scan to connect, scan your badge"),
-        "contact-card": (_contact_card, "Contacts, add to your network"),
-        "chain-link": (_chain_link, "Connections, links that last"),
-        "wifi": (_wifi, "Stay connected, online"),
-        "meeting-table": (_meeting_table, "Partner meetings, book a table"),
-        "round-table": (_round_table, "Round tables, roundtable sessions"),
-        "invite": (_invite, "You are invited, bring a guest"),
-        "clock": (_clock, "Times, slots, do not miss it"),
-        "notebook": (_notebook, "Take notes, learnings"),
-        "sticky-notes": (_sticky_notes, "Workshops, ideas on the wall, reminders"),
-        "pencil": (_pencil, "Write it down, sign up, register"),
-        "video-call": (_video_call, "Online meetings, follow up after"),
-        "map": (_map, "Find your way, floor plan"),
-        "signpost": (_signpost, "Which way, choose your path"),
-        "open-door": (_open_door, "Doors open, open invitation, come in"),
-        "chat-dots": (_chat_dots, "Chat, messages, start a conversation"),
-        "person-plus": (_person_plus, "Add a connection, grow your network"),
-        "speech-quote": (_speech_quote, "Testimonials, what people said"),
+        "hello-tag": _hello_tag,
+        "business-card": _business_card,
+        "wave-hand": _wave_hand,
+        "high-five": _high_five,
+        "thumbs-up": _thumbs_up,
+        "heart": _heart,
+        "smiley": _smiley,
+        "selfie": _selfie,
+        "qr-scan": _qr_scan,
+        "contact-card": _contact_card,
+        "chain-link": _chain_link,
+        "wifi": _wifi,
+        "meeting-table": _meeting_table,
+        "round-table": _round_table,
+        "invite": _invite,
+        "clock": _clock,
+        "notebook": _notebook,
+        "sticky-notes": _sticky_notes,
+        "pencil": _pencil,
+        "video-call": _video_call,
+        "map": _map,
+        "signpost": _signpost,
+        "open-door": _open_door,
+        "chat-dots": _chat_dots,
+        "person-plus": _person_plus,
+        "speech-quote": _speech_quote,
     }

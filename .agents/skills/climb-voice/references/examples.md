@@ -23,6 +23,7 @@
 | Before | Problem | After |
 | --- | --- | --- |
 | Join thousands of founders at the UK's premier startup event! | Size claim, unsupported superlative, exclamation mark | Two days with the founders, investors and advisers who move businesses forward. |
+| "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd, Climb24 | The edition dates the quote and makes the festival look old | "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd |
 | Climb is back - and bigger than ever | Bare "Climb", dash, size claim | Climb27 is here. Your business, on a bigger stage. |
 | Guaranteed meetings with 50+ investors | Guarantee, number, investor-access promise | Find investors looking for real deal flow. |
 | Hear inspiring stories from successful entrepreneurs | Inspiration, not doing | Learn how they grew, and what you can do about it on Monday. |
