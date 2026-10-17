@@ -371,14 +371,18 @@ def build(xml):
     for k in ("wwt.cta.line1", "wwt.cta.line2", "wwt.cta.button", "wwt.cta.qr"):
         out.append((k, PACK[k]))
 
-    lines = ["---", "title: Who was there, Climb23 to Climb26", "output: pdf/brochures/climb27_who-was-there.pdf",
+    lines = ["---", "copy: climb27-who-was-there", "title: Who was there, Climb23 to Climb26",
+             "deliverable: Who was there pack for Climb27 partners, with its page preview",
+             "output: pdf/brochures/climb27_who-was-there.pdf pdf/brochures/previews/climb27_who-was-there_pages.jpg",
              "build: pdf/_build/build_brochures.sh",
+             "source: mirror",
              "note: Every word printed in the Who was there pack comes from this file. It is written by "
              "pdf/_build/wwt_from_page.py from the public Who was there page on the ClimbUK website, word for word; "
              "change the page and run the script rather than editing the lists here. Logo files are in "
-             "pdf/brochures/_build/logos.", "---", ""]
+             "pdf/brochures/_build/logos.", "---", "",
+             "<!-- note: The quote lists (wwt.general.items and wwt.quotes23.items to wwt.quotes26.items) print attendees' own words verbatim, so the copy checker's flags in them (exclamation marks, superlatives, Climb on its own, the word venue) stay as said. -->", ""]
     for key, value in out:
-        lines.append("## " + key)
+        lines.append("<!-- @%s -->" % key)
         if key in notes:
             lines.append("<!-- note: %s -->" % notes[key])
         if isinstance(value, list):

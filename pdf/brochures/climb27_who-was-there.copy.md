@@ -1,29 +1,34 @@
 ---
+copy: climb27-who-was-there
 title: Who was there, Climb23 to Climb26
-output: pdf/brochures/climb27_who-was-there.pdf
+deliverable: Who was there pack for Climb27 partners, with its page preview
+output: pdf/brochures/climb27_who-was-there.pdf pdf/brochures/previews/climb27_who-was-there_pages.jpg
 build: pdf/_build/build_brochures.sh
+source: mirror
 note: Every word printed in the Who was there pack comes from this file. It is written by pdf/_build/wwt_from_page.py from the public Who was there page on the ClimbUK website, word for word; change the page and run the script rather than editing the lists here. Logo files are in pdf/brochures/_build/logos.
 ---
 
-## wwt.cover.eyebrow
+<!-- note: The quote lists (wwt.general.items and wwt.quotes23.items to wwt.quotes26.items) print attendees' own words verbatim, so the copy checker's flags in them (exclamation marks, superlatives, Climb on its own, the word venue) stay as said. -->
+
+<!-- @wwt.cover.eyebrow -->
 Climb23 to Climb26
 
-## wwt.cover.headline
+<!-- @wwt.cover.headline -->
 [[Who]] was _there_
 
-## wwt.cover.intro
+<!-- @wwt.cover.intro -->
 The partners, exhibitors, speakers and guests who made ClimbUK the festival for business growth, and what they said about it in their own words.
 
-## wwt.names.eyebrow
+<!-- @wwt.names.eyebrow -->
 Partners, speakers and sessions
 
-## wwt.names.headline
+<!-- @wwt.names.headline -->
 In the room at _ClimbUK_
 
-## wwt.names.intro
+<!-- @wwt.names.intro -->
 Banks, funds, universities, combined authorities, global tech companies and growing firms partnered, spoke and exhibited at ClimbUK.
 
-## wwt.names.logos
+<!-- @wwt.names.logos -->
 <!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos -->
 - natwest-group-plc.png | Natwest Group
 - barclays.png | Barclays
@@ -110,19 +115,19 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - coutts-company.png | Coutts & Company
 - digital-catapult.png | Digital Catapult
 
-## wwt.partners.eyebrow
+<!-- @wwt.partners.eyebrow -->
 Partners and exhibitors
 
-## wwt.partners.headline
+<!-- @wwt.partners.headline -->
 Backed by [[partners]] who _return_
 
-## wwt.partners.intro
+<!-- @wwt.partners.intro -->
 NatWest is backing Climb27, Climb28 and Climb29. Creative UK runs ClimbCreative, and instantprint is our official print partner.
 
-## wwt.partners.title
+<!-- @wwt.partners.title -->
 Climb25 and Climb26: organisations that partnered with, exhibited at, spoke at or came along
 
-## wwt.partners.items
+<!-- @wwt.partners.items -->
 - AnFiTest
 - Barclays
 - Blacks Solicitors LLP
@@ -167,10 +172,10 @@ Climb25 and Climb26: organisations that partnered with, exhibited at, spoke at o
 - Wainwright Consulting
 - West Yorkshire Combined Authority
 
-## wwt.partners24.title
+<!-- @wwt.partners24.title -->
 Climb24 partners
 
-## wwt.partners24.items
+<!-- @wwt.partners24.items -->
 - Anticus Partners
 - Barclays Eagle Labs
 - Bobble Digital
@@ -199,10 +204,10 @@ Climb24 partners
 - Yuzu Agency
 - Zendesk
 
-## wwt.exhibitors24.title
+<!-- @wwt.exhibitors24.title -->
 Climb24 exhibitors
 
-## wwt.exhibitors24.items
+<!-- @wwt.exhibitors24.items -->
 - 3D 360
 - Alt Labs
 - Asclepius MedTech Ltd
@@ -285,10 +290,10 @@ Climb24 exhibitors
 - Xerogrid
 - xigxag
 
-## wwt.partners23.title
+<!-- @wwt.partners23.title -->
 Climb23 partners
 
-## wwt.partners23.items
+<!-- @wwt.partners23.items -->
 - Blacks Solicitors
 - British Business Bank
 - Channel 4
@@ -316,16 +321,16 @@ Climb23 partners
 - Write Business Results
 - xDesign
 
-## wwt.sessions.eyebrow
+<!-- @wwt.sessions.eyebrow -->
 On stage at Climb26
 
-## wwt.sessions.headline
+<!-- @wwt.sessions.headline -->
 Sessions with names _you know_
 
-## wwt.sessions.intro
+<!-- @wwt.sessions.intro -->
 A few of the Climb26 sessions run with well-known companies.
 
-## wwt.sessions.items
+<!-- @wwt.sessions.items -->
 <!-- note: session title | logo file where we hold one -->
 - Turning Attention into Action: Customer Acquisition with Meta | meta.png
 - Scaleup Masterclass with Barclays, Google and Plexal | google.png
@@ -339,16 +344,16 @@ A few of the Climb26 sessions run with well-known companies.
 - Innovation Competition Winners Showcase sponsored by Barclays | barclays.png
 - Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png
 
-## wwt.quotes26.eyebrow
+<!-- @wwt.quotes26.eyebrow -->
 In their words
 
-## wwt.quotes26.headline
+<!-- @wwt.quotes26.headline -->
 What people said about _ClimbUK_
 
-## wwt.quotes26.intro
+<!-- @wwt.quotes26.intro -->
 Partners, exhibitors, speakers and guests on ClimbUK, quoted word for word.
 
-## wwt.quotes26.items
+<!-- @wwt.quotes26.items -->
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included. Left out of print because they were written before the festival, not about it: Henrietta Newble, Medilink North of England Limited, Mudrik Zubeir Ahmed, NatWest Group, Phil Witcherley, Rebecca Holden. -->
 - It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly | Partnership Manager, Caspian Insurance
 - A big pink stand at a business expo? You'd think you know who's stopping by. Wrong! We are absolutely DELIGHTED by how many female founders and leaders came to see us. The calibre of people building in this space is unreal. And just as many allies came to find us too! Diversifying tech only works if everyone's on board | Girls & Tech
@@ -366,16 +371,16 @@ Partners, exhibitors, speakers and guests on ClimbUK, quoted word for word.
 - Our team is proud to have attended and spoken at events at Climb UK this year, as it extended beyond Leeds for the first time and headed into the heartlands of the UK, such as Newcastle, Manchester, Leeds, and beyond. For us, this isn't just a calendar commitment. It's a reflection of how we've built our business. | Ryan Sorby | Partner and Head of the North, Growth Credit, Palatine
 - Every city has its own edge and nuances, and the tour has recognised that. | Ryan Sorby | Partner and Head of the North, Growth Credit, Palatine
 
-## wwt.speakers.eyebrow
+<!-- @wwt.speakers.eyebrow -->
 Who spoke
 
-## wwt.speakers.headline
+<!-- @wwt.speakers.headline -->
 Climb26 speakers and _hosts_
 
-## wwt.speakers.intro
+<!-- @wwt.speakers.intro -->
 Everyone who spoke at or hosted a Climb26 session, with the role and organisation they gave us.
 
-## wwt.speakers.items
+<!-- @wwt.speakers.items -->
 <!-- note: name | role and organisation as they gave it -->
 - Tayo Adebisi | Founder / CEO, Tilz Prosperitas Limited
 - Chris Allen | CEO & Co-Founder, Broughton Group
@@ -618,16 +623,16 @@ Everyone who spoke at or hosted a Climb26 session, with the role and organisatio
 - Saeed Younis | Partnerships Director & Senior Coach, Power For Women
 - Nicole Zeno | Fractional Executive & Co-Host, What The Frac?
 
-## wwt.room.eyebrow
+<!-- @wwt.room.eyebrow -->
 Everyone who came
 
-## wwt.room.headline
+<!-- @wwt.room.headline -->
 In the room at _Climb26_
 
-## wwt.room.intro
+<!-- @wwt.room.intro -->
 More of the organisations that came to Climb26.
 
-## wwt.room.logos
+<!-- @wwt.room.logos -->
 <!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page -->
 - a-story-in-motion-studios.png | A Story In Motion Studios
 - aab.png | AAB
@@ -838,16 +843,16 @@ More of the organisations that came to Climb26.
 - york-and-north-yorkshire-combined-authority.jpg | York And North Yorkshire Combined Authority
 - your-business-community-limited.jpg | Your Business Community
 
-## wwt.quotes25.eyebrow
+<!-- @wwt.quotes25.eyebrow -->
 In their words
 
-## wwt.quotes25.headline
+<!-- @wwt.quotes25.headline -->
 What people said about _Climb25_
 
-## wwt.quotes25.intro
+<!-- @wwt.quotes25.intro -->
 Speakers, exhibitors and guests on Climb25, quoted word for word.
 
-## wwt.quotes25.items
+<!-- @wwt.quotes25.items -->
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included. -->
 - Climb25 served as a powerful reminder of the energy and ambition that exists in the North of England, and why it deserves a bigger stage. In a region often underrepresented in the national growth and investment conversation, Climb25 gave founders, investors, and innovators space to connect, collaborate, and be seen. [...] The conversations we had are exactly what this network needs. We left Leeds Dock with new ideas, new connections, and a renewed sense of momentum... | Kat Plant | Client relations manager, Interactive Digital Systems Ltd
 - The energy, positivity and support in each and every room, whether presentation, workshop, socials in the square or networking was phenomenal - I saw perfect stranger connect through spending time eating their lunch together outside with us, then spend the rest of the day hanging out together. [...] I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. Utterly loved it - thank you. Can we do it each quarter!? | Daniella Wainwright | Founder, Wainwright Consulting
@@ -862,13 +867,13 @@ Speakers, exhibitors and guests on Climb25, quoted word for word.
 - Climb is all about building connections and creating opportunities. Being able to meet with the investment community and explore what we can do in our region to increase levels of business investment or seeing businesses we have supported continue to scale and take the next step makes this one of the key events of the year. | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
 - As part of Climb, the Combined Authority supported several events supporting young people in our region. It was inspiring and rewarding to see the potential of the next generation of entrepreneurs who are bringing new ideas and innovations to the table and helping them make connections with investment professionals | Mitchell McCombe | Inclusive Economy Manager for Business Investment, West Yorkshire Combined Authority
 
-## wwt.orgs.eyebrow
+<!-- @wwt.orgs.eyebrow -->
 Who spoke
 
-## wwt.orgs.headline
+<!-- @wwt.orgs.headline -->
 Where our speakers _came from_
 
-## wwt.orgs.items
+<!-- @wwt.orgs.items -->
 - 100 Coaches Agency
 - 7 Percent Ventures
 - 8-Q Limited
@@ -1312,16 +1317,16 @@ Where our speakers _came from_
 - Zally
 - Zero Gravity
 
-## wwt.quotes24.eyebrow
+<!-- @wwt.quotes24.eyebrow -->
 In their words
 
-## wwt.quotes24.headline
+<!-- @wwt.quotes24.headline -->
 What people said about _Climb24_
 
-## wwt.quotes24.intro
+<!-- @wwt.quotes24.intro -->
 Speakers, exhibitors and guests on Climb24 in Leeds, quoted word for word from what they shared afterwards.
 
-## wwt.quotes24.items
+<!-- @wwt.quotes24.items -->
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included. -->
 - Blue skies, fast cars, great speakers and an awesome venue - really enjoying meeting new and old contacts | Peter Hindle-Marsh | IDS Group
 - The event was packed with insightful panels. I particularly enjoyed the talks at the Innovate UK Creative booth, hearing from other creative businesses about how they're effectively utilising their grant funding was super motivating | Bekah Chapman
@@ -1371,16 +1376,16 @@ Speakers, exhibitors and guests on Climb24 in Leeds, quoted word for word from w
 - Great event, great speakers, great participants, great networking, great engagement. Just altogether great! | Ian McAleese | International HR Leader, Snowflake Computing
 - Climb24 was a revelation! It was a really good event-well organised, well attended (with a high proportion of business attendees), some high quality speakers and panel discussions. I attended as a delegate as I was unsure of the value. but having experienced it, I would give it a strong recommendation. | Simon Hall | Oxford Innovation Advice
 
-## wwt.speakers24.eyebrow
+<!-- @wwt.speakers24.eyebrow -->
 Who spoke
 
-## wwt.speakers24.headline
+<!-- @wwt.speakers24.headline -->
 Climb24 _speakers_
 
-## wwt.speakers24.intro
+<!-- @wwt.speakers24.intro -->
 Everyone who spoke at Climb24, with their organisation.
 
-## wwt.speakers24.items
+<!-- @wwt.speakers24.items -->
 <!-- note: name | role and organisation as they gave it -->
 - Aaron Holt | Holdson
 - Abigail Marshall Katung | Leeds City Council
@@ -1596,30 +1601,30 @@ Everyone who spoke at Climb24, with their organisation.
 - Zandra Moore | Panintelligence
 - Zsike Peter | Vampire Digital
 
-## wwt.quotes23.eyebrow
+<!-- @wwt.quotes23.eyebrow -->
 In their words
 
-## wwt.quotes23.headline
+<!-- @wwt.quotes23.headline -->
 What people said about _Climb23_
 
-## wwt.quotes23.intro
+<!-- @wwt.quotes23.intro -->
 Speakers on Climb23, quoted word for word.
 
-## wwt.quotes23.items
+<!-- @wwt.quotes23.items -->
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included. -->
 - You and the team have exceeded all my (already sky-high) expectations for Climb23! Cannot wait for next year! | Gary Crotaz | Climb23 speaker
 - ...A FANTASTIC EVENT! GREAT IDEAS, GREAT PEOPLE, GREAT VENUE. | Jennifer Byrne | Former CTO, Microsoft
 
-## wwt.sessions23.eyebrow
+<!-- @wwt.sessions23.eyebrow -->
 On stage at Climb23
 
-## wwt.sessions23.headline
+<!-- @wwt.sessions23.headline -->
 Climb23 _sessions_
 
-## wwt.sessions23.intro
+<!-- @wwt.sessions23.intro -->
 Some of the talks, panels and workshops on the Climb23 agenda.
 
-## wwt.sessions23.items
+<!-- @wwt.sessions23.items -->
 - Breaking the Glass Ceiling
 - Building a Pipeline of Talent
 - Carbon Neutral Contracting: Opportunities for SMEs in Government Procurement
@@ -1643,16 +1648,16 @@ Some of the talks, panels and workshops on the Climb23 agenda.
 - Unlocked - Purpose Driven Leadership
 - Big data in healthcare: leveraging analytics and AI to improve patient outcomes
 
-## wwt.speakers23.eyebrow
+<!-- @wwt.speakers23.eyebrow -->
 Who spoke
 
-## wwt.speakers23.headline
+<!-- @wwt.speakers23.headline -->
 Climb23 _speakers_
 
-## wwt.speakers23.intro
+<!-- @wwt.speakers23.intro -->
 Everyone who spoke at Climb23, with their organisation where we hold it.
 
-## wwt.speakers23.items
+<!-- @wwt.speakers23.items -->
 <!-- note: name | role and organisation as they gave it -->
 - Abbie Morris | Compare Ethics
 - Abigail Marshall Katung | Leeds City Council
@@ -1790,25 +1795,25 @@ Everyone who spoke at Climb23, with their organisation where we hold it.
 - Vicki Sly
 - Zandra Moore | Panintelligence
 
-## wwt.headliners.eyebrow
+<!-- @wwt.headliners.eyebrow -->
 Who spoke
 
-## wwt.headliners.headline
+<!-- @wwt.headliners.headline -->
 Speakers you'll _know_
 
-## wwt.headliners.intro
+<!-- @wwt.headliners.intro -->
 Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.
 
-## wwt.known.eyebrow
+<!-- @wwt.known.eyebrow -->
 Who spoke
 
-## wwt.known.headline
+<!-- @wwt.known.headline -->
 From [[organisations]] you _know_
 
-## wwt.known.intro
+<!-- @wwt.known.intro -->
 Banks, funds, global tech companies and government, on stage at ClimbUK.
 
-## wwt.headliners.items
+<!-- @wwt.headliners.items -->
 <!-- note: name | role and organisation as the page gives it, or the public title in TITLES | logo file | sport sticker (blank where none) -->
 - Tracy Brabin | West Yorkshire Combined Authority | west-yorkshire-combined-authority.jpg | 
 - Claire Ward | Mayor of the East Midlands | east-midlands-combined-county-authority.png | 
@@ -1827,7 +1832,7 @@ Banks, funds, global tech companies and government, on stage at ClimbUK.
 - Robbie Hunter Paul | Former Bradford Bulls captain and New Zealand international |  | Rugby league
 - Jonnie Peacock | Paralympic champion sprinter |  | Paralympian
 
-## wwt.known.items
+<!-- @wwt.known.items -->
 <!-- note: organisation as the page names it | logo file | name | role as the page gives it, without the organisation -->
 - NatWest Group | natwest-group-plc.png | Neil Bellamy | Head of Technology, Media, Telecoms (TMT)
 - NatWest Group | natwest-group-plc.png | Rita Collins | Regional Director - Corporate Banking
@@ -1853,16 +1858,16 @@ Banks, funds, global tech companies and government, on stage at ClimbUK.
 - Freeths | freeths.png | Malin Svanberg Larsson | Partner
 - Leeds University Business School | leeds-university-business-school.png | Richard Tunstall | Associate Professor of Enterprise
 
-## wwt.sessionsall.eyebrow
+<!-- @wwt.sessionsall.eyebrow -->
 On stage
 
-## wwt.sessionsall.headline
+<!-- @wwt.sessionsall.headline -->
 Sessions with names _you know_
 
-## wwt.sessionsall.intro
+<!-- @wwt.sessionsall.intro -->
 A few of the ClimbUK sessions run with well-known companies.
 
-## wwt.sessionsall.items
+<!-- @wwt.sessionsall.items -->
 <!-- note: session title | logo files of the companies it names, where we hold them -->
 - Turning Attention into Action: Customer Acquisition with Meta | meta.png
 - Scaleup Masterclass with Barclays, Google and Plexal | barclays.png, google.png, plexal-group-limited.png
@@ -1877,16 +1882,16 @@ A few of the ClimbUK sessions run with well-known companies.
 - Redefining Possible: A Fireside Chat with Paralympic champion Jonnie Peacock, brought to us by NatWest | natwest-group-plc.png
 - Climb26 Opening Ceremony | innovate-uk.png, creative-uk.png
 
-## wwt.general.eyebrow
+<!-- @wwt.general.eyebrow -->
 In their words
 
-## wwt.general.headline
+<!-- @wwt.general.headline -->
 What people say about _ClimbUK_
 
-## wwt.general.intro
+<!-- @wwt.general.intro -->
 Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 
-## wwt.general.items
+<!-- @wwt.general.items -->
 <!-- note: quote | name | role and organisation. Word for word from the website, [...] included; a quote in ENDS stops at the end of its words, and BYLINES replaces a role. -->
 - Climb is a MUST attend event! One of the best networking events in the UK for global business. The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business! [...] on the back of Climb we were able to secure grants & business support from national (Innovate UK) / local (WYCA) government. Climb offers a unique experience to be able to meet with global leaders from all sectors. At Climb, you never know who you might get connected with... | Angus Young | Founder, Net-Zu
 - ClimbUK is a fantastic event and it was definitely worth making the leap across the pond from Los Angeles to attend. There is an electric, entrepreneurial spirit spotlighted at the Climb Events and it was illuminative to attend and a pleasure to participate as a panelist. | Jeff B. Cohen | Esq., Entertainment Attorney, Cohen Gardner LLP
@@ -1910,25 +1915,25 @@ Speakers, exhibitors and guests on ClimbUK, quoted word for word.
 - Plenty of very insightful workshops, roundtables and panel sessions from a great selection of speakers [...] we had an absolute blast. Looking forward to Climb25 already! | Matt Wheeler | Director, madeby.studio
 - You and the team have exceeded all my (already sky-high) expectations | Gary Crotaz | Speaker
 
-## wwt.back.eyebrow
+<!-- @wwt.back.eyebrow -->
 Returning partners and guests
 
-## wwt.back.headline
+<!-- @wwt.back.headline -->
 [[Names]] that keep coming _back_
 
-## wwt.back.intro
+<!-- @wwt.back.intro -->
 These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.
 
-## wwt.back.four.title
+<!-- @wwt.back.four.title -->
 Four editions so far
 
-## wwt.back.three.title
+<!-- @wwt.back.three.title -->
 Three editions so far
 
-## wwt.back.two.title
+<!-- @wwt.back.two.title -->
 Two editions so far
 
-## wwt.back.four.items
+<!-- @wwt.back.four.items -->
 <!-- note: organisation, as the page names it, at all four editions (see RETURNERS for the sources) -->
 - CRSI
 - Leeds City Council
@@ -1937,7 +1942,7 @@ Two editions so far
 - Innovate UK
 - Creative UK
 
-## wwt.back.three.items
+<!-- @wwt.back.three.items -->
 <!-- note: organisation, as the page names it, at three editions -->
 - Channel 4
 - UBS
@@ -1967,7 +1972,7 @@ Two editions so far
 - Yaba
 - Writebusinessresults
 
-## wwt.back.two.items
+<!-- @wwt.back.two.items -->
 <!-- note: organisation, as the page names it, at two editions; Google, Meta and Microsoft on the owner's word -->
 - Google
 - Meta
@@ -1994,14 +1999,14 @@ Two editions so far
 - Fourth Day
 - ProspHER
 
-## wwt.cta.line1
+<!-- @wwt.cta.line1 -->
 Join them at
 
-## wwt.cta.line2
+<!-- @wwt.cta.line2 -->
 Climb27
 
-## wwt.cta.button
+<!-- @wwt.cta.button -->
 Partner with ClimbUK
 
-## wwt.cta.qr
+<!-- @wwt.cta.qr -->
 Scan to book a call

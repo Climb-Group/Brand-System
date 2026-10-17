@@ -27,12 +27,13 @@ MIN_QUOTES = 20
 # ---------------------------------------------------------------- copy
 
 def load_copy(path=COPY):
-    """Read '## key' sections; a section of '- ' lines becomes a list, each line split on ' | '."""
+    """Read '<!-- @key -->' sections; a section of '- ' lines becomes a list, each line split on ' | '."""
     text = open(path, encoding="utf-8").read()
     text = re.sub(r"\A---\n.*?\n---\n", "", text, flags=re.S)
+    text = re.sub(r"^<!--\s*@(\S+)\s*-->\s*$", lambda m: "\x00" + m.group(1), text, flags=re.M)
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     out = {}
-    for block in re.split(r"^## ", text, flags=re.M)[1:]:
+    for block in text.split("\x00")[1:]:
         key, _, body = block.partition("\n")
         body = body.strip()
         lines = [ln.strip() for ln in body.splitlines() if ln.strip()]
