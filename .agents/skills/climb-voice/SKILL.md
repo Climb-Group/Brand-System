@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026) and the review of past testimonials (October 2026)
-  version: "1.8"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026) and the two reviews of the Climb27 sales brochures (October 2026)
+  version: "1.9"
 ---
 
 # ClimbUK voice
@@ -24,8 +24,9 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **No emojis, no exclamation marks, no em or en dashes.** ASCII hyphen-minus only. Let design and imagery carry the energy.
 - **Never "Climb" on its own.** Write ClimbUK (the brand on the poster), ClimbGroup (the company name, for legal lines and corporate pieces; never explain how it relates to ClimbUK in copy), or the edition: Climb27, Climb26. The app is the "ClimbGroup Event App". The Investor Ladder Ltd appears only in legal and invoice text.
 - **Venue embargo.** Until ClimbUK announces it, public copy names no venue, city area, venue type or size, and does not hint ("somewhere new" and the word "venue" are both banned). After the announcement, use the line in the announcement brief. The checker takes `--announced` to switch, and loads the names it must catch from a private rules file (see the script).
-- **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them.
-- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings, a percentage or an audience size.
+- **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
+- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings or an audience size for the event.
+- **Say who the right people are.** When a page sells "the right people", explain what makes them right for the reader (a reason to talk, a need for what they do, a door they can open), in our words. Do not repeat a list of segments a page has already given.
 - **Scarcity only when it is true.** Ticket releases really do close, so say so: name the release, its price and its state ("Open now", "Next", "Final"), and that the price goes up when the release is gone. Never invent scarcity: no "sold out", "last few" or "selling fast" unless the shop says so, and no "premier", unsupported superlatives or trademark symbols. Do not quote the share of tickets in a release ("about 5% of tickets").
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
@@ -103,6 +104,10 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 ## Words and lines we own
 
 - Company tagline: **The Festival for Business Growth.** "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
+  In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
+- Web addresses on print and PDFs are written in full with www: **www.climb-uk.com/partnerships**, never "climb-uk.com/partnerships". Email addresses stay as they are.
+- Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
+- Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 working headline: **Your business. Bigger stage.**
 - General Climb27 flyer (the piece for readers who do not know ClimbUK yet): **Bring your ambition. Find your people. Accelerate your growth.**
 - Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.

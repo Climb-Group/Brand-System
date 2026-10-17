@@ -42,6 +42,8 @@ Smaller lines on Climb Orange are Dark Brown (6.1:1). White on Climb Orange (3.1
 - **Proofs:** a PDF proof for every job and a hard proof for every colour-critical one. Nothing goes to press without a named person signing off the proof.
 - **Editable sources:** the press PDF is the printer's file, not the file to edit. Every piece also has its words in a Markdown copy file and its artwork as a layered SVG with live text, grouped the way the design reads, so each row of a flyer's back (its icon, title and text) is one group, and each group named after the part of the design it holds (`front.headline`, `back.photo`). The finished PDFs and images are still supplied as before. Both open in free tools, such as any text editor, Inkscape and Affinity.
 
+- **No soft shadows or glows in print files.** Browser-built PDFs (Chromium, Playwright) turn every CSS `box-shadow`, `filter` and `drop-shadow` into a rasterised grey soft mask, and Apple Preview and printers' RIPs draw it as a visible box around the shape. In anything sent to print or as a PDF, lift cards with a flat edge instead: a 2px hairline in the ground's quiet line colour, a solid Climb Orange edge, or a white ring. Check the finished PDF has no soft-mask images (`pdfimages -list` shows no greyscale `smask` images beside the photos).
+
 ## Paper and finishes
 
 - **Stock:** uncoated or silk, 350gsm and up for cards, 170gsm for flyers, FSC certified. Avoid high gloss: it fights the stage-light photography.

@@ -45,6 +45,7 @@ Sizes in pixels unless marked. Video, photo and screen work is 4K by default (RA
 | Poster | A2, A1, A0 | One display line, Climb27 mark, URL or QR |
 | Roller banner | 850x2000mm | Keep the bottom 300mm free of text |
 | Flyer | A5 | |
+| Sales brochure | 16:9, 1920x1080 pages, PDF | Photo-led like the Climb26 exhibitor brochure; options, not fixed tiers; real quotes; figures only for channel reach and follow-through |
 | Stickers | 50mm, 75mm circle and die-cut | Square icon, Ascent marks |
 | Letterhead and documents | A4 | Preset 1, ClimbGroup legal line in the footer |
 | Direct mail | DL, A5 | Test formats, per the brief |
