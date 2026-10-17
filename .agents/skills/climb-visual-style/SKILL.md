@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, and the decision that every asset ships with sources the team can edit in free tools (October 2026)
-  version: "1.7"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026) and the decision to keep team-only material in an internal folder that is never published (October 2026)
+  version: "1.8"
 ---
 
 # ClimbUK visual style
@@ -94,6 +94,7 @@ Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); pri
 | Office and video templates, with install guides | `templates/office/`, `templates/video/` (motion clips in the release download) |
 | Tools and skills for AI assistants | `ai/` (`kit.json`, `tools/brand_rules.py`) |
 | Media kit downloads and interactive brand pages | `media-kit/`, `web/` |
+| Team-only material (research, testimonial maps, sales notes): never committed or published, only on the team's computers and the team's brand centre library | `internal/` |
 
 See `references/elements.md` for how each motif is built and scaled.
 
