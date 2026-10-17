@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026) and the review of past testimonials (October 2026)
-  version: "1.7"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026) and the review of past testimonials (October 2026)
+  version: "1.8"
 ---
 
 # ClimbUK voice
@@ -104,6 +104,7 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 
 - Company tagline: **The Festival for Business Growth.** "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
 - Climb27 working headline: **Your business. Bigger stage.**
+- General Climb27 flyer (the piece for readers who do not know ClimbUK yet): **Bring your ambition. Find your people. Accelerate your growth.**
 - Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Earlier tagline, retired from new work: "where momentum meets opportunity".
 

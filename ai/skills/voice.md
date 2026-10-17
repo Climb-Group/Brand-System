@@ -47,6 +47,7 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 
 - Company tagline: The Festival for Business Growth. "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
 - Climb27 headline: Your business. Bigger stage.
+- General Climb27 flyer headline: Bring your ambition. Find your people. Accelerate your growth.
 - Themes: Find Your People, and Main Stage Moments.
 
 ## Clear for everyone

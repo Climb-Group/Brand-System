@@ -27,10 +27,16 @@ These are the nearest published matches, not yet press-approved. Before the firs
 
 The screen rules carry over at print sizes: White on Climb Orange only at 14pt bold or larger (or 18pt regular). Signage is checked at viewing distance: a line read from 10m needs a cap height of at least 40mm, from 20m at least 80mm.
 
+## Text size in print
+
+Hand-held print (flyers, leaflets, cards, programmes) is read at arm's length, so every line is 12pt or larger at final size: body copy, dates, labels and "scan for" lines included. Headings step up from there. When copy does not fit at 12pt, shorten the copy or drop a line, never shrink the type. The one exception is a business card's contact details, which can go down to 8pt.
+
+Smaller lines on Climb Orange are Dark Brown (6.1:1). White on Climb Orange (3.1:1) is only for large text, as above.
+
 ## Files
 
 - **Format:** PDF/X-4, fonts embedded or outlined, images at 300ppi at final size (150ppi for banners read from more than 2m), taken from the full-resolution original, never upscaled.
-- **Bleed and safe zone:** 3mm bleed on every edge, 5mm safe zone inside the trim (10mm on anything bound or folded). Large format: follow the printer's spec, usually 10 to 50mm.
+- **Bleed and safe zone:** bleed of 5% of the shorter trim edge on every edge, never less than 3mm (A5 7.4mm, A4 10.5mm, business cards 3mm), with a 5mm safe zone inside the trim (10mm on anything bound or folded). Large format: follow the printer's spec, usually 10 to 50mm.
 - **Logos:** place the vector masters from the logo downloads, never a PNG. Reversed variant on dark stock.
 - **Naming:** `<brand>_<item>_<variant>_<size>.pdf`, for example `climb27_poster_find-your-people_a1.pdf`.
 - **Proofs:** a PDF proof for every job and a hard proof for every colour-critical one. Nothing goes to press without a named person signing off the proof.

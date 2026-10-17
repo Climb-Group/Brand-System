@@ -1,6 +1,6 @@
 # Surfaces
 
-Sizes in pixels unless marked. Video, photo and screen work is 4K by default (RAW capture no less than 4K, ideally 8K, 6K is fine); always use the highest resolution available and never upscale. Platform sizes below are the platforms' own limits. Safe zone is the margin text and logos stay inside. Print is CMYK PDF/X-4 with 3mm bleed unless the printer asks otherwise; screen is sRGB PNG (JPG for photos, WebP on the web).
+Sizes in pixels unless marked. Video, photo and screen work is 4K by default (RAW capture no less than 4K, ideally 8K, 6K is fine); always use the highest resolution available and never upscale. Platform sizes below are the platforms' own limits. Safe zone is the margin text and logos stay inside. Print is CMYK PDF/X-4 with bleed of 5% of the shorter trim edge, at least 3mm (A5 7.4mm), unless the printer asks otherwise; screen is sRGB PNG (JPG for photos, WebP on the web).
 
 ## Digital
 
