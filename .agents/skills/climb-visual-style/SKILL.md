@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, and the decision that every asset ships with sources the team can edit in free tools (October 2026)
-  version: "1.7"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026) and the two reviews of the Climb27 sales brochures (October 2026)
+  version: "1.11"
 ---
 
 # ClimbUK visual style
@@ -20,7 +20,7 @@ All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_
 1. **Dark first.** Default ground is Dark Brown `#1E0F05` or Charcoal `#242322`. Light grounds (White, Light Grey) are for reading-heavy pieces: documents, long emails, forms.
 2. **Orange leads, it does not flood.** One orange button or call to action per section, slide, post or screen. Around it, orange markers are welcome: an orange word, the short orange rule, a sticker, a glow. Full orange grounds are for the big moments: the partner pitch, the final call to action.
 3. **Type does the shouting.** Montserrat Bold or Black, uppercase for display lines, tight leading (0.98 to 1.1), slightly negative tracking. One word in Climb Orange and one in italic per headline ("THE FESTIVAL FOR BUSINESS *GROWTH*.", with FESTIVAL in orange); every headline opens positive (climb-voice, Headlines and titles). A short orange rule or a tracked eyebrow sits above. Open Sans for everything you read. Never more than two sizes of display type on one view.
-4. **Real people, real light.** Photography of actual attendees, speakers and stage moments, with consent: laughing faces, orange lanyards, branded backdrops, crowds, close conversations. Full colour under a Dark Brown fade where text sits; dense photo walls rather than one lonely picture. No stock handshakes, no empty rooms, no generic skylines.
+4. **Real people, real light.** Photography of actual attendees, speakers and stage moments, with consent: laughing faces, orange lanyards, branded backdrops, crowds, close conversations. Full colour under a Dark Brown fade where text sits; dense photo walls rather than one lonely picture. No stock handshakes, no empty rooms, no generic skylines, and nothing that can be misread out of context (a hug that looks like a struggle). Pick photos that show a fair mix of people (women and men, ages, backgrounds), never a frame filled by one group. A cover is one photo or a three-photo header (one big, two stacked beside it).
 5. **Contrast is not optional.** Pick a preset (below) and use its pairs. White on Climb Orange only at 19px bold or larger (or the print equivalent: 14pt bold). Check anything new against the tokens build.
 
 ## Grounds and pairs (the five presets)
@@ -64,14 +64,16 @@ These carry the energy. Use two or three per piece, not all of them at once.
 
 - **The orange word and the italic word** in a display line.
 - **The short orange rule** (4rem by 6px, rounded) above a statement, and tracked uppercase eyebrows.
-- **Stickers:** small tags tilted -3 to -4 degrees, Climb Orange with Dark Brown text (or Dark Brown with White), pinned to a card corner or a photo.
+- **Stickers:** small tags tilted -3 to -4 degrees, Climb Orange with Dark Brown text (or Dark Brown with White), pinned to a card corner or a photo. A sticker on a diagonal cut sits with the cut running through its middle, and a date sticker is big enough to read first.
 - **Ticket cards:** a dark glass card with stub notches cut into both sides and a dashed tear line, holding the offer and the one button.
 - **Photo cards and walls:** photos with the title on top and the line at the bottom under a Dark Brown fade; a mosaic of squares with one big tile.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
+- **Past-event logo walls:** one wall for every year under one heading ("In the room at ClimbUK"), never a section per year. A partner logo made for a dark ground is recoloured to charcoal on a light wall.
 - **Cut edges and glow:** a diagonal top edge from one section into the next; an orange stage-light glow in a dark corner; orange glows (not grey shadows) under orange buttons.
 - **Photo fades:** a full-width photo faded to Dark Brown on the words' side (or Climb Orange on an orange section), the photo showing through on the other, ending solid so it runs into the next section. Recipes in `guidelines/photography.md`.
 - **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Ticket pages".
 - **Outline numerals:** giant numbers in Montserrat ExtraBold (800) with no fill and a Climb Orange stroke of about 1% of the size (4px at 380px, never under 2px), letter spacing -0.04em. For section numbers 01 to 10 (decorative, `aria-hidden`, with the real heading in text beside them) and the odd big stat. One size per view, numbers only. Rules in `guidelines/ui.md`, "Outline numerals"; web classes `climb-outline-num`, `climb-outline-num-sm`, `climb-numbered`, `climb-outline-marquee`.
+- **Pin cards:** white cards with the icon in a large Climb Orange disc (white ring, orange glow) over the top edge, centred title and two lines of text, and a Climb Orange edge along the foot. For lists of what is included and options to add.
 - **Pull links:** a small uppercase line at the foot of a section with a down arrow, handing the reader on.
 
 Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); print colours (Pantone, CMYK, RAL) in `print.md`. On the web, all of these are ready-made as live components in `components/hub/` and as website blocks in the website module.
@@ -93,6 +95,7 @@ Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); pri
 | Office and video templates, with install guides | `templates/office/`, `templates/video/` (motion clips in the release download) |
 | Tools and skills for AI assistants | `ai/` (`kit.json`, `tools/brand_rules.py`) |
 | Media kit downloads and interactive brand pages | `media-kit/`, `web/` |
+| Team-only material (research, testimonial maps, sales notes): never committed or published, only on the team's computers and the team's brand centre library | `internal/` |
 
 See `references/elements.md` for how each motif is built and scaled.
 
@@ -104,6 +107,7 @@ See `references/elements.md` for how each motif is built and scaled.
 - Transparent first: logos, icons, favicons and app tiles default to a transparent background; each also comes on solid White, Dark Brown and Climb Orange (`-on-white`, `-on-ground`, `-on-orange`). On orange the mark is one-colour white.
 - Clear space: the height of the large "C" in Climb on every side, around the whole logo (registered mark included). Minimum width: 120px on screen, 30mm in print; below that, use the square icon.
 - Never stretch, rotate, outline, add effects, or set the logo on a busy part of a photo. On photos, sit it on the darkened area or use the filter.
+- **Partner of someone else's event:** when ClimbUK promotes an event it partners with, use the organiser's own graphics and imagery exactly as supplied. ClimbUK adds only its logo, a "Proud partner" line or a "Proud partner of" footer with both logos (the co-branding lockup). No ClimbUK headline, photo, recolour, sticker or festival device on their artwork, and never a white frame or border around it: keep it full bleed, and where a footer will not fit, set the partner lockup on a small white card in open space.
 - ClimbUK is the brand on the poster. ClimbGroup appears as the organisation (footers, legal, corporate decks). An edition mark (Climb27) leads on event pieces, with ClimbUK as the endorsement.
 
 ## Making an asset
@@ -113,6 +117,10 @@ See `references/elements.md` for how each motif is built and scaled.
 3. Lay out: ground or photo, one display line (with its orange word and italic word), one or two festival devices or one motif, the logo in its corner, one call to action if the surface has one.
 4. Write any words with the climb-voice skill and run its checker. Before the venue announcement, no venue or city on anything.
 5. Check: contrast pairs, safe zone, logo clear space, file name and format from the surface table.
+
+Sales brochures (exhibitor, partner, sponsor) follow the Climb26 exhibitor brochure, the one the team liked: 16:9 pages, photo-led, orange label boxes for the big lines, stand renders with a round size badge, prices in a solid box, and real quotes from people who came. Partnerships are shown as options to build from (a level, things to own, extras to add), never as fixed tiers with long text pages. The only figures are channel reach (newsletter readers, monthly website and social views) and attendee follow-through, written as floors ("40k+"), from the source data. The current set is in `pdf/brochures/`. What every partnership includes, the Headline Partner extras and the NatWest multi-year partnership are listed in `guidelines/press-and-partners.md`, "What a partnership includes".
+
+In a sales document, vary the grounds: Dark Brown on two pages at most, and never two pages in a row on the same ground (white, Light Grey, orange, Charcoal, Dark Brown). Print at least 20 real testimonials in each document, every one different; never repeat a quote inside one document. Two quotes from the same person or organisation never sit on the same page or on neighbouring pages. Give the exhibitor brochure a page on simplicity: order on the website, and the stand is built and ready on the day, so exhibitors just bring their laptop and products. Show exhibitors in action on every page that has photos, and use a real photo of each stand type. The closing page centres its QR code in its own white card, beside the headline and the button. Never put reading text on an orange page: body copy, lists and quotes go on White, Light Grey, Charcoal or Dark Brown, and orange pages carry only big white lines. On a dark page, cards are one step lighter than the page. In a row of stand cards every card has a description and the prices share one line. Lists are at least 24px on a 1920px page. The starter pod uses a plain render; custom pod photos belong with the expo stand. Consultants go in the pods, not the marketplace, and social enterprises get a marketplace option. The closing page carries one logo (Climb27, never beside ClimbUK) and centres its contact lines, with the web address as www.climb-uk.com/partnerships. Photos match the page (stage pages use stage, awards and crowd photos), and each stand or organisation appears at most once on a page. Leave at least `space-7` (48px on a 1920px page) between a paragraph and the list or cards under it, and around every quote box. Never leave an empty block on a page: when a column ends early, extend the photo wall, enlarge a photo or add a quote. Conversation photos keep both people in frame, and photos of signs and branding keep every logo in frame: match the tile to the photo, never zoom a sign until its logos are cut. Icon cards are centred, with two lines of text at most and the icon as a pin: a large Climb Orange disc with a white ring sitting over the card's top edge. Photo cards carry no icons. Quotes go together on one page and photos get a full page of their own. The closing page is the poster: Climb Orange over a crowd or stage photo under the orange fade, a huge white headline, a round Dark Brown button and one white card holding the QR code and contact lines. Show each partner option with a real photo from the latest edition (Climb26 now), never an older one.
 
 These rules hold on every platform. When the asset is built for a particular platform, also load that platform's own skill if the pack has one (for an Odoo website: `climb-odoo-pages`), and only then.
 
@@ -138,7 +146,8 @@ Everything the brand makes can be edited by the team with free tools. Every file
 - The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
 - Put buttons in their own block (a `p` or `.climb-ctas` row) with at least 24px (`space-5`) above any list or paragraph. Never place a button straight against a list. In a row of cards (offers, stands, plans), every button sits on one shared line: the card is a flex column, its last block gets `margin-top: auto`, and the highlighted card is never raised at rest.
-- Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance).
+- In a PDF or print file there are no CSS shadows, glows or filters: they print as boxes. Use flat edges and rings instead.
+- Text meets its contrast pair at the size it will be seen (screens and signage: check at viewing distance). Hand-held print (flyers, leaflets, programmes) uses 12pt or larger for every line, with bleed of 5% of the shorter trim edge (at least 3mm): see `guidelines/print.md`. Logos sit on a calm ground (a fade or solid), never over hands or faces; move the photo down to make room rather than shrinking the logo.
 - On a ticket page the next step (a ticket or call button) is never more than two scrolls away, and release or sold-out states are written in words, not colour alone.
 - The file is named `<brand>_<surface>_<variant>_<size>.<ext>`, for example `climb27_zoom-bg_stage-light_1920x1080.png`.
 - Anything you show as a preview exists in the brand pack (and the shared brand hub) as a real file, not only as a screenshot. Hub components are live HTML and CSS, so the theme and size switches work on them.

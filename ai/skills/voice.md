@@ -8,7 +8,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 
 1. Headline energy. Short, rhythmic, confident, like a festival poster or a keynote slide.
 2. Doing, not dreaming. Move the reader to action: name the outcome and the next step.
-3. Curated, not crowded. Sell the right people in the room and the quality of conversations. Never sell size.
+3. Curated, not crowded. Sell the right people in the room and the quality of conversations. Never sell size. Say what makes them the right people for the reader, rather than repeating a list of segments.
 4. Personal, not generic. Write for one audience. If it could be about any event, rewrite it.
 
 ## Where the name comes from
@@ -20,11 +20,12 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - No emojis, no exclamation marks, no em or en dashes. Plain hyphens only.
 - Never "Climb" on its own. Write ClimbUK (the brand), ClimbGroup (the company, for legal lines and corporate pieces only), or the edition (Climb27, Climb26). The app is the "ClimbGroup Event App". Never explain who runs ClimbUK.
 - Venue embargo: until it is announced, name no venue, city area, venue type or size, and do not hint at one. The word "venue" and "somewhere new" are banned. The check copy tool knows whether the embargo is on.
-- No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages.
+- No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
 - No promises we cannot keep: no guarantees, never a number of investor meetings, introductions or funding. "Find investors looking for real deal flow" is fine; never "meet investors".
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
+- Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
 - Big moments, not keynotes. Clinics are roundtables or workshops.
 - No reports we have not agreed: never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
@@ -45,7 +46,12 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 ## Lines we own
 
 - Company tagline: The Festival for Business Growth. "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
+  In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
+- Web addresses on print and PDFs are written in full with www: www.climb-uk.com/partnerships, never "climb-uk.com/partnerships". Email addresses stay as they are.
+- Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
+- Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 headline: Your business. Bigger stage.
+- General Climb27 flyer headline: Bring your ambition. Find your people. Accelerate your growth.
 - Themes: Find Your People, and Main Stage Moments.
 
 ## Clear for everyone
