@@ -37,10 +37,11 @@
         registered with it, and so is Codex (~/.codex/config.toml, which the Codex CLI, IDE
         extension and desktop app share); the Claude app, which takes local servers it starts
         itself, gets the same graph over stdio.
-      - The brand skills (climb-voice, climb-visual-style, climb-odoo-pages) linked from the copy
+      - The brand and graphify skills (climb-voice, climb-visual-style, climb-odoo-pages,
+        graphify, graphify-vendor) linked from the copy
         into ~/.claude/skills and ~/.agents/skills, and a marked section in ~/.claude/CLAUDE.md
         and ~/.codex/AGENTS.md: where the brand system is, which skill to use, the person's
-        local preferences file, and that brand decisions go into the pack. Only the marked
+        local preferences file, when to use graphify, and that brand decisions go into the pack. Only the marked
         section is managed; the rest of each file and any skill folder of the person's own stay.
 
 .PARAMETER RepoUrl
@@ -280,7 +281,8 @@ $brandNote = @'
 
 - The ClimbUK brand pack is at `__DEST__` and updates itself every day. Read it, never edit it there.
 - For any words, use the `climb-voice` skill and run its copy checker. For anything visual, use `climb-visual-style`. For an Odoo website page or module, also use `climb-odoo-pages`. Colours and sizes come only from the pack's `tokens/brand.tokens.json`.
-- The `graphify-climb` MCP server answers questions about the brand pack and this person's preferences from one graph.
+- The `graphify-climb` MCP server answers questions about the brand pack and this person's preferences from one graph. Ask it before searching the pack's files.
+- In a repository that has `tools/graphify/graphify`, follow the `graphify` skill: query its graph before broad code searches and refresh the graph after changing code. `graphify-vendor` covers anything else graphify does. Graphify runs with local models only.
 - This person's working preferences are in `__PREFS__/preferences.md`. Read it at the start of a session. When they state a new preference about how you should work, add it there as a dated line under a `## Topic` heading (or with `python3 __DEST__/ai/preferences/preferences.py add` when that file exists). The file stays on this computer: never copy it into a repository, a synced folder or shared memory.
 - When they state a brand preference or decision, it belongs in the brand pack, not only in chat or memory ("The pack learns as it goes" in the pack's AGENTS.md): propose the change to the pack as a pull request, or, when you cannot, write it up for them to send to marketing@climb-uk.com.
 <!-- climb:brand:end -->
@@ -296,7 +298,7 @@ if (Test-Path (Join-Path $Skills 'climb-voice')) {
     try {
         foreach ($root in @((Join-Path $env:USERPROFILE '.claude\skills'), (Join-Path $env:USERPROFILE '.agents\skills'))) {
             New-Item -ItemType Directory -Force -Path $root | Out-Null
-            foreach ($name in 'climb-voice', 'climb-visual-style', 'climb-odoo-pages') {
+            foreach ($name in 'climb-voice', 'climb-visual-style', 'climb-odoo-pages', 'graphify', 'graphify-vendor') {
                 $source = Join-Path $Skills $name
                 $link = Join-Path $root $name
                 if (-not (Test-Path $source)) { continue }
@@ -525,7 +527,7 @@ fi
 if [ -d "$DEST/.agents/skills/climb-voice" ]; then
   for ROOT in "$HOME/.claude/skills" "$HOME/.agents/skills"; do
     mkdir -p "$ROOT"
-    for NAME in climb-voice climb-visual-style climb-odoo-pages; do
+    for NAME in climb-voice climb-visual-style climb-odoo-pages graphify graphify-vendor; do
       [ -d "$DEST/.agents/skills/$NAME" ] || continue
       if [ -L "$ROOT/$NAME" ] || [ ! -e "$ROOT/$NAME" ]; then
         [ "$(readlink "$ROOT/$NAME")" = "$DEST/.agents/skills/$NAME" ] || ln -sfn "$DEST/.agents/skills/$NAME" "$ROOT/$NAME" || FAILED="$FAILED skills"
