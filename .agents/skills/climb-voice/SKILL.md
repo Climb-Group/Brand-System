@@ -4,7 +4,7 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026) the decision to keep every piece's words in an editable copy file (October 2026) and the review of past testimonials (October 2026)
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the review of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026) and the review of past testimonials (October 2026)
   version: "1.7"
 ---
 
@@ -110,6 +110,10 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 ## Public brand documents
 
 The brand book, guidelines, one-page rules, press and partner packs are public. Write them for anyone who builds with the brand (UI and motion engineers, videographers, animators, press, partners, printers): guiding, not over-restrictive. No repository or folder paths, no internal tool or vendor names (except install notes for a module), no internal notes or decisions in progress.
+
+## Team-only material
+
+Some work is for the team only: testimonial analysis, audience research, sales notes, people's details, anything about an unannounced venue. It goes in the pack's `internal/` folder, which is never committed or published and reaches only the team's computers and the team's brand centre library. Never put it in a public folder, a copy file, a skill or a public document, and never quote it in public copy without checking that the words are already public. Read `internal/README.md` for what goes there.
 
 ## Channels and handles
 

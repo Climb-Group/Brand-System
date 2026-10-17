@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, and the decision that every asset ships with sources the team can edit in free tools (October 2026)
-  version: "1.7"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026) and the decision to keep team-only material in an internal folder that is never published (October 2026)
+  version: "1.8"
 ---
 
 # ClimbUK visual style
@@ -68,6 +68,7 @@ These carry the energy. Use two or three per piece, not all of them at once.
 - **Ticket cards:** a dark glass card with stub notches cut into both sides and a dashed tear line, holding the offer and the one button.
 - **Photo cards and walls:** photos with the title on top and the line at the bottom under a Dark Brown fade; a mosaic of squares with one big tile.
 - **Lineups and marquees:** names set like a festival poster (biggest first, separated by orange slashes or dots) and logo rows drifting in alternate directions.
+- **Past-event logo walls:** one wall for every year under one heading ("In the room at ClimbUK"), never a section per year. A partner logo made for a dark ground is recoloured to charcoal on a light wall.
 - **Cut edges and glow:** a diagonal top edge from one section into the next; an orange stage-light glow in a dark corner; orange glows (not grey shadows) under orange buttons.
 - **Photo fades:** a full-width photo faded to Dark Brown on the words' side (or Climb Orange on an orange section), the photo showing through on the other, ending solid so it runs into the next section. Recipes in `guidelines/photography.md`.
 - **Ticket progression:** outlined offer cards with one picked out in orange, a release ladder (closed grey, open orange with "left at this price", next as dashed outlines rising with the price) and sold-out states that stay visible. Rules in `guidelines/ui.md`, "Ticket pages".
@@ -93,6 +94,7 @@ Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); pri
 | Office and video templates, with install guides | `templates/office/`, `templates/video/` (motion clips in the release download) |
 | Tools and skills for AI assistants | `ai/` (`kit.json`, `tools/brand_rules.py`) |
 | Media kit downloads and interactive brand pages | `media-kit/`, `web/` |
+| Team-only material (research, testimonial maps, sales notes): never committed or published, only on the team's computers and the team's brand centre library | `internal/` |
 
 See `references/elements.md` for how each motif is built and scaled.
 
