@@ -37,6 +37,11 @@
         registered with it, and so is Codex (~/.codex/config.toml, which the Codex CLI, IDE
         extension and desktop app share); the Claude app, which takes local servers it starts
         itself, gets the same graph over stdio.
+      - The brand skills (climb-voice, climb-visual-style, climb-odoo-pages) linked from the copy
+        into ~/.claude/skills and ~/.agents/skills, and a marked section in ~/.claude/CLAUDE.md
+        and ~/.codex/AGENTS.md: where the brand system is, which skill to use, the person's
+        local preferences file, and that brand decisions go into the pack. Only the marked
+        section is managed; the rest of each file and any skill folder of the person's own stay.
 
 .PARAMETER RepoUrl
     Default https://github.com/Climb-Group/Brand-System.git.
@@ -152,6 +157,10 @@ if (-not (Test-Path `$Graphify)) { `$missing += 'graphify' }
 if (-not (Test-Path `$CodexExe)) { `$missing += 'Codex CLI' }
 if (-not (Get-ScheduledTask -TaskName 'Climb graphify MCP' -ErrorAction SilentlyContinue)) { `$missing += 'graphify MCP service' }
 elseif (-not (Get-NetTCPConnection -LocalAddress 127.0.0.1 -LocalPort $McpPort -State Listen -ErrorAction SilentlyContinue)) { `$missing += 'graphify MCP not running' }
+foreach (`$file in (Join-Path `$env:USERPROFILE '.claude\CLAUDE.md'), (Join-Path `$env:USERPROFILE '.codex\AGENTS.md')) {
+    if (-not ((Test-Path `$file) -and (Select-String -Path `$file -SimpleMatch '<!-- climb:brand:begin' -Quiet))) { `$missing += 'brand instructions' }
+}
+if (-not (Test-Path (Join-Path `$env:USERPROFILE '.claude\skills\climb-voice'))) { `$missing += 'brand skills' }
 `$fetch = Join-Path `$Dest '.git\FETCH_HEAD'
 if (-not (Test-Path `$fetch) -or ((Get-Date) - (Get-Item `$fetch).LastWriteTime).TotalHours -gt 20) { `$missing += 'brand system update' }
 if (`$missing) { Write-Output "To do: `$(`$missing -join ', ')"; exit 1 }
@@ -263,6 +272,63 @@ if ((Test-Path $McpBin) -and (Test-Path (Join-Path $Dest 'tools\graphify\graphif
 }
 
 '@
+# The managed part of each person's Claude Code and Codex instructions (~/.claude/CLAUDE.md,
+# ~/.codex/AGENTS.md). __DEST__ and __PREFS__ become the brand system and preferences folders.
+$brandNote = @'
+<!-- climb:brand:begin - managed by the ClimbGroup device setup; edits inside are replaced -->
+## ClimbGroup brand and preferences
+
+- The ClimbUK brand pack is at `__DEST__` and updates itself every day. Read it, never edit it there.
+- For any words, use the `climb-voice` skill and run its copy checker. For anything visual, use `climb-visual-style`. For an Odoo website page or module, also use `climb-odoo-pages`. Colours and sizes come only from the pack's `tokens/brand.tokens.json`.
+- The `graphify-climb` MCP server answers questions about the brand pack and this person's preferences from one graph.
+- This person's working preferences are in `__PREFS__/preferences.md`. Read it at the start of a session. When they state a new preference about how you should work, add it there as a dated line under a `## Topic` heading (or with `python3 __DEST__/ai/preferences/preferences.py add` when that file exists). The file stays on this computer: never copy it into a repository, a synced folder or shared memory.
+- When they state a brand preference or decision, it belongs in the brand pack, not only in chat or memory ("The pack learns as it goes" in the pack's AGENTS.md): propose the change to the pack as a pull request, or, when you cannot, write it up for them to send to marketing@climb-uk.com.
+<!-- climb:brand:end -->
+'@
+# Brand skills and instructions for Claude Code and Codex (runs inside remediation 2, after
+# the graphs; uses its $Dest, $Prefs, $Utf8 and $failed).
+$brandWin = @'
+# Brand skills and instructions for Claude Code and Codex. Only the marked part of each
+# instruction file is managed; anything the person wrote stays, and so does any skill
+# folder of their own with the same name.
+$Skills = Join-Path $Dest '.agents\skills'
+if (Test-Path (Join-Path $Skills 'climb-voice')) {
+    try {
+        foreach ($root in @((Join-Path $env:USERPROFILE '.claude\skills'), (Join-Path $env:USERPROFILE '.agents\skills'))) {
+            New-Item -ItemType Directory -Force -Path $root | Out-Null
+            foreach ($name in 'climb-voice', 'climb-visual-style', 'climb-odoo-pages') {
+                $source = Join-Path $Skills $name
+                $link = Join-Path $root $name
+                if (-not (Test-Path $source)) { continue }
+                $item = Get-Item $link -Force -ErrorAction SilentlyContinue
+                if ($item -and -not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) { continue }
+                if ($item -and "$($item.Target)" -eq $source) { continue }
+                if ($item) { $item.Delete() }
+                New-Item -ItemType Junction -Path $link -Target $source | Out-Null
+            }
+        }
+        $note = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__NOTE64__')).Replace('__DEST__', $Dest).Replace('__PREFS__', $Prefs).TrimEnd("`r", "`n")
+        foreach ($file in @((Join-Path $env:USERPROFILE '.claude\CLAUDE.md'), (Join-Path $env:USERPROFILE '.codex\AGENTS.md'))) {
+            New-Item -ItemType Directory -Force -Path (Split-Path $file) | Out-Null
+            $old = if (Test-Path $file) { [IO.File]::ReadAllText($file) } else { '' }
+            $keep = New-Object System.Collections.Generic.List[string]
+            $inside = $false
+            foreach ($line in ($old -split "`r?`n")) {
+                if ($line.StartsWith('<!-- climb:brand:begin')) { $inside = $true }
+                elseif ($inside -and $line.StartsWith('<!-- climb:brand:end')) { $inside = $false }
+                elseif (-not $inside) { $keep.Add($line) }
+            }
+            $text = ($keep -join "`n").TrimEnd("`n")
+            $new = $(if ($text) { "$text`n`n" } else { '' }) + $note + "`n"
+            if ($new -ne $old) { [IO.File]::WriteAllText($file, $new, $Utf8) }
+        }
+    } catch {
+        $failed += "brand skills and instructions: $($_.Exception.Message)"
+    }
+}
+
+'@
+$brandWin = $brandWin.Replace('__NOTE64__', [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($brandNote -replace "`r`n", "`n"))))
 $remediate2 = @"
 # Climb Claude Code and brand tools: remediation. Generated by 70-Claude-Tools.ps1.
 $common2
@@ -304,7 +370,7 @@ if (-not (Test-Path `$Graphify) -and (Test-Path (Join-Path `$Dest 'tools\graphif
     Pop-Location
 }
 `$Port = $McpPort
-"@ + "`n" + $graphsWin + @"
+"@ + "`n" + $graphsWin + $brandWin + @"
 if (`$failed) { Write-Output "Failed: `$(`$failed -join '; ')"; exit 1 }
 Write-Output "Claude Code, Python `$Python, graphify, the personal graph, the graphify MCP service and the brand system at `$Dest are current"
 exit 0
@@ -453,6 +519,47 @@ PY
 elif [ -f "$W" ]; then
   FAILED="$FAILED graphify-not-ready"
 fi
+# Brand skills and instructions for Claude Code and Codex. Only the marked part of each
+# instruction file is managed; anything the person wrote stays, and so does any skill
+# folder of their own with the same name.
+if [ -d "$DEST/.agents/skills/climb-voice" ]; then
+  for ROOT in "$HOME/.claude/skills" "$HOME/.agents/skills"; do
+    mkdir -p "$ROOT"
+    for NAME in climb-voice climb-visual-style climb-odoo-pages; do
+      [ -d "$DEST/.agents/skills/$NAME" ] || continue
+      if [ -L "$ROOT/$NAME" ] || [ ! -e "$ROOT/$NAME" ]; then
+        [ "$(readlink "$ROOT/$NAME")" = "$DEST/.agents/skills/$NAME" ] || ln -sfn "$DEST/.agents/skills/$NAME" "$ROOT/$NAME" || FAILED="$FAILED skills"
+      fi
+    done
+  done
+  NOTE="$(mktemp)"
+  cat > "$NOTE" <<'NOTE'
+__NOTE__
+NOTE
+  python3 - "$NOTE" "$DEST" "$PREFS" "$HOME/.claude/CLAUDE.md" "$HOME/.codex/AGENTS.md" <<'PY' || FAILED="$FAILED brand-instructions"
+import os, sys
+note_path, dest, prefs = sys.argv[1:4]
+with open(note_path, encoding="utf-8") as handle:
+    note = handle.read().replace("__DEST__", dest).replace("__PREFS__", prefs).rstrip("\n")
+for path in sys.argv[4:]:
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else ""
+    keep, inside = [], False
+    for line in old.splitlines():
+        if line.startswith("<!-- climb:brand:begin"):
+            inside = True
+        elif inside and line.startswith("<!-- climb:brand:end"):
+            inside = False
+        elif not inside:
+            keep.append(line)
+    text = "\n".join(keep).rstrip("\n")
+    new = (text + "\n\n" if text else "") + note + "\n"
+    if new != old:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(new)
+PY
+  rm -f "$NOTE"
+fi
 '@
 $mac4 = @(
     '#!/bin/bash'
@@ -488,7 +595,7 @@ $mac4 = @(
     'if [ ! -x "$HOME/.local/share/resnovas-graphify/bin/graphify" ] && [ -f "$DEST/tools/graphify/graphify" ]; then'
     '  (cd "$DEST" && sh tools/graphify/graphify setup --no-hooks) || FAILED="$FAILED graphify"'
     'fi'
-) + ($macGraphs.Replace('__PORT__', [string]$McpPort) -split "`r?`n") + @(
+) + ($macGraphs.Replace('__PORT__', [string]$McpPort).Replace('__NOTE__', $brandNote.TrimEnd()) -split "`r?`n") + @(
     'if [ -n "$FAILED" ]; then echo "failed:$FAILED"; exit 1; fi'
     'echo "Claude Code, Python $PYTHON, graphify, the personal graph, the graphify MCP service and the brand system at $DEST are current"'
 )
