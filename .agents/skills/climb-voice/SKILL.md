@@ -30,6 +30,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report or audience data. What is agreed: partners get their leads and an engagement report in the portal after the festival (new for Climb27). Sell what happens in the room.
 - **Partner and stand prices are plus VAT.** Write "£4,000 plus VAT", or state "All prices are plus value added tax (VAT)" once on the page. Never "inc VAT" for a stand or partnership price.
+- **Paying in instalments.** Stands can be paid over time with Klarna, PayPal Pay Later or Afterpay. Say the cost plainly: "A 5% financing fee is added to your total order." Not "any fee or charge is passed on to you".
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.
 - **Whitelabel.** No vendor or platform names (Canva, Cvent, Stripe and the like) unless the reader must recognise the integration.
