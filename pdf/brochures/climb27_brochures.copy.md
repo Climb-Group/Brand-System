@@ -13,7 +13,7 @@ note: Every word printed in the two brochures comes from this file. Edit here, t
 30 June and 1 July 2027
 
 <!-- @shared.tagline -->
-The Festival for Business Growth
+The Festival For Business Growth
 
 <!-- @shared.what.eyebrow -->
 Climb27
@@ -113,7 +113,7 @@ Stand out from the crowd
 - 2.4m x 0.7m space with three walls
 - 3 branded panels, design to be supplied
 - 1x 2-day exhibitor pass
-- 1x 2-day ticket
+- 1x 2-day guest ticket
 - Immediate access to the exhibitor portal
 - Video guides for first-time exhibitors
 - A pitching opportunity
@@ -143,7 +143,7 @@ Profile your product
 <!-- @exhibitor.display.includes -->
 - 2m x 1m space
 - 1x 2-day exhibitor pass
-- 2x 2-day tickets
+- 2x 2-day guest tickets
 - 2 branded panels
 - Cupboard
 - Power included
@@ -286,7 +286,7 @@ Pay for your stand in instalments with Klarna, PayPal Pay Later or Afterpay. Cho
 - Pay over time | The provider sets your instalments, and your stand is booked straight away.
 
 <!-- @exhibitor.pay.fees -->
-Any fee or charge for paying in instalments is passed on to you: it is added to your order and shown before you confirm.
+Paying in instalments with Klarna, PayPal Pay Later or Afterpay? A 5% financing fee is added to your total order.
 
 <!-- @exhibitor.pay.badge -->
 Pay over time

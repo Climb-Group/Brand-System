@@ -569,7 +569,7 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
     price = '<div class="price">%s%s</div>' % (
         t(C["exhibitor.%s.price" % key]), ("<small>%s</small>" % t(unit)) if unit else "")
     if pay:
-        price = ('<div style="display:flex;align-items:flex-end;gap:30px">%s<div><div class="paynote">%s</div>%s</div></div>'
+        price = ('<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 30px">%s<div><div class="paynote">%s</div>%s</div></div>'
                  % (price, t(C["exhibitor.pay.badge"]), pay_badges(56, 12)))
     body = C.get("exhibitor.%s.body" % key)
     strap_col = "#7A3B16" if cls == "gr" else "var(--deep)"
@@ -609,8 +609,8 @@ def pay_page(bk, cls):
     bk.add(cls, '<div style="position:absolute;left:120px;top:96px;width:1000px">%s'
            '<p class="copy" style="margin-top:26px;font-size:26px">%s</p></div>'
            '<div style="position:absolute;left:1180px;top:110px;width:620px">%s</div>'
-           '<div style="position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px">%s</div>'
-           '<div class="feesbox" style="left:120px;right:120px;top:790px">%s</div>'
+           '<div style="position:absolute;left:120px;right:120px;top:470px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px">%s</div>'
+           '<div class="feesbox" style="left:120px;right:120px;top:840px">%s</div>'
            % (head(C["exhibitor.pay.eyebrow"], C["exhibitor.pay.headline"], 72, 1000), t(C["exhibitor.pay.intro"]),
               pay_badges(110, 22), steps, t(C["exhibitor.pay.fees"])))
 
@@ -701,7 +701,7 @@ def exhibitor():
     stand_page(bk, "gr", "display", DISPLAY_PHOTOS[1:] + EXHIBITOR_PHOTOS,
                C["exhibitor.display.size"], render=B + "stand_display_render.jpg", pay=True)
     stand_page(bk, "wh", "expo", EXPO_PHOTOS[1:] + EXHIBITOR_PHOTOS,
-               C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"])
+               C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"], pay=True)
     # 8 Every expo size, 9 how simple the day is.
     sizes_page(bk, "ch")
     setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
@@ -754,7 +754,9 @@ def exhibitor():
     # wants exhibitors only (not our story wall) and each stand once (the insurance stand's posed shot is out).
     pool.used.update({B + "expo_floor_maf-245.jpg", B + "expo_floor_dsc03021.jpg", B + "expo_floor_dsc03071.jpg", B + "expo_floor_dsc03139.jpg",
                       B + "expo_floor_dsc03112.jpg", B + "expo_floor_maf-546.jpg", B + "expo_floor_dsc03116.jpg",
-                      B + "expo_floor_maf-232.jpg", B + "expo_floor_maf-236.jpg"})
+                      B + "expo_floor_maf-232.jpg", B + "expo_floor_maf-236.jpg",
+                      # One company per wall: the Girls & Tech megaphone shot sat beside their stand.
+                      B + "expo_stand_girls-and-tech_megaphone.jpg"})
     photo_page(bk, "ch", C["exhibitor.proof2.eyebrow"], C["exhibitor.proof2.headline"],
                EXHIBITOR_WALL + EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"), rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 

@@ -33,7 +33,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
 - **Testimonials without the date.** When a past quote goes into marketing, credit the person and organisation only: no edition, year or "Climb24 speaker" line. Pick quotes whose own words do not name an old edition ("#Climb24", "Climb 2025 next year"); a dated quote makes the festival look old.
 - **Testimonials name a person.** Credit every quote to a named person and their organisation. A quote credited only to a company, or carrying a role line such as "Climb26 exhibitor", is left out. The guest's words are printed exactly as they said them; the voice rules apply to our words, not theirs.
-- **Paying in instalments.** Name the providers (Klarna, PayPal Pay Later, Afterpay) and say plainly that any fee or charge for paying this way is passed on to the buyer, added to their order and shown before they confirm. Prices say "ex. VAT".
+- **Paying in instalments.** Name the providers (Klarna, PayPal Pay Later, Afterpay) and say the fee plainly: "A 5% financing fee is added to your total order." Prices say "ex. VAT".
 - **Stand names.** The smallest stand is the "Startup pod", never "starter pod".
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.
 - **Whitelabel.** No vendor or platform names (Canva, Cvent, Stripe and the like) unless the reader must recognise the integration.

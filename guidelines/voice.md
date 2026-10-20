@@ -22,7 +22,7 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
 - **Name the person.** Credit each quote to a named person and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly.
-- **Paying in instalments.** Name the providers and say plainly that any fee for paying this way is passed on to the buyer and added to their order.
+- **Paying in instalments.** Name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.
 - **No vendor names.** Do not name the tools and platforms behind the scenes. Say what the reader can do ("Book your meetings before you arrive"), not what powers it.

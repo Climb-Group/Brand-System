@@ -26,7 +26,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
 - Credit each quote to a named person and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly.
-- For paying in instalments, name the providers and say plainly that any fee is passed on to the buyer and added to their order.
+- For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - The smallest stand is the "Startup pod", never "starter pod".
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
