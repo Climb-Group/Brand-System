@@ -446,15 +446,15 @@ SET_ASIDE = {B + "stage_020726018climb26.jpg", B + "expo_floor_052a5456.jpg", B 
 def what(bk, names, first=WHAT_PHOTOS):
     """White page: what Climb27 is, beside a wall of photos. The headline is a guest's own words, with their name under it."""
     names = tuple(first) + tuple(names)
-    rows = "".join('<div class="row" style="margin-top:18px;align-items:center">%s<p style="margin:0;font-size:21px">%s</p></div>'
-                   % (illo(icon, size=54), t(f[0]))
+    rows = "".join('<div class="row" style="margin-top:30px;align-items:center">%s<p style="margin:0;font-size:25px">%s</p></div>'
+                   % (illo(icon, size=64), t(f[0]))
                    for icon, f in zip(("calendar", "people", "shopfront", "festival-tent"), C["shared.what.facts"]))
     photos = collage(bk.pool, 960, 80, 840, 860, [[("h", 1.15), 3, 2], [2, 2, 2], [2, 3]], names)
     inner = ('<div style="position:absolute;left:120px;top:90px;width:770px">%s'
              '<div class="cite">%s</div>'
-             '<p class="copy" style="margin-top:24px;font-size:22px">%s</p><div style="margin-top:22px">%s</div></div>%s'
-             % (head(C["shared.what.eyebrow"], C["shared.what.headline"], 64, 770, quoted=True), t(C["shared.what.cite"]),
-                t(C["shared.what.body"]), rows, photos))
+             '<div style="margin-top:40px">%s</div></div>%s'
+             % (head(C["shared.what.eyebrow"], C["shared.what.headline"], 72, 770, quoted=True), t(C["shared.what.cite"]),
+                rows, photos))
     bk.add("wh", inner)
 
 
@@ -566,24 +566,25 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
     items = C["exhibitor.%s.includes" % key]
     many = len(items) > 5
     inc = "".join("<li>%s</li>" % t(i[0]) for i in items)
-    price = '<div class="price" style="margin-top:22px">%s%s</div>' % (
+    price = '<div class="price">%s%s</div>' % (
         t(C["exhibitor.%s.price" % key]), ("<small>%s</small>" % t(unit)) if unit else "")
     if pay:
-        price = ('<div style="display:flex;align-items:flex-end;gap:26px">%s<div><div class="paynote">%s</div>%s</div></div>'
-                 % (price, t(C["exhibitor.pay.badge"]), pay_badges(44, 10)))
+        price = ('<div style="display:flex;align-items:flex-end;gap:30px">%s<div><div class="paynote">%s</div>%s</div></div>'
+                 % (price, t(C["exhibitor.pay.badge"]), pay_badges(56, 12)))
     body = C.get("exhibitor.%s.body" % key)
     strap_col = "#7A3B16" if cls == "gr" else "var(--deep)"
-    text = ('<div style="position:absolute;left:120px;top:96px;width:740px">'
+    text = ('<div style="position:absolute;left:120px;top:96px;bottom:150px;width:740px;display:flex;flex-direction:column;align-items:flex-start">'
             '<span class="tag" style="font-size:20px;color:%s">%s</span>'
             '<div style="margin-top:26px">%s</div>'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:34px;color:%s;line-height:1.2">%s</div>'
             '%s'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--ch)">Includes</div>'
-            '<ul class="list copy" style="margin-top:14px;font-size:24px;line-height:1.35;%s">%s</ul>%s</div>'
-            % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72, ital_last=False), strap_col,
+            '<ul class="list copy" style="margin-top:16px;width:100%%;%s">%s</ul><div style="margin-top:auto;padding-top:20px">%s</div></div>'
+            % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72 if len(C["exhibitor.%s.name" % key]) < 16 else 58, ital_last=False), strap_col,
                t(C["exhibitor.%s.strap" % key]),
                ('<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>' % t(body)) if body else "",
-               "columns:2;column-gap:32px" if many else "", inc, price))
+               ("font-size:24px;line-height:1.35;" if body else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
+               + ("columns:2;column-gap:32px" if many else ""), inc, price))
     big = tile(pool.photo(*names), 940, 96, 860, 440)
     if render:
         low = ('<div class="tile" style="left:940px;top:560px;width:420px;height:384px;background:#fff">'
@@ -681,16 +682,16 @@ def exhibitor():
         unit = C.get("exhibitor.%s.unit" % key)
         # Every card has the same parts in the same order, and the unit line is always there, so the prices form one line.
         # Titles keep room for two lines, so a title that wraps never moves the description or the price.
-        cards.append('<div class="cardx t2"><div class="img" style="height:130px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
+        cards.append('<div class="cardx t2"><div class="img" style="height:215px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
                      '<div class="d" style="font-weight:700;color:var(--ch)">%s</div><div class="d" style="margin-top:8px">%s</div>'
                      '<div class="end">%s<small>%s</small></div></div></div>'
                      % (photo(pool.photo(*(names + EXHIBITOR_PHOTOS))), t(C["exhibitor.%s.eyebrow" % key]), t(C["exhibitor.%s.name" % key]),
                         t(C["exhibitor.%s.size" % key]), t(C["exhibitor.%s.card" % key]), t(C["exhibitor.%s.price" % key]),
                         t(unit) if unit else "&nbsp;"))
-    inner = ('<div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px">%s</p></div>'
-             '<div class="cards" style="left:120px;right:120px;top:310px;bottom:196px;grid-template-columns:repeat(4,1fr)">%s</div>'
-             '<div class="fnote" style="left:120px;right:120px;bottom:112px"><p>%s<br>%s</p>%s</div>'
-             % (head(C["exhibitor.stands.eyebrow"], C["exhibitor.stands.headline"], 72, 1500), t(C["exhibitor.stands.intro"]), "".join(cards),
+    inner = ('<div style="position:absolute;left:120px;top:80px">%s<p class="copy" style="margin-top:14px;font-size:24px">%s</p></div>'
+             '<div class="cards" style="left:120px;right:120px;top:270px;bottom:176px;grid-template-columns:repeat(4,1fr)">%s</div>'
+             '<div class="fnote" style="left:120px;right:120px;bottom:108px"><p>%s %s</p>%s</div>'
+             % (head(C["exhibitor.stands.eyebrow"], C["exhibitor.stands.headline"], 64, 1500), t(C["exhibitor.stands.intro"]), "".join(cards),
                 t(C["shared.vat"]), t(C["shared.payment"]), pay_badges(48, 12)))
     bk.add("gr", inner)
 

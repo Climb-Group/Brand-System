@@ -24,9 +24,6 @@ The [[best]] business event this _year_
 <!-- @shared.what.cite -->
 Johnny J Pawlik, CEO, Mantra Media Ltd
 
-<!-- @shared.what.body -->
-Climb27 is the festival for business growth: two days for growing businesses, the people who back them and the firms that help them grow. Main stage moments, practical sessions, roundtables and workshops, an expo floor full of conversations, and the after parties. Everyone leaves with real advice, real connections and a clear next step.
-
 <!-- @shared.what.facts -->
 - 30 June and 1 July 2027
 - Founders, scaling companies, investors, advisers, universities and the public sector
@@ -189,13 +186,13 @@ per 2m x 2m space
 - £100 instantprint voucher per exhibitor pass
 
 <!-- @exhibitor.sizes.eyebrow -->
-Expo stands
+Showcase stands
 
 <!-- @exhibitor.sizes.headline -->
 Start at 2m x 2m. [[Grow]] from _there_.
 
 <!-- @exhibitor.sizes.intro -->
-Every expo stand is built from 2m x 2m spaces, so you take the room you need. Here is each size at Climb26.
+Every showcase stand is built from 2m x 2m spaces, so you take the room you need. Here is each size at Climb26.
 
 <!-- @exhibitor.sizes.items -->
 - 2m x 2m | 2 exhibitor passes
