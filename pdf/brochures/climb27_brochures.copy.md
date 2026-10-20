@@ -19,15 +19,19 @@ The Festival for Business Growth
 Climb27
 
 <!-- @shared.what.headline -->
-Two days of [[business]] with a _party_
+The [[best]] business event this _year_ so far
+
+<!-- @shared.what.cite -->
+Johnny J Pawlik, CEO, Mantra Media Ltd
 
 <!-- @shared.what.body -->
 Climb27 is the festival for business growth: two days for growing businesses, the people who back them and the firms that help them grow. Main stage moments, practical sessions, roundtables and workshops, an expo floor full of conversations, and the after parties. Everyone leaves with real advice, real connections and a clear next step.
 
 <!-- @shared.what.facts -->
 - 30 June and 1 July 2027
-- Founders, scaling companies, investors looking for real deal flow, advisers, universities and the public sector
+- Founders, scaling companies, investors, advisers, universities and the public sector
 - An expo floor at the heart of the festival, with the agenda bringing people past every stand
+- Fringe events around the festival, for more time with the people you meet
 
 <!-- @shared.proof.eyebrow -->
 In their words
@@ -42,7 +46,10 @@ In their words
 - A fantastic event... Great people | Jennifer Byrne, former CTO, Microsoft USA
 
 <!-- @shared.vat -->
-All prices are plus value added tax (VAT).
+All prices ex. VAT.
+
+<!-- @shared.payment -->
+Payment options available: spread the cost with Klarna, PayPal Pay Later or Afterpay.
 
 <!-- @shared.contact -->
 partnerships@climb-uk.com
@@ -65,14 +72,15 @@ Climb27
 Why exhibit
 
 <!-- @exhibitor.why.headline -->
-Your stand. A _bigger_ [[stage]].
+_Because_ we are [[different]]
 
 <!-- @exhibitor.why.reasons -->
-- people | Find your people | The right people are the ones with a reason to talk to you: businesses that need what you do, and people who can open the next door. Everyone comes to grow, so conversations start easily.
-- big-screen | Show what you do | Space to demonstrate, with screens, power and room for people to gather round.
-- signpost | People come to you | The expo sits at the heart of the festival, so the agenda brings people past your stand all day.
-- handshake | Conversations that go somewhere | People arrive ready to buy, partner and plan what comes next, and leave with your card in their pocket.
-- seedling | Grow with the community | A community that shares what works and sends each other work, long after the festival.
+- people | Relevant people to do business | Businesses that need what you do, and people who can open the next door. Everyone comes to grow, so conversations start easily.
+- target | Full of opportunity | A steady flow of leads all day, from people who arrive ready to buy and leave with your card in their pocket.
+- handshake | Partners worth having | Meet the firms, universities and public bodies you can build something with, and start partnerships that last.
+- puzzle | Built on collaboration | A community that shares ideas, swaps what works and sends each other work, long after the festival.
+- party-popper | Buzzing with energy | It feels like a festival from the first hello: packed stages, busy aisles and after parties. Nothing like a trade show.
+- spotlight | Be seen | Your brand on the expo floor in front of everyone the agenda brings past your stand, and in our marketing before and after the festival.
 
 <!-- @exhibitor.why.quote -->
 - It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
@@ -81,25 +89,22 @@ Your stand. A _bigger_ [[stage]].
 Stand options
 
 <!-- @exhibitor.stands.headline -->
-Find the stand that [[fits]] your _plans_
+From a pod to a _showcase_ [[stand]]
 
 <!-- @exhibitor.stands.intro -->
-Four ways onto the expo floor, from a starter pod to a full expo stand.
+Four ways onto the expo floor, each one built and ready when you arrive.
 
 <!-- @exhibitor.pod.card -->
-A compact meet point for quick hellos and focused chats.
+An affordable option to showcase your brand: your own window on the expo floor.
 
 <!-- @exhibitor.pod.eyebrow -->
 Stand type 1
 
 <!-- @exhibitor.pod.name -->
-Starter pod
+Startup pod
 
 <!-- @exhibitor.pod.strap -->
-Your own branded spot on the expo floor, made for quick, focused conversations.
-
-<!-- @exhibitor.pod.body -->
-A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connections. Enough room to connect, qualify and set up the next conversation. Made for consultants, service firms, social enterprises and community groups.
+Stand out from the crowd
 
 <!-- @exhibitor.pod.size -->
 2.4m x 0.7m
@@ -109,10 +114,16 @@ A 2.4m x 0.7m meet point built for quick hellos, focused chats and fast connecti
 
 <!-- @exhibitor.pod.includes -->
 - 2.4m x 0.7m space with three walls
-- 1 exhibitor pass
-- 3 branded panels
-- Power as an optional extra
+- 3 branded panels, design to be supplied
+- 1x 2-day exhibitor pass
+- 1x 2-day ticket
+- Immediate access to the exhibitor portal
+- Video guides for first-time exhibitors
+- A pitching opportunity
+- Marketing before and after the festival
+- Your logo in one of our newsletters
 - £100 instantprint voucher per exhibitor pass
+- Pod extras available from the exhibitor portal
 
 <!-- @exhibitor.display.card -->
 Room to show your products, with a screen and branded panels.
@@ -124,10 +135,7 @@ Stand type 2
 Display stand
 
 <!-- @exhibitor.display.strap -->
-Show your product on screen, with your brand on the panels behind you.
-
-<!-- @exhibitor.display.body -->
-A 2m x 1m space for companies that want to show their products and services to founders, business leaders, investors and the people who build the ecosystem.
+Profile your product
 
 <!-- @exhibitor.display.size -->
 2m x 1m
@@ -137,22 +145,24 @@ A 2m x 1m space for companies that want to show their products and services to f
 
 <!-- @exhibitor.display.includes -->
 - 2m x 1m space
-- 1 exhibitor pass
+- 1x 2-day exhibitor pass
+- 2x 2-day tickets
 - 2 branded panels
 - Cupboard
 - Power included
 - 1 stool
 - 32 inch monitor
 - £100 instantprint voucher per exhibitor pass
+- Stand extras available from the exhibitor portal
 
 <!-- @exhibitor.expo.card -->
-A fully branded stand with room for demos, activity and your team.
+Demos, discussions and deals, on a stand built to your size.
 
 <!-- @exhibitor.expo.eyebrow -->
 Stand type 3
 
 <!-- @exhibitor.expo.name -->
-Expo stand
+Expo and showcase stand
 
 <!-- @exhibitor.expo.strap -->
 Room for demos, your team and a crowd, built and branded to your size.
@@ -216,7 +226,7 @@ Doors open
 One table
 
 <!-- @exhibitor.market.card -->
-A table on the expo floor, without a full stand.
+Bring your product and sell, sell, sell.
 
 <!-- @exhibitor.market.eyebrow -->
 Stand type 4
@@ -245,9 +255,6 @@ Who it is for
 <!-- @exhibitor.market.price -->
 £300
 
-<!-- @exhibitor.market.unit -->
-plus your ticket
-
 <!-- @exhibitor.extras.eyebrow -->
 Add to your stand
 
@@ -267,6 +274,26 @@ Order everything for your stand in your exhibitor portal, and it is in place whe
 <!-- @exhibitor.extras.print -->
 - A £100 instantprint voucher with every exhibitor pass | instantprint is the official print partner of Climb27
 
+<!-- @exhibitor.pay.eyebrow -->
+Payment options
+
+<!-- @exhibitor.pay.headline -->
+Book your stand now. [[Spread]] the _cost_.
+
+<!-- @exhibitor.pay.intro -->
+Pay for your stand in instalments with Klarna, PayPal Pay Later or Afterpay. Choose how you pay when you book.
+
+<!-- @exhibitor.pay.steps -->
+- Choose your stand | Pick your stand and extras, and see the full price before you pay.
+- Pick how to pay | Pay in full, or choose Klarna, PayPal Pay Later or Afterpay at checkout.
+- Pay over time | The provider sets your instalments, and your stand is booked straight away.
+
+<!-- @exhibitor.pay.fees -->
+Any fee or charge for paying in instalments is passed on to you: it is added to your order and shown before you confirm.
+
+<!-- @exhibitor.pay.badge -->
+Pay over time
+
 <!-- @exhibitor.proof2.eyebrow -->
 Climb26 in pictures
 
@@ -275,13 +302,13 @@ Life on the _expo_ [[floor]]
 
 <!-- @exhibitor.quotes -->
 <!-- note: real quotes, word for word from ClimbUK's own pages and brochures (sales/testimonials/testimonials.json). Printed in this order; never repeat one inside the brochure. -->
-- The calibre of people building in this space is unreal. | Girls & Tech, Climb26 exhibitor
-- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance, Climb26 exhibitor
+- Throughout the day, I had inspiring conversations with so many people and innovative businesses. [...] buzzing with energy, open, honest conversations, and laughter | Madeleine France, Blossom Training and Development CIC
+- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance
 - The variety of panel talks, interactive sessions, pop-up stands provides a unique way to engage, learn and hear all things business | Angus Young, Net-Zu
 - I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. | Daniella Wainwright, Wainwright Consulting
-- A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University, Climb26 exhibitor
+- A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University
 - The networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections | Serena Fordham, ProspHER
-- It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
+- This was one of the best events I have exhibited at. An amazing team, speakers and delegates. Thanks for creating such a wonderful and professional experience for all | Tim Bennett, Powerhouse Digital Limited
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
 - A fantastic event... Great people | Jennifer Byrne, former CTO, Microsoft
@@ -290,11 +317,12 @@ Life on the _expo_ [[floor]]
 - Wins on stage are great. But the friendships, the collaborations and the momentum you build alongside them? That's the real prize. | Hamzah Syed, picknmixAI
 - I was struck by how many founders and investors turned up in one room. Fun, energetic, and a lot like the US investor energy I so badly crave sometimes. | Richie Jones, vvast
 - As always great to catch up with friends and familiar faces and to meet so many new and interesting people too (including a few investors). | Tas Hadjisavva, Clubit Group
-- It's amazing that Madeleine arrived alone, yet spent the day surrounded by people opening doors, sharing opportunities, cheering each other on. | Blossom Training & Development
+- The event had such a fantastic atmosphere of excitement, collaboration and support, and it was a real opportunity to meet people and share ideas from across so many sectors. | Nina Hinton, Videosign
 - I found it useful, insightful, energising and now I have lots of ideas. | Louise Saw, City of York Council
 - Stepping into a festival packed with driven founders, investors, and innovators was brilliantly refreshing. | Patrick Maloney, Lead Talent Management Consultancy
 - It really felt like a vibrant hub of innovation and connection. | Russell Bundy, Just Verify
-- Climb25 gave founders, investors, and innovators space to connect, collaborate, and be seen. | Kat Plant, Interactive Digital Systems
+- I spoke to some fantastic individuals and learnt more about navigating the business and investment landscape. | Katie Fradley, Flowlio
+- Bloody brilliant couple of days at ClimbUK with Conor Walsh. I don't think I've been to an event which has been as genuinely useful to our business before. | Paul White, Patch App UK
 
 <!-- @exhibitor.cta.line1 -->
 Ready to exhibit
@@ -463,9 +491,6 @@ Each zone brings together the people one sector needs. Put your name on the zone
 - ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
 - ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
 
-<!-- @partner.what.headline -->
-Put your brand at the heart of [[business]] _growth_
-
 <!-- @partner.setup.eyebrow -->
 On the day
 
@@ -523,17 +548,17 @@ They _keep_ [[coming back]]
 <!-- @partner.quotes -->
 <!-- note: real quotes, word for word from ClimbUK's own pages and partner posts (sales/testimonials/testimonials.json). Printed in this order; never repeat one inside the brochure. -->
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
-- You really do get out what you put in when it comes to Climb26. | Rebecca Holden, Blacks Solicitors
-- This partnership is not simply about showcasing our capabilities; it is about engaging in meaningful dialogue, co-creating solutions, and strengthening the ecosystems that underpin long-term economic success. | University of Huddersfield
-- instantprint are proud to be supporting ClimbUK... and excited to see where this partnership goes next. It's about more than printing materials. It's about backing people who want to learn, grow and build something better. | instantprint, official print partner
-- That coffee queue conversation became something bigger. A partnership. A commitment. | Jenny Garrett Global
+- Seeing young founders making great headways into the business world with ideas dreamt up in bedrooms was very inspiring. | Dan Boys, Wildfi Ltd
+- it was genuinely invigorating to have so many great conversations with investors, founders, enterprise agencies, government, ecosystem builders from across the UK and globally | Barry McDonald, CodeBase
+- This was one of the best events I have exhibited at. An amazing team, speakers and delegates. Thanks for creating such a wonderful and professional experience for all | Tim Bennett, Powerhouse Digital Limited
+- A fantastic chance to celebrate innovative ideas, network with businesses and investors, and be a part of an ecosystem that encourages big thinking and supports you to make it happen. | Shanya Sachdeva, Shanya's Staffing Ltd
 - Partnerships like this are essential in creating new opportunities for innovators to connect with the right people, from clinicians and health leaders to investors and industry partners. | Dr Neville Young, Health Innovation Yorkshire & Humber
-- We left feeling energised and excited about the connections we made and the difference we can continue to make | NatWest
-- ClimbUK gets this. Inclusion isn't corporate theatre. Regional innovation isn't secondary. | Jenny Garrett Global, Women in Business Award partner
-- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance, Climb26 exhibitor
+- Great opportunity to connect with people, and gain new insights and inspiration. | Harpreet Kaur, Capital Enterprise
+- The event had such a fantastic atmosphere of excitement, collaboration and support, and it was a real opportunity to meet people and share ideas from across so many sectors. | Nina Hinton, Videosign
+- It was so nice to be part of an event that really champions growing businesses in the UK and I've met some fantastic people this week who I hope to stay connected with. | Rachel Kelly, Caspian Insurance
 - It was inspiring and rewarding to see the potential of the next generation of entrepreneurs who are bringing new ideas and innovations to the table | Mitchell McCombe, West Yorkshire Combined Authority
 - Fantastic festival promoting business growth, encouraging founders and investors and the whole ecosystem in the north of England. | Louise Thompson, Myfolks
-- Together with ClimbUK, we aim to create spaces where knowledge meets opportunity. | University of Huddersfield
+- Throughout the day, I had inspiring conversations with so many people and innovative businesses. [...] buzzing with energy, open, honest conversations, and laughter | Madeleine France, Blossom Training and Development CIC
 - As always great to catch up with friends and familiar faces and to meet so many new and interesting people too (including a few investors). | Tas Hadjisavva, Clubit Group
 - A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University
 - For us, this isn't just a calendar commitment. It's a reflection of how we've built our business. | Ryan Sorby, Palatine

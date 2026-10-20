@@ -58,9 +58,15 @@ def t(s):
     return html.escape(s)
 
 
-def hl(s):
-    """Headline markup: [[word]] in Climb Orange, _word_ in italic."""
-    PRINTED.append(re.sub(r"\[\[(.+?)\]\]|_(.+?)_", lambda m: m.group(1) or m.group(2), s))
+def said(s):
+    """A guest's own words, printed exactly as they said them. Their wording is theirs, so it skips the voice checker."""
+    return html.escape(s)
+
+
+def hl(s, verbatim=False):
+    """Headline markup: [[word]] in Climb Orange, _word_ in italic. A verbatim headline is a guest's words (see said)."""
+    if not verbatim:
+        PRINTED.append(re.sub(r"\[\[(.+?)\]\]|_(.+?)_", lambda m: m.group(1) or m.group(2), s))
     s = html.escape(s)
     s = re.sub(r"\[\[(.+?)\]\]", r'<span class="o">\1</span>', s)
     return re.sub(r"_(.+?)_", r"<em>\1</em>", s)
@@ -76,6 +82,7 @@ class Pool:
         self.qi = 0
         self.used = set()
         self.reserved = set()  # only handed out when named exactly, never through a * pattern
+        self.avoid = lambda f: False  # never handed out
 
     def take(self, who):
         """The quote from one named source, moved up so it is handed out now and never again."""
@@ -117,6 +124,7 @@ class Pool:
                      if folder + f not in self.reserved]
         else:
             found = [stem] if os.path.exists(os.path.join(HERE, folder, stem)) else []
+        found = [f for f in found if not self.avoid(folder + f)]
         taken = {look(u) for u in self.used}
         for f in found:
             if folder + f not in self.used and look(folder + f) not in taken and ok(folder + f):
@@ -212,7 +220,7 @@ def quote(q, size=30, cls="qbox", style=""):
     if cls == "qbox":
         size = max(size, 19)  # white on Climb Orange: 19px bold at least
     return ('<figure class="quote %s" style="%s"><blockquote style="font-size:%dpx">&ldquo;%s&rdquo;</blockquote>'
-            '<figcaption>%s</figcaption></figure>' % (cls, style, size, t(text), t(who)))
+            '<figcaption>%s</figcaption></figure>' % (cls, style, size, said(text), t(who)))
 
 
 def qsize(q, big=34, small=24):
@@ -221,9 +229,18 @@ def qsize(q, big=34, small=24):
     return big if n < 70 else (big - 4 if n < 120 else (small + 2 if n < 190 else small))
 
 
-def head(eyebrow, headline, size=86, width=1000):
+def head(eyebrow, headline, size=86, width=1000, quoted=False):
     return ('<div class="eb" style="font-size:22px">%s</div>'
-            '<h2 class="h" style="font-size:%dpx;max-width:%dpx;margin-top:26px">%s</h2>' % (t(eyebrow), size, width, hl(headline)))
+            '<h2 class="h%s" style="font-size:%dpx;max-width:%dpx;margin-top:26px">%s</h2>'
+            % (t(eyebrow), " quoted" if quoted else "", size, width,
+               ("&ldquo;%s&rdquo;" if quoted else "%s") % hl(headline, verbatim=quoted)))
+
+
+def pay_badges(h=56, gap=14):
+    """The three payment option badges in one row, at the height given."""
+    return ('<div class="pay" style="gap:%dpx">%s</div>'
+            % (gap, "".join('<img src="assets/pay/%s.svg" alt="%s" style="height:%dpx">' % (f, n, h)
+                            for f, n in (("klarna", "Klarna"), ("paypal", "PayPal"), ("afterpay", "Afterpay")))))
 
 
 class Brochure:
@@ -309,6 +326,13 @@ CSS = """
 .badge small{font-size:19px;font-weight:700;margin-bottom:6px}
 .price{display:inline-flex;align-items:baseline;gap:14px;white-space:nowrap;background:var(--db);color:var(--w);font-family:Montserrat;font-weight:800;
   font-size:52px;padding:14px 26px;border-radius:10px}
+.cite{margin-top:16px;font-family:Montserrat;font-weight:800;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--deep)}
+.cite::before{content:"";display:inline-block;width:40px;height:5px;border-radius:3px;background:var(--o);vertical-align:middle;margin-right:14px}
+.pay{display:flex;align-items:center} .pay img{display:block;border-radius:6px}
+.paynote{font-family:Montserrat;font-weight:800;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--ch);margin-bottom:8px}
+.fnote{position:absolute;display:flex;align-items:center;justify-content:space-between;gap:40px;border-top:2px solid rgba(36,35,34,.15);padding-top:18px}
+.fnote p{margin:0;font-size:21px;line-height:1.45;color:var(--ch)}
+.feesbox{position:absolute;background:var(--db);color:var(--w);border-radius:12px;padding:28px 36px;font-size:26px;line-height:1.45;font-weight:700}
 .price small{font-size:22px;font-weight:700;color:var(--tint)}
 .row{display:flex;gap:28px;align-items:flex-start}
 .row h3{font-family:Montserrat;font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:-.005em;color:var(--w)}
@@ -419,18 +443,18 @@ STAND_TALKS = {B + "expo_floor_052a3109.jpg", B + "expo_floor_052a3113.jpg"}
 SET_ASIDE = {B + "stage_020726018climb26.jpg", B + "expo_floor_052a5456.jpg", B + "entrance_arrivals.jpg"}
 
 
-def what(bk, names, first=WHAT_PHOTOS, headline="shared.what.headline"):
-    """White page: what Climb27 is, beside a wall of photos, with one quote under the words."""
+def what(bk, names, first=WHAT_PHOTOS):
+    """White page: what Climb27 is, beside a wall of photos. The headline is a guest's own words, with their name under it."""
     names = tuple(first) + tuple(names)
-    rows = "".join('<div class="row" style="margin-top:20px;align-items:center">%s<p style="margin:0;font-size:21px">%s</p></div>'
-                   % (illo(icon, size=54), t(f[0])) for icon, f in zip(("calendar", "people", "shopfront"), C["shared.what.facts"]))
+    rows = "".join('<div class="row" style="margin-top:18px;align-items:center">%s<p style="margin:0;font-size:21px">%s</p></div>'
+                   % (illo(icon, size=54), t(f[0]))
+                   for icon, f in zip(("calendar", "people", "shopfront", "festival-tent"), C["shared.what.facts"]))
     photos = collage(bk.pool, 960, 80, 840, 860, [[("h", 1.15), 3, 2], [2, 2, 2], [2, 3]], names)
-    q = bk.pool.quote()
     inner = ('<div style="position:absolute;left:120px;top:90px;width:770px">%s'
-             '<p class="copy" style="margin-top:26px;font-size:22px">%s</p><div style="margin-top:28px">%s</div>'
-             '<div style="margin-top:40px">%s</div></div>%s'
-             % (head(C["shared.what.eyebrow"], C[headline], 64, 770), t(C["shared.what.body"]), rows,
-                quote(q, qsize(q, 26, 19), "qbox"), photos))
+             '<div class="cite">%s</div>'
+             '<p class="copy" style="margin-top:24px;font-size:22px">%s</p><div style="margin-top:22px">%s</div></div>%s'
+             % (head(C["shared.what.eyebrow"], C["shared.what.headline"], 64, 770, quoted=True), t(C["shared.what.cite"]),
+                t(C["shared.what.body"]), rows, photos))
     bk.add("wh", inner)
 
 
@@ -479,7 +503,9 @@ def quote_page(bk, cls, eyebrow, headline, n_quotes):
     cells = "".join('<div style="break-inside:avoid;margin-bottom:18px">%s</div>' % quote(q, qsize(q, 23, 20), style(i, q), "padding:26px 30px")
                     for i, q in enumerate(qs))
     inner = ('<div style="position:absolute;left:120px;top:80px">%s</div>' % head(eyebrow, headline, 60, 1600)
-             + (stretch_cols(qs, 4, style, lambda q: qsize(q, 20, 19), "left:120px;right:120px;top:230px;bottom:130px", 16, "20px 24px")
+             + (stretch_cols(qs, 4, style, lambda q: qsize(q, 19, 17) if len(qs) > 13 else qsize(q, 20, 19),
+                             "left:120px;right:120px;top:%dpx;bottom:124px" % (205 if len(qs) > 13 else 230), 16,
+                             "18px 22px" if len(qs) > 13 else "20px 24px")
                 if len(qs) > 11 else stretch_cols(qs, 3, style, lambda q: qsize(q, 23, 20), "left:120px;right:120px;top:250px;bottom:130px")))
     bk.add(cls, inner)
 
@@ -534,7 +560,7 @@ EXHIBITOR_PHOTOS = (B + "expo_floor_*", P + "exhibitor_*", B + "expo_stand_*", B
                     B + "entrance_arrivals.jpg", P + "meetings_*", P + "joy_*", P + "crowds_*", P + "food_and_vendors_*", P + "media_*")
 
 
-def stand_page(bk, cls, key, names, size_text, unit=None, render=None):
+def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False):
     """One stand: the words on the left at reading size, a large photo, a second photo or render, and a quote that fills its cell."""
     pool = bk.pool
     items = C["exhibitor.%s.includes" % key]
@@ -542,16 +568,21 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None):
     inc = "".join("<li>%s</li>" % t(i[0]) for i in items)
     price = '<div class="price" style="margin-top:22px">%s%s</div>' % (
         t(C["exhibitor.%s.price" % key]), ("<small>%s</small>" % t(unit)) if unit else "")
+    if pay:
+        price = ('<div style="display:flex;align-items:flex-end;gap:26px">%s<div><div class="paynote">%s</div>%s</div></div>'
+                 % (price, t(C["exhibitor.pay.badge"]), pay_badges(44, 10)))
+    body = C.get("exhibitor.%s.body" % key)
     strap_col = "#7A3B16" if cls == "gr" else "var(--deep)"
     text = ('<div style="position:absolute;left:120px;top:96px;width:740px">'
             '<span class="tag" style="font-size:20px;color:%s">%s</span>'
             '<div style="margin-top:26px">%s</div>'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:34px;color:%s;line-height:1.2">%s</div>'
-            '<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>'
+            '%s'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--ch)">Includes</div>'
             '<ul class="list copy" style="margin-top:14px;font-size:24px;line-height:1.35;%s">%s</ul>%s</div>'
             % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72, ital_last=False), strap_col,
-               t(C["exhibitor.%s.strap" % key]), t(C["exhibitor.%s.body" % key]),
+               t(C["exhibitor.%s.strap" % key]),
+               ('<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>' % t(body)) if body else "",
                "columns:2;column-gap:32px" if many else "", inc, price))
     big = tile(pool.photo(*names), 940, 96, 860, 440)
     if render:
@@ -568,6 +599,19 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None):
     badge = '<div class="badge" style="left:850px;top:430px;font-size:%dpx"><small>%s</small>%s</div>' % (
         28 if "<br>" in dims else 32, "from" if size_text.lower().startswith("from") else "size", dims)
     bk.add(cls, text + big + low + right + badge)
+
+
+def pay_page(bk, cls):
+    """Payment options: the three badges large, three steps, and the fees line set apart so nobody misses it."""
+    steps = "".join('<div class="step" style="padding-top:150px"><div class="numo" aria-hidden="true" style="font-size:150px">%02d</div><h3>%s</h3><p>%s</p></div>'
+                    % (n, t(s_[0]), t(s_[1])) for n, s_ in enumerate(C["exhibitor.pay.steps"], 1))
+    bk.add(cls, '<div style="position:absolute;left:120px;top:96px;width:1000px">%s'
+           '<p class="copy" style="margin-top:26px;font-size:26px">%s</p></div>'
+           '<div style="position:absolute;left:1180px;top:110px;width:620px">%s</div>'
+           '<div style="position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px">%s</div>'
+           '<div class="feesbox" style="left:120px;right:120px;top:790px">%s</div>'
+           % (head(C["exhibitor.pay.eyebrow"], C["exhibitor.pay.headline"], 72, 1000), t(C["exhibitor.pay.intro"]),
+              pay_badges(110, 22), steps, t(C["exhibitor.pay.fees"])))
 
 
 def setup_page(bk, cls, key, after, after_pos="center"):
@@ -608,21 +652,26 @@ def exhibitor():
     pool.used.update(SAME_MOMENT)
     pool.used.add(B + "expo_floor_maf-233.jpg")
     pool.used.update(STAND_TALKS | SET_ASIDE)
+    # The owner found the pack too blue: every photo that is mostly blue light is passed over,
+    # except the stand, size and setup photos the owner picked and the page photos named below.
+    keep = PICKS | {B + "expo_stand_think-big.jpg", B + "expo_stand_girls-and-tech_empty.jpg", B + "print_stand_instantprint.jpg",
+                    B + "expo_floor_maf-336.jpg", B + "expo_stand_natwest_busy.jpg"}
+    pool.avoid = lambda f: f not in keep and too_blue(f)
     # 1 Cover: the Girls & Tech stand without people, so the words on the left never cut a person in half.
     cover(bk, C["exhibitor.cover.line1"], C["exhibitor.cover.line2"], pool.photo(B + "expo_stand_girls-and-tech_empty.jpg"), "right 50%", "", "fade-cover")
     # 2 What Climb27 is, beside a wall of exhibitor photos.
     what(bk, EXHIBITOR_PHOTOS)
 
     # 3 Why exhibit, on Charcoal: orange grounds carry big words only, never small text.
-    reasons = "".join('<div class="row" style="margin-bottom:24px">%s<div><h3>%s</h3><p>%s</p></div></div>'
-                      % (illo(r[0], size=66), t(r[1]), t(r[2])) for r in C["exhibitor.why.reasons"])
+    reasons = "".join('<div class="row" style="margin-bottom:16px">%s<div><h3>%s</h3><p>%s</p></div></div>'
+                      % (illo(r[0], size=60), t(r[1]), t(r[2])) for r in C["exhibitor.why.reasons"])
     q = pool.quote()
     # The hammer swing gets a tile close to its own shape, held to the top, so the hammer and both faces stay in.
     inner = (tile(pool.photo(B + "expo_stand_think-big.jpg"), 120, 96, 700, 400, "center top")
              + collage(pool, 120, 514, 700, 202, [[1, 1]], EXHIBITOR_PHOTOS)
              + '<div class="qabs" style="left:120px;top:740px;width:700px">%s</div>' % quote(q, qsize(q, 28, 20), "qbox")
-             + '<div style="position:absolute;left:900px;top:90px;width:900px">%s<div style="margin-top:34px">%s</div></div>'
-             % (head(C["exhibitor.why.eyebrow"], C["exhibitor.why.headline"], 72, 900), reasons))
+             + '<div style="position:absolute;left:900px;top:80px;width:900px">%s<div style="margin-top:26px">%s</div></div>'
+             % (head(C["exhibitor.why.eyebrow"], C["exhibitor.why.headline"], 64, 900), reasons))
     bk.add("ch", inner)
 
     # 4 Stand options, each with a real photo. The colour wheel stand is a starter pod, whatever its file name says.
@@ -632,22 +681,24 @@ def exhibitor():
         unit = C.get("exhibitor.%s.unit" % key)
         # Every card has the same parts in the same order, and the unit line is always there, so the prices form one line.
         # Titles keep room for two lines, so a title that wraps never moves the description or the price.
-        cards.append('<div class="cardx t2"><div class="img" style="height:170px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
+        cards.append('<div class="cardx t2"><div class="img" style="height:130px">%s</div><div class="body"><div class="k">%s</div><h3>%s</h3>'
                      '<div class="d" style="font-weight:700;color:var(--ch)">%s</div><div class="d" style="margin-top:8px">%s</div>'
                      '<div class="end">%s<small>%s</small></div></div></div>'
                      % (photo(pool.photo(*(names + EXHIBITOR_PHOTOS))), t(C["exhibitor.%s.eyebrow" % key]), t(C["exhibitor.%s.name" % key]),
                         t(C["exhibitor.%s.size" % key]), t(C["exhibitor.%s.card" % key]), t(C["exhibitor.%s.price" % key]),
                         t(unit) if unit else "&nbsp;"))
     inner = ('<div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px">%s</p></div>'
-             '<div class="cards" style="left:120px;right:120px;top:394px;bottom:130px;grid-template-columns:repeat(4,1fr)">%s</div>'
-             % (head(C["exhibitor.stands.eyebrow"], C["exhibitor.stands.headline"], 72, 1500), t(C["exhibitor.stands.intro"]), "".join(cards)))
+             '<div class="cards" style="left:120px;right:120px;top:310px;bottom:196px;grid-template-columns:repeat(4,1fr)">%s</div>'
+             '<div class="fnote" style="left:120px;right:120px;bottom:112px"><p>%s<br>%s</p>%s</div>'
+             % (head(C["exhibitor.stands.eyebrow"], C["exhibitor.stands.headline"], 72, 1500), t(C["exhibitor.stands.intro"]), "".join(cards),
+                t(C["shared.vat"]), t(C["shared.payment"]), pay_badges(48, 12)))
     bk.add("gr", inner)
 
     # 5-7 One page per stand. The starter pod shows the standard pods; the custom-built pods show what an expo stand can become.
     stand_page(bk, "wh", "pod", POD_PHOTOS[1:] + EXHIBITOR_PHOTOS,
-               C["exhibitor.pod.size"])
+               C["exhibitor.pod.size"], pay=True)
     stand_page(bk, "gr", "display", DISPLAY_PHOTOS[1:] + EXHIBITOR_PHOTOS,
-               C["exhibitor.display.size"], render=B + "stand_display_render.jpg")
+               C["exhibitor.display.size"], render=B + "stand_display_render.jpg", pay=True)
     stand_page(bk, "wh", "expo", EXPO_PHOTOS[1:] + EXHIBITOR_PHOTOS,
                C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"])
     # 8 Every expo size, 9 how simple the day is.
@@ -668,9 +719,9 @@ def exhibitor():
              '<ul class="list" style="margin-top:14px;font-size:20px;line-height:1.4">%s</ul></div>'
              '<div style="flex:1"><div class="mont" style="font-weight:800;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--db)">Includes</div>'
              '<ul class="list" style="margin-top:14px;font-size:20px;line-height:1.4">%s</ul></div></div>'
-             '<div class="price" style="margin-top:22px">%s<small>%s</small></div></div>'
+             '<div class="price" style="margin-top:22px">%s</div></div>'
              % (t(C["exhibitor.market.name"]), hl(C["exhibitor.market.strap"]), t(C["exhibitor.market.body"]),
-                t(C["exhibitor.market.who.eyebrow"]), who, inc, t(C["exhibitor.market.price"]), t(C["exhibitor.market.unit"]))
+                t(C["exhibitor.market.who.eyebrow"]), who, inc, t(C["exhibitor.market.price"]))
              # The second New Dock celebration shot repeats the fist pump beside it, so the smoothie stall queue takes its place.
              + collage(pool, 1060, 90, 740, 540, [[1, 1, 1], [1, 1], [1, 1]],
                        (B + "food_052a2871.jpg", B + "festival_busy_*", P + "food_and_vendors_*", P + "crowds_*", P + "joy_*", B + "expo_floor_busy.jpg",
@@ -693,8 +744,10 @@ def exhibitor():
              % quote(q, qsize(q, 24, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("ch", inner)
 
+    pay_page(bk, "wh")
+
     # 10 A page of quotes, 11 a page of photos.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 13)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 14)
     # An even grid, so no conversation is cut into a thin strip; the table chat lost its faces in a wide tile.
     # The owner turned down the lone man at MTIF, the robots stand and the posed pairs (the funding stand too) for this wall,
     # wants exhibitors only (not our story wall) and each stand once (the insurance stand's posed shot is out).
@@ -731,7 +784,7 @@ def partner():
     pool.used.update(STAND_TALKS | SET_ASIDE)
     pool.reserved.update(PICKS)
     cover(bk, C["partner.cover.line1"], C["partner.cover.line2"], pool.photo(P + "stage_speakers_02.jpg"), "center 35%")
-    what(bk, PARTNER_PHOTOS, PARTNER_WHAT_PHOTOS, "partner.what.headline")
+    what(bk, PARTNER_PHOTOS, PARTNER_WHAT_PHOTOS)
 
     # 3 Why partner, on Light Grey beside a photo wall.
     cols = "".join('<div class="step" style="padding-top:190px"><div class="numo" aria-hidden="true" style="font-size:210px">%02d</div><h3>%s</h3><p>%s</p></div>'
@@ -819,7 +872,7 @@ def partner():
     bk.add("ch", inner)
 
     # NatWest, the multi-year partner, on Light Grey.
-    q1 = pool.take("NatWest")
+    q1 = pool.quote()
     q2 = pool.quote()
     inner = ('<div style="position:absolute;left:120px;top:96px;width:820px">%s'
              '<p class="copy" style="margin-top:28px;font-size:27px">%s</p>'
@@ -880,7 +933,7 @@ def partner():
     bk.add("wh", inner)
 
     # 10-11 In their words.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["partner.proof.headline"], 13)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["partner.proof.headline"], 14)
     # Group shots that lose heads in a wide tile; the wall is an even grid so no photo is cut too thin.
     # The owner swapped out the workshop handshake (crowds_04), the dancing workshop (crowds_01) and the arrivals
     # crowds (maf-30, 020726104); the coffee group on the terrace (maf-479) went too, as crowds_03 is the same terrace.
@@ -902,6 +955,25 @@ def partner():
 
 
 # ---------------------------------------------------------------- in the room
+
+_BLUE = {}
+
+
+def too_blue(path):
+    """True for a photo where cool blue light fills a fifth of the frame or more and outweighs the warm colours.
+    The exhibitor brochure passes over these on its photo walls, so the pages are not one wash of blue."""
+    if path not in _BLUE:
+        import numpy as np
+        with Image.open(os.path.join(HERE, path)) as im:
+            im = im.convert("HSV")
+            im.thumbnail((200, 200))
+            a = np.asarray(im).astype(float)
+        h, s, v = a[..., 0] * 360 / 255, a[..., 1] / 255, a[..., 2] / 255
+        blue = ((h > 185) & (h < 270) & (s > .25) & (v > .15)).mean()
+        warm = (((h < 45) | (h > 330)) & (s > .35) & (v > .3)).mean()
+        _BLUE[path] = blue >= .12 and blue > warm
+    return _BLUE[path]
+
 
 def is_light(path):
     """True for a logo drawn in white or near white, which needs a Charcoal tile to be seen."""

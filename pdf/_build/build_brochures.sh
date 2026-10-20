@@ -11,6 +11,7 @@ for b in ClimbUK Climb27; do mkdir -p "assets/logos/$b"; cp "$PACK/logos/$b"/*.s
 cp "$PACK"/photos/*.jpg "$PACK"/photos/candid/*.jpg assets/photos/
 cp "$PACK"/pdf/brochures/_build/img/*.jpg assets/brochure/
 cp "$PACK"/pdf/brochures/_build/logos/* assets/wwt/
+mkdir -p assets/pay && cp "$PACK"/pdf/brochures/_build/pay/*.svg assets/pay/
 # Pages are 1920px wide, so photos are sized to 2200px on the long edge to keep the PDFs small.
 python3 -c 'import glob
 from PIL import Image
