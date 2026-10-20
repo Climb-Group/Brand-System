@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026) and the two reviews of the Climb27 sales brochures (October 2026)
-  version: "1.9"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the two reviews of the Climb27 sales brochures (October 2026) and the review of the partners web page (October 2026)
+  version: "1.10"
 ---
 
 # ClimbUK voice
@@ -31,6 +31,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
+- **A quote names a person.** Credit every quote to a named person and their role at their organisation ("Rachel Kelly, Partnership Manager, Caspian Insurance"), never to a company alone. A quote only a company can be credited with stays off sales pages. Quote the words exactly; to shorten, use whole sentences rather than editing them.
 - **Testimonials without the date.** When a past quote goes into marketing, credit the person and organisation only: no edition, year or "Climb24 speaker" line. Pick quotes whose own words do not name an old edition ("#Climb24", "Climb 2025 next year"); a dated quote makes the festival look old.
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.
 - **Whitelabel.** No vendor or platform names (Canva, Cvent, Stripe and the like) unless the reader must recognise the integration.
