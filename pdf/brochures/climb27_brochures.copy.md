@@ -19,7 +19,7 @@ The Festival for Business Growth
 Climb27
 
 <!-- @shared.what.headline -->
-The [[best]] business event this _year_ so far
+The [[best]] business event this _year_
 
 <!-- @shared.what.cite -->
 Johnny J Pawlik, CEO, Mantra Media Ltd
