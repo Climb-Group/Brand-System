@@ -144,18 +144,11 @@ Describe these as options to build from, like the rest of a partnership. Never s
   - Show each option with a real Climb26 photo of it, never an older edition.
 - **The closing page is the poster.** A full Climb Orange page over a festival photo under the orange fade (a crowd or the stage, never a face), with a huge white headline (one word in Dark Brown italic), a round Dark Brown "Book a call" button under it, and one white card on the right holding the QR code, "Scan to book a call" and the contact lines, centred, with the web address in full (www.climb-uk.com/partnerships). One logo only, Climb27 in mono white, bottom left; the VAT line in a small Dark Brown tag, bottom right. Only large white text sits on the orange. Keep it uncluttered.
 
-## Who was there pack
+## In the room at ClimbUK
 
-A short proof pack sent with the sales brochures, built from www.climb-uk.com/who-was-there. It shows the names a reader recognises, not everyone who came:
+Both sales brochures end with one page of the best-known organisations in the room at ClimbUK, as a wall of their logos, just before the closing poster. It is the proof that comes with the offer: the names a reader recognises, not everyone who came. There is no separate proof pack; the full story of who came to each edition lives on www.climb-uk.com/who-was-there.
 
-1. **Speakers people will know**, from every edition: one or two pages.
-2. **Sessions people will know**, from every edition, such as those run with well-known companies: one or two pages.
-3. **Testimonials**: from Climb26 and about ClimbUK in general, as many pages as the quotes need, following the quote rules above.
-4. **In the room at ClimbUK**: one page of the best-known organisations.
-
-Leave out long lists of every exhibitor or attendee: they add length, not proof.
-
-Name ClimbUK, not single editions, in this pack's headings, labels and attributions ("What people said about ClimbUK", "ClimbUK speaker"). Many people and organisations came to more than one edition, and the edition records are incomplete. Count returning organisations by edition only where the records support it.
+Leave out long lists of every exhibitor or attendee: they add length, not proof. Name ClimbUK, not single editions, on this page.
 
 ## The share kit
 

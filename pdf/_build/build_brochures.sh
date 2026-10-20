@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rebuilds the Climb27 exhibitor and partner brochures and the Who was there pack (pdf/brochures/).
+# Rebuilds the Climb27 exhibitor and partner brochures (pdf/brochures/).
 # Needs Python 3 with Pillow, numpy and segno, and Node with Playwright (Chromium). Run from anywhere.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -18,7 +18,7 @@ for f in glob.glob("assets/photos/*.jpg"):
     im=Image.open(f); im.thumbnail((2200,2200)); im.convert("RGB").save(f,quality=84,optimize=True,progressive=True)'
 cp "$PACK"/illustrations/*.svg assets/illus/
 python3 brochures.py
-python3 who_was_there.py
+
 # Every printed word through the climb-voice checker.
 python3 "$PACK/.agents/skills/climb-voice/scripts/check_copy.py" brochures_printed.txt
 # WCAG 2.2 AA: measure every run of text against what is behind it before printing.

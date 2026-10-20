@@ -18,6 +18,10 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.abspath(os.path.join(HERE, "..", ".."))
 COPY = os.path.join(PACK, "pdf", "brochures", "climb27_brochures.copy.md")
+# The "In the room at ClimbUK" logo page, copied word for word from the public Who was there page (wwt_from_page.py
+# writes it); its logos are in assets/wwt/.
+ROOM = os.path.join(PACK, "pdf", "brochures", "climb27_who-was-there.copy.md")
+W = "assets/wwt/"
 P = "assets/photos/"
 B = "assets/brochure/"
 QR_URL = "https://www.climb-uk.com/partnerships?utm_source=brochure&utm_medium=pdf&utm_campaign=climb27_%s"
@@ -45,6 +49,7 @@ def load_copy(path=COPY):
 
 
 C = load_copy()
+C.update({k: v for k, v in load_copy(ROOM).items() if k.startswith("wwt.names.")})
 PRINTED = []  # every string placed on a page, for the copy checker
 
 
@@ -357,6 +362,10 @@ CSS = """
 .fade-cover{background:radial-gradient(ellipse 70% 85% at 0% 100%,rgba(var(--or),.92),rgba(var(--or),.6) 40%,rgba(var(--or),0) 75%),
   linear-gradient(90deg,rgba(var(--ink),.82),rgba(var(--ink),.6) 38%,rgba(var(--ink),.12) 62%,rgba(var(--ink),0) 78%),
   linear-gradient(180deg,rgba(var(--ink),0) 70%,rgba(var(--ink),.8))}
+.ltile{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;border:2px solid #E9E9E9}
+.ltile img{max-width:100%;max-height:100%;object-fit:contain}
+.ltile.dark{background:var(--ch)}
+.intro{font-size:26px;line-height:1.5;color:#404C68}
 """
 
 
@@ -696,6 +705,8 @@ def exhibitor():
                EXHIBITOR_WALL + EXHIBITOR_PHOTOS + (P + "crowds_*", P + "joy_*"), rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 
     # 14 Book a call, on a poster of a busy expo aisle (a 2200px photo, so it stays sharp at full page).
+    # The organisations in the room at ClimbUK, from the Who was there page, before the closing poster.
+    room_page(bk)
     cta(bk, C["exhibitor.cta.line1"], C["exhibitor.cta.line2"], C["exhibitor.cta.button"], C["exhibitor.cta.qr"],
         pool.photo(B + "expo_floor_maf-336.jpg", *EXHIBITOR_PHOTOS), "exhibitor", "center 40%")
     return bk
@@ -883,9 +894,40 @@ def partner():
                 B + "expo_hall_wide.jpg", B + "branding_maf-382.jpg", B + "stage_maf-278.jpg", P + "joy_*", P + "crowds_*") + PARTNER_PHOTOS,
                rows=((1, 1, 1, 1), (1, 1, 1, 1), (1, 1, 1, 1)))
 
+    # The organisations in the room at ClimbUK, from the Who was there page, before the closing poster.
+    room_page(bk)
     cta(bk, C["partner.cta.line1"], C["partner.cta.line2"], C["partner.cta.button"], C["partner.cta.qr"],
         pool.photo(B + "stage_020726049climb26.jpg", P + "climb_crowd_wide.jpg", *PARTNER_PHOTOS), "partner", "center 100%", "145% auto")
     return bk
+
+
+# ---------------------------------------------------------------- in the room
+
+def is_light(path):
+    """True for a logo drawn in white or near white, which needs a Charcoal tile to be seen."""
+    import numpy as np
+    with Image.open(os.path.join(HERE, path)) as im:
+        a = np.asarray(im.convert("RGBA")).astype(float)
+    ink = a[..., :3][a[..., 3] > 128]
+    if not len(ink):
+        return False
+    return ((ink @ [0.2126, 0.7152, 0.0722]) < 200).mean() < 0.03
+
+
+def room_page(bk):
+    """The last content page of both brochures: the organisations in the room at ClimbUK, as a wall of logos."""
+    logos = C["wwt.names.logos"]
+    cols, gap, pad, top, w, h = 12, 14, 12, 340, 1680, 610
+    rows = -(-len(logos) // cols)
+    th = (h - gap * (rows - 1)) / rows
+    cells = "".join('<div class="ltile%s" style="padding:%dpx"><img src="%s%s" alt="%s"></div>'
+                    % (" dark" if is_light(W + r[0]) else "", pad, W, html.escape(r[0]), html.escape(r[1] if len(r) > 1 else ""))
+                    for r in logos)
+    bk.add("gr", '<div style="position:absolute;left:120px;top:80px">%s</div>' % head(C["wwt.names.eyebrow"], C["wwt.names.headline"], 66, 1100)
+           + '<p class="intro" style="position:absolute;left:1260px;right:120px;top:120px">%s</p>' % t(C["wwt.names.intro"])
+           + '<div style="position:absolute;left:120px;top:%dpx;width:%dpx;height:%dpx;display:grid;'
+             'grid-template-columns:repeat(%d,1fr);grid-template-rows:repeat(%d,%.1fpx);gap:%dpx">%s</div>'
+           % (top, w, h, cols, rows, th, gap, cells))
 
 
 def main():
