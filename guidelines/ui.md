@@ -9,7 +9,7 @@ For UI engineers and web designers. Values are the brand tokens, in the download
 - 12-column grid with a `layout-gutter` (24px) gap. Sections are full bleed; content sits in the container.
 - Vertical rhythm comes from the space scale: 4, 8, 12, 16, 24, 32, 48, 64, and `space-section` (96px) between web sections (64px on phones).
 - Asymmetry is welcome: a 7 and 5 split, or a heading in 8 columns with nothing beside it, reads more like a festival poster than three equal columns.
-- Long sales pages stay short to read. Under the hero, a row of jump links (44px targets) to each part of the page. Each audience gets a photo card (photo, name, its reason in one line, the whole card a link) leading to a short page of its own: why it suits them, one or two quotes from people like them, the questions they ask first, then one next step. Related option sets share one section of tabs instead of a section each. Photo cards sit two across on phones, four on desktop, with titles that wrap between words.
+- Long sales pages stay short to read. Under the hero, a row of jump links (44px targets) to each part of the page. Each audience gets a photo card (photo, name, its reason in one line, the whole card a link) leading to a short page of its own: why it suits them, three quotes from people like them, the questions they ask first, the three options we recommend for them (a first pick, one to add, one to go further), then one next step. A quotes section always shows three quotes; borrow a nearby audience's quote to make three. Related option sets share one section of tabs instead of a section each. Photo cards sit two across on phones, four on desktop, with titles that wrap between words.
 
 ## Surfaces and elevation
 
