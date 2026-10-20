@@ -308,7 +308,7 @@ Life on the _expo_ [[floor]]
 - I had unbelievable potential client opportunities through our workshop delivery and the quality people who scheduled networking introductions with me. | Daniella Wainwright, Wainwright Consulting
 - A huge thank you to Gordon Bateman and the ClimbUK team for bringing together such a diverse and impressive group of people from across the UK's innovation ecosystem. | Rajinder Bhuhi, Loughborough University
 - The networking opportunities offered from the expo area, mixers and VIP drinks sessions, resulted in many meaningful conversations and countless valuable connections | Serena Fordham, ProspHER
-- This was one of the best events I have exhibited at. An amazing team, speakers and delegates. Thanks for creating such a wonderful and professional experience for all | Tim Bennett, Powerhouse Digital Limited
+- Great opportunity to connect with people, and gain new insights and inspiration. | Harpreet Kaur, Capital Enterprise
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - One of the most stimulating and diverse conferences we have ever seen | Karen Brooks, SetSquared
 - A fantastic event... Great people | Jennifer Byrne, former CTO, Microsoft
@@ -550,7 +550,7 @@ They _keep_ [[coming back]]
 - It doesn't feel like a conference. I am seeing loads of connections going on | Mel Elyard, Innovate UK
 - Seeing young founders making great headways into the business world with ideas dreamt up in bedrooms was very inspiring. | Dan Boys, Wildfi Ltd
 - it was genuinely invigorating to have so many great conversations with investors, founders, enterprise agencies, government, ecosystem builders from across the UK and globally | Barry McDonald, CodeBase
-- This was one of the best events I have exhibited at. An amazing team, speakers and delegates. Thanks for creating such a wonderful and professional experience for all | Tim Bennett, Powerhouse Digital Limited
+- I spoke to some fantastic individuals and learnt more about navigating the business and investment landscape. | Katie Fradley, Flowlio
 - A fantastic chance to celebrate innovative ideas, network with businesses and investors, and be a part of an ecosystem that encourages big thinking and supports you to make it happen. | Shanya Sachdeva, Shanya's Staffing Ltd
 - Partnerships like this are essential in creating new opportunities for innovators to connect with the right people, from clinicians and health leaders to investors and industry partners. | Dr Neville Young, Health Innovation Yorkshire & Humber
 - Great opportunity to connect with people, and gain new insights and inspiration. | Harpreet Kaur, Capital Enterprise
