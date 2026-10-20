@@ -25,6 +25,9 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
+- Credit each quote to a named person and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly.
+- For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
+- The smallest stand is the "Startup pod", never "starter pod".
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
 - Big moments, not keynotes. Clinics are roundtables or workshops.

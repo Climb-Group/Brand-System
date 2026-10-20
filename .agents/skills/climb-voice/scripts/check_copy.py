@@ -74,6 +74,8 @@ WORD_HINTS = [
     # Second review of the Climb27 sales brochures, October 2026.
     (r"(?<![@\w./-])climb-uk\.com", "write the web address in full on print and PDFs: www.climb-uk.com/..."),
     (r"\bdeal flow\b", "jargon: explain it in the sentence or link it to the glossary"),
+    # Third review of the Climb27 sales brochures, October 2026.
+    (r"\bstarter pods?\b", "the smallest stand is the 'Startup pod'"),
 ]
 
 BEFORE_ANNOUNCEMENT = [
