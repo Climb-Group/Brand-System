@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026) and the two reviews of the Climb27 sales brochures (October 2026)
-  version: "1.11"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026) the two reviews of the Climb27 sales brochures (October 2026) and the two reviews of the partners web pages (October 2026)
+  version: "1.13"
 ---
 
 # ClimbUK visual style
@@ -75,6 +75,8 @@ These carry the energy. Use two or three per piece, not all of them at once.
 - **Outline numerals:** giant numbers in Montserrat ExtraBold (800) with no fill and a Climb Orange stroke of about 1% of the size (4px at 380px, never under 2px), letter spacing -0.04em. For section numbers 01 to 10 (decorative, `aria-hidden`, with the real heading in text beside them) and the odd big stat. One size per view, numbers only. Rules in `guidelines/ui.md`, "Outline numerals"; web classes `climb-outline-num`, `climb-outline-num-sm`, `climb-numbered`, `climb-outline-marquee`.
 - **Pin cards:** white cards with the icon in a large Climb Orange disc (white ring, orange glow) over the top edge, centred title and two lines of text, and a Climb Orange edge along the foot. For lists of what is included and options to add.
 - **Pull links:** a small uppercase line at the foot of a section with a down arrow, handing the reader on.
+
+**Long sales pages stay short to read.** A page that sells to many audiences (partnerships, exhibiting) gives each audience a photo card that leads to a short page of its own (why it suits them, three quotes from people like them, the three options we recommend first, one next step), puts a row of jump links under the hero, and groups related option sets (branding, app, screens, zones) in one section of tabs rather than a section each. A quotes section always shows three. Scroll entrances slide but never start invisible, so a full-page screenshot never shows blank cards. Neighbouring sections never share a ground unless one carries on the other, and every title, card titles included, is display type: uppercase, bold, with one word in orange and one in italic. Rules in `guidelines/ui.md`, "Layout", and `guidelines/motion.md`.
 
 Motion, elevation and UI states are in `guidelines/` (`motion.md`, `ui.md`); print colours (Pantone, CMYK, RAL) in `print.md`. On the web, all of these are ready-made as live components in `components/hub/` and as website blocks in the website module.
 
