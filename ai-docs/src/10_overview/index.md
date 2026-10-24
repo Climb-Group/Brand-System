@@ -64,6 +64,7 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 ### Release the templates and motion clips
 
 - `.github/workflows/release.yml` runs on its own on every push to main; never add a manual-only step to it.
+- The installers in `templates/install` take `--skip-video` and `--skip-fonts` (`-SkipVideo`, `-SkipFonts` on Windows), both off by default. With `--skip-fonts` nothing goes in the system font folder and the install folder keeps no `Fonts` copy, which is the list the macOS and Windows uninstallers remove, so fonts installed by a separate device management script survive an uninstall.
 - `templates` builds `Climb-Templates-<version>.zip` and publishes the `templates-v<version>` release from `templates/install/VERSION`. A published release is immutable, so a pull request that changes the package must bump `templates/install/VERSION`; the `templates version` check fails until it does.
 - `motion` renders `climb-video-motion.zip` when `templates/_build/`, `generators/motifs.py`, `tokens/`, `logos/` or the fonts change, or when no motion release exists, and publishes a new `climb-video-motion-<date>-<commit>` release.
 - Every release is created as a draft, uploaded, then published; never upload to a published release.

@@ -13,7 +13,7 @@
 # As a normal user (just you): fonts in ~/.local/share/fonts/climb, templates copied
 # into your LibreOffice template folder, Resolve titles into your Fusion templates.
 #
-# Options: --skip-video. Re-running is safe. CLIMB_TEST_ROOT prefixes target paths (testing).
+# Options: --skip-video, --skip-fonts (leave the fonts to another installer). Re-running is safe. CLIMB_TEST_ROOT prefixes target paths (testing).
 
 set -euo pipefail
 
@@ -25,9 +25,11 @@ VERSION="$(head -n1 "$PKG/VERSION" 2>/dev/null || echo "@VERSION@")"
 BRANDS="ClimbUK ClimbGroup Climb27"
 
 SKIP_VIDEO=0
+SKIP_FONTS=0
 for arg in "$@"; do
   case "$arg" in
     --skip-video) SKIP_VIDEO=1 ;;
+    --skip-fonts) SKIP_FONTS=1 ;;
   esac
 done
 [ -d "$PAYLOAD" ] || { echo "Payload not found at $PAYLOAD" >&2; exit 1; }
@@ -73,13 +75,15 @@ echo "Installing Climb templates $VERSION"
 if [ -n "$ROOT" ] || [ "$(id -u)" -eq 0 ]; then
   DEST="$ROOT/opt/climb-templates"
   FONTS="$ROOT/usr/local/share/fonts/climb"
-  mkdir -p "$FONTS"
-  cp "$PAYLOAD"/fonts/*.ttf "$PAYLOAD"/fonts/*.txt "$FONTS/"
-  chmod 644 "$FONTS"/*
+  if [ "$SKIP_FONTS" -eq 0 ]; then
+    mkdir -p "$FONTS"
+    cp "$PAYLOAD"/fonts/*.ttf "$PAYLOAD"/fonts/*.txt "$FONTS/"
+    chmod 644 "$FONTS"/*
+    copy_tree "$PAYLOAD/fonts" "$DEST/Fonts"
+  fi
   copy_tree "$PAYLOAD/office" "$DEST/Office"
   copy_tree "$PAYLOAD/themes" "$DEST/Themes"
   copy_tree "$PAYLOAD/libreoffice" "$DEST/LibreOffice"
-  copy_tree "$PAYLOAD/fonts" "$DEST/Fonts"
   if [ "$SKIP_VIDEO" -eq 0 ]; then
     copy_tree "$PAYLOAD/video" "$DEST/Video"
     if [ -d "$ROOT/opt/resolve" ]; then
@@ -100,13 +104,17 @@ if [ -n "$ROOT" ] || [ "$(id -u)" -eq 0 ]; then
   done
   mkdir -p "$ROOT/etc/skel"
   setup_user "$ROOT/etc/skel" "" link "/opt/climb-templates"
-  [ -z "$ROOT" ] && command -v fc-cache >/dev/null && fc-cache -f "$FONTS" >/dev/null
+  if [ "$SKIP_FONTS" -eq 0 ] && [ -z "$ROOT" ] && command -v fc-cache >/dev/null; then
+    fc-cache -f "$FONTS" >/dev/null
+  fi
 else
-  FONTS="$HOME/.local/share/fonts/climb"
-  mkdir -p "$FONTS"
-  cp "$PAYLOAD"/fonts/*.ttf "$PAYLOAD"/fonts/*.txt "$FONTS/"
+  if [ "$SKIP_FONTS" -eq 0 ]; then
+    FONTS="$HOME/.local/share/fonts/climb"
+    mkdir -p "$FONTS"
+    cp "$PAYLOAD"/fonts/*.ttf "$PAYLOAD"/fonts/*.txt "$FONTS/"
+    command -v fc-cache >/dev/null && fc-cache -f "$FONTS" >/dev/null
+  fi
   setup_user "$HOME" "" copy ""
-  command -v fc-cache >/dev/null && fc-cache -f "$FONTS" >/dev/null
 fi
 
 echo "Done. In LibreOffice: File, New, Templates, then pick a brand folder."
