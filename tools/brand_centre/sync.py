@@ -2,9 +2,9 @@
 
 The library is where people edit the pack. GitHub runs this script, so no computer has to be on.
 
-    python3 tools/brand_centre/sync.py pull       # library edits -> the working tree (the workflow opens a PR)
-    python3 tools/brand_centre/sync.py push       # main -> the library, after every merge
-    python3 tools/brand_centre/sync.py restore    # put main back over library edits nobody merged
+    python3 tools/brand_centre/sync.py pull       # library edits -> the working tree (the workflow commits them)
+    python3 tools/brand_centre/sync.py push       # main -> the library, after every push to main
+    python3 tools/brand_centre/sync.py restore    # put main back over library edits not in git
     python3 tools/brand_centre/sync.py status     # list library edits, change nothing
 
 The script talks to the library through rclone. BRAND_CENTRE_REMOTE names the remote (default ":onedrive:",
@@ -159,9 +159,9 @@ def pull():
 def push(restore=False):
     """Send main to the library and save a fresh manifest.
 
-    Library edits nobody has merged keep their manifest entry, so the next pull still finds them, unless main
-    changed the same file (main wins; the edit is already in the open pull request, because the workflow pulls
-    before it pushes) or restore is set (main goes back over every edit).
+    Library edits not yet in git keep their manifest entry, so the next pull still finds them, unless main
+    changed the same file (main wins; the workflow commits library edits before it pushes, so this only happens
+    when that commit was refused) or restore is set (main goes back over every edit).
     """
     head = git("rev-parse", "HEAD").strip()
     manifest = read_manifest()
@@ -193,14 +193,14 @@ def push(restore=False):
     files = {}
     for path, entry in listing.items():
         if path in pending_changed and path not in sent and path in old_files:
-            files[path] = old_files[path]  # an unmerged library edit: keep it findable
+            files[path] = old_files[path]  # a library edit not in git yet: keep it findable
         elif path in pending_changed and path not in sent:
             continue  # a file someone added in the library: still an edit
         else:
             files[path] = entry
     for path in pending_deleted:
         if path not in sent and path in old_files:
-            files[path] = old_files[path]  # an unmerged library delete: keep it findable
+            files[path] = old_files[path]  # a library delete not in git yet: keep it findable
     write_manifest(head, files)
     print("Sent to the library: %d uploaded, %d removed, at %s." % (len(upload), len(remove), head[:7]))
     return 0
