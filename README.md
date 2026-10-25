@@ -25,6 +25,7 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 | `templates/` | Office templates (Word, Excel, PowerPoint) and video templates (Premiere Pro, DaVinci Resolve). |
 | `intune/` | PowerShell scripts that put the brand on company devices through Microsoft Intune: fonts, Office templates and brand defaults, wallpapers, Company Portal branding, and the default email font. |
 | `ai/` | Topics and instructions that let AI assistants use the brand. |
+| `internal/` | Team-only material, such as research and testimonial analysis. Never committed: only `internal/README.md` is in the repository, and the team's computers copy the folder into the team's brand centre library. |
 | `.agents/skills/` | Agent Skills: `climb-voice` (copy rules and a copy checker) and `climb-visual-style` (visual rules), plus `climb-odoo-pages`, extra rules used only when the brand goes on an Odoo website. `.claude/skills` points here. The other skills there are the shared engineering standards synced from `Resnovas/.github`; `skills-lock.json` keeps them out of `npx skills`. |
 
 ## Change a colour or a size
@@ -42,7 +43,16 @@ Everything that makes ClimbUK, ClimbGroup and each edition (Climb27 and later) l
 python3 .agents/skills/climb-voice/scripts/check_copy.py path/to/copy.txt
 python3 .agents/skills/climb-voice/scripts/check_copy.py --announced path/to/copy.txt   # once the Climb27 venue is public
 echo "Your text" | python3 .agents/skills/climb-voice/scripts/check_copy.py -
+python3 .agents/skills/climb-voice/scripts/check_copy.py pdf/flyers/copy/segments/investors.copy.md   # a copy file
 ```
+
+### Copy files
+
+Every piece the pack builds keeps its words in a Markdown copy file beside its build, `<name>.copy.md`: the Climb27 flyers' words are in `pdf/flyers/copy/`. Open one in any text editor or on GitHub, change the words, and rebuild the piece. Each part of the design is marked with a comment that Markdown viewers hide, such as `<!-- @front.headline -->`, and notes for reviewers are `<!-- note: ... -->`. The format, with a full example, is in `.agents/skills/climb-voice/references/copy-files.md`.
+
+Every file in the pack has a copy file: one copy file covers all the files with the same words (a flyer's PDF and its SVGs) and lists them on its `output:` line. Run `python3 .agents/skills/climb-voice/scripts/copy_md.py coverage` to list any file that has none.
+
+Artwork also has a layered SVG beside its finished PDF or PNG, such as `pdf/flyers/segments/svg/`. Open it in Inkscape or Affinity, both free: the layers and groups follow the design (each reason row on the back of a flyer is one group with its icon, title and text), the text is live, and the photos link to `photos/`, so install the fonts from `fonts/ttf` and keep the pack's folders together. Change the words in the copy file and rebuild to update the PDF and the SVG together.
 
 ## Use the brand in an AI assistant
 
@@ -112,6 +122,34 @@ scripts/agent-setup    # installs the commit hook and editor actions, then runs 
 node --run check       # what CI runs: tokens, agent kits, dashes, agent files, LLMS.md
 node --run test        # token and AI kit tests
 ```
+
+### Shared preferences
+
+Agents share what they learn so every session starts where the last one stopped. Each preference has one home:
+
+- Brand rules go into this pack, so the brand centre shows them.
+- How the team works goes into the workspace's shared agent memory, tagged `pref:team`. It is private to workspace members and never committed here.
+- How one person likes to work with an agent stays on that person's computer only. It needs no git or GitHub account.
+
+Save a personal preference (Python 3 and, for the graph, `uv`):
+
+```bash
+python3 ai/preferences/preferences.py add "reply style" "Lead with the answer and keep it short."
+python3 ai/preferences/preferences.py show
+python3 ai/preferences/preferences.py query "reply style"
+```
+
+`add` writes a dated line to `preferences.md` in the local app data folder (`%LOCALAPPDATA%\climb-preferences` on Windows, `~/.local/share/climb-preferences` elsewhere; set `CLIMB_PREFERENCES_DIR` to move it), then builds a Graphify graph of that file and registers it, with this repository's graph, in your own Graphify global graph. `query` searches both. `index` rebuilds the graph by hand, and `path` prints where the file is. The folder sits outside OneDrive and other synced folders on purpose.
+
+Common problems:
+
+- An agent forgot a team preference: check that a workspace member accepted the note in the memory review queue; unaccepted notes stay hidden from normal recall.
+- The memory does not list this repository: add it to the workspace (the memory needs the repository indexed first). Until then agents fall back to their host's project memory.
+- `add` saved the line but the graph step failed: run `sh tools/graphify/graphify setup` once, then `python3 ai/preferences/preferences.py index`.
+
+### The code graph
+
+`graphify-out/graph.json` is a committed knowledge graph of this repository. Run `sh tools/graphify/graphify setup` once per clone (needs `uv`; it installs Graphify and git hooks that refresh the graph after each commit), then `sh tools/graphify/graphify query "<question>"`. On `main`, the `House graphify` workflow rebuilds a stale graph and opens a pull request; that needs either the organisation's bot app (variable `RESNOVAS_BOT_APP_ID`, secret `RESNOVAS_BOT_PRIVATE_KEY`) or the repository setting that allows GitHub Actions to create pull requests.
 
 The house release workflows (`House release`, `House nightly`, `House release preview`) do nothing here until the repository has a `release.config.json`; the template downloads are released separately, and the media kit exports by the `media kit` workflow below.
 

@@ -24,6 +24,19 @@ async function open(browser, file, scale) {
   return page;
 }
 
+// Chromium prints a box-shadow, filter or text-shadow as a separate soft-masked image. Chrome hides the seams,
+// but Apple Preview and printers' RIPs draw them as boxes around the shape, so print pages use flat edges only.
+function softEffects() {
+  const found = [];
+  for (const el of document.querySelectorAll('body *')) {
+    const cs = getComputedStyle(el);
+    if (cs.boxShadow !== 'none' || cs.filter !== 'none' || cs.textShadow !== 'none') {
+      found.push(el.tagName.toLowerCase() + (el.className ? '.' + String(el.className).trim().replace(/\s+/g, '.') : ''));
+    }
+  }
+  return [...new Set(found)];
+}
+
 async function flattenGradients(page, cap) {
   await page.evaluate(tag);
   const n = await cap.evaluate(tag);
@@ -65,8 +78,15 @@ async function flattenGradients(page, cap) {
 
 (async () => {
   const browser = await chromium.launch();
-  for (const f of process.argv.slice(2)) {
+  // --flat refuses a page with any soft effect; the brochures are printed, so their build passes it.
+  const flat = process.argv.includes('--flat');
+  for (const f of process.argv.slice(2).filter((a) => a !== '--flat')) {
     const page = await open(browser, f, 1);
+    const soft = flat ? await page.evaluate(softEffects) : [];
+    if (soft.length) {
+      console.error(f + ': shadows or filters print as boxes outside Chrome, use a flat edge instead: ' + soft.join(', '));
+      process.exit(1);
+    }
     const cap = await open(browser, f, 0.5);
     const n = await flattenGradients(page, cap);
     await cap.close();

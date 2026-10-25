@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   applies-to: Odoo 19 and Odoo 20 websites
-  version: "1.1"
+  version: "1.3"
 ---
 
 # ClimbUK on an Odoo website
@@ -23,6 +23,8 @@ The brand rules (`climb-visual-style`, `climb-voice`) say what a page looks and 
 7. **Same on Odoo 19 and Odoo 20.** Build and test on both until the move to Odoo 20 is done. Only the manifest version and the access file may differ; features, markup and accessibility fixes are the same.
 8. **Edits on the website are copies.** When someone saves a page in the editor, Odoo keeps a website-specific copy of that view (or of its structure). A later module update changes the original, not the copy. Say so in the module README, and make lasting changes in the source (the brand pack or the module) as well as on the page.
 9. **Copy stays translatable and on brand.** Text in views goes through the website translator, so keep copy in the arch, not in JavaScript or CSS `content:`. Run the `climb-voice` checker on it like any other public copy.
+10. **Record what you learn in the brand pack.** A brand preference or decision a person gives you while you build a page goes into the brand pack in the same piece of work: Odoo-only rules in this skill, everything else in `climb-voice` or `climb-visual-style` (see "The pack learns as it goes" in the brand pack's AGENTS.md). This copy of the skill is synced from the pack, so change it there.
+11. **Generated words come from a copy file.** A script that builds pages, blocks or emails reads every word it writes from a `<name>.copy.md` copy file beside it (the standard is `references/copy-files.md` in `climb-voice`), and writes them into the view XML at build time; never type a printed word in the script. Images a page ships get an `@alt` section there with their alt text. When someone changes words on the live page in the editor (rule 8), put the same change in the copy file, so the next build keeps it.
 
 ## How to check a page before you call it done
 

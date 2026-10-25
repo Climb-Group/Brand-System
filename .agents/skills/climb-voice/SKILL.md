@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief and the sales and partner review of the website (October 2026)
-  version: "1.3"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026) the three reviews of the Climb27 sales brochures (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
+  version: "1.11"
 ---
 
 # ClimbUK voice
@@ -24,14 +24,18 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **No emojis, no exclamation marks, no em or en dashes.** ASCII hyphen-minus only. Let design and imagery carry the energy.
 - **Never "Climb" on its own.** Write ClimbUK (the brand on the poster), ClimbGroup (the company name, for legal lines and corporate pieces; never explain how it relates to ClimbUK in copy), or the edition: Climb27, Climb26. The app is the "ClimbGroup Event App". The Investor Ladder Ltd appears only in legal and invoice text.
 - **Venue embargo.** Until ClimbUK announces it, public copy names no venue, city area, venue type or size, and does not hint ("somewhere new" and the word "venue" are both banned). After the announcement, use the line in the announcement brief. The checker takes `--announced` to switch, and loads the names it must catch from a private rules file (see the script).
-- **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them.
-- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings or an audience size. The partner pack's published figures are the exception, word for word: newsletter "read by 40,000+ people a month", website "150,000+ page views in its peak month", meetings "with an 80% follow-through rate".
+- **No internal numbers.** No attendance targets, no "thousands", no audience size, no partner counts, no booking percentages. Past edition figures appear only as ClimbUK publishes them. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
+- **No promises we cannot keep.** No guarantees. Never promise a number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine ("Find investors looking for real deal flow", "Investors here to find their next deal"). Use "find", not "meet", so nothing reads as a promised meeting; promising they will meet or back the reader is not. Partners are sold "meetings with the right people", never a number of meetings or an audience size for the event.
+- **Say who the right people are.** When a page sells "the right people", explain what makes them right for the reader (a reason to talk, a need for what they do, a door they can open), in our words. Do not repeat a list of segments a page has already given.
 - **Scarcity only when it is true.** Ticket releases really do close, so say so: name the release, its price and its state ("Open now", "Next", "Final"), and that the price goes up when the release is gone. Never invent scarcity: no "sold out", "last few" or "selling fast" unless the shop says so, and no "premier", unsupported superlatives or trademark symbols. Do not quote the share of tickets in a release ("about 5% of tickets").
 - **No hedges, no defensive wording.** No "TBC", "coming soon", "subject to", "we hope", "we never", "we do not promise". State what happens.
 - **No reports we have not agreed.** Never promise partners or sponsors an impact report or audience data. What is agreed: partners get their leads and an engagement report in the portal after the festival (new for Climb27). Sell what happens in the room.
-- **Partner and stand prices are plus VAT.** Write "£4,000 plus VAT", or state "All prices are plus value added tax (VAT)" once on the page. Never "inc VAT" for a stand or partnership price.
-- **Paying in instalments.** Stands can be paid over time with Klarna, PayPal Pay Later or Afterpay. Say the cost plainly: "A 5% financing fee is added to your total order." Not "any fee or charge is passed on to you".
+- **Partner and stand prices exclude VAT.** Write "ex. VAT" (or "plus VAT") after the price, or say once on the page that all prices exclude VAT. Never "inc VAT" for a stand or partnership price.
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
+- **Testimonials without the date.** When a past quote goes into marketing, credit the person and organisation only: no edition, year or "Climb24 speaker" line. Pick quotes whose own words do not name an old edition ("#Climb24", "Climb 2025 next year"); a dated quote makes the festival look old.
+- **Testimonials name a person.** Credit every quote to a named person and their organisation. A quote credited only to a company, or carrying a role line such as "Climb26 exhibitor", is left out. The guest's words are printed exactly as they said them; the voice rules apply to our words, not theirs.
+- **Paying in instalments.** Name the providers (Klarna, PayPal Pay Later, Afterpay) and say the fee plainly: "A 5% financing fee is added to your total order." Not "any fee or charge is passed on to you".
+- **Stand names.** The smallest stand is the "Startup pod", never "starter pod".
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.
 - **Whitelabel.** No vendor or platform names (Canva, Cvent, Stripe and the like) unless the reader must recognise the integration.
 
@@ -69,6 +73,18 @@ Sectors (Health, Creative) cut across the audiences: write for the audience, wit
 
 Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "and a budget to solve it", "at least three", "unmatched". A heading always carries a benefit: "Why Climb27?" says nothing on its own, "New clients, from the businesses you want to serve" does.
 
+## Headlines and titles
+
+From the review of the Climb27 flyers (October 2026). They apply to every headline, title and list heading, and most of all to flyers, banners, posters and social cards, which a stranger reads first.
+
+- **Open positive.** The first line says what ClimbUK is, never what it is not. "The Festival for Business Growth." works; "Not a conference. A festival for business growth." does not. The checker fails "not a conference" and its cousins. "Business with a party, not a party for business" describes the voice; it is never an opening line.
+- **Name the benefit, not the slot.** A title says what the reader gets: "Connections that lead to work", not "New partners"; "Roundtables and workshops", not "Time to talk". If a point is not a reason to come, drop it rather than give it a title: booking meetings in the app ("Plan your days") is not worth a place on a flyer.
+- **Advice from one step ahead.** When the point is peers, frame them as people a step further on who share what worked: "Advice from one step ahead", never "Founders at your stage".
+- **The investor side is part of the offer, not the headline of it.** The investor side can be mentioned, but it is never the main point of a message. "The Investor Ladder" is not a title on its own: lead with what the reader gets ("Funding that fits", "Your next step").
+- **The whole funding journey.** ClimbUK supports businesses through the whole funding journey. Never cap it: no "up to Series A", no "first cheque to Series A". Say "the whole funding journey" or "any stage of your funding journey". The checker fails "to Series A".
+- **Music is not a feature.** Only the grand opening has live music. Do not list live music or DJ sets as a reason to come; the big moments are the announcements, the ClimbAwards and the stories behind growing businesses. The checker prints a hint for "live music" and "DJ set".
+- **One orange word and one italic word** on designed pieces, and the headline still reads as a sentence without them.
+
 ## Answer the question
 
 - **Every claim gets its answer on the same page.** If a line makes the reader ask something ("two days", a price, who they will meet, what happens after), the same page answers it.
@@ -81,7 +97,7 @@ Phrases to drop: "with your eyes open", "in their patch" or "in your patch", "an
 
 ## Where the name comes from
 
-"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage.
+"Climb" comes from the Investor Ladder. A business climbs the ladder to reach the next rung, an investor who fits where it is now, and investors pass businesses up and down the ladder to the rung that suits what they need. Use this story when someone asks about the name, in an about page, a press line or an opening from the stage. It is never a heading or the main point of a piece (see Headlines and titles).
 
 ClimbUK is a business event, never a sport-climbing or outdoors event. People do mistake it for one, so:
 
@@ -92,13 +108,22 @@ ClimbUK is a business event, never a sport-climbing or outdoors event. People do
 ## Words and lines we own
 
 - Company tagline: **The Festival for Business Growth.** "The Festival of Business Growth" is the established spoken form and is also correct; use one form per piece.
+  In a sentence it is a description, so it is lower case: "Climb27 is the festival for business growth." Capitals only when the tagline stands on its own.
+- Web addresses on print and PDFs are written in full with www: **www.climb-uk.com/partnerships**, never "climb-uk.com/partnerships". Email addresses stay as they are.
+- Describe a zone or a format by what people do there (mentoring, meeting, discussing, pitching), not by its furniture or how many there are: write "Advisers and fractional leaders mentoring founders and talking through what comes next", never "Advisers and fractional leaders, in 24 pods".
+- Subheadings and straplines say something concrete: who it is for or what they get. Never a pair of clever opposites that could describe anything ("Small by design. Powerful by intent.", "Big enough to be seen. Sharp enough to close.").
 - Climb27 working headline: **Your business. Bigger stage.**
-- Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: DJ sets, announcements, awards, our own formats). Big moments, not keynotes.
+- General Climb27 flyer (the piece for readers who do not know ClimbUK yet): **Bring your ambition. Find your people. Accelerate your growth.**
+- Climb27 themes: **Find Your People** (networking is the reason to come) and **Main Stage Moments** (short, big moments: the grand opening, announcements, the ClimbAwards, our own formats). Big moments, not keynotes.
 - Earlier tagline, retired from new work: "where momentum meets opportunity".
 
 ## Public brand documents
 
 The brand book, guidelines, one-page rules, press and partner packs are public. Write them for anyone who builds with the brand (UI and motion engineers, videographers, animators, press, partners, printers): guiding, not over-restrictive. No repository or folder paths, no internal tool or vendor names (except install notes for a module), no internal notes or decisions in progress.
+
+## Team-only material
+
+Some work is for the team only: testimonial analysis, audience research, sales notes, people's details, anything about an unannounced venue. It goes in the pack's `internal/` folder, which is never committed or published and reaches only the team's computers and the team's brand centre library. Never put it in a public folder, a copy file, a skill or a public document, and never quote it in public copy without checking that the words are already public. Read `internal/README.md` for what goes there.
 
 ## Channels and handles
 
@@ -112,7 +137,11 @@ Social: LinkedIn, Instagram, TikTok, X and Bluesky, all as `climbuk`. In email s
 4. End with one clear call to action that names the action ("Get your ticket", "Book your meetings", "Apply to pitch").
 5. Run the checker, then re-read once against the four voice lines.
 
-Shapes for each channel (lengths, structure, CTA style) are in `references/channels.md`. Good and bad examples, including rewrites, are in `references/examples.md`.
+Shapes for each channel (lengths, structure, CTA style) are in `references/channels.md`. Good and bad examples, including rewrites, are in `references/examples.md`. For email, also read `references/email-deliverability.md`: words spam filters weigh, link, image and HTML limits, tracking, and what newsletters may relax. Add whatever a spam test flags to it.
+
+## Copy files
+
+Every piece the pack builds keeps all its words in a Markdown copy file beside its build, `<name>.copy.md`, so people can review and edit the words without touching the design, and the build reads it. Design sections are marked `<!-- @front.headline -->` on their own line, with design settings after the name (`<!-- @back.reason icon=people -->`) and reviewer notes as `<!-- note: ... -->`. When you write or change words for a built piece, change its copy file, never the build script; when you make a new piece, write its copy file first. The standard, with a full example, is in `references/copy-files.md`; `scripts/copy_md.py` reads the files.
 
 ## Check your copy
 
@@ -120,6 +149,7 @@ Shapes for each channel (lengths, structure, CTA style) are in `references/chann
 python3 .agents/skills/climb-voice/scripts/check_copy.py path/to/copy.txt            # before the venue announcement
 python3 .agents/skills/climb-voice/scripts/check_copy.py --announced path/to/copy.txt # after it
 echo "Your text" | python3 .agents/skills/climb-voice/scripts/check_copy.py -
+python3 .agents/skills/climb-voice/scripts/check_copy.py pdf/flyers/copy/segments/investors.copy.md  # a copy file: markers, then words
 ```
 
 It prints each problem with the rule it breaks and exits 1 when anything fails, including vague link text. After the problems it prints, per input, a reading level (Flesch-Kincaid grade, a rough estimate) and "hint" lines for abbreviations to spell out; hints never change the exit code. Add `--no-hints` for hard rules only. It does not judge tone: that is your job, against the four lines above. The website pages have a stricter, page-aware linter in the website repository (`docs/climb27-for-pages/deploy/lint_copy.py`); keep the two ban lists in step when either changes.
@@ -127,8 +157,10 @@ It prints each problem with the rule it breaks and exits 1 when anything fails, 
 ## Before you finish
 
 - The checker passes, and you have acted on its reading level and abbreviation hints.
+- The words of a built piece are in its copy file, and none are typed in its build script.
 - Every link says where it goes, and unusual words link to the glossary.
 - Any new term in this piece, or in supplied text going up as-is, has a glossary entry.
 - The piece names one audience and gives them one reason and one next step.
 - Nothing in it would still be true of any other event.
 - If you used a fact (date, price, format, speaker), it came from the brief, the website or the person who asked, not from memory.
+- Any brand preference or decision a person gave you while you worked is now in this skill, its guideline and, where it can be checked, the copy checker (see "The pack learns as it goes" in the brand pack's AGENTS.md). Do not leave it only in a chat or a memory.

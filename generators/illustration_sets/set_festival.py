@@ -3,7 +3,7 @@ import math
 
 
 def build(k):
-    """k is the illustrations module. Return {name: (builder_fn, "what it says")}."""
+    """k is the illustrations module. Return {name: builder_fn}; what each drawing says is in illustrations/illustrations.copy.md."""
     line, curve, arc, circle, rrect, poly, text, turn, shift, sparkle = (k.line, k.curve, k.arc, k.circle, k.rrect,
                                                                          k.poly, k.text, k.turn, k.shift, k.sparkle)
 
@@ -383,29 +383,29 @@ def build(k):
         return shift(s, 0, 0)
 
     return {
-        "food-truck": (_food_truck, "Street food, the food village"),
-        "pizza-slice": (_pizza_slice, "Food stalls, grab a slice between talks"),
-        "burger": (_burger, "Street food, lunch on the festival site"),
-        "ice-cream": (_ice_cream, "Summer treats, sunny festival days"),
-        "cocktail": (_cocktail, "Drinks reception, cocktail hour"),
-        "pint": (_pint, "Bar, a pint after the talks"),
-        "wine-bottle": (_wine_bottle, "Drinks reception, celebrating"),
-        "cupcake": (_cupcake, "Treats, birthdays, celebrations"),
-        "popcorn": (_popcorn, "Snacks, watch the show"),
-        "festival-tent": (_festival_tent, "Festival marquee, the festival site"),
-        "sunglasses": (_sunglasses, "Summer festival vibes, looking cool"),
-        "sun": (_sun, "Sunshine, summer dates, outdoor festival"),
-        "umbrella": (_umbrella, "Whatever the weather, rain or shine"),
-        "tote-bag": (_tote_bag, "Merch tote, take something home"),
-        "t-shirt": (_t_shirt, "Merch tee, crew and volunteers"),
-        "cap": (_cap, "Merch cap, crew"),
-        "water-bottle": (_water_bottle, "Stay hydrated, refill stations, reusable"),
-        "goodie-bag": (_goodie_bag, "Goodie bags, delegate gifts, freebies"),
-        "gift-box": (_gift_box, "Giveaways, prizes, competitions"),
-        "party-popper": (_party_popper, "Celebrate, announcements, we did it"),
-        "balloons": (_balloons, "Party, celebration, anniversaries"),
-        "bucket-hat": (_bucket_hat, "Festival merch, festival style"),
-        "doughnut": (_doughnut, "Sweet treats, coffee and a doughnut"),
-        "cheers-bottles": (_cheers_bottles, "Cheers, after party, drinks on us"),
-        "string-lights": (_string_lights, "Evening party, festoon lights, after dark"),
+        "food-truck": _food_truck,
+        "pizza-slice": _pizza_slice,
+        "burger": _burger,
+        "ice-cream": _ice_cream,
+        "cocktail": _cocktail,
+        "pint": _pint,
+        "wine-bottle": _wine_bottle,
+        "cupcake": _cupcake,
+        "popcorn": _popcorn,
+        "festival-tent": _festival_tent,
+        "sunglasses": _sunglasses,
+        "sun": _sun,
+        "umbrella": _umbrella,
+        "tote-bag": _tote_bag,
+        "t-shirt": _t_shirt,
+        "cap": _cap,
+        "water-bottle": _water_bottle,
+        "goodie-bag": _goodie_bag,
+        "gift-box": _gift_box,
+        "party-popper": _party_popper,
+        "balloons": _balloons,
+        "bucket-hat": _bucket_hat,
+        "doughnut": _doughnut,
+        "cheers-bottles": _cheers_bottles,
+        "string-lights": _string_lights,
     }

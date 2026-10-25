@@ -630,6 +630,17 @@
       "ral": {
         "$value": "RAL 9016 Traffic White"
       }
+    },
+    "text-min": {
+      "$value": "12pt",
+      "$description": "Smallest text on hand-held print (flyers, leaflets, programmes) at final size; business card contact details may go to 8pt"
+    },
+    "bleed": {
+      "$value": "5%",
+      "$description": "Bleed on every edge as a share of the shorter trim edge, never less than 3mm (A5 7.4mm, A4 10.5mm, cards 3mm)"
+    },
+    "bleed-min": {
+      "$value": "3mm"
     }
   },
   "contrast": {

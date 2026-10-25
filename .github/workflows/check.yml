@@ -22,7 +22,7 @@ jobs:
         with:
           persist-credentials: false
       # The runner's own Python 3 runs the brand scripts; they use the standard library only.
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
       - name: Tokens meet their contrast pairs and generated files are current
@@ -35,10 +35,14 @@ jobs:
         run: python3 -m unittest discover -s photos/tests
       - name: Font tests
         run: python3 -m unittest discover -s fonts/tests
+      - name: Brand Centre sync tests
+        run: python3 -m unittest discover -s tools/brand_centre/tests
       - name: Skill and agent packages, open-in links and skills-lock.json are current
         run: python3 ai/agents/build_agent_kits.py --check
       - name: Prompt library passes its rules and its exports and plugins are current
         run: python3 ai/prompts/build_prompts.py --check
+      - name: Every file in the pack has a copy file of its words
+        run: python3 .agents/skills/climb-voice/scripts/copy_md.py coverage
       - name: Copy checker passes good copy and fails banned copy
         run: |
           echo "Get your Climb27 ticket" | python3 .agents/skills/climb-voice/scripts/check_copy.py --no-hints -

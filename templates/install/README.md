@@ -55,6 +55,8 @@ These apps open the `.dotx`, `.xltx` and `.potx` files but have no folder an ins
 
 Skip the video files with `-SkipVideo` (Windows) or `--skip-video` (macOS, Linux).
 
+Skip the fonts with `-SkipFonts` (Windows) or `--skip-fonts` (macOS, Linux) when your device manager installs Montserrat and Open Sans with a package of its own. The templates still use those fonts, so install them some other way first. With the option, the package leaves no copy of the fonts in its install folder, so its uninstaller leaves the fonts in place (on Linux, the uninstaller still removes `/usr/local/share/fonts/climb`). Both options default to off.
+
 ## Windows with Intune
 
 1. Unzip the package. Wrap the whole folder with the Microsoft Win32 Content Prep Tool, with `windows\Install-ClimbTemplates.ps1` as the setup file:
@@ -79,7 +81,7 @@ The log is at `C:\ProgramData\Climb\Logs\install.log`.
 Two ways, pick one:
 
 - **Package (recommended).** On a Mac, unzip the package and run `macos/build-pkg.sh`. This makes `Climb-Templates-<version>.pkg`; set `SIGN_IDENTITY` to your Developer ID Installer certificate name to sign it. Upload it in Jamf Pro (Settings, Computer management, Packages) and add it to a policy (trigger Recurring Check-in or Enrollment Complete, frequency Once per computer, scoped to the computers you want). The pkg's postinstall runs the install script.
-- **Script.** Host the unzipped package on a share or in a pkg of your own, and run `macos/install-climb-templates.sh` from a Jamf policy as root. Put `skip-video` in parameter 4 to leave out the video files.
+- **Script.** Host the unzipped package on a share or in a pkg of your own, and run `macos/install-climb-templates.sh` from a Jamf policy as root. Put `skip-video` in parameter 4 to leave out the video files. Put `skip-fonts` in another parameter (for example parameter 5) to leave out the fonts.
 
 The templates show for every user under File, New from Template in Word, Excel and PowerPoint (Office 16.x or Microsoft 365). Quit and reopen Office after installing. To remove, run `/Library/Application Support/Climb/Templates/uninstall-climb-templates.sh` as root from a policy.
 

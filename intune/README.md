@@ -12,16 +12,36 @@ These scripts set up Intune so every company device gets the brand fonts, the Of
 
 ## Run order
 
-```bash
-cd /path/to/brand-system/intune
-pwsh ./00-Prerequisites.ps1              # add -UseDeviceCode if no browser opens
-pwsh ./Run-All.ps1 -WhatIf               # read the plan; nothing changes
-pwsh ./Run-All.ps1 -Target Group -GroupName 'Climb pilot devices'
-# check two or three pilot devices the next day, then:
-pwsh ./Run-All.ps1                       # all devices
-```
+Run these one at a time, on separate days where it says so. Do not paste them as one block: the last step changes every device.
 
-Make the pilot group in Entra first (a few of your own devices on each platform). Add `-IncludeAndroid` to also set the Android wallpaper (see below). `-Brand ClimbGroup` or `-Brand Climb27` and `-Design ascent`, `connections` or `contours` change the wallpaper.
+1. Sign in and install the modules. Add `-UseDeviceCode` if no browser opens.
+
+   ```bash
+   cd /path/to/brand-system/intune
+   pwsh ./00-Prerequisites.ps1
+   ```
+
+2. Read the plan. Nothing changes in the tenant.
+
+   ```bash
+   pwsh ./Run-All.ps1 -WhatIf
+   ```
+
+3. Make an Entra security group called `Climb pilot devices` with a few of your own devices on each platform, then send everything to that group only. A script stops before creating anything when the group is missing.
+
+   ```bash
+   pwsh ./Run-All.ps1 -Target Group -GroupName 'Climb pilot devices'
+   ```
+
+4. The next day, check two or three pilot devices. Only then send it to every device:
+
+   ```bash
+   pwsh ./Run-All.ps1
+   ```
+
+Re-running a step is safe: each script updates its own "Climb - " policies by name. Running step 4 after step 3 moves the assignment from the pilot group to all devices. Company Portal branding (script 40) has no assignment, so it changes for everyone at step 3.
+
+Add `-IncludeAndroid` to also set the Android wallpaper (see below). `-Brand ClimbGroup` or `-Brand Climb27` and `-Design ascent`, `connections` or `contours` change the wallpaper.
 
 Before the first run, open Intune admin center > Devices > Scripts and remediations > Remediations once and confirm the Windows Enterprise licensing prompt. E5 includes it, but Intune will not run remediations until that is ticked.
 
@@ -39,8 +59,68 @@ Before the first run, open Intune admin center > Devices > Scripts and remediati
 | `23-Android-Wallpaper.ps1` | Device restrictions "Climb - Android - Launcher wallpaper" | Android fully managed | Only through Microsoft Launcher, so it also needs Launcher deployed from Managed Google Play. Personal phones with a work profile cannot be given a wallpaper. Opt-in. |
 | `30-iOS-Fonts.ps1` | Custom profiles "Climb - iOS - Brand fonts 1" to "4" | iPhone, iPad | Montserrat and Open Sans for the Office apps. Works without supervision. Android has no managed font install. |
 | `40-CompanyPortal-Branding.ps1` | Updates the default Company Portal branding | All | Name ClimbGroup, colour #C55308, ClimbGroup logos, brand image. Pass `-ContactEmail`, `-ContactName` and `-WebsiteUrl` to fill the support details. |
+| `60-OneDrive-Brand-Library.ps1` | Remediations "Climb - Windows - OneDrive sign-in" and "Climb - Windows - Brand library offline"; shell scripts "Climb - macOS - OneDrive" and "Climb - macOS - Brand library sync" | Windows 10 and 11, macOS | Syncs one SharePoint library (the brand centre) with OneDrive for everyone who can open it. See below. |
+| `70-Claude-Tools.ps1` | Remediations "Climb - Windows - Claude app and Git" and "Climb - Windows - Claude Code and brand tools"; shell scripts "Climb - macOS - Claude app and Git" and "Climb - macOS - Claude Code and brand tools" | Windows 10 and 11, macOS | The Claude and ChatGPT (Codex) desktop apps, Claude Code, the Codex CLI, uv, Python 3.13, graphify, a daily-updated copy of the brand system, a local personal graph and an always-on graphify MCP server. See below. |
 
 Every script except 40 and 50 takes `-Target AllDevices` (default), `AllUsers`, `Group` with `-GroupName`, or `None` (create it but assign nothing).
+
+## Brand centre library in OneDrive
+
+`60-OneDrive-Brand-Library.ps1` syncs one SharePoint document library to every device whose person can open it. Name the site and the library; the script reads the library ID from Microsoft Graph (it asks for the extra Sites.Read.All permission once):
+
+```bash
+pwsh ./60-OneDrive-Brand-Library.ps1 -SiteUrl https://contoso.sharepoint.com/sites/BrandCenter -LibraryName Documents -WhatIf
+pwsh ./60-OneDrive-Brand-Library.ps1 -SiteUrl https://contoso.sharepoint.com/sites/BrandCenter -LibraryName Documents
+```
+
+Or pass `-LibraryId` (from the library's Sync > Copy library ID) with `-SiteTitle` and `-LibraryTitle`.
+
+- **Windows**: OneDrive signs in with the Windows account, the library is added to its automatic sync (within 8 hours of the next sign-in), and once it has synced the whole folder is marked "Always keep on this device", so every file is on the laptop.
+- **Mac**: the script installs OneDrive when it is missing and opens it at login. OneDrive on Mac has no setting that syncs a library automatically, so the daily script opens the library's sync link until it is synced; each person confirms it once. Mac also has no way to keep files offline by script: each person right-clicks the synced folder in Finder and picks Always Keep on This Device, once.
+- People without access to the library get nothing; OneDrive skips it for them.
+
+## Claude, Claude Code and the brand tools
+
+`70-Claude-Tools.ps1` installs, on Windows and Mac:
+
+- the Claude desktop app and the ChatGPT desktop app, which holds Codex, for every person (both update themselves),
+- git (Git for Windows; the Apple Command Line Tools on Mac),
+- for each signed-in person: Claude Code (updates itself), the Codex CLI (updated every day), uv, Python 3.13 as `python` and `python3`, and graphify,
+- a copy of the brand system at `~/Climb/Brand-System` (Windows: `%USERPROFILE%\Climb\Brand-System`), pulled every day. The pull only fast-forwards; a copy with local edits is fetched and left alone. graphify is set up without git hooks so the copy stays clean.
+
+```bash
+pwsh ./70-Claude-Tools.ps1 -WhatIf
+pwsh ./70-Claude-Tools.ps1
+```
+
+`-PythonVersion` (default 3.13) and `-RepoUrl` (default this repository) change what is installed. Logs: `/Library/Logs/Climb/claude-app.log` and `~/Library/Logs/Climb/claude-tools.log` on Mac; the remediation output in Intune on Windows. The person-level step waits until git is installed, so the first full run can take two days.
+
+### Personal graph and graphify for agents
+
+The same person-level step sets up graphify so agents can read the brand system and the person's own preferences together:
+
+- **Personal preferences, local only.** `preferences.md` in the person's local app data folder (`~/.local/share/climb-preferences` on Mac, `%LOCALAPPDATA%\climb-preferences` on Windows). It never goes into git or a synced folder, so nobody needs a git account. The preferences tool proposed in pull request 35 adds to it; until then agents can edit the file directly.
+- **One combined graph.** Every day the step rebuilds the personal graph and registers it with the brand system graph through `graphify global add`, as `personal-preferences` and `climb-brand-system`.
+- **An always-on MCP server.** graphify serves the combined graph from login: a LaunchAgent (`com.climbgroup.graphify-mcp`) on Mac and a logon task (`Climb graphify MCP`) on Windows, restarted if it stops. It listens on `127.0.0.1` only, on port 8765 (`-McpPort` changes it), and every request needs the person's own key, made once and readable only by them (`~/.local/share/climb-graphify/mcp-key`, Windows `%LOCALAPPDATA%\climb-graphify\mcp-key`).
+- **Claude Code** is registered with the server as `graphify-climb` for every project, and so is **Codex**: a marked block in `~/.codex/config.toml`, which the Codex CLI, the IDE extension and the ChatGPT desktop app all read. The script only replaces its own block; the rest of the file is left alone. **The Claude app** only runs local servers it starts itself, so it gets the same combined graph over stdio under the same name.
+
+Check it on a device:
+
+```bash
+claude mcp get graphify-climb        # Status: Connected
+codex mcp list                       # graphify-climb is listed
+```
+
+The server log on Mac is `~/Library/Logs/Climb/graphify-mcp.log`. If the port is taken by another program, re-run the script with another `-McpPort`.
+
+### Brand and graphify skills and instructions for every agent
+
+The same step makes every Claude Code and Codex session on the device follow the brand without being asked:
+
+- **Skills.** `climb-voice`, `climb-visual-style`, `climb-odoo-pages`, `graphify` and `graphify-vendor` are linked from the brand system copy into `~/.claude/skills` (Claude Code) and `~/.agents/skills` (Codex): symbolic links on Mac, junctions on Windows. They update with the copy every day. A skill folder the person made with the same name is left alone.
+- **Instructions.** A short marked section at the end of `~/.claude/CLAUDE.md` (Claude Code) and `~/.codex/AGENTS.md` (Codex) says where the brand system is, which skill to use for words, visuals and Odoo pages, that the `graphify-climb` server answers brand and preferences questions, to follow the `graphify` skill in any repository that has `tools/graphify/graphify` (query before broad searches, refresh after changes, local models only), to read and add to the person's `preferences.md` and keep it on the device, and that brand decisions go into this pack. The section sits between `<!-- climb:brand:begin ... -->` and `<!-- climb:brand:end -->` and is rewritten on every run; anything else in either file is the person's own and stays.
+
+Check it on a device: `claude` then `/skills` lists the brand and graphify skills, and `~/.claude/CLAUDE.md` ends with the marked section. The Claude app's chat does not read these files; it takes skills from its own settings.
 
 ## Default font in Outlook
 
@@ -70,8 +150,11 @@ Intune puts the templates and the brand defaults on Windows and Mac. For the tem
 - 12 and 13 ran with `-WhatIf` and for real against the mock; `set-climb-defaults.sh` ran against a test folder (sets each person once, keeps their old Normal.dotm, skips people who never opened Office). The ClimbGroup letterhead Normal.dotm was opened in LibreOffice, not yet in Word. 50 parses but has not run against Exchange.
 - Every script ran end to end, both with `-WhatIf` and for real, against a mock of the Graph module that records each call, so the bodies and assignment shapes were checked against the Graph beta reference. Nothing has run against the real tenant yet.
 - The generated bash scripts pass `bash -n`; the generated Apple profiles parse as valid property lists. The iOS font profiles come to 837 KB, 829 KB, 489 KB and 488 KB, under the 1 MB limit.
+- 70's generated Mac script ran end to end in a test home with git, Claude Code and graphify (launchctl and xcode-select stubbed): it built the personal graph, registered both graphs, wrote the key (mode 600), the LaunchAgent (a valid property list) and the Claude app entry, and registered Claude Code. Started as the LaunchAgent would, the server refused requests without the key (401), and `claude mcp get graphify-climb` reported Connected. A second run changed nothing, and an existing `~/.codex/config.toml` kept its own servers with the `graphify-climb` block added once (it parses as TOML). It linked the brand and graphify skills into both skill folders, kept a person's own `climb-odoo-pages` folder, and added the marked section once to an existing `~/.claude/CLAUDE.md` without changing the person's text; a second run left both instruction files byte for byte the same. The Windows section that writes the instruction files ran in PowerShell 7 against a CRLF file with the same result; the junctions have not been made on Windows. The Windows steps parse but have not run on Windows yet.
 - The templates release the scripts expect (templates-v1.2.2, its zip name, layout and SHA-256) was checked on GitHub.
 - Not tested: the brand centre manifest lookup on www.climb-uk.com was not reachable from the test machine, so the wallpaper scripts and script 40 were tested with explicit image URLs. The `-WhatIf` run on your machine will show whether each wallpaper URL resolves.
+
+- 60 and 70 ran for real against the same mock; their generated bash scripts pass `bash -n` and their generated PowerShell parses. The Mac brand tools script ran in a test home with a local copy of this repository: it cloned, then on the next run fetched without touching the copy. Neither has run against the real tenant or a real device yet.
 
 ## Common problems
 

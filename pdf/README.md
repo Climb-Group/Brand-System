@@ -6,6 +6,8 @@ Shareable PDFs for each brand (ClimbUK, ClimbGroup, Climb27), built from `guidel
 | --- | --- | --- |
 | `one-page/<brand>_key-rules.pdf` | The key rules everyone must follow: logo, colour, type, voice, photography, accessibility and naming | A4, one page |
 | `guidelines/<brand>_brand-guidelines.pdf` | The full brand book: ten sections, from the big idea to print, video, partners and accessibility | 16:9 slides, 1920x1080 |
+| `flyers/` | Climb27 flyers: one per audience, plus five for people who are new to ClimbUK. See `flyers/README.md` | A5, both sides, 3 mm bleed |
+| `brochures/` | Climb27 sales brochures: one for exhibitors, one for partners. See `brochures/README.md` | 16:9 pages, 1920x1080 |
 
 The ClimbGroup editions use Charcoal grounds and the slab and peak marks, with pages on contracts, documents, decks and email signatures. The Climb27 editions add the themes, the edition mark, ticket pages and the share kit.
 
@@ -17,7 +19,12 @@ pdf/_build/build.sh
 
 Needs Python 3 and Node with Playwright (Chromium). The script copies the fonts, logos, photos and illustrations from this pack, writes one HTML file per PDF, prints them to PDF and moves them into `one-page/` and `guidelines/`.
 
-- Copy lives in `pdf/_build/brands.py` (per brand) and `book.py` / `keyrules.py` (shared pages). It follows the climb-voice skill; run its checker on any new line.
+- Every printed word lives in a copy file beside the PDF it prints in, so the words can be read and changed in any text editor:
+  - `one-page/<brand>_key-rules.copy.md`: all the words of that brand's key rules page.
+  - `guidelines/<brand>_brand-guidelines.copy.md`: that brand's own pages and lines (cover, back cover, contacts, its brand-only pages).
+  - `guidelines/brand-guidelines.copy.md`: the pages every brand book shares. A section in a brand file replaces the section of the same name here, for that book only.
+
+  Edit the words there and rebuild; the scripts in `pdf/_build` hold only the layout. In a copy file, `[[word]]` prints in orange, `*word*` in italics and `**word**` in bold, and a line ending in a backslash breaks there. The words follow the climb-voice skill; run its checker on any new line.
 - Outline numerals and marquees use `pdf/_build/fonts/montserrat-800-outline*.woff2`: Montserrat ExtraBold with its overlapping contours merged, so the stroke draws no stray lines inside the letters. `python3 pdf/_build/outline_font.py` remakes them (needs fontTools, skia-pathops and brotli).
 - The renderer bakes CSS gradients into images before printing, because several PDF viewers cannot draw the gradient shadings Chromium writes.
 - Before printing, `contrast.cjs` and `contrast.py` measure every run of text against what sits behind it (photos, fades, stickers) and stop the build if any is under WCAG 2.2 AA: 4.5:1, or 3:1 for text of 24px, or 18.66px bold. Faint decorative texture, such as marquee rows, is marked `aria-hidden` and skipped.

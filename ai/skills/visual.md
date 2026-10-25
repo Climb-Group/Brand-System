@@ -34,5 +34,6 @@ Outline numerals: giant numbers in Montserrat ExtraBold (800) with no fill and a
 3. Write the words with the voice skill and the check copy tool.
 4. Check contrast, safe zone, logo clear space, and the file name: <brand>_<surface>_<variant>_<size>.<ext>.
 5. Default resolution is 4K for video, photo and screens. Never upscale.
+6. Make it editable. Hand over the finished file (PDF, PNG, video) with its editable sources beside it: a copy file of every word on it (a Markdown file with each part marked `<!-- @front.headline -->`, the voice skill says how), and for artwork a layered SVG with live text. Group the SVG the way the design reads: one group per row, card or block (on a flyer back, each reason row holds its icon, title and text), never one group of all the text. Name each group after the copy file section it holds (`front.headline`, `back.reason`). Link photos rather than flattening them. It then opens in free editors such as Inkscape and Affinity.
 
 For motion, UI states, photography, video, print and signatures, call the guide tool with that topic.

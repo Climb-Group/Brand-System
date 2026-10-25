@@ -41,20 +41,24 @@ function Connect-ClimbGraph {
         Tenant id or domain, for example contoso.onmicrosoft.com. Default: the home tenant of the account.
     .PARAMETER UseDeviceCode
         Sign in with a device code (useful on Linux without a desktop browser).
+    .PARAMETER ExtraScopes
+        Scopes one script needs on top of the shared set, for example Sites.Read.All.
     #>
     [CmdletBinding()]
     param(
         [string]$TenantId,
-        [switch]$UseDeviceCode
+        [switch]$UseDeviceCode,
+        [string[]]$ExtraScopes
     )
     if (-not (Get-Module -ListAvailable -Name Microsoft.Graph.Authentication)) {
         throw 'Microsoft.Graph.Authentication is not installed. Run 00-Prerequisites.ps1 first.'
     }
     Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+    $scopes = @($script:Scopes) + @($ExtraScopes | Where-Object { $_ })
     $ctx = Get-MgContext
-    $missing = if ($ctx) { $script:Scopes | Where-Object { $_ -notin $ctx.Scopes } } else { $script:Scopes }
+    $missing = if ($ctx) { $scopes | Where-Object { $_ -notin $ctx.Scopes } } else { $scopes }
     if (-not $ctx -or $missing) {
-        $params = @{ Scopes = $script:Scopes; NoWelcome = $true }
+        $params = @{ Scopes = $scopes; NoWelcome = $true }
         if ($TenantId) { $params.TenantId = $TenantId }
         if ($UseDeviceCode) { $params.UseDeviceCode = $true }
         Connect-MgGraph @params | Out-Null
@@ -263,7 +267,8 @@ function Get-ClimbDownload {
     $name = [IO.Path]::GetFileName(([uri]$Url).AbsolutePath)
     if (-not $name) { $name = [guid]::NewGuid().ToString() }
     $dir = Join-Path ([IO.Path]::GetTempPath()) 'climb-intune'
-    New-Item -ItemType Directory -Force -Path $dir | Out-Null
+    # Local temp files are not tenant changes, so they are written under -WhatIf too.
+    New-Item -ItemType Directory -Force -Path $dir -WhatIf:$false | Out-Null
     $out = Join-Path $dir $name
     Invoke-WebRequest -Uri $Url -OutFile $out -ErrorAction Stop
     return $out

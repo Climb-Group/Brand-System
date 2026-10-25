@@ -37,6 +37,9 @@ import poster_kit as P  # noqa: E402
 sys.path.insert(0, str(HERE))
 import reactions as R  # noqa: E402
 
+sys.path.append(str(KIT.parent / "_build"))
+import copy_io as CI  # noqa: E402
+
 DB, CH, OR, TI, LG, WH = F.DB, F.CH, F.OR, F.TI, F.LG, F.WH
 OR_TEXT = "#C55308"      # color.orange.text: small orange text and accents on white (4.6:1)
 OR_DEEP = "#8D4419"      # color.orange.deep: AAA orange on white (7.06:1)
@@ -45,20 +48,27 @@ DB_RGB = F.DB_RGB
 BRANDS = ("ClimbUK", "ClimbGroup", "Climb27")
 SITE = "https://www.climb-uk.com"
 
-# Lines and photos per brand. Lines are the brand lines already used across the kit.
+
+def theme_lines(brand):
+    """The headline of the brand's meeting theme, from teams-themes/<Brand>/<Brand>-teams-theme.copy.md."""
+    doc = CI.load("m365/teams-themes/%s/%s-teams-theme.copy.md" % (brand, brand))
+    return [s.text for s in doc.all("headline.line")]
+
+
+# Lines and photos per brand. The lines are in each brand's meeting theme copy file.
 B = {
-    "ClimbUK": dict(line=["*Find* your", "[[people]]."], sticker="Find your people",
+    "ClimbUK": dict(line=theme_lines("ClimbUK"),
                     dark_photo="candid/climbteam_01", dark_pos="50% 40%",
                     cards=["candid/joy_02", "candid/crowds_04", "candid/meetings_02"],
                     photos=["candid/joy_02", "candid/crowds_04", "candid/exhibitor_01", "candid/audience_at_stage_02"],
                     hero="bubbles"),
-    "ClimbGroup": dict(line=["*Business* with", "a [[party]]."], sticker="Business with a party",
+    "ClimbGroup": dict(line=theme_lines("ClimbGroup"),
                        dark_photo="candid/vip_and_awards_03", dark_pos="55% 40%",
                        cards=["candid/roundtable_and_workshops_01", "candid/meetings_01", "candid/vip_and_awards_01"],
                        photos=["candid/vip_and_awards_03", "candid/roundtable_and_workshops_01", "candid/meetings_01",
                                "candid/food_and_vendors_01"],
                        hero="lightbulb"),
-    "Climb27": dict(line=["Your *business*.", "Bigger [[stage]]."], sticker="30 June and 1 July 2027",
+    "Climb27": dict(line=theme_lines("Climb27"),
                     dark_photo="candid/stage_speakers_04", dark_pos="55% 45%",
                     cards=["candid/audience_at_stage_02", "candid/stage_speakers_02", "candid/joy_03"],
                     photos=["candid/stage_speakers_04", "candid/audience_at_stage_01", "candid/stage_speakers_02",
@@ -66,14 +76,10 @@ B = {
                     hero="microphone"),
 }
 
-# Microsoft 365 app launcher tiles (custom tiles for apps): name, drawing, where it goes.
-TILES = [
-    ("odoo", "gears", "Odoo", "Our business system: contacts, events, tickets, website and accounts."),
-    ("website", "globe", "climb-uk.com", "The public website."),
-    ("brand-centre", "book-open", "Brand centre", "Logos, colours, fonts, templates and the brand guidelines."),
-    ("tickets", "tickets", "Tickets", "Event tickets and the box office."),
-    ("media-kit", "clapperboard", "Media kit", "Photos, video, press and partner downloads."),
-]
+# Microsoft 365 app launcher tiles (custom tiles for apps): key, drawing, name and description, from
+# app-tiles/app-tiles.copy.md.
+TILES = [(t["key"], t["drawing"], t.title, t.text) for t in CI.load("m365/app-tiles/app-tiles.copy.md").all("tile")]
+APP = CI.load("m365/teams-app-odoo/teams-app-odoo.copy.md")
 
 ASSETS = []
 
@@ -117,7 +123,8 @@ def theme_logo(brand, mode, build):
 
 def theme_sticker(brand):
     """The headline already carries the brand line, so the sticker carries the dates (Climb27) or the tagline."""
-    return B[brand]["sticker"] if brand == "Climb27" else C.TAGLINE
+    lines = CI.load("brands.copy.md")
+    return lines.words(brand.lower() + ".edition") or lines.one(brand.lower() + ".line").text
 
 
 def theme_image(brand, mode, scale, label):
@@ -472,14 +479,13 @@ def teams_app(out, png):
         "manifestVersion": "1.19",
         "version": "1.0.0",
         "id": "5f0b6f2e-6a1d-4c27-9b0e-27c1a1b2c327",
-        "developer": {"name": "ClimbGroup", "websiteUrl": SITE, "privacyUrl": SITE + "/privacy",
+        "developer": {"name": APP.one("app.developer").text, "websiteUrl": SITE, "privacyUrl": SITE + "/privacy",
                       "termsOfUseUrl": SITE + "/terms"},
-        "name": {"short": "Odoo", "full": "Odoo for ClimbUK"},
-        "description": {"short": "Contacts, events, tickets and the website in one place.",
-                        "full": "Opens our Odoo business system in Teams: contacts, events, tickets, website and accounts."},
+        "name": {"short": APP.one("app.name-short").text, "full": APP.one("app.name-full").text},
+        "description": {"short": APP.one("app.description-short").text, "full": APP.one("app.description-full").text},
         "icons": {"color": "color.png", "outline": "outline.png"},
         "accentColor": DB,
-        "staticTabs": [{"entityId": "odoo", "name": "Odoo", "contentUrl": SITE + "/odoo",
+        "staticTabs": [{"entityId": "odoo", "name": APP.one("app.tab").text, "contentUrl": SITE + "/odoo",
                         "websiteUrl": SITE + "/odoo", "scopes": ["personal"]}],
         "permissions": ["identity"],
         "validDomains": ["www.climb-uk.com", "climb-uk.com"],
