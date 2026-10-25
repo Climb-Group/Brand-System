@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026) the three reviews of the Climb27 sales brochures (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
-  version: "1.11"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the three reviews of the Climb27 sales brochures (October 2026), the review of the partners web page (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
+  version: "1.12"
 ---
 
 # ClimbUK voice
@@ -33,7 +33,7 @@ ClimbUK is **business with a party, not a party for business**: a festival-energ
 - **Partner and stand prices exclude VAT.** Write "ex. VAT" (or "plus VAT") after the price, or say once on the page that all prices exclude VAT. Never "inc VAT" for a stand or partnership price.
 - **Real people only.** Testimonials and quotes are real and consented. Never invent a quote, a name or a company.
 - **Testimonials without the date.** When a past quote goes into marketing, credit the person and organisation only: no edition, year or "Climb24 speaker" line. Pick quotes whose own words do not name an old edition ("#Climb24", "Climb 2025 next year"); a dated quote makes the festival look old.
-- **Testimonials name a person.** Credit every quote to a named person and their organisation. A quote credited only to a company, or carrying a role line such as "Climb26 exhibitor", is left out. The guest's words are printed exactly as they said them; the voice rules apply to our words, not theirs.
+- **Testimonials name a person.** Credit every quote to a named person, their role and their organisation ("Rachel Kelly, Partnership Manager, Caspian Insurance"). A quote credited only to a company, or carrying a role line such as "Climb26 exhibitor", is left out. The guest's words are printed exactly as they said them; the voice rules apply to our words, not theirs. To shorten, use whole sentences rather than editing them. A set of quotes on a page shows three; borrow a quote from a nearby audience to make three rather than show one or two.
 - **Paying in instalments.** Name the providers (Klarna, PayPal Pay Later, Afterpay) and say the fee plainly: "A 5% financing fee is added to your total order." Not "any fee or charge is passed on to you".
 - **Stand names.** The smallest stand is the "Startup pod", never "starter pod".
 - **Other events.** Being named alongside other events is fine when it helps both sides. Never copy their formats, and never compare ClimbUK with another event in public copy.

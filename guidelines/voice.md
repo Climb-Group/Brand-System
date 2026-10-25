@@ -21,7 +21,7 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **Scarcity only when it is true.** Ticket releases really do close, so name the release, its price and its state (open now, next, final), and say the price goes up when it is gone. No invented scarcity, no "last few" unless it is so, no "premier", no superlatives we cannot prove, no trademark symbols in copy. Prices are round numbers people remember: 250, not 252.
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
-- **Name the person.** Credit each quote to a named person and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly.
+- **Name the person.** Credit each quote to a named person, their role and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly; to shorten, use whole sentences. A set of quotes on a page shows three.
 - **Paying in instalments.** Name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.

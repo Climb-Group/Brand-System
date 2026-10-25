@@ -43,11 +43,12 @@ For motion designers, front-end engineers and animators. Motion is a **festival 
 Reference CSS for the ClimbUK web components, using the brand tokens. Copy the values, not just the look.
 
 ```css
-/* Scroll rise: content fades up as it enters, driven by scroll where supported */
+/* Scroll rise: content slides up as it enters, driven by scroll where supported. No fade from 0: a
+   full-page screenshot or link preview captures items before they scroll in, and they would show blank. */
 @supports (animation-timeline: view()) {
   .climb-rise { animation: climb-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; }
 }
-@keyframes climb-rise { from { opacity: 0; transform: translateY(var(--climb-motion-distance-rise)); } }
+@keyframes climb-rise { from { transform: translateY(var(--climb-motion-distance-rise)); } }
 
 /* Card lift with a spring */
 .climb-moment { transition: transform var(--climb-motion-duration-slow) var(--climb-motion-easing-spring),
@@ -66,7 +67,7 @@ Reference CSS for the ClimbUK web components, using the brand tokens. Copy the v
 @keyframes climb-pulse { from { box-shadow: 0 0 0 0 rgba(232, 113, 42, 0.6); } to { box-shadow: 0 0 0 1em rgba(232, 113, 42, 0); } }
 ```
 
-- Entrance: fade in from below as the element enters the screen (from the right for a ticket card beside a headline). Duration 0.4s to 0.7s, and delay steps of 0.06s across a row of cards. Use the page tool's own entrance animation where it has one.
+- Entrance: rise from below as the element enters the screen (from the right for a ticket card beside a headline). Duration 0.4s to 0.7s, and delay steps of 0.06s across a row of cards. Use the page tool's own entrance animation where it has one. A scroll-driven entrance never starts invisible: slide only, so cards and quotes are never blank in a screenshot, a print or a link preview.
 - Hero sequence: eyebrow, display line, lead, buttons, each rising at `stage` duration, staggered by `motion-stagger`. Total under 1 second.
 - Marquees (logo walls, speaker names) are linear and slow: 40 to 60px per second, which is 60 to 160 seconds per loop on a long row. Alternate rows run in opposite directions so it reads as a crowd. They pause on hover and focus.
 - Loading: a thin Climb Orange progress bar or three Ascent chevrons pulsing in sequence. No spinners.
