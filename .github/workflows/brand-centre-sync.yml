@@ -34,7 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  RCLONE_VERSION: v1.75.2
+  RCLONE_RELEASE: v1.75.2
   RCLONE_ONEDRIVE_CLIENT_CREDENTIALS: "true"
   RCLONE_ONEDRIVE_DRIVE_TYPE: documentLibrary
   RCLONE_ONEDRIVE_TENANT: ${{ vars.BRAND_CENTRE_TENANT_ID }}
@@ -90,13 +90,13 @@ jobs:
         if: steps.plan.outputs.mode != 'skip'
         run: |
           cd "$RUNNER_TEMP"
-          base="https://downloads.rclone.org/$RCLONE_VERSION"
-          zip="rclone-$RCLONE_VERSION-linux-amd64.zip"
+          base="https://downloads.rclone.org/$RCLONE_RELEASE"
+          zip="rclone-$RCLONE_RELEASE-linux-amd64.zip"
           curl -fsSLO "$base/$zip"
           curl -fsSLO "$base/SHA256SUMS"
           grep " $zip\$" SHA256SUMS | sha256sum -c -
           unzip -q "$zip"
-          mkdir -p bin && mv "rclone-$RCLONE_VERSION-linux-amd64/rclone" bin/
+          mkdir -p bin && mv "rclone-$RCLONE_RELEASE-linux-amd64/rclone" bin/
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
       - name: Bot identity
