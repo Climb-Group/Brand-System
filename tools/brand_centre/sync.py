@@ -20,9 +20,10 @@ on main, so an edit made in the library while a run is going is still found by t
 `seed` is the only command that writes pack files to the library. It is for a new or emptied library, or a lost
 manifest, and is never run automatically.
 
-internal/ never leaves the Brand Centre. It is a folder in the Brand System library, beside the pack, holding
-team-only material and the internal tools that extend the brand system; every listing here excludes it, and
-pull also skips any file .gitignore keeps out of the repository.
+internal/ never leaves the Brand Centre. Team-only material and the internal tools that extend the brand system
+live in internal folders in the Brand System library, beside the pack: at the top, or beside the part a tool
+extends (templates/internal/). Every listing here leaves out any folder named internal, at any depth, and pull
+also skips any file .gitignore keeps out of the repository.
 """
 import json
 import os
@@ -39,7 +40,7 @@ LISTING = os.environ.get("BRAND_CENTRE_LISTING", os.path.join(tempfile.gettempdi
 MAX_BYTES = 95 * 1024 * 1024
 # Never synced in either direction: team-only material, the sync's own state, and the files apps leave behind.
 EXCLUDES = (
-    "/internal/**", "/%s/**" % STATE_DIR, "/.git/**", "/.github/**",
+    "internal/**", "/%s/**" % STATE_DIR, "/.git/**", "/.github/**",
     "~$*", ".~lock.*#", ".DS_Store", "Thumbs.db", "desktop.ini", "*.tmp",
 )
 FILTER_ARGS = [arg for pattern in EXCLUDES for arg in ("--exclude", pattern)]
@@ -58,8 +59,9 @@ def git(*args):
 
 def excluded(path):
     """True for a path the sync must never touch (mirrors EXCLUDES)."""
-    name = path.rsplit("/", 1)[-1]
-    if path.split("/", 1)[0] in ("internal", STATE_DIR, ".git", ".github"):
+    parts = path.split("/")
+    name = parts[-1]
+    if "internal" in parts[:-1] or parts[0] in (STATE_DIR, ".git", ".github"):
         return True
     return (name.startswith("~$") or (name.startswith(".~lock.") and name.endswith("#"))
             or name in (".DS_Store", "Thumbs.db", "desktop.ini") or name.endswith(".tmp"))
@@ -178,7 +180,9 @@ def seed():
         with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
             fh.write("\n".join(upload) + "\n")
         try:
-            rclone("copy", "--files-from", fh.name, "--checksum", ".", REMOTE)
+            # SharePoint adds metadata to HTML and Office files as it stores them, so the stored size and hash
+            # never match what was sent; without these flags rclone calls every such upload corrupted.
+            rclone("copy", "--files-from", fh.name, "--checksum", "--ignore-size", "--ignore-checksum", ".", REMOTE)
         finally:
             os.unlink(fh.name)
     write_manifest(head, remote_listing())
