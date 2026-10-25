@@ -2,7 +2,7 @@
 copy: climb27-flyer-general-bigger-stage
 deliverable: Climb27 A5 flyer for people new to ClimbUK (Your business. Bigger stage), front and back
 build: pdf/flyers/_build/variants.py
-output: pdf/flyers/general/climb27_flyer_general-4_bigger-stage_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-4_bigger-stage_a5_*.svg
+output: pdf/flyers/general/climb27_flyer_general-4_bigger-stage_a5.pdf pdf/flyers/general/V1/climb27_flyer_general-4_bigger-stage_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-4_bigger-stage_a5_*.svg
 order: 4
 ---
 
