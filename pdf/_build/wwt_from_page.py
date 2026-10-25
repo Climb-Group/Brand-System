@@ -1,17 +1,13 @@
 """Writes pdf/brochures/climb27_who-was-there.copy.md from the Who was there page on the ClimbUK website.
 
-The pack prints the page word for word, so when the page changes, run this against the page's QWeb view (the
-who_was_there.xml template in the website repository) and rebuild:
+Both sales brochures end with the "In the room at ClimbUK" page: the page's featured logos, word for word. When the
+page changes, run this against the page's QWeb view (the who_was_there.xml template in the website repository) and
+rebuild the brochures:
 
     python3 pdf/_build/wwt_from_page.py path/to/who_was_there.xml
 
-The eyebrows, two headlines and the closing page are the pack's own words and live in PACK below. Quotes written
-before a festival (about what it would be, not what it was) stay on the website but are left out of print; their
-sources are in BEFORE.
-
-The pack prints a chosen part of the page (the owner's review, 2026-10-16): speakers and sessions people will know,
-the organisations that came back, the Climb26 quotes and quotes about ClimbUK in general. The picks are names in
-HEADLINERS, KNOWN, SESSIONS23, GENERAL and RETURNERS below; the words printed for each are still the page's.
+The eyebrow and headline are the brochures' own words and live in PACK below. The separate Who was there pack is no
+longer made (the owner's call, 2026-10-20): the rest of the page stays on the website only.
 """
 import html
 import os
@@ -20,170 +16,13 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "brochures", "climb27_who-was-there.copy.md")
-LOGOS = os.path.join(HERE, "..", "brochures", "_build", "logos")
 
-# In-the-room logos added to the page's featured logos so page 2 ends on a full row.
+# In-the-room logos added to the page's featured logos so the page ends on a full row of 12.
 NAMES_FILL = ["ebay.png", "bbc-sport.png", "coutts-company.png", "digital-catapult.png"]
 
-# Sources whose quotes on the page were written before the festival they name.
-BEFORE = {"Phil Witcherley", "Henrietta Newble", "Mudrik Zubeir Ahmed", "Medilink North of England Limited",
-          "NatWest Group", "Rebecca Holden"}
-
-# section id on the page: (key in the copy file, eyebrow, headline override or None to use the page's)
-SECTIONS = [
-    ("featured-logos", "wwt.names", "Partners, speakers and sessions", None),
-    ("partners", "wwt.partners", "Partners and exhibitors", "Backed by [[partners]] who _return_"),
-    ("sessions", "wwt.sessions", "On stage at Climb26", None),
-    ("climb26-testimonials", "wwt.quotes26", "In their words", "What people said about _ClimbUK_"),
-    ("speakers", "wwt.speakers", "Who spoke", None),
-    ("in-the-room", "wwt.room", "Everyone who came", None),
-    ("climb25-testimonials", "wwt.quotes25", "In their words", None),
-    ("speaker-organisations", "wwt.orgs", "Who spoke", None),
-    ("climb24-testimonials", "wwt.quotes24", "In their words", None),
-    ("climb24-speakers", "wwt.speakers24", "Who spoke", None),
-    ("climb23-testimonials", "wwt.quotes23", "In their words", None),
-    ("climb23-sessions", "wwt.sessions23", "On stage at Climb23", None),
-    ("climb23-speakers", "wwt.speakers23", "Who spoke", None),
-]
-
-# The partners section lists four groups; the first is the main list, the rest get their own keys.
-PARTNER_GROUPS = ["wwt.partners", "wwt.partners24", "wwt.exhibitors24", "wwt.partners23"]
-
-# Speakers people will know, from every edition, with the role and organisation as one of their page entries gives it
-# (the edition named, where they gave a better known one there), and their organisation's logo file where we hold one.
-# No editions are printed: the page lists Climb25 and Climb26 together, so an edition list would leave some out.
-HEADLINERS = [("Tracy Brabin", "wwt.speakers24", "west-yorkshire-combined-authority.jpg"), ("Claire Ward", None, "east-midlands-combined-county-authority.png"),
-              ("Emily Cloke", None, "creative-uk.png"), ("Louis Taylor", None, "british-business-bank.png"),
-              ("Erin Platts", None, "octopus-investments.png"), ("Jennifer Byrne", None, "microsoft.png"),
-              ("Chloe Mayirou", None, "meta.png"), ("Spencer Hudson", None, "sky-sports.png"),
-              ("Tanya Arnold", "wwt.speakers24", "bbc.png"), ("Jake Zim", None, "sony.png"),
-              ("Hugo Heppell", None, "channel-4.png"), ("Simon McCoy", None, ""), ("Stephanie Millward", None, ""),
-              ("Jamie Peacock", None, ""), ("Robbie Hunter Paul", None, ""), ("Jonnie Peacock", None, "")]
-# Speakers the page lists by name only, with the title printed for them and, for sport stars, a sticker naming
-# their sport in place of a logo. Titles come from their public profiles, not from the page, so check one before adding it. Jonnie Peacock is
-# not in the speaker lists; his Climb26 session title on the page names him ("Paralympic champion Jonnie Peacock").
-TITLES = {"Claire Ward": ("Mayor of the East Midlands", ""),  # confirmed by the owner, 2026-10-16
-          "Jonnie Peacock": ("Paralympic champion sprinter", "Paralympian"),
-          "Stephanie Millward": ("Paralympic champion swimmer", "Paralympian"),
-          "Jamie Peacock": ("Former England and Leeds Rhinos captain", "Rugby league"),
-          "Robbie Hunter Paul": ("Former Bradford Bulls captain and New Zealand international", "Rugby league")}
-# Job titles for speakers the page lists by organisation only, from their current public profiles (2026-10-16), so a
-# title may be newer than the edition they spoke at. A speaker with no title here and none on the page is left off
-# the organisations page, and an organisation left with nobody is left off too.
-KNOWN_TITLES = {"Arun Aggarwal": "Business Development & Partnerships",
-                "Robert Leishman": "Senior Manager, Technical Delivery",
-                "Ian McAleese": "International HR Leader",
-                "Nick Glicher": "Chief Operating Officer, Thomson Reuters Foundation",
-                "Andy Naylor": "Investment Director",
-                "Irene Graham": "CEO",
-                "Jessica Moffatt-Owen": "Senior Lead, Growth"}
-# Speakers from organisations people will know, grouped under the organisation (best known first) with its logo
-# where we hold one. The heading is the organisation as the page names it; the role drops its trailing organisation.
-KNOWN = [("NatWest Group", "natwest-group-plc.png", ["Neil Bellamy", "Rita Collins", "Darren Pirie", "Steve Sankson"]),
-         ("Barclays", "barclays.png", ["Mark Northen", "Emma Walsh"]),
-         ("Lloyds Banking Group", "lloyds-banking-group.png", ["Arun Aggarwal", "Claudine Reid"]),
-         ("Santander UK", "santander-uk.png", ["Gautam Sehgal"]),
-         ("Coutts", "coutts-company.png", ["Chris Dale"]),
-         ("UBS", "ubs.png", ["Jane Bototh"]),
-         ("PwC", "pwc.png", ["Robert Leishman"]),
-         ("Walmart Marketplace", "walmart-marketplace.png", ["Jason Perry"]),
-         ("Snowflake", "snowflake.png", ["Ian McAleese"]),
-         ("Thomson Reuters", "", ["Nick Glicher"]),
-         ("British Business Bank", "british-business-bank.png", ["Abs Bulbuliya"]),
-         ("Innovate UK", "innovate-uk.png", ["Dean Cook"]),
-         ("Department for Business and Trade", "", ["Jonathan Crook"]),
-         ("Octopus Ventures", "octopus-investments.png", ["Jebran Raashed"]),
-         ("Mercia Ventures", "mercia-asset-management.png", ["Chris Borrett"]),
-         ("Northern Gritstone", "northern-gritstone.png", ["Andy Naylor"]),
-         ("ScaleUp Institute", "", ["Irene Graham", "Josh Robson"]),
-         ("Plexal", "plexal-group-limited.png", ["Jessica Moffatt-Owen"]),
-         ("Freeths", "freeths.png", ["Malin Svanberg Larsson"]),
-         ("Squire Patton Boggs", "squire-patton-boggs.png", ["Anna Roughley"]),
-         ("High Value Manufacturing Catapult", "", ["Alfredo Ramos"]),
-         ("Leeds University Business School", "leeds-university-business-school.png", ["Richard Tunstall"])]
-# Logos for the sessions, by a substring of the title: every company the title names, where we hold its logo.
-SESSION_LOGOS = {"Customer Acquisition with Meta": ["meta.png"],
-                 "Scaleup Masterclass": ["barclays.png", "google.png", "plexal-group-limited.png"],
-                 "Google AI Build Session": ["google.png", "nocodelab-ai.jpg"],
-                 "From Prompt To Full Stack": ["lovable.png", "nocodelab-ai.jpg"],
-                 "Scaling into the US for Consumer Brands": ["walmart-marketplace.png"],
-                 "Insight to Action": ["walmart-marketplace.png", "infinity-blue-group.png"],
-                 "TikTok Changed the Rules": ["tiktok.png"],
-                 "LinkedIn ROI": ["linkedin.png"],
-                 "Solve It in Bricks": ["lego.png"],
-                 "Innovation Competition Winners": ["barclays.png"],
-                 "Jonnie Peacock": ["natwest-group-plc.png"],
-                 "John Gleasure": ["dazn.png"]}
-# Climb23 sessions printed beside the Climb26 ones (a substring of the session's title on the page).
-SESSIONS23 = []
-# Sessions from the Climb26 agenda on the website that the Who was there page does not list, with the logos of the
-# organisations on stage (Innovate UK and Creative UK spoke at the opening ceremony).
-AGENDA_SESSIONS = [("Climb26 Opening Ceremony", ["innovate-uk.png", "creative-uk.png"])]
-# Quotes about ClimbUK in general (Climb23 to Climb25, naming no edition): the source names, all their quotes.
-# Quotes the pack ends early, at the end of the given words (the owner's call, 2026-10-16); the rest is left off.
-ENDS = {"Gary Crotaz": "You and the team have exceeded all my (already sky-high) expectations"}
-# Attributions the pack prints in place of the page's, where the page names one edition for someone who came to more.
-BYLINES = {"Gary Crotaz": "Speaker"}
-GENERAL = ["Angus Young", "Jeff B. Cohen", "Mitchell McCombe", "Ash Wilks", "Tim Bennett", "Mandy Ridyard",
-           "Barry McDonald", "Richard Paxman OBE", "Ian McAleese", "Eddy Davies", "Nina Hinton", "Jennifer Byrne",
-           "Talitha Heaton", "Dan Boys", "Harry Baker", "Rachel Fowler",
-           "Daniella Wainwright", "Serena Fordham", "Matt Wheeler", "Gary Crotaz"]
-# Organisations that came to more than one edition, found by matching the page's lists for Climb23, Climb24 and
-# Climb25 and Climb26 (the page lists those two together, so a return between them alone cannot show). Printed as
-# the page names them; best known first. Each name is checked against the page when the file is written.
-RETURNERS = {
-    # Counted per edition (2026-10-16) from the page's Climb23 and Climb24 lists, the Climb24 sponsors tracker, the
-    # Climb25 agenda mastersheet and exhibitor build records, and the Climb26 stand sheet and agenda (the per-edition
-    # list is photos-intake/who-was-there-returners.csv on the photo intake branch). The Climb23 records hold only
-    # partners, speakers and sessions, so a count can still be one short there. CRSI, British Business Bank, Innovate UK
-    # and Creative UK are in all four on the owner's word (2026-10-16); the team may name more.
-    "four": ["CRSI", "Leeds City Council", "West Yorkshire Combined Authority", "British Business Bank", "Innovate UK",
-             "Creative UK"],
-    "three": ["Channel 4", "UBS", "Mishcon de Reya",
-              "Lewis Silkin", "Northern Gritstone", "Innovation SuperNetwork", "Plexal",
-              "Manchester Metropolitan University", "Sure Valley Ventures", "EHE Ventures", "Lifted Ventures",
-              "River Capital", "Panintelligence", "Techbuyer", "XR Games", "IDS Group", "Tech SY",
-              "Leeds Community Foundation", "The Data Refinery", "The Tech Dept", "Mind Body Goals", "Strength in you",
-              "Glean", "GSG", "CREATICITY", "Yaba", "Writebusinessresults"],
-    # Google, Meta and Microsoft: their return is on the owner's word (2026-10-16); the lists alone show one edition.
-    "two": ["Google", "Meta", "Microsoft", "NatWest Group", "Barclays", "BBC", "Thomson Reuters",
-            "ScaleUp Institute", "YFM Equity Partners",
-            "Leeds University Business School", "University of Sheffield", "South Yorkshire Mayoral Combined Authority",
-            "Health Innovation Yorkshire & Humber", "Blacks Solicitors",
-            "Samos Investments", "RTC North", "Tech North Advocates", "Genio", "PinPoint Data Science", "Clubit Group",
-            "Red Line Foundry", "Blossom Training", "Fourth Day", "ProspHER"],
-}
-EDITION = {"wwt.speakers": "Climb26", "wwt.speakers24": "Climb24", "wwt.speakers23": "Climb23"}
-
 PACK = {
-    "wwt.cover.headline": "[[Who]] was _there_",
-    # The page's intro lists every edition; the pack names ClimbUK instead (the owner's call, 2026-10-16).
-    "wwt.cover.intro": ("The partners, exhibitors, speakers and guests who made ClimbUK the festival for business growth, "
-                        "and what they said about it in their own words."),
-    "wwt.cta.line1": "Join them at",
-    "wwt.cta.line2": "Climb27",
-    "wwt.cta.button": "Partner with ClimbUK",
-    "wwt.cta.qr": "Scan to book a call",
+    "wwt.names.eyebrow": "Partners, speakers and sessions",
     "wwt.names.headline": "In the room at _ClimbUK_",
-    "wwt.back.eyebrow": "Returning partners and guests",
-    "wwt.back.headline": "[[Names]] that keep coming _back_",
-    "wwt.back.intro": "These organisations partnered with, exhibited at, spoke at or came along to more than one ClimbUK.",
-    "wwt.back.four.title": "Four editions so far",
-    "wwt.back.three.title": "Three editions so far",
-    "wwt.back.two.title": "Two editions so far",
-    "wwt.headliners.eyebrow": "Who spoke",
-    "wwt.headliners.headline": "Speakers you'll _know_",
-    "wwt.headliners.intro": "Leaders, broadcasters and champions who have spoken at ClimbUK since Climb23.",
-    "wwt.known.eyebrow": "Who spoke",
-    "wwt.known.headline": "From [[organisations]] you _know_",
-    "wwt.known.intro": "Banks, funds, global tech companies and government, on stage at ClimbUK.",
-    "wwt.sessionsall.eyebrow": "On stage",
-    "wwt.sessionsall.headline": "Sessions with names _you know_",
-    "wwt.sessionsall.intro": "A few of the ClimbUK sessions run with well-known companies.",
-    "wwt.quotes26.intro": "Partners, exhibitors, speakers and guests on ClimbUK, quoted word for word.",
-    "wwt.general.eyebrow": "In their words",
-    "wwt.general.headline": "What people say about _ClimbUK_",
-    "wwt.general.intro": "Speakers, exhibitors and guests on ClimbUK, quoted word for word.",
 }
 
 
@@ -201,186 +40,29 @@ def logos(body):
     return out
 
 
-def items(body):
-    return [text(li) for li in re.findall(r"<li>(.*?)</li>", body, re.S)]
-
-
-def people(body):
-    """'<strong>Name</strong>, role' to [name, role]; a speaker with no role keeps the name alone."""
-    out = []
-    for li in re.findall(r"<li>(.*?)</li>", body, re.S):
-        m = re.match(r"\s*<strong>(.*?)</strong>\s*,?\s*(.*)", li, re.S)
-        out.append([text(m.group(1))] + ([text(m.group(2))] if text(m.group(2)) else []))
-    return out
-
-
-def quotes(body):
-    kept, left = [], []
-    for q, by in re.findall(r'climb-quote-text">(.*?)</p>\s*<p class="climb-quote-by">(.*?)</p>', body, re.S):
-        m = re.match(r"\s*<strong>(.*?)</strong>(.*)", by, re.S)
-        name, role = text(m.group(1)), text(m.group(2))
-        (left if name in BEFORE else kept).append([text(q), name] + ([role] if role else []))
-    return kept, left
-
-
-def picks(got, notes):
-    """The pack's chosen sections, built from the page's own entries (see HEADLINERS and the lists after it)."""
-    out = []
-
-    def spoke(name):
-        return [(k, r) for k in EDITION if k + ".items" in got for r in got[k + ".items"] if r[0] == name]
-
-    def role_of(name, prefer=None):
-        hits = spoke(name)
-        assert hits, "%s is not a speaker on the page" % name
-        role = next((r for k, r in hits if k == prefer), hits[0][1])[1:]
-        return role[0] if role else ""
-
-    def logo(f):
-        assert not f or os.path.exists(os.path.join(LOGOS, f)), "%s is not in the logos folder" % f
-        return f
-
-    def without(role, org):
-        """The role with the trailing organisation parts that repeat the heading dropped ("..., NatWest Group")."""
-        key = org.split()[0].lower()
-        parts = [x.strip() for x in role.split(",")]
-        while parts and key in parts[-1].lower() and (len(parts) > 1 or parts[-1].lower().startswith(key)):
-            parts.pop()
-        return ", ".join(parts)
-
-    listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
-    for key in ("wwt.headliners", "wwt.known"):
-        for part in ("eyebrow", "headline", "intro"):
-            out.append(("%s.%s" % (key, part), PACK["%s.%s" % (key, part)]))
-    def headliner(n, p, f):
-        if n in TITLES:
-            assert n.lower() in listed, "%s is not on the page" % n
-            return [n, TITLES[n][0], logo(f), TITLES[n][1]]
-        return [n, role_of(n, p), logo(f), ""]
-    out.append(("wwt.headliners.items", [headliner(*h) for h in HEADLINERS]))
-    notes["wwt.headliners.items"] = ("name | role and organisation as the page gives it, or the public title in TITLES "
-                                     "| logo file | sport sticker (blank where none)")
-    rows = []
-    for org, f, names in KNOWN:
-        assert org.lower() in listed, "%s is not on the page" % org
-        rows += [[org, logo(f), n, r] for n in names for r in [without(role_of(n), org) or KNOWN_TITLES.get(n, "")] if r]
-    out.append(("wwt.known.items", rows))
-    notes["wwt.known.items"] = ("organisation as the page names it | logo file | name | role as the page gives it, "
-                                "without the organisation")
-    for part in ("eyebrow", "headline", "intro"):
-        out.append(("wwt.sessionsall." + part, PACK["wwt.sessionsall." + part]))
-
-    def session_logos(title):
-        hits = [v for k, v in SESSION_LOGOS.items() if k in title]
-        return ", ".join(logo(f) for f in hits[0]) if hits else ""
-    rows = [[s[0], session_logos(s[0])] for s in got["wwt.sessions.items"]]
-    for want in SESSIONS23:
-        hit = [r[0] for r in got.get("wwt.sessions23.items", []) if want in r[0]]
-        assert hit, "%s is not a Climb23 session on the page" % want
-        rows.append([hit[0], session_logos(hit[0])])
-    rows += [[title, ", ".join(logo(f) for f in files)] for title, files in AGENDA_SESSIONS]
-    assert len(rows) % 4 == 0, "the sessions page needs whole rows of four cards: %d" % len(rows)
-    out.append(("wwt.sessionsall.items", rows))
-    notes["wwt.sessionsall.items"] = "session title | logo files of the companies it names, where we hold them"
-    for part in ("eyebrow", "headline", "intro"):
-        out.append(("wwt.general." + part, PACK["wwt.general." + part]))
-    said = [q for k in ("wwt.quotes25.items", "wwt.quotes24.items", "wwt.quotes23.items") for q in got.get(k, [])]
-    rows = [list(q) for g in GENERAL for q in said if q[1] == g]
-    for q in rows:
-        if q[1] in ENDS:
-            assert q[0].startswith(ENDS[q[1]]), "%s's quote no longer starts with the words in ENDS" % q[1]
-            q[0] = ENDS[q[1]]
-        if q[1] in BYLINES:
-            q[2:] = [BYLINES[q[1]]]
-    assert {q[1] for q in rows} == set(GENERAL), "a GENERAL source has no quote on the page"
-    out.append(("wwt.general.items", rows))
-    notes["wwt.general.items"] = ("quote | name | role and organisation. Word for word from the website, [...] included; "
-                                  "a quote in ENDS stops at the end of its words, and BYLINES replaces a role.")
-    for part in ("eyebrow", "headline", "intro", "four.title", "three.title", "two.title"):
-        out.append(("wwt.back." + part, PACK["wwt.back." + part]))
-    listed = " | ".join(" | ".join(map(str, v)) for k, v in got.items() if isinstance(v, list)).lower()
-    for group, names in RETURNERS.items():
-        for n in names:
-            assert n.lower() in listed, "%s is not on the page" % n
-        out.append(("wwt.back.%s.items" % group, [[n] for n in names]))
-    notes["wwt.back.four.items"] = "organisation, as the page names it, at all four editions (see RETURNERS for the sources)"
-    notes["wwt.back.three.items"] = "organisation, as the page names it, at three editions"
-    notes["wwt.back.two.items"] = ("organisation, as the page names it, at two editions; Google, Meta and Microsoft on "
-                                   "the owner's word")
-    return out
-
-
 def build(xml):
     secs = dict(re.findall(r'<section id="([^"]+)"[^>]*>(.*?)</section>', xml, re.S))
-    intro = re.search(r'<section aria-labelledby="who-was-there-title".*?</section>', xml, re.S).group(0)
-    out = [("wwt.cover.eyebrow", text(re.search(r'climb-eyebrow">(.*?)</p>', intro, re.S).group(1))),
-           ("wwt.cover.headline", PACK["wwt.cover.headline"]),
-           ("wwt.cover.intro", PACK["wwt.cover.intro"])]
-    notes = {}
-    for sid, key, eyebrow, headline in SECTIONS:
-        if sid not in secs:
-            continue
-        body = secs[sid]
-        out.append((key + ".eyebrow", eyebrow))
-        out.append((key + ".headline", headline or PACK.get(key + ".headline") or text(re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S).group(1))))
-        lead = re.search(r'climb-social-proof-lead">(.*?)</p>', body, re.S)
-        if lead:
-            out.append((key + ".intro", PACK.get(key + ".intro") or text(lead.group(1))))
-        if "testimonials" in sid:
-            kept, left = quotes(body)
-            out.append((key + ".items", kept))
-            note = "quote | name | role and organisation. Word for word from the website, [...] included."
-            if left:
-                note += (" Left out of print because they were written before the festival, not about it: %s."
-                         % ", ".join(sorted({q[1] for q in left})))
-            notes[key + ".items"] = note
-        elif sid in ("featured-logos", "in-the-room"):
-            got_logos = logos(body)
-            if sid == "featured-logos":
-                # Page 2 prints these logos in rows of 12; NAMES_FILL tops up the last row from the page's
-                # in-the-room logos (the owner's call, 2026-10-16).
-                room = {r[0]: r for r in logos(secs["in-the-room"])}
-                assert all(f in room for f in NAMES_FILL), "a NAMES_FILL logo is not in the page's in-the-room logos"
-                got_logos = got_logos + [room[f] for f in NAMES_FILL if f not in {r[0] for r in got_logos}]
-                assert len(got_logos) % 12 == 0, "page 2 logos do not fill whole rows of 12: %d" % len(got_logos)
-            out.append((key + ".logos", got_logos))
-            notes[key + ".logos"] = "logo file | organisation, in the order the website shows them; a file alone has no name on the page"
-            if sid == "featured-logos":
-                notes[key + ".logos"] += "; the last ones are NAMES_FILL picks from the in-the-room logos"
-        elif sid == "sessions":
-            cards = re.findall(r'<div class="climb-proof-card">(.*?)</div>', body, re.S)
-            rows = []
-            for c in cards:
-                title = text(re.search(r"<h3[^>]*>(.*?)</h3>", c, re.S).group(1))
-                logo = re.search(r'/climb27/logos/([^"]+)"', c)
-                rows.append([title] + ([logo.group(1)] if logo else []))
-            out.append((key + ".items", rows))
-            notes[key + ".items"] = "session title | logo file where we hold one"
-        elif sid == "partners":
-            groups = re.split(r'<h3 class="climb-social-proof-h3">', body)[1:]
-            for gkey, g in zip(PARTNER_GROUPS, groups):
-                title, _, rest = g.partition("</h3>")
-                out.append((gkey + ".title", text(title)))
-                out.append((gkey + ".items", [[n] for n in items(rest)]))
-        elif "speakers" in sid:
-            out.append((key + ".items", people(body)))
-            notes[key + ".items"] = "name | role and organisation as they gave it"
-        else:
-            out.append((key + ".items", [[n] for n in items(body)]))
-    out += picks(dict(out), notes)
-    for k in ("wwt.cta.line1", "wwt.cta.line2", "wwt.cta.button", "wwt.cta.qr"):
-        out.append((k, PACK[k]))
+    body = secs["featured-logos"]
+    lead = re.search(r'climb-social-proof-lead">(.*?)</p>', body, re.S)
+    got = logos(body)
+    room = {r[0]: r for r in logos(secs["in-the-room"])}
+    assert all(f in room for f in NAMES_FILL), "a NAMES_FILL logo is not in the page's in-the-room logos"
+    got += [room[f] for f in NAMES_FILL if f not in {r[0] for r in got}]
+    assert len(got) % 12 == 0, "the logos do not fill whole rows of 12: %d" % len(got)
+    out = [("wwt.names.eyebrow", PACK["wwt.names.eyebrow"]), ("wwt.names.headline", PACK["wwt.names.headline"]),
+           ("wwt.names.intro", text(lead.group(1))), ("wwt.names.logos", got)]
+    notes = {"wwt.names.logos": "logo file | organisation, in the order the website shows them; a file alone has no "
+                                "name on the page; the last ones are NAMES_FILL picks from the in-the-room logos"}
 
-    lines = ["---", "copy: climb27-who-was-there", "title: Who was there, Climb23 to Climb26",
-             "deliverable: Who was there pack for Climb27 partners, with its page preview",
-             "output: pdf/brochures/climb27_who-was-there.pdf pdf/brochures/previews/climb27_who-was-there_pages.jpg",
+    lines = ["---", "copy: climb27-who-was-there", "title: In the room at ClimbUK",
+             "deliverable: The In the room at ClimbUK page near the end of the exhibitor and partner brochures",
+             "output: pdf/brochures/climb27_exhibitor-brochure.pdf pdf/brochures/climb27_partner-brochure.pdf",
              "build: pdf/_build/build_brochures.sh",
              "source: mirror",
-             "note: Every word printed in the Who was there pack comes from this file. It is written by "
+             "note: The In the room at ClimbUK page in both brochures prints this file. It is written by "
              "pdf/_build/wwt_from_page.py from the public Who was there page on the ClimbUK website, word for word; "
-             "change the page and run the script rather than editing the lists here. Logo files are in "
-             "pdf/brochures/_build/logos.", "---", "",
-             "<!-- note: The quote lists (wwt.general.items and wwt.quotes23.items to wwt.quotes26.items) print attendees' own words verbatim, so the copy checker's flags in them (exclamation marks, superlatives, Climb on its own, the word venue) stay as said. -->", ""]
+             "change the page and run the script rather than editing the list here. Logo files are in "
+             "pdf/brochures/_build/logos.", "---", ""]
     for key, value in out:
         lines.append("<!-- @%s -->" % key)
         if key in notes:

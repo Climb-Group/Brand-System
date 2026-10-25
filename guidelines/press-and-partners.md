@@ -120,8 +120,8 @@ Describe these as options to build from, like the rest of a partnership. Never s
 - **Cards stand out from their page.** On a dark page a card is one step lighter (Charcoal on Dark Brown) with a hairline; never a card the same colour as the page.
 - **Cards in a row line up.** Every card in a row has a short description, the same height and its price on one shared line at the bottom.
 - **Lists are read at a glance.** List text is at least 24px on a 1920px page, sized to match its arrow or icon, with clear space between the list and any quote box below it. Each list marker (the orange chevron) is sized to the text, never larger, and sits centred on the first line of its item.
-- **Each stand type gets its own photos.** The starter pod is shown with a plain render, not another company's custom pods (those photos suit the expo stand). Pod photos go on the pod page and nowhere else.
-- **The marketplace is for makers and new businesses.** Consultants and service firms belong in the starter pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
+- **Each stand type gets its own photos.** The startup pod is shown with a plain render, not another company's custom pods (those photos suit the expo stand). Pod photos go on the pod page and nowhere else.
+- **The marketplace is for makers and new businesses.** Consultants and service firms belong in the startup pods, not at a marketplace table. Social enterprises and community organisations get a marketplace option of their own.
 - **The marketplace page shows the festival.** Six or seven busy festival photos (packed rooms, arrivals, networking), not more stand shots.
 - **Photos match the page.** A page about the festival or the stage uses stage, awards and crowd photos, not a speaker on a stand. Every stand and organisation appears at most once on a page, never twice anywhere on it, and mix the organisations across a photo wall. One moment gets one photo on a page: never two angles or frames of the same conversation or scene (shots taken seconds apart, such as MAF-341 and MAF-342).
 - **Name what is sold.** Partners buy workshops, roundtables, ClimbAwards and zones. ClimbUK does not sell main stage sessions, so never head these offers "stage" or "take the stage"; call them sessions and awards.
@@ -144,18 +144,11 @@ Describe these as options to build from, like the rest of a partnership. Never s
   - Show each option with a real Climb26 photo of it, never an older edition.
 - **The closing page is the poster.** A full Climb Orange page over a festival photo under the orange fade (a crowd or the stage, never a face), with a huge white headline (one word in Dark Brown italic), a round Dark Brown "Book a call" button under it, and one white card on the right holding the QR code, "Scan to book a call" and the contact lines, centred, with the web address in full (www.climb-uk.com/partnerships). One logo only, Climb27 in mono white, bottom left; the VAT line in a small Dark Brown tag, bottom right. Only large white text sits on the orange. Keep it uncluttered.
 
-## Who was there pack
+## In the room at ClimbUK
 
-A short proof pack sent with the sales brochures, built from www.climb-uk.com/who-was-there. It shows the names a reader recognises, not everyone who came:
+Both sales brochures end with one page of the best-known organisations in the room at ClimbUK, as a wall of their logos, just before the closing poster. It is the proof that comes with the offer: the names a reader recognises, not everyone who came. There is no separate proof pack; the full story of who came to each edition lives on www.climb-uk.com/who-was-there.
 
-1. **Speakers people will know**, from every edition: one or two pages.
-2. **Sessions people will know**, from every edition, such as those run with well-known companies: one or two pages.
-3. **Testimonials**: from Climb26 and about ClimbUK in general, as many pages as the quotes need, following the quote rules above.
-4. **In the room at ClimbUK**: one page of the best-known organisations.
-
-Leave out long lists of every exhibitor or attendee: they add length, not proof.
-
-Name ClimbUK, not single editions, in this pack's headings, labels and attributions ("What people said about ClimbUK", "ClimbUK speaker"). Many people and organisations came to more than one edition, and the edition records are incomplete. Count returning organisations by edition only where the records support it.
+Leave out long lists of every exhibitor or attendee: they add length, not proof. Name ClimbUK, not single editions, on this page.
 
 ## The share kit
 
