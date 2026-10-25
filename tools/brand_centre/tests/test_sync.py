@@ -1,6 +1,7 @@
 """Tests for the Brand Centre sync's decisions. They need no library and no rclone."""
 import os
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
@@ -29,35 +30,39 @@ class FindEditsTest(unittest.TestCase):
         self.assertEqual(sync.find_edits(manifest, listing), ([], []))
 
 
-class PlanPushTest(unittest.TestCase):
-    def test_first_push_sends_every_tracked_file_but_internal(self):
+class SeedFilesTest(unittest.TestCase):
+    def test_seed_copies_every_tracked_file_but_internal(self):
         tracked = ["README.md", "internal/README.md", "logos/a.svg", ".github/workflows/check.yml", ""]
-        self.assertEqual(sync.plan_push(None, [], tracked), (["README.md", "logos/a.svg"], []))
+        self.assertEqual(sync.seed_files(tracked), ["README.md", "logos/a.svg"])
 
-    def test_later_push_sends_only_the_diff(self):
-        tracked = ["README.md", "logos/a.svg", "logos/new.svg"]
-        diff = ["M\tREADME.md", "A\tlogos/new.svg", "D\tlogos/old.svg", ""]
-        self.assertEqual(sync.plan_push("abc", diff, tracked), (["README.md", "logos/new.svg"], ["logos/old.svg"]))
 
-    def test_rename_removes_old_path_and_sends_new_one(self):
-        tracked = ["guidelines/new.md"]
-        diff = ["R100\tguidelines/old.md\tguidelines/new.md"]
-        self.assertEqual(sync.plan_push("abc", diff, tracked), (["guidelines/new.md"], ["guidelines/old.md"]))
+class ListingTest(unittest.TestCase):
+    def test_mark_writes_the_listing_pull_compared(self):
+        # An edit made in the library after pull listed it must still be found next run, so mark records the
+        # listing pull saved, never a fresh one.
+        listing = {"a.md": entry("1"), "logos/b.png": entry("2", 99)}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "listing.json")
+            sync.save_listing(listing, path)
+            self.assertEqual(sync.load_listing(path), listing)
 
-    def test_push_never_touches_internal(self):
-        diff = ["M\tinternal/README.md", "D\tinternal/notes.md"]
-        self.assertEqual(sync.plan_push("abc", diff, ["internal/README.md"]), ([], []))
+    def test_marked_listing_hides_pulled_edits_but_not_later_ones(self):
+        pulled = {"a.md": entry("9"), "new.md": entry("4")}
+        later = {"a.md": entry("9"), "new.md": entry("5")}
+        self.assertEqual(sync.find_edits(pulled, pulled), ([], []))
+        self.assertEqual(sync.find_edits(pulled, later), (["new.md"], []))
 
 
 class ExcludedTest(unittest.TestCase):
     def test_excluded_paths(self):
-        for path in ("internal/notes.md", ".brand-centre-sync/manifest.json", ".git/config",
+        for path in ("internal/notes.md", "templates/internal/tool/run.py", ".brand-centre-sync/manifest.json", ".git/config",
                      "templates/~$Letterhead.dotx", "pdf/.~lock.flyer.odt#", "photos/Thumbs.db",
                      "photos/.DS_Store", "a/desktop.ini", "upload.tmp"):
             self.assertTrue(sync.excluded(path), path)
 
     def test_pack_paths_are_synced(self):
-        for path in ("README.md", "logos/climbuk.svg", "guidelines/voice.md", "photos/internal-shots.jpg"):
+        for path in ("README.md", "logos/climbuk.svg", "guidelines/voice.md", "photos/internal-shots.jpg",
+                     "photos/internal"):
             self.assertFalse(sync.excluded(path), path)
 
 

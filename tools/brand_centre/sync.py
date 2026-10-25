@@ -1,21 +1,29 @@
-"""Keep the Brand System library in the Brand Centre and this repository in step.
+"""Bring edits made in the Brand System library in the Brand Centre into this repository.
 
-The library is where people edit the pack. GitHub runs this script, so no computer has to be on.
+The library is the source of truth (Jonathan, 2026-10-25): the sync only pulls. GitHub runs this script, so no
+computer has to be on.
 
     python3 tools/brand_centre/sync.py pull       # library edits -> the working tree (the workflow commits them)
-    python3 tools/brand_centre/sync.py push       # main -> the library, after every push to main
-    python3 tools/brand_centre/sync.py restore    # put main back over library edits not in git
+    python3 tools/brand_centre/sync.py mark       # after the commit lands: record the library as matching main
     python3 tools/brand_centre/sync.py status     # list library edits, change nothing
+    python3 tools/brand_centre/sync.py seed       # copy main into the library, by hand only (see below)
 
 The script talks to the library through rclone. BRAND_CENTRE_REMOTE names the remote (default ":onedrive:",
-set up from the RCLONE_ONEDRIVE_* variables the workflow passes). After each push it saves a manifest of the
-library's own file hashes in .brand-centre-sync/manifest.json in the library, with the commit it matches. An
-edit is then any library file whose hash differs from the manifest, any file the manifest does not list, and
-any listed file that has gone. Comparing against the library's own hashes, never against git, matters because
-SharePoint rewrites some files as it stores them (it adds metadata to HTML and Office files), so their bytes
-never match the repository even when nobody has touched them.
+set up from the RCLONE_ONEDRIVE_* variables the workflow passes). It keeps a manifest of the library's own file
+hashes in .brand-centre-sync/manifest.json in the library. An edit is any library file whose hash differs from
+the manifest, any file the manifest does not list, and any listed file that has gone. Comparing against the
+library's own hashes, never against git, matters because SharePoint rewrites some files as it stores them (it
+adds metadata to HTML and Office files), so their bytes never match the repository even when nobody has touched
+them. `pull` saves the listing it compared, and `mark` writes that listing as the new manifest once the edits are
+on main, so an edit made in the library while a run is going is still found by the next run.
 
-internal/ never leaves the Brand Centre: it lives in another library, and every listing here excludes it too.
+`seed` is the only command that writes pack files to the library. It is for a new or emptied library, or a lost
+manifest, and is never run automatically.
+
+internal/ never leaves the Brand Centre. Team-only material and the internal tools that extend the brand system
+live in internal folders in the Brand System library, beside the pack: at the top, or beside the part a tool
+extends (templates/internal/). Every listing here leaves out any folder named internal, at any depth, and pull
+also skips any file .gitignore keeps out of the repository.
 """
 import json
 import os
@@ -26,11 +34,13 @@ import tempfile
 REMOTE = os.environ.get("BRAND_CENTRE_REMOTE", ":onedrive:")
 STATE_DIR = ".brand-centre-sync"
 MANIFEST = STATE_DIR + "/manifest.json"
+# What `pull` compared, kept for `mark`: on the runner, outside the checkout.
+LISTING = os.environ.get("BRAND_CENTRE_LISTING", os.path.join(tempfile.gettempdir(), "brand-centre-listing.json"))
 # GitHub refuses files over 100 MB; a bigger file in the library stays there and is reported.
 MAX_BYTES = 95 * 1024 * 1024
 # Never synced in either direction: team-only material, the sync's own state, and the files apps leave behind.
 EXCLUDES = (
-    "/internal/**", "/%s/**" % STATE_DIR, "/.git/**", "/.github/**",
+    "internal/**", "/%s/**" % STATE_DIR, "/.git/**", "/.github/**",
     "~$*", ".~lock.*#", ".DS_Store", "Thumbs.db", "desktop.ini", "*.tmp",
 )
 FILTER_ARGS = [arg for pattern in EXCLUDES for arg in ("--exclude", pattern)]
@@ -49,8 +59,9 @@ def git(*args):
 
 def excluded(path):
     """True for a path the sync must never touch (mirrors EXCLUDES)."""
-    name = path.rsplit("/", 1)[-1]
-    if path.split("/", 1)[0] in ("internal", STATE_DIR, ".git", ".github"):
+    parts = path.split("/")
+    name = parts[-1]
+    if "internal" in parts[:-1] or parts[0] in (STATE_DIR, ".git", ".github"):
         return True
     return (name.startswith("~$") or (name.startswith(".~lock.") and name.endswith("#"))
             or name in (".DS_Store", "Thumbs.db", "desktop.ini") or name.endswith(".tmp"))
@@ -80,8 +91,18 @@ def write_manifest(commit, files):
     rclone("rcat", REMOTE + MANIFEST, input_text=body)
 
 
+def save_listing(listing, path=None):
+    with open(path or LISTING, "w") as fh:
+        json.dump(listing, fh, sort_keys=True)
+
+
+def load_listing(path=None):
+    with open(path or LISTING) as fh:
+        return json.load(fh)
+
+
 def find_edits(manifest_files, listing):
-    """Compare the library with the manifest saved at the last push.
+    """Compare the library with the manifest saved at the last mark or seed.
 
     Returns (changed, deleted): paths added or changed in the library, and paths removed from it. Pure, so the
     tests can run it without a library.
@@ -91,31 +112,9 @@ def find_edits(manifest_files, listing):
     return changed, deleted
 
 
-def plan_push(manifest_commit, diff_lines, tracked):
-    """Decide what a push sends, from `git diff --name-status <manifest commit> HEAD` and `git ls-files`.
-
-    Returns (upload, remove). With no manifest commit (the first push, or a lost manifest) every tracked file
-    is uploaded. Pure, so the tests can run it.
-    """
-    tracked = [p for p in tracked if p and not excluded(p)]
-    if not manifest_commit:
-        return sorted(tracked), []
-    upload, remove = set(), set()
-    for line in diff_lines:
-        parts = line.split("\t")
-        if len(parts) < 2:
-            continue
-        status, paths = parts[0], parts[1:]
-        if status.startswith("R"):  # a rename removes the old path and adds the new one
-            remove.add(paths[0])
-            upload.add(paths[1])
-        elif status.startswith("D"):
-            remove.add(paths[0])
-        else:
-            upload.add(paths[-1])
-    keep = set(tracked)
-    return (sorted(p for p in upload if p in keep),
-            sorted(p for p in remove if not excluded(p) and p not in keep))
+def seed_files(tracked):
+    """The tracked files a seed copies to the library: everything but the excluded paths. Pure, for the tests."""
+    return sorted(p for p in tracked if p and not excluded(p))
 
 
 def ignored_by_git(paths):
@@ -131,9 +130,10 @@ def pull():
     """Copy library edits into the working tree. Prints how many files changed; the workflow commits them."""
     manifest = read_manifest()
     if not manifest.get("commit"):
-        print("No manifest in the library yet: run a push first.")
+        print("No manifest in the library yet: seed it first.")
         return 0
     listing = remote_listing()
+    save_listing(listing)
     changed, deleted = find_edits(manifest.get("files", {}), listing)
     skipped_ignored = ignored_by_git(changed)
     too_big = [p for p in changed if listing[p]["size"] > MAX_BYTES]
@@ -156,53 +156,37 @@ def pull():
     return 0
 
 
-def push(restore=False):
-    """Send main to the library and save a fresh manifest.
+def mark():
+    """Record the library as matching main: the listing `pull` compared becomes the manifest.
 
-    Library edits not yet in git keep their manifest entry, so the next pull still finds them, unless main
-    changed the same file (main wins; the workflow commits library edits before it pushes, so this only happens
-    when that commit was refused) or restore is set (main goes back over every edit).
+    Run only after the edits that pull found are on main. Files pull left in the library (git-ignored or too
+    big) are recorded too, so they are reported once, not on every run.
     """
+    if not os.path.exists(LISTING):
+        return 0  # pull found no manifest, so there is nothing to record
     head = git("rev-parse", "HEAD").strip()
-    manifest = read_manifest()
-    old_files = manifest.get("files", {})
-    tracked = git("ls-files").split("\n")
-    base = manifest.get("commit")
-    if base and subprocess.run(["git", "cat-file", "-e", base + "^{commit}"], stderr=subprocess.DEVNULL).returncode:
-        print("The manifest's commit is not in this history: sending every file.")
-        base = None
-    diff = git("diff", "--name-status", "--no-renames", base, "HEAD").split("\n") if base else []
-    upload, remove = plan_push(base, diff, tracked)
-    listing = remote_listing() if manifest.get("commit") else {}
-    pending_changed, pending_deleted = find_edits(old_files, listing) if listing else ([], [])
-    if restore:
-        keep = set(p for p in tracked if p and not excluded(p))
-        upload = sorted(set(upload) | (set(pending_changed) & keep) | (set(pending_deleted) & keep))
-        remove = sorted(set(remove) | (set(pending_changed) - keep))
+    write_manifest(head, load_listing())
+    print("The library is recorded as matching %s." % head[:7])
+    return 0
+
+
+def seed():
+    """Copy main into the library and save a fresh manifest. By hand only: for a new or emptied library, or a
+    lost manifest. A library file that differs from main is replaced, so pull library edits into main first
+    (the workflow does)."""
+    head = git("rev-parse", "HEAD").strip()
+    upload = seed_files(git("ls-files").split("\n"))
     if upload:
         with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
             fh.write("\n".join(upload) + "\n")
         try:
-            rclone("copy", "--files-from", fh.name, "--checksum", ".", REMOTE)
+            # SharePoint adds metadata to HTML and Office files as it stores them, so the stored size and hash
+            # never match what was sent; without these flags rclone calls every such upload corrupted.
+            rclone("copy", "--files-from", fh.name, "--checksum", "--ignore-size", "--ignore-checksum", ".", REMOTE)
         finally:
             os.unlink(fh.name)
-    for path in remove:
-        subprocess.run(["rclone", "--quiet", "deletefile", REMOTE + path])
-    listing = remote_listing()
-    sent = set(upload) | set(remove)
-    files = {}
-    for path, entry in listing.items():
-        if path in pending_changed and path not in sent and path in old_files:
-            files[path] = old_files[path]  # a library edit not in git yet: keep it findable
-        elif path in pending_changed and path not in sent:
-            continue  # a file someone added in the library: still an edit
-        else:
-            files[path] = entry
-    for path in pending_deleted:
-        if path not in sent and path in old_files:
-            files[path] = old_files[path]  # a library delete not in git yet: keep it findable
-    write_manifest(head, files)
-    print("Sent to the library: %d uploaded, %d removed, at %s." % (len(upload), len(remove), head[:7]))
+    write_manifest(head, remote_listing())
+    print("Copied main to the library: %d file(s), at %s." % (len(upload), head[:7]))
     return 0
 
 
@@ -224,10 +208,10 @@ def main(argv):
     mode = argv[1] if len(argv) > 1 else ""
     if mode == "pull":
         return pull()
-    if mode == "push":
-        return push()
-    if mode == "restore":
-        return push(restore=True)
+    if mode == "mark":
+        return mark()
+    if mode == "seed":
+        return seed()
     if mode == "status":
         return status()
     print(__doc__)
