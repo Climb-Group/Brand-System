@@ -1,17 +1,16 @@
 name: Brand Centre sync
 
-# Keeps the Brand System library in the Brand Centre and this repository in step, with no computer involved.
-#   - Library to GitHub: at noon and midnight UK time (and on demand), edits made in the library are committed
-#     straight to main by the bot app (Jonathan, 2026-10-25: no pull request to manage).
-#   - GitHub to library: after every push to main, the changed files go to the library. Library edits are
-#     committed first, so a push never overwrites an edit that is not in git yet.
-# internal/ lives in another library, which this workflow's app registration cannot reach.
+# Brings edits made in the Brand System library in the Brand Centre into this repository, with no computer
+# involved. The library is the source of truth (Jonathan, 2026-10-25), so the sync only pulls:
+#   - At noon and midnight UK time (and on demand), edits made in the library are committed straight to main by
+#     the bot app (Jonathan, 2026-10-25: no pull request to manage).
+#   - Nothing from main is written to the library, except a `seed` run started by hand for a new or emptied
+#     library.
+# The library's internal folder (team-only material and internal tools) is never read or written here.
 # Setup (app registration, variables, secret): tools/brand_centre/README.md. Until BRAND_CENTRE_CLIENT_ID is
 # set, every job skips.
 
 on:
-  push:
-    branches: [main]
   schedule:
     # GitHub runs schedules in UTC: both pairs, so one of them is noon and midnight in London all year.
     - cron: "0 0,12 * * *"
@@ -22,9 +21,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "pull: library edits to main. push: main to the library. restore: main back over unmerged library edits. status: list library edits."
+        description: "pull: library edits to main. status: list library edits. seed: copy main into a new or emptied library (replaces library files that differ)."
         type: choice
-        options: [pull, push, restore, status]
+        options: [pull, status, seed]
         default: pull
 
 permissions: {}
@@ -58,7 +57,6 @@ jobs:
           SCHEDULE: ${{ github.event.schedule }}
         run: |
           case "$EVENT" in
-            push) mode=push ;;
             workflow_dispatch) mode="$INPUT_MODE" ;;
             *) mode=pull ;;
           esac
@@ -83,8 +81,7 @@ jobs:
         if: steps.plan.outputs.mode != 'skip'
         with:
           ref: ${{ github.event.repository.default_branch }}
-          # push compares main with the commit the library last matched.
-          fetch-depth: 0
+          fetch-depth: 1
           persist-credentials: false
 
       - name: Install rclone
@@ -102,7 +99,7 @@ jobs:
 
       - name: Bot identity
         id: bot
-        if: steps.plan.outputs.mode == 'pull' || steps.plan.outputs.mode == 'push'
+        if: steps.plan.outputs.mode == 'pull' || steps.plan.outputs.mode == 'seed'
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
           SLUG: ${{ steps.app.outputs.app-slug }}
@@ -111,9 +108,9 @@ jobs:
           echo "name=${SLUG}[bot]" >> "$GITHUB_OUTPUT"
           echo "email=${id}+${SLUG}[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
 
-      # Every run that writes starts by committing library edits to main.
+      # Every run that writes starts by committing library edits to main; a seed never replaces an edit.
       - name: Library edits to main
-        if: steps.plan.outputs.mode == 'pull' || steps.plan.outputs.mode == 'push'
+        if: steps.plan.outputs.mode == 'pull' || steps.plan.outputs.mode == 'seed'
         env:
           RCLONE_ONEDRIVE_CLIENT_SECRET: ${{ secrets.BRAND_CENTRE_CLIENT_SECRET }}
           GH_TOKEN: ${{ steps.app.outputs.token }}
@@ -127,12 +124,11 @@ jobs:
           git reset --quiet --hard "origin/$DEFAULT_BRANCH"
           git clean -fdq
 
-      - name: Main to the library
-        if: steps.plan.outputs.mode == 'push' || steps.plan.outputs.mode == 'restore'
+      - name: Seed the library from main
+        if: steps.plan.outputs.mode == 'seed'
         env:
           RCLONE_ONEDRIVE_CLIENT_SECRET: ${{ secrets.BRAND_CENTRE_CLIENT_SECRET }}
-          MODE: ${{ steps.plan.outputs.mode }}
-        run: python3 tools/brand_centre/sync.py "$MODE"
+        run: python3 tools/brand_centre/sync.py seed
 
       - name: List library edits
         if: steps.plan.outputs.mode == 'status'
