@@ -172,8 +172,9 @@ def mark():
 
 def seed():
     """Copy main into the library and save a fresh manifest. By hand only: for a new or emptied library, or a
-    lost manifest. A library file that differs from main is replaced, so pull library edits into main first
-    (the workflow does)."""
+    lost manifest. Only files the library lacks are copied: a file already there is never replaced, because the
+    library is the source of truth, and because SharePoint refuses to replace the HTML and Office files it has
+    rewritten ("upload session was not found", "Item not found")."""
     head = git("rev-parse", "HEAD").strip()
     upload = seed_files(git("ls-files").split("\n"))
     if upload:
@@ -182,7 +183,8 @@ def seed():
         try:
             # SharePoint adds metadata to HTML and Office files as it stores them, so the stored size and hash
             # never match what was sent; without these flags rclone calls every such upload corrupted.
-            rclone("copy", "--files-from", fh.name, "--checksum", "--ignore-size", "--ignore-checksum", ".", REMOTE)
+            rclone("copy", "--files-from", fh.name, "--ignore-existing", "--ignore-size", "--ignore-checksum", ".",
+                   REMOTE)
         finally:
             os.unlink(fh.name)
     write_manifest(head, remote_listing())

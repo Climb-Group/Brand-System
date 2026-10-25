@@ -20,7 +20,7 @@ In GitHub, open Actions, then Brand Centre sync, then Run workflow, and pick a m
 | --- | --- |
 | `pull` (default) | Commits library edits to `main`. |
 | `status` | Lists the library edits and changes nothing. |
-| `seed` | Commits library edits to `main`, then copies `main` into the library and saves a fresh manifest. Use it only for a new or emptied library, or after the manifest was deleted. Any library file that differs from `main` afterwards is replaced. |
+| `seed` | Commits library edits to `main`, then copies `main` into the library and saves a fresh manifest. Use it only for a new or emptied library, or after the manifest was deleted. It copies only the files the library lacks and never replaces one that is there. |
 
 Locally, with rclone and the same `RCLONE_ONEDRIVE_*` variables: `python3 tools/brand_centre/sync.py status`. Set `BRAND_CENTRE_REMOTE` to use a named rclone remote instead, for example `BRAND_CENTRE_REMOTE=brand-system:`.
 
