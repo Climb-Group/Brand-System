@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "pull: library edits to main. status: list library edits. seed: copy main into a new or emptied library (replaces library files that differ)."
+        description: "pull: library edits to main. status: list library edits. seed: copy the files the library lacks from main, never replacing one."
         type: choice
         options: [pull, status, seed]
         default: pull
