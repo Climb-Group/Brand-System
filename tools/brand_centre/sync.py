@@ -1,16 +1,19 @@
 """Keep the Brand System library in the Brand Centre and this repository in step.
 
-The library is where people edit the pack. GitHub runs this script, so no computer has to be on.
+The library is the source of truth: people edit the pack there, and main only ever pulls from it (Jonathan,
+2026-10-25). GitHub runs this script, so no computer has to be on.
 
     python3 tools/brand_centre/sync.py pull       # library edits -> the working tree (the workflow commits them)
-    python3 tools/brand_centre/sync.py push       # main -> the library, after every push to main
-    python3 tools/brand_centre/sync.py restore    # put main back over library edits not in git
+    python3 tools/brand_centre/sync.py mark       # once they are on main, record them as taken
     python3 tools/brand_centre/sync.py status     # list library edits, change nothing
+    python3 tools/brand_centre/sync.py push       # main -> the library: by hand only, to seed or rebuild it
+    python3 tools/brand_centre/sync.py restore    # put main back over library edits not in git: by hand only
 
 The script talks to the library through rclone. BRAND_CENTRE_REMOTE names the remote (default ":onedrive:",
-set up from the RCLONE_ONEDRIVE_* variables the workflow passes). After each push it saves a manifest of the
-library's own file hashes in .brand-centre-sync/manifest.json in the library, with the commit it matches. An
-edit is then any library file whose hash differs from the manifest, any file the manifest does not list, and
+set up from the RCLONE_ONEDRIVE_* variables the workflow passes). The manifest in
+.brand-centre-sync/manifest.json in the library holds the library's own file hashes as main last took them, with
+that commit; mark rewrites it after each pull that reaches main (the first push seeded it). An edit is then any
+library file whose hash differs from the manifest, any file the manifest does not list, and
 any listed file that has gone. Comparing against the library's own hashes, never against git, matters because
 SharePoint rewrites some files as it stores them (it adds metadata to HTML and Office files), so their bytes
 never match the repository even when nobody has touched them.
@@ -128,12 +131,19 @@ def ignored_by_git(paths):
 
 
 def pull():
-    """Copy library edits into the working tree. Prints how many files changed; the workflow commits them."""
+    """Copy library edits into the working tree. Prints how many files changed; the workflow commits them.
+
+    With BRAND_CENTRE_LISTING set, the library listing this pull worked from is saved there, so mark records
+    exactly what was taken and an edit made during the run is still found next time.
+    """
     manifest = read_manifest()
     if not manifest.get("commit"):
-        print("No manifest in the library yet: run a push first.")
+        print("No manifest in the library yet: seed it with a push by hand first.")
         return 0
     listing = remote_listing()
+    if os.environ.get("BRAND_CENTRE_LISTING"):
+        with open(os.environ["BRAND_CENTRE_LISTING"], "w") as fh:
+            json.dump(listing, fh)
     changed, deleted = find_edits(manifest.get("files", {}), listing)
     skipped_ignored = ignored_by_git(changed)
     too_big = [p for p in changed if listing[p]["size"] > MAX_BYTES]
@@ -206,6 +216,23 @@ def push(restore=False):
     return 0
 
 
+def mark():
+    """Record the listing the last pull took as the new manifest, at the commit now checked out.
+
+    Run only once the pull's edits are on main: a file still in the manifest's old state is found again.
+    """
+    path = os.environ.get("BRAND_CENTRE_LISTING", "")
+    if not path or not os.path.exists(path):
+        print("No saved listing (BRAND_CENTRE_LISTING): nothing to mark.")
+        return 0
+    with open(path) as fh:
+        listing = json.load(fh)
+    head = git("rev-parse", "HEAD").strip()
+    write_manifest(head, listing)
+    print("Library edits marked as taken at %s: %d files in the manifest." % (head[:7], len(listing)))
+    return 0
+
+
 def status():
     manifest = read_manifest()
     if not manifest.get("commit"):
@@ -224,6 +251,8 @@ def main(argv):
     mode = argv[1] if len(argv) > 1 else ""
     if mode == "pull":
         return pull()
+    if mode == "mark":
+        return mark()
     if mode == "push":
         return push()
     if mode == "restore":

@@ -61,5 +61,12 @@ class ExcludedTest(unittest.TestCase):
             self.assertFalse(sync.excluded(path), path)
 
 
+class MarkTest(unittest.TestCase):
+    def test_mark_without_a_saved_listing_writes_nothing(self):
+        # No pull ran (or it found no manifest): mark must not seed a manifest from nothing.
+        os.environ.pop("BRAND_CENTRE_LISTING", None)
+        self.assertEqual(sync.mark(), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -6,11 +6,15 @@
 #
 # Run after `sync.py pull` on a checkout of main. If main's rules refuse the bot's push, the edits go to the
 # brand-centre/edits branch and a draft pull request instead, so nothing is lost; the run says so.
+# When the edits are on main (or there were none), it writes "landed=true" to $GITHUB_OUTPUT, and the workflow
+# then marks them as taken. Edits that went to the pull request stay unmarked, so every run brings them again.
 set -eu
+landed() { [ -n "${GITHUB_OUTPUT:-}" ] && echo "landed=true" >> "$GITHUB_OUTPUT"; return 0; }
 
 git add --all -- . ':!internal' ':!.brand-centre-sync'
 if git diff --cached --quiet; then
   echo "No library edits to bring in."
+  landed
   exit 0
 fi
 
@@ -25,6 +29,7 @@ $files"
 remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 if git push --quiet "$remote" "HEAD:refs/heads/$DEFAULT_BRANCH"; then
   echo "Library edits committed to $DEFAULT_BRANCH: $count file(s)."
+  landed
   exit 0
 fi
 
