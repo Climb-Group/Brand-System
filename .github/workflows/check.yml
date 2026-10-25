@@ -35,6 +35,8 @@ jobs:
         run: python3 -m unittest discover -s photos/tests
       - name: Font tests
         run: python3 -m unittest discover -s fonts/tests
+      - name: Brand Centre sync tests
+        run: python3 -m unittest discover -s tools/brand_centre/tests
       - name: Skill and agent packages, open-in links and skills-lock.json are current
         run: python3 ai/agents/build_agent_kits.py --check
       - name: Prompt library passes its rules and its exports and plugins are current

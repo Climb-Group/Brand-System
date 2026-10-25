@@ -12,6 +12,8 @@
 #   Everything -> /Library/Application Support/Climb/Templates (incl. LibreOffice and video kit)
 #   Video      -> DaVinci Resolve titles and LUT, Premiere Pro LUT (skip with --skip-video,
 #                 or put skip-video in Jamf parameter 4)
+#   Skip fonts -> --skip-fonts (or skip-fonts in any Jamf parameter) leaves out the fonts, for a
+#                 device manager that installs them with a script of their own
 #
 # Re-running is safe. CLIMB_TEST_ROOT prefixes every target path (for testing only).
 
@@ -24,9 +26,11 @@ ROOT="${CLIMB_TEST_ROOT:-}"
 VERSION="$(head -n1 "$PKG/VERSION" 2>/dev/null || echo "@VERSION@")"
 
 SKIP_VIDEO=0
+SKIP_FONTS=0
 for arg in "$@"; do
   case "$arg" in
     --skip-video|skip-video) SKIP_VIDEO=1 ;;
+    --skip-fonts|skip-fonts) SKIP_FONTS=1 ;;
   esac
 done
 
@@ -51,13 +55,19 @@ copy_tree() { # copy_tree FROM TO
 
 echo "Installing Climb templates $VERSION"
 
-# Fonts
-mkdir -p "$FONTS"
-cp "$PAYLOAD"/fonts/*.ttf "$FONTS/"
-chmod 644 "$FONTS"/Montserrat-*.ttf "$FONTS"/OpenSans-*.ttf
+# Fonts, and their reference copy (the uninstaller removes the fonts listed there)
+if [ "$SKIP_FONTS" -eq 0 ]; then
+  mkdir -p "$FONTS"
+  cp "$PAYLOAD"/fonts/*.ttf "$FONTS/"
+  chmod 644 "$FONTS"/Montserrat-*.ttf "$FONTS"/OpenSans-*.ttf
+  copy_tree "$PAYLOAD/fonts" "$DEST/Fonts"
+else
+  # drop a reference copy left by an earlier full install, so uninstalling keeps the fonts
+  rm -rf "$DEST/Fonts"
+  echo "Fonts: skipped (--skip-fonts)"
+fi
 
 # Full copy for reference, LibreOffice and video import
-copy_tree "$PAYLOAD/fonts" "$DEST/Fonts"
 copy_tree "$PAYLOAD/office" "$DEST/Office"
 copy_tree "$PAYLOAD/themes" "$DEST/Themes"
 copy_tree "$PAYLOAD/libreoffice" "$DEST/LibreOffice"

@@ -2,7 +2,7 @@
 copy: climb27-flyer-general-find-your-people
 deliverable: Climb27 A5 flyer for people new to ClimbUK (Find your people), front and back
 build: pdf/flyers/_build/variants.py
-output: pdf/flyers/general/climb27_flyer_general-2_find-your-people_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-2_find-your-people_a5_*.svg
+output: pdf/flyers/general/climb27_flyer_general-2_find-your-people_a5.pdf pdf/flyers/general/V1/climb27_flyer_general-2_find-your-people_a5.pdf pdf/flyers/general/svg/climb27_flyer_general-2_find-your-people_a5_*.svg
 order: 2
 ---
 
