@@ -21,7 +21,7 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 
 - Team-only material goes in `internal/`: `.gitignore` ignores `/internal/*` except `internal/README.md`, so nothing else there is ever committed or pushed. Check a path with `git check-ignore -v internal/<file>`.
 - The pack's checks read only files git tracks (`git ls-files --cached --others --exclude-standard`), so `copy_md.py coverage`, `tools/check_dashes.py` and the tests skip internal files. `ai/tests/test_internal_folder.py` fails if the ignore rule stops covering the folder.
-- The team's computers copy `internal/` into the brand centre library alongside the rest of the pack; nothing in the repository uploads it.
+- The master copy of internal material lives in `internal` folders of the Brand System library in the Brand Centre; the Brand Centre sync never reads or writes them (see below).
 
 ### Logos and app icons
 
@@ -66,7 +66,7 @@ A house sync that adds or removes a house skill also needs step 2, or `--check` 
 - The Brand System library in the Brand Centre SharePoint site is the source of truth for the pack (Jonathan, 2026-10-25), and the sync only pulls. `.github/workflows/brand-centre-sync.yml` runs `tools/brand_centre/sync.py` on GitHub, so no computer has to be on. At noon and midnight UK time (two UTC crons, and the one that matches London time runs), `pull` commits the library's edits straight to `main` as the bot app (no pull request), then `mark` records the listing `pull` compared as the new manifest. If `main` refuses the push, the edits go to a draft pull request from `brand-centre/edits` and are not marked, so the next run finds them again. `status` only lists edits.
 - Nothing from `main` is written to the library automatically: a change made on GitHub does not reach the library. `seed`, started by hand, copies `main` into a new or emptied library (after pulling its edits) and is the only command that writes pack files there.
 - An edit is a library file whose SharePoint hash differs from `.brand-centre-sync/manifest.json`. Never compare library files with git bytes: SharePoint rewrites HTML and Office files as it stores them.
-- Team-only material and the internal tools that use and extend the brand system live in the `internal` folder at the top of the Brand System library, beside the pack, so there is one location. `sync.EXCLUDES` keeps the sync out of it in both directions, and `pull` also leaves any git-ignored file (such as `private_rules.py`) in the library. Never move internal material out of that folder. The app registration (`Lists.SelectedOperations.Selected`) can write to the Brand System library only.
+- Team-only material and the internal tools that use and extend the brand system live in `internal` folders in the Brand System library (at the top, or beside the part a tool extends, such as `templates/internal`), so there is one location. `sync.EXCLUDES` keeps the sync out of any folder named `internal`, at any depth, in both directions, `.gitignore` ignores them all, and `pull` also leaves any git-ignored file (such as `private_rules.py`) in the library. Never move internal material out of that folder. The app registration (`Lists.SelectedOperations.Selected`) can write to the Brand System library only.
 - Setup and the variables (`BRAND_CENTRE_TENANT_ID`, `BRAND_CENTRE_CLIENT_ID`, `BRAND_CENTRE_DRIVE_ID`, secret `BRAND_CENTRE_CLIENT_SECRET`) are in `tools/brand_centre/README.md`. The workflow skips every run until the client ID is set.
 
 ### Release the templates and motion clips

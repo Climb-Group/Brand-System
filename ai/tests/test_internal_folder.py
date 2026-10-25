@@ -31,9 +31,13 @@ class InternalFolder(unittest.TestCase):
         self.assertFalse(ignored("internal/README.md"))
         self.assertTrue((ROOT / "internal" / "README.md").is_file())
 
-    def test_only_the_internal_folder_at_the_root(self):
-        # A folder called internal deeper in the pack is ordinary content.
-        self.assertFalse(ignored("templates/internal/README.md"))
+    def test_internal_folders_deeper_in_the_pack_are_ignored(self):
+        # Internal tools may sit beside the part of the pack they extend (Jonathan, 2026-10-25), so an internal
+        # folder at any depth stays out of git, its README included.
+        for path in ("templates/internal/README.md", "templates/internal/tool/run.py", "pdf/a/internal/x.csv"):
+            with self.subTest(path=path):
+                self.assertTrue(ignored(path), "%s would be committed" % path)
+        self.assertFalse(ignored("photos/internal-shots.jpg"))
 
     def test_checks_skip_internal_files(self):
         folder = ROOT / "internal"

@@ -55,13 +55,14 @@ class ListingTest(unittest.TestCase):
 
 class ExcludedTest(unittest.TestCase):
     def test_excluded_paths(self):
-        for path in ("internal/notes.md", ".brand-centre-sync/manifest.json", ".git/config",
+        for path in ("internal/notes.md", "templates/internal/tool/run.py", ".brand-centre-sync/manifest.json", ".git/config",
                      "templates/~$Letterhead.dotx", "pdf/.~lock.flyer.odt#", "photos/Thumbs.db",
                      "photos/.DS_Store", "a/desktop.ini", "upload.tmp"):
             self.assertTrue(sync.excluded(path), path)
 
     def test_pack_paths_are_synced(self):
-        for path in ("README.md", "logos/climbuk.svg", "guidelines/voice.md", "photos/internal-shots.jpg"):
+        for path in ("README.md", "logos/climbuk.svg", "guidelines/voice.md", "photos/internal-shots.jpg",
+                     "photos/internal"):
             self.assertFalse(sync.excluded(path), path)
 
 

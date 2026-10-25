@@ -9,3 +9,5 @@ private_rules.py
 # team's brand centre library; only internal/README.md is public.
 /internal/*
 !/internal/README.md
+# An internal folder anywhere else in the pack, for internal tools that sit beside the part they extend.
+/*/**/internal/

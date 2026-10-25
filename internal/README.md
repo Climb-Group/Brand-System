@@ -16,5 +16,6 @@ Copy rules that must stay private belong in `private_rules.py` next to the copy 
 ## Rules
 
 - Keep each piece in its own folder with a short README that says what it is, where it came from and when.
+- An internal tool that extends one part of the pack can sit in an `internal` folder beside that part instead (for example `templates/internal`). Git and the Brand Centre sync ignore every folder named `internal`, at any depth.
 - Never move a file from here into a tracked folder, link to it from a public document, or quote it in public copy unless the words are already public.
 - Check a file is ignored before you share the repository: `git check-ignore -v internal/<file>` prints the rule that ignores it.
