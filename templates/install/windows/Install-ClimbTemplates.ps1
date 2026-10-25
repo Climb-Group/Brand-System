@@ -6,7 +6,8 @@
     Run as SYSTEM (Intune Win32 app, install behaviour System) or from an elevated prompt.
 
     Machine-wide:
-      - Fonts: Montserrat and Open Sans into C:\Windows\Fonts, registered for all users.
+      - Fonts (unless -SkipFonts): Montserrat and Open Sans into C:\Windows\Fonts,
+        registered for all users.
       - Templates: Word, Excel and PowerPoint templates into
         C:\ProgramData\Climb\Templates\Office\<Brand>, themes into ...\Themes,
         LibreOffice copies into ...\LibreOffice.
@@ -22,12 +23,17 @@
 .PARAMETER SkipVideo
     Do not install the DaVinci Resolve and Premiere Pro files.
 
+.PARAMETER SkipFonts
+    Do not install the fonts, for a device manager that installs them with its own package.
+    The uninstaller then leaves the fonts alone too.
+
 .EXAMPLE
     powershell.exe -ExecutionPolicy Bypass -NoProfile -File .\Install-ClimbTemplates.ps1
 #>
 [CmdletBinding()]
 param(
-    [switch]$SkipVideo
+    [switch]$SkipVideo,
+    [switch]$SkipFonts
 )
 
 $ErrorActionPreference = 'Stop'
@@ -66,18 +72,25 @@ function Get-FontDisplayName([string]$File) {
 try {
     Write-Output "Installing Climb templates $Version from $Payload"
 
-    # Fonts
-    $FontDir = Join-Path $env:windir 'Fonts'
-    $FontKey = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-    Get-ChildItem -Path (Join-Path $Payload 'fonts') -Filter '*.ttf' | ForEach-Object {
-        $target = Join-Path $FontDir $_.Name
-        if (-not (Test-Path $target)) {
-            Copy-Item -Path $_.FullName -Destination $target -Force
+    # Fonts, and their reference copy (the uninstaller removes the fonts listed there)
+    if (-not $SkipFonts) {
+        $FontDir = Join-Path $env:windir 'Fonts'
+        $FontKey = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        Get-ChildItem -Path (Join-Path $Payload 'fonts') -Filter '*.ttf' | ForEach-Object {
+            $target = Join-Path $FontDir $_.Name
+            if (-not (Test-Path $target)) {
+                Copy-Item -Path $_.FullName -Destination $target -Force
+            }
+            New-ItemProperty -Path $FontKey -Name (Get-FontDisplayName $_.Name) -Value $_.Name -PropertyType String -Force | Out-Null
+            Write-Output "Font: $($_.Name)"
         }
-        New-ItemProperty -Path $FontKey -Name (Get-FontDisplayName $_.Name) -Value $_.Name -PropertyType String -Force | Out-Null
-        Write-Output "Font: $($_.Name)"
+        Copy-Tree (Join-Path $Payload 'fonts') (Join-Path $Dest 'Fonts')
     }
-    Copy-Tree (Join-Path $Payload 'fonts') (Join-Path $Dest 'Fonts')
+    else {
+        # Drop a reference copy left by an earlier full install, so uninstalling keeps the fonts
+        Remove-Item -Path (Join-Path $Dest 'Fonts') -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Output 'Fonts: skipped (-SkipFonts)'
+    }
 
     # Office templates, themes and LibreOffice copies
     Copy-Tree (Join-Path $Payload 'office') (Join-Path $Dest 'Office')
@@ -135,6 +148,7 @@ try {
     Set-ItemProperty -Path $Key -Name 'Version' -Value $Version
     Set-ItemProperty -Path $Key -Name 'Path' -Value $Dest
     Set-ItemProperty -Path $Key -Name 'Video' -Value ([int](-not $SkipVideo))
+    Set-ItemProperty -Path $Key -Name 'Fonts' -Value ([int](-not $SkipFonts))
 
     Write-Output "Done. People see the templates after their next sign-in."
     exit 0
