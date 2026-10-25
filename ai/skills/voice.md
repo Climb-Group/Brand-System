@@ -31,7 +31,8 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
 - Big moments, not keynotes. Clinics are roundtables or workshops.
-- No reports we have not agreed: never promise partners or sponsors an impact report, a post-event report or audience data. Sell what happens in the room.
+- No reports we have not agreed: never promise partners or sponsors an impact report or audience data. What is agreed: partners get their leads and an engagement report in the portal after the festival. Sell what happens in the room.
+- Partner and stand prices exclude VAT: say "ex. VAT", never "inc VAT".
 
 ## Headlines and titles
 
