@@ -248,6 +248,7 @@ class Brochure:
         self.slug, self.title, self.pages = slug, title, []
         self.marks = []
         self.pool = Pool(quotes_key)
+        self.own_words = []  # quotes printed from their own section, such as a partner's words on its spotlight page
 
     def add(self, cls, inner, foot=True):
         self.pages.append((cls, inner, foot))
@@ -274,8 +275,9 @@ class Brochure:
 
     def check(self):
         quotes = self.pool.quotes[:self.pool.qi]
-        if len(quotes) < MIN_QUOTES:
-            raise SystemExit("%s prints %d quotes; the rule is at least %d" % (self.slug, len(quotes), MIN_QUOTES))
+        printed = len(quotes) + len(self.own_words)
+        if printed < MIN_QUOTES:
+            raise SystemExit("%s prints %d quotes; the rule is at least %d" % (self.slug, printed, MIN_QUOTES))
         if len({q[0] for q in quotes}) != len(quotes):
             raise SystemExit("%s repeats a quote" % self.slug)
         # Two quotes from the same person or organisation never share a page or sit on neighbouring pages.
@@ -334,6 +336,7 @@ CSS = """
 .fnote p{margin:0;font-size:21px;line-height:1.45;color:var(--ch)}
 .feesbox{position:absolute;background:var(--db);color:var(--w);border-radius:12px;padding:28px 36px;font-size:26px;line-height:1.45;font-weight:700}
 .price small{font-size:22px;font-weight:700;color:var(--tint)}
+.price.stack{flex-direction:column;align-items:flex-start;gap:6px}
 .row{display:flex;gap:28px;align-items:flex-start}
 .row h3{font-family:Montserrat;font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:-.005em;color:var(--w)}
 .row p{font-size:21px;line-height:1.5;color:var(--lg);margin-top:6px}
@@ -425,8 +428,7 @@ POD_PHOTOS = (B + "stand_display_in-use.jpg", B + "expo_floor_dsc03145.jpg", B +
 DISPLAY_PHOTOS = (B + "expo_floor_maf-344.jpg", B + "expo_floor_052a2042.jpg")
 # Each stand page shows two different stands: MAF-435 and DSC03182 are one stand, so only DSC03182 is used.
 EXPO_PHOTOS = (B + "expo_floor_maf-432.jpg", B + "expo_floor_dsc03165.jpg", B + "expo_floor_dsc03182.jpg")
-SIZE_PHOTOS = ((B + "expo_floor_maf-415.jpg", B + "expo_floor_dsc03044.jpg"),
-               (B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
+SIZE_PHOTOS = ((B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
                (B + "expo_floor_maf-410.jpg", B + "stand_pod_03.jpg"))
 ZONE_PHOTOS = (B + "branding_052a3130.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg",
                B + "branding_maf-404.jpg", B + "branding_maf-395.jpg", B + "branding_maf-389.jpg")
@@ -566,12 +568,15 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
     items = C["exhibitor.%s.includes" % key]
     many = len(items) > 5
     inc = "".join("<li>%s</li>" % t(i[0]) for i in items)
-    price = '<div class="price">%s%s</div>' % (
+    # Beside the payment badges a unit goes under the price, so price and badges share one row.
+    price = '<div class="price%s">%s%s</div>' % (" stack" if pay and unit else "",
         t(C["exhibitor.%s.price" % key]), ("<small>%s</small>" % t(unit)) if unit else "")
     if pay:
         price = ('<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 30px">%s<div><div class="paynote">%s</div>%s</div></div>'
                  % (price, t(C["exhibitor.pay.badge"]), pay_badges(56, 12)))
     body = C.get("exhibitor.%s.body" % key)
+    # A footnote for an included item marked with an asterisk, printed under the list.
+    note = C.get("exhibitor.%s.note" % key)
     strap_col = "#7A3B16" if cls == "gr" else "var(--deep)"
     text = ('<div style="position:absolute;left:120px;top:96px;bottom:150px;width:740px;display:flex;flex-direction:column;align-items:flex-start">'
             '<span class="tag" style="font-size:20px;color:%s">%s</span>'
@@ -579,12 +584,13 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:34px;color:%s;line-height:1.2">%s</div>'
             '%s'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--ch)">Includes</div>'
-            '<ul class="list copy" style="margin-top:16px;width:100%%;%s">%s</ul><div style="margin-top:auto;padding-top:20px">%s</div></div>'
+            '<ul class="list copy" style="margin-top:16px;width:100%%;%s">%s</ul>%s<div style="margin-top:auto;padding-top:20px">%s</div></div>'
             % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72 if len(C["exhibitor.%s.name" % key]) < 16 else 58, ital_last=False), strap_col,
                t(C["exhibitor.%s.strap" % key]),
                ('<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>' % t(body)) if body else "",
-               ("font-size:24px;line-height:1.35;" if body else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
-               + ("columns:2;column-gap:32px" if many else ""), inc, price))
+               ("font-size:22px;line-height:1.28;" if len(items) > 10 and len(C["exhibitor.%s.name" % key]) >= 16 else "font-size:24px;line-height:1.35;" if body or len(items) > 12 else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
+               + ("columns:2;column-gap:32px" if many else ""), inc,
+               ('<p class="copy" style="margin-top:10px;font-size:18px;line-height:1.35">%s</p>' % t(note)) if note else "", price))
     big = tile(pool.photo(*names), 940, 96, 860, 440)
     if render:
         low = ('<div class="tile" style="left:940px;top:560px;width:420px;height:384px;background:#fff">'
@@ -603,14 +609,14 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
 
 
 def pay_page(bk, cls):
-    """Payment options: the three badges large, three steps, and the fees line set apart so nobody misses it."""
+    """Payment options: the three badges large, three steps, and the fees line as a footnote under them."""
     steps = "".join('<div class="step" style="padding-top:150px"><div class="numo" aria-hidden="true" style="font-size:150px">%02d</div><h3>%s</h3><p>%s</p></div>'
                     % (n, t(s_[0]), t(s_[1])) for n, s_ in enumerate(C["exhibitor.pay.steps"], 1))
     bk.add(cls, '<div style="position:absolute;left:120px;top:96px;width:1000px">%s'
            '<p class="copy" style="margin-top:26px;font-size:26px">%s</p></div>'
            '<div style="position:absolute;left:1180px;top:110px;width:620px">%s</div>'
            '<div style="position:absolute;left:120px;right:120px;top:470px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px">%s</div>'
-           '<div class="feesbox" style="left:120px;right:120px;top:840px">%s</div>'
+           '<div class="fnote" style="left:120px;right:120px;bottom:120px"><p>%s</p></div>'
            % (head(C["exhibitor.pay.eyebrow"], C["exhibitor.pay.headline"], 72, 1000), t(C["exhibitor.pay.intro"]),
               pay_badges(110, 22), steps, t(C["exhibitor.pay.fees"])))
 
@@ -635,14 +641,33 @@ def sizes_page(bk, cls):
     pool = bk.pool
     cols = []
     for i, ((size, line), names) in enumerate(zip(C["exhibitor.sizes.items"], SIZE_PHOTOS)):
-        x = 120 + i * 573
-        cols.append('<div style="position:absolute;left:%dpx;top:330px;width:533px">'
+        w = (1680 - 40 * (len(C["exhibitor.sizes.items"]) - 1)) // len(C["exhibitor.sizes.items"])
+        x = 120 + i * (w + 40)
+        cols.append('<div style="position:absolute;left:%dpx;top:330px;width:%dpx">'
                     '<div class="mont" style="font-weight:800;font-size:40px;color:var(--w);text-transform:uppercase">%s</div>'
-                    '<div style="font-size:22px;color:var(--lg);margin-top:6px">%s</div></div>' % (x, t(size), t(line))
-                    + tile(pool.photo(names[0]), x, 450, 533, 236) + tile(pool.photo(names[1]), x, 704, 533, 236))
+                    '<div style="font-size:22px;color:var(--lg);margin-top:6px">%s</div></div>' % (x, w, t(size), t(line))
+                    + tile(pool.photo(names[0]), x, 450, w, 236) + tile(pool.photo(names[1]), x, 704, w, 236))
     inner = ('<div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1500px">%s</p></div>'
              % (head(C["exhibitor.sizes.eyebrow"], C["exhibitor.sizes.headline"], 68, 1600), t(C["exhibitor.sizes.intro"])) + "".join(cols))
     bk.add(cls, inner)
+
+
+def extras_page(bk):
+    """Stand extras on Charcoal, with the print partner: out of the exhibitor brochure for now, kept for its return."""
+    pool = bk.pool
+    items = "".join('<div class="icard" style="padding:24px 26px">%s<h3 style="font-size:26px">%s</h3><p style="font-size:21px">%s</p></div>'
+                    % (illo(i[0], size=52), t(i[1]), t(i[2])) for i in C["exhibitor.extras.items"])
+    pr = C["exhibitor.extras.print"][0]
+    items += ('<div class="icard hi" style="padding:24px 26px">%s<h3 style="font-size:26px">%s</h3><p style="font-size:21px">%s</p></div>'
+              % (illo("gift-box", color="var(--w)", size=52), t(pr[0]), t(pr[1])))
+    q = pool.quote()
+    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1300px">%s</p></div>'
+             '<div class="cards" style="left:120px;width:1100px;top:340px;bottom:140px;grid-template-columns:repeat(3,1fr)">%s</div>'
+             % (head(C["exhibitor.extras.eyebrow"], C["exhibitor.extras.headline"], 72, 1500), t(C["exhibitor.extras.intro"]), items)
+             + tile(pool.photo(B + "print_stand_instantprint.jpg", *EXHIBITOR_PHOTOS), 1250, 340, 550, 380)
+             + '<div class="qabs" style="left:1250px;top:740px;width:550px;height:200px;display:flex">%s</div>'
+             % quote(q, qsize(q, 24, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
+    bk.add("ch", inner)
 
 
 def exhibitor():
@@ -704,25 +729,22 @@ def exhibitor():
                C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"], pay=True)
     # 8 Every expo size, 9 how simple the day is.
     sizes_page(bk, "ch")
-    setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
+    # The setup page is left out of the exhibitor brochure for now (sales review, October 2026). Uncomment to bring it back.
+    # setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
 
     # 8 The marketplace has its own page, on Light Grey.
-    who = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.who"])
     inc = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.includes"])
     q = pool.quote()
     pool.used.add(B + "festival_busy_052a3717.jpg")
     inner = ('<div style="position:absolute;left:120px;top:90px;width:860px">'
              '<div class="eb" style="font-size:22px">%s</div>'
              '<h2 class="h" style="font-size:76px;margin-top:26px">%s</h2>'
-             '<p style="margin-top:26px;font-size:23px;line-height:1.55;color:var(--db)">%s</p>'
-             '<div style="display:flex;gap:40px;margin-top:28px">'
-             '<div style="flex:1.2"><div class="mont" style="font-weight:800;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--db)">%s</div>'
-             '<ul class="list" style="margin-top:14px;font-size:20px;line-height:1.4">%s</ul></div>'
-             '<div style="flex:1"><div class="mont" style="font-weight:800;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--db)">Includes</div>'
-             '<ul class="list" style="margin-top:14px;font-size:20px;line-height:1.4">%s</ul></div></div>'
+             '<div class="mont" style="margin-top:36px;font-weight:800;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--db)">Includes</div>'
+             '<ul class="list" style="margin-top:16px;font-size:26px;line-height:1.45">%s</ul>'
+             '<p class="mont" style="margin-top:22px;font-weight:800;font-size:24px;color:var(--deep)">%s</p>'
              '<div class="price" style="margin-top:22px">%s</div></div>'
-             % (t(C["exhibitor.market.name"]), hl(C["exhibitor.market.strap"]), t(C["exhibitor.market.body"]),
-                t(C["exhibitor.market.who.eyebrow"]), who, inc, t(C["exhibitor.market.price"]))
+             % (t(C["exhibitor.market.name"]), hl(C["exhibitor.market.strap"]), inc, t(C["exhibitor.market.limited"]),
+                t(C["exhibitor.market.price"]))
              # The second New Dock celebration shot repeats the fist pump beside it, so the smoothie stall queue takes its place.
              + collage(pool, 1060, 90, 740, 540, [[1, 1, 1], [1, 1], [1, 1]],
                        (B + "food_052a2871.jpg", B + "festival_busy_*", P + "food_and_vendors_*", P + "crowds_*", P + "joy_*", B + "expo_floor_busy.jpg",
@@ -730,25 +752,13 @@ def exhibitor():
              + '<div class="qabs" style="left:1060px;top:654px;width:740px">%s</div>' % quote(q, qsize(q, 26, 19), "qbox"))
     bk.add("gr", inner)
 
-    # 9 Extras, with the print partner.
-    items = "".join('<div class="icard" style="padding:24px 26px">%s<h3 style="font-size:26px">%s</h3><p style="font-size:21px">%s</p></div>'
-                    % (illo(i[0], size=52), t(i[1]), t(i[2])) for i in C["exhibitor.extras.items"])
-    pr = C["exhibitor.extras.print"][0]
-    items += ('<div class="icard hi" style="padding:24px 26px">%s<h3 style="font-size:26px">%s</h3><p style="font-size:21px">%s</p></div>'
-              % (illo("gift-box", color="var(--w)", size=52), t(pr[0]), t(pr[1])))
-    q = pool.quote()
-    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1300px">%s</p></div>'
-             '<div class="cards" style="left:120px;width:1100px;top:340px;bottom:140px;grid-template-columns:repeat(3,1fr)">%s</div>'
-             % (head(C["exhibitor.extras.eyebrow"], C["exhibitor.extras.headline"], 72, 1500), t(C["exhibitor.extras.intro"]), items)
-             + tile(pool.photo(B + "print_stand_instantprint.jpg", *EXHIBITOR_PHOTOS), 1250, 340, 550, 380)
-             + '<div class="qabs" style="left:1250px;top:740px;width:550px;height:200px;display:flex">%s</div>'
-             % quote(q, qsize(q, 24, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
-    bk.add("ch", inner)
+    # The extras page is left out of the exhibitor brochure for now (sales review, October 2026). Uncomment to bring it back.
+    # extras_page(bk)
 
     pay_page(bk, "wh")
 
     # 10 A page of quotes, 11 a page of photos.
-    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 14)
+    quote_page(bk, "gr", C["shared.proof.eyebrow"], C["shared.proof.headline"], 15)
     # An even grid, so no conversation is cut into a thin strip; the table chat lost its faces in a wide tile.
     # The owner turned down the lone man at MTIF, the robots stand and the posed pairs (the funding stand too) for this wall,
     # wants exhibitors only (not our story wall) and each stand once (the insurance stand's posed shot is out).
@@ -789,18 +799,49 @@ def partner():
     cover(bk, C["partner.cover.line1"], C["partner.cover.line2"], pool.photo(P + "stage_speakers_02.jpg"), "center 35%")
     what(bk, PARTNER_PHOTOS, PARTNER_WHAT_PHOTOS)
 
-    # 3 Why partner, on Light Grey beside a photo wall.
-    cols = "".join('<div class="step" style="padding-top:190px"><div class="numo" aria-hidden="true" style="font-size:210px">%02d</div><h3>%s</h3><p>%s</p></div>'
-                   % (n, t(p[0]), t(p[1])) for n, p in enumerate(C["partner.why.points"], 1))
+    # Why partner, on Light Grey beside a photo wall: three reasons, each with the figures that back it.
+    def stats(p):
+        return "".join('<div style="margin-top:22px"><div class="mont" style="font-weight:800;font-size:54px;line-height:1;color:var(--deep)">%s</div>'
+                       '<div style="font-size:19px;line-height:1.35;margin-top:6px;color:#404C68">%s</div></div>'
+                       % (t(p[i]), t(p[i + 1])) for i in range(2, len(p) - 1, 2))
+    # The reasons fill the first row and their figures the second, so the first figure of each starts on one line.
+    pts = C["partner.why.points"]
+    cols = ("".join('<div class="step" style="padding-top:150px"><div class="numo" aria-hidden="true" style="font-size:160px">%02d</div>'
+                    '<h3 style="font-size:30px">%s</h3><p style="font-size:21px;margin-top:14px">%s</p></div>'
+                    % (n, t(p[0]), t(p[1])) for n, p in enumerate(pts, 1))
+            + "".join('<div style="margin-top:6px">%s</div>' % stats(p) for p in pts))
     q = pool.quote()
     inner = ('<div style="position:absolute;left:120px;top:96px">%s</div>' % head(C["partner.why.eyebrow"], C["partner.why.headline"], 78, 1100)
-             + '<div style="position:absolute;left:120px;width:1080px;top:420px;display:grid;grid-template-columns:repeat(3,1fr);gap:46px" class="stepsbig">%s</div>' % cols
+             + '<div style="position:absolute;left:120px;width:1080px;top:280px;bottom:130px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto 1fr;column-gap:46px">%s</div>' % cols
              + collage(pool, 1260, 96, 540, 640, [[1], [1, 1]], PARTNER_PHOTOS)
              + '<div class="qabs" style="left:1260px;top:760px;width:540px;height:180px;display:flex">%s</div>'
              % quote(q, qsize(q, 26, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("gr", inner)
 
-    # 4 How it works, on Charcoal: steps 01 to 03 down the left; 04, 05 and the quote on the right.
+    # NatWest, the multi-year partner, on white, in NatWest's own words.
+    q1, q2 = C["partner.natwest.quotes"]
+    bk.own_words += [q1, q2]
+    inner = ('<div style="position:absolute;left:120px;top:96px;width:820px">%s'
+             '<p class="copy" style="margin-top:28px;font-size:27px">%s</p>'
+             '<div style="margin-top:40px">%s</div><div style="margin-top:20px">%s</div></div>'
+             % (head(C["partner.natwest.eyebrow"], C["partner.natwest.headline"], 70, 820), t(C["partner.natwest.body"]),
+                quote(q1, qsize(q1, 30, 24), "qbox"), quote(q2, qsize(q2, 26, 22), "qdark"))
+             # NatWest at Climb26: Darren Perry on the main stage, the team on their stand, the stand busy and Busk Your Business.
+             + tile(pool.photo(B + "stage_natwest_darren-perry.jpg"), 1000, 96, 300, 606, "center 30%")
+             + tile(pool.photo(B + "expo_stand_natwest.jpg"), 1318, 96, 482, 294)
+             + tile(pool.photo(B + "expo_stand_natwest_busy.jpg", B + "expo_stand_natwest_02.jpg"), 1318, 408, 232, 294)
+             + tile(pool.photo(B + "busk_natwest_maf-177.jpg"), 1568, 408, 232, 294, "30% center")
+             # A QR code to the announcement video, on a Dark Brown card beside the photos.
+             + '<div style="position:absolute;left:1000px;top:720px;width:800px;height:220px;background:var(--db);border-radius:12px;'
+               'display:flex;align-items:center;gap:36px;padding:0 40px">'
+               '<div style="border-radius:10px;overflow:hidden;flex:none">%s</div><div>'
+               '<p class="mont" style="font-weight:800;font-size:34px;line-height:1.1;text-transform:uppercase;color:var(--w)">%s</p>'
+               '<p style="font-size:22px;margin-top:12px;color:var(--lg)">%s</p></div></div>'
+             % (qr(C["partner.natwest.video.url"], 170), t(C["partner.natwest.video.title"]), t(C["partner.natwest.video.line"])))
+    bk.add("wh", inner)
+
+
+    # How it works, on Charcoal: steps 01 to 03 down the left; 04, 05 and the quote on the right.
     steps = ['<div class="step"><div class="numo" aria-hidden="true">%02d</div><h3>%s</h3><p>%s</p></div>'
              % (n, t(s_[0]), t(s_[1])) for n, s_ in enumerate(C["partner.how.steps"], 1)]
     q = pool.quote()
@@ -812,7 +853,7 @@ def partner():
              % quote(q, qsize(q, 26, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("ch", inner)
 
-    # 5 What comes with every partnership, on Light Grey.
+    # What comes with every partnership, on Light Grey.
     # Each card wears its icon as a pin: a tilted Dark Brown badge over the top edge, the words centred below.
     items = "".join('<div class="pcard"><div class="pin" style="transform:translateX(-50%%) rotate(%ddeg)">%s</div><h3>%s</h3><p>%s</p></div>'
                     % ((-6, 5, -3, 4, -5, 6, -4, 3, -6)[n], illo(i[0], color="var(--w)", size=58), t(i[1]), t(i[2]))
@@ -839,6 +880,17 @@ def partner():
              + collage(pool, 1340, 96, 460, 844, [[1], [1]], (B + "branding_maf-402.jpg", B + "festival_busy_maf-452.jpg") + PARTNER_PHOTOS))
     bk.add("gr", inner)
 
+    # Zones, on Charcoal: the zones in words on the left, Climb26's branded zones on the right.
+    zones = "".join('<div class="icard" style="padding:28px 30px"><h3>%s</h3><p>%s</p></div>' % (t(z[0]), t(z[1]))
+                    for z in C["partner.zones.items"])
+    zp = [pool.photo(n) for n in ZONE_PHOTOS]
+    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px;width:880px">%s<p class="copy" style="margin-top:20px;font-size:24px">%s</p></div>'
+             '<div class="cards" style="left:120px;width:880px;top:436px;bottom:130px;grid-template-columns:1fr 1fr">%s</div>'
+             % (head(C["partner.zones.eyebrow"], C["partner.zones.headline"], 76, 880), t(C["partner.zones.intro"]), zones)
+             # The portrait zone sign gets a portrait tile.
+             + tile(zp[0], 1060, 96, 313, 470) + tile(zp[1], 1391, 96, 409, 226) + tile(zp[2], 1391, 340, 409, 226)
+             + tile(zp[3], 1060, 584, 361, 360) + tile(zp[4], 1439, 584, 361, 170) + tile(zp[5], 1439, 772, 361, 172))
+    bk.add("ch", inner)
     # Session screens, on white: the five screen moments as pin cards in the order a session runs,
     # joined by a dashed orange line, under the headline and a stage photo, with a Dark Brown card to close.
     cards = "".join('<div class="pcard" style="padding:62px 22px 22px;justify-content:flex-start">'
@@ -874,43 +926,10 @@ def partner():
              % quote(q, qsize(q, 28, 22), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("ch", inner)
 
-    # NatWest, the multi-year partner, on Light Grey.
-    q1 = pool.quote()
-    q2 = pool.quote()
-    inner = ('<div style="position:absolute;left:120px;top:96px;width:820px">%s'
-             '<p class="copy" style="margin-top:28px;font-size:27px">%s</p>'
-             '<div style="margin-top:40px">%s</div><div style="margin-top:20px">%s</div></div>'
-             % (head(C["partner.natwest.eyebrow"], C["partner.natwest.headline"], 70, 820), t(C["partner.natwest.body"]),
-                quote(q1, qsize(q1, 30, 24), "qbox"), quote(q2, qsize(q2, 26, 22), "qwhite"))
-             # NatWest at Climb26: Darren Perry on the main stage, the team on their stand, the stand busy and Busk Your Business.
-             + tile(pool.photo(B + "stage_natwest_darren-perry.jpg"), 1000, 96, 300, 606, "center 30%")
-             + tile(pool.photo(B + "expo_stand_natwest.jpg"), 1318, 96, 482, 294)
-             + tile(pool.photo(B + "expo_stand_natwest_busy.jpg", B + "expo_stand_natwest_02.jpg"), 1318, 408, 232, 294)
-             + tile(pool.photo(B + "busk_natwest_maf-177.jpg"), 1568, 408, 232, 294, "30% center")
-             # A QR code to the announcement video, on a Dark Brown card beside the photos.
-             + '<div style="position:absolute;left:1000px;top:720px;width:800px;height:220px;background:var(--db);border-radius:12px;'
-               'display:flex;align-items:center;gap:36px;padding:0 40px">'
-               '<div style="border-radius:10px;overflow:hidden;flex:none">%s</div><div>'
-               '<p class="mont" style="font-weight:800;font-size:34px;line-height:1.1;text-transform:uppercase;color:var(--w)">%s</p>'
-               '<p style="font-size:22px;margin-top:12px;color:var(--lg)">%s</p></div></div>'
-             % (qr(C["partner.natwest.video.url"], 170), t(C["partner.natwest.video.title"]), t(C["partner.natwest.video.line"])))
-    bk.add("gr", inner)
+    # How simple the day is: left out for now (2026-10-26); its words stay in the copy file.
+    # setup_page(bk, "wh", "partner", B + "expo_floor_maf-238.jpg", "center 75%")
 
-    # 7 Zones, on Charcoal: the zones in words on the left, Climb26's branded zones on the right.
-    zones = "".join('<div class="icard" style="padding:28px 30px"><h3>%s</h3><p>%s</p></div>' % (t(z[0]), t(z[1]))
-                    for z in C["partner.zones.items"])
-    zp = [pool.photo(n) for n in ZONE_PHOTOS]
-    inner = ('<div class="glow tl"></div><div style="position:absolute;left:120px;top:96px;width:880px">%s<p class="copy" style="margin-top:20px;font-size:24px">%s</p></div>'
-             '<div class="cards" style="left:120px;width:880px;top:436px;bottom:130px;grid-template-columns:1fr 1fr">%s</div>'
-             % (head(C["partner.zones.eyebrow"], C["partner.zones.headline"], 76, 880), t(C["partner.zones.intro"]), zones)
-             # The portrait zone sign gets a portrait tile.
-             + tile(zp[0], 1060, 96, 313, 470) + tile(zp[1], 1391, 96, 409, 226) + tile(zp[2], 1391, 340, 409, 226)
-             + tile(zp[3], 1060, 584, 361, 360) + tile(zp[4], 1439, 584, 361, 170) + tile(zp[5], 1439, 772, 361, 172))
-    bk.add("ch", inner)
-    # 8 How simple the day is, on white.
-    setup_page(bk, "wh", "partner", B + "expo_floor_maf-238.jpg", "center 75%")
-
-    # 9 Sessions and awards, on Light Grey.
+    # Sessions and awards, on Light Grey.
     stage_names = [(P + "roundtable_and_workshops_02.jpg",), (B + "awards_052a3854.jpg",), (P + "stage_speakers_03.jpg",)]
     # Titles keep room for two lines and the price sits at the foot of each card, so the prices share one line.
     offers = "".join('<div class="cardx t2"><div class="img" style="height:340px">%s</div><div class="body"><h3>%s</h3>'
@@ -922,7 +941,7 @@ def partner():
              % (head(C["partner.stage.eyebrow"], C["partner.stage.headline"], 70, 1680), offers))
     bk.add("gr", inner)
 
-    # 9 Add more, on white.
+    # Add more, on white.
     # The same pin cards as the included page.
     items = "".join('<div class="pcard"><div class="pin" style="transform:translateX(-50%%) rotate(%ddeg)">%s</div><h3>%s</h3><p>%s</p></div>'
                     % ((5, -4, 6, -6, 3, -5)[n], illo(i[0], color="var(--w)", size=58), t(i[1]), t(i[2]))
@@ -935,7 +954,7 @@ def partner():
              % quote(q, qsize(q, 26, 20), "qbox", "flex:1;display:flex;flex-direction:column;justify-content:center"))
     bk.add("wh", inner)
 
-    # 10-11 In their words.
+    # In their words.
     quote_page(bk, "gr", C["shared.proof.eyebrow"], C["partner.proof.headline"], 14)
     # Group shots that lose heads in a wide tile; the wall is an even grid so no photo is cut too thin.
     # The owner swapped out the workshop handshake (crowds_04), the dancing workshop (crowds_01) and the arrivals
@@ -1010,7 +1029,7 @@ def main():
         bk.check()
         with open(os.path.join(HERE, bk.slug + ".html"), "w", encoding="utf-8") as f:
             f.write(bk.html())
-        print("wrote", bk.slug + ".html", "(%d pages, %d quotes)" % (len(bk.pages), bk.pool.qi))
+        print("wrote", bk.slug + ".html", "(%d pages, %d quotes)" % (len(bk.pages), bk.pool.qi + len(bk.own_words)))
     # Everything printed, one string per line, for the climb-voice checker.
     with open(os.path.join(HERE, "brochures_printed.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(dict.fromkeys(PRINTED)) + "\n")

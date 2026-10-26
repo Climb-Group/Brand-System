@@ -26,7 +26,7 @@ ALWAYS = [
     (r"\bthousands\b", "attendance claim"),
     (r"\b\d+\s*(\+\s*)?(meetings|investors|partners|attendees|delegates)\b", "a number of meetings, investors, partners or attendees"),
     (r"\bpremier\b|\bbiggest\b|\blargest\b|\bthe best\b|bigger than ever", "unsupported superlative or size claim"),
-    (r"sold\s*out|last\s+few|selling fast|limited spaces", "scarcity claim"),
+    (r"sold\s*out|last\s+few|selling fast", "scarcity claim"),
     (r"guarantee", "no guarantees"),
     (r"(access|introductions?) to (top |leading )?investors|investor access", "investor-access promise"),
     (r"to be confirmed|\btbc\b|being finalised|being confirmed|coming soon|subject to|we hope", "hedge wording: state what happens"),
@@ -76,6 +76,12 @@ WORD_HINTS = [
     (r"\bdeal flow\b", "jargon: explain it in the sentence or link it to the glossary"),
     # Third review of the Climb27 sales brochures, October 2026.
     (r"\bstarter pods?\b", "the smallest stand is the 'Startup pod'"),
+    # Fourth review of the Climb27 exhibitor brochure, October 2026.
+    (r"\blimited spaces\b", "only for places that really are limited, such as marketplace tables"),
+    (r"\bevents? around the festival\b", "fringe events are not placed yet: do not say they are around the festival"),
+    (r"\bpast every stand\b", "do not claim the agenda brings people past every stand"),
+    (r"\bpitching opportunity\b", "write 'An opportunity to pitch'"),
+    (r"\bmarketplace tables?\b", "the marketplace is sold as 'Marketplace stalls'"),
 ]
 
 BEFORE_ANNOUNCEMENT = [

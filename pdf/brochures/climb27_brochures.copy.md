@@ -25,10 +25,10 @@ The [[best]] business event this _year_
 Johnny J Pawlik, CEO, Mantra Media Ltd
 
 <!-- @shared.what.facts -->
-- 30 June and 1 July 2027
-- Founders, scaling companies, investors, advisers, universities and the public sector
-- An expo floor at the heart of the festival, with the agenda bringing people past every stand
-- Fringe events around the festival, for more time with the people you meet
+- 30 June and 1 July 2027, Manchester
+- Founders, high-growth companies, investors, advisers, universities and the public sector
+- An expo floor at the heart of the festival
+- Fringe events, for more time with the people you meet
 
 <!-- @shared.proof.eyebrow -->
 In their words
@@ -46,7 +46,7 @@ In their words
 All prices ex. VAT.
 
 <!-- @shared.payment -->
-Payment options available: spread the cost with Klarna, PayPal Pay Later or Afterpay.
+Payment options available: spread the cost with Klarna, PayPal Pay Later or Afterpay, with a 5% financing fee.
 
 <!-- @shared.contact -->
 partnerships@climb-uk.com
@@ -72,12 +72,12 @@ Why exhibit
 _Because_ we are [[different]]
 
 <!-- @exhibitor.why.reasons -->
-- people | Relevant people to do business | Businesses that need what you do, and people who can open the next door. Everyone comes to grow, so conversations start easily.
+- people | Relevant people | Businesses that need what you do, and people who can open the next door: 87% of attendees have major purchasing authority.
 - target | Full of opportunity | A steady flow of leads all day, from people who arrive ready to buy and leave with your card in their pocket.
 - handshake | Partners worth having | Meet the firms, universities and public bodies you can build something with, and start partnerships that last.
 - puzzle | Built on collaboration | A community that shares ideas, swaps what works and sends each other work, long after the festival.
 - party-popper | Buzzing with energy | It feels like a festival from the first hello: packed stages, busy aisles and after parties. Nothing like a trade show.
-- spotlight | Be seen | Your brand on the expo floor in front of everyone the agenda brings past your stand, and in our marketing before and after the festival.
+- spotlight | Be seen | Your brand on the expo floor, and in our marketing before and after the festival.
 
 <!-- @exhibitor.why.quote -->
 - It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
@@ -92,7 +92,7 @@ From a pod to a _showcase_ [[stand]]
 Four ways onto the expo floor, each one built and ready when you arrive.
 
 <!-- @exhibitor.pod.card -->
-An affordable option to showcase your brand: your own window on the expo floor.
+An affordable option to showcase your brand.
 
 <!-- @exhibitor.pod.eyebrow -->
 Stand type 1
@@ -114,9 +114,8 @@ Stand out from the crowd
 - 3 branded panels, design to be supplied
 - 1x 2-day exhibitor pass
 - 1x 2-day guest ticket
-- Immediate access to the exhibitor portal
 - Video guides for first-time exhibitors
-- A pitching opportunity
+- An opportunity to pitch
 - Marketing before and after the festival
 - Your logo in one of our newsletters
 - £100 instantprint voucher per exhibitor pass
@@ -144,16 +143,25 @@ Profile your product
 - 2m x 1m space
 - 1x 2-day exhibitor pass
 - 2x 2-day guest tickets
-- 2 branded panels
+- 2 branded panels, design to be supplied
 - Cupboard
 - Power included
 - 1 stool
 - 32 inch monitor
+- Marketing before and after the festival
+- Your logo in one of our newsletters
+- An opportunity to speak on a relevant panel session*
 - £100 instantprint voucher per exhibitor pass
 - Stand extras available from the exhibitor portal
 
+<!-- @exhibitor.display.note -->
+*Limited availability. Speaking places follow our speaker terms and conditions, so this gives you the chance to speak, not a promise of a place.
+
+<!-- @exhibitor.expo.note -->
+*Limited availability. Speaking places follow our speaker terms and conditions, so this gives you the chance to speak, not a promise of a place.
+
 <!-- @exhibitor.expo.card -->
-Demos, discussions and deals, on a stand built to your size.
+Demos, discussions and deals.
 
 <!-- @exhibitor.expo.eyebrow -->
 Stand type 3
@@ -162,10 +170,7 @@ Stand type 3
 Expo and showcase stand
 
 <!-- @exhibitor.expo.strap -->
-Room for demos, your team and a crowd, built and branded to your size.
-
-<!-- @exhibitor.expo.body -->
-Space for demos, live activity and a fully branded stand. This is where people stop, gather and get involved.
+Room for your team, your product and a crowd.
 
 <!-- @exhibitor.expo.size -->
 From 2m x 2m
@@ -178,11 +183,15 @@ per 2m x 2m space
 
 <!-- @exhibitor.expo.includes -->
 - From 2m x 2m
-- 2 exhibitor passes per 2m x 2m
-- From 4 branded panels
+- 2x 2-day exhibitor passes
+- 4x 2-day guest passes
+- 4 branded panels, printing charged separately
 - Power and lighting included
 - Poseur table and 2 stools
 - 32 inch screen
+- Marketing before and after the festival
+- Your logo in one of our newsletters
+- An opportunity to speak on a relevant panel session*
 - £100 instantprint voucher per exhibitor pass
 
 <!-- @exhibitor.sizes.eyebrow -->
@@ -192,12 +201,13 @@ Showcase stands
 Start at 2m x 2m. [[Grow]] from _there_.
 
 <!-- @exhibitor.sizes.intro -->
-Every showcase stand is built from 2m x 2m spaces, so you take the room you need. Here is each size at Climb26.
+Every showcase stand is built from 2m x 2m expo spaces, so you take the room you need. Here is each size at Climb26.
 
 <!-- @exhibitor.sizes.items -->
-- 2m x 2m | 2 exhibitor passes
-- 2m x 4m | 4 exhibitor passes
-- 4m x 4m and larger | 8 exhibitor passes or more
+- 2m x 4m | 4x 2-day exhibitor passes and 8x 2-day guest passes
+- 4m x 4m and larger | 8x 2-day exhibitor passes and 16x 2-day guest passes, doubling with each size
+
+<!-- note: the exhibitor setup page is left out of the exhibitor brochure for now (2026-10-26); its words stay here so it can come back. -->
 
 <!-- @exhibitor.setup.eyebrow -->
 How it works
@@ -223,34 +233,31 @@ Doors open
 One table
 
 <!-- @exhibitor.market.card -->
-Bring your product and sell, sell, sell.
+Bring your product and sell, sell, sell. Limited spaces available.
 
 <!-- @exhibitor.market.eyebrow -->
 Stand type 4
 
 <!-- @exhibitor.market.name -->
-Marketplace table
+Marketplace stall
 
 <!-- @exhibitor.market.strap -->
-Take a table in the [[marketplace]]
-
-<!-- @exhibitor.market.body -->
-The marketplace is a run of tables on the expo floor for businesses that want to be in the room without a full stand. Bring your products, your samples and your best opening line, and talk to everyone who walks the floor.
-
-<!-- @exhibitor.market.who.eyebrow -->
-Who it is for
-
-<!-- @exhibitor.market.who -->
-- Founders and new businesses testing their offer
-- Makers and product businesses with something to show
+[[Showcase]] your product to an audience like no other
 
 <!-- @exhibitor.market.includes -->
-- A table in the marketplace
-- Room to show your products and samples
-- Your festival ticket, bought separately
+- A table for two days at Climb27
+- Your festival ticket
+- A £100 instantprint voucher
+- A media pack to edit and post yourself
+- Optional extras from our website
+
+<!-- @exhibitor.market.limited -->
+Limited spaces available.
 
 <!-- @exhibitor.market.price -->
 £300
+
+<!-- note: the extras page is left out of the exhibitor brochure for now (2026-10-26); its words stay here so it can come back. -->
 
 <!-- @exhibitor.extras.eyebrow -->
 Add to your stand
@@ -340,21 +347,22 @@ Partner with
 Climb27
 
 <!-- @partner.why.eyebrow -->
-Why partner
+Climb27
 
 <!-- @partner.why.headline -->
-[[Meetings]] with the _right_ people
+_Why_ [[partner]]
 
 <!-- @partner.why.points -->
-- The right people | Growing businesses, their founders, investors looking for real deal flow and the advisers around them, together for two days.
-- A place in the festival | Own something people use and remember: the event app, the badges, a zone, the VIP space, a stage moment.
-- Built around you | No fixed tiers. We build your partnership around what you want to achieve, then deliver it with you.
+<!-- note: each point is title | text | figure | what it counts, with a second figure and line where there is one. -->
+- Brand awareness | Your brand in front of growing businesses, in our newsletter, on our channels and across the festival. | 40,000+ | newsletter readers a month | 150,000+ | website page views in our peak month
+- Access to customers, partners or investors | Founders, high-growth companies and the advisers around them, in one place for two days. | 87% | of attendees have major purchasing authority
+- Long-term relationships that matter | Come to make partnerships with others, and keep them going long after the festival. | 80% | follow-through rate on meetings
 
 <!-- @partner.how.eyebrow -->
 How it works
 
 <!-- @partner.how.headline -->
-Build your [[partnership]] your _way_
+[[Bespoke]] _solutions_
 
 <!-- @partner.how.steps -->
 - Choose your level | Your level sets the size of your presence. Partner gives you a place sized to your goals, built from the branding options. Headline Partner is an upgrade on top, with your name across the whole festival.
@@ -463,6 +471,11 @@ NatWest, here for the [[long run]]
 <!-- @partner.natwest.body -->
 At Climb26, NatWest announced a three-year partnership with ClimbUK. That makes NatWest a key partner for Climb27, Climb28 and Climb29, backing growing businesses from one festival to the next.
 
+<!-- @partner.natwest.quotes -->
+<!-- note: NatWest's own words from its Climb26 partnership post, word for word, as printed on the NatWest page. -->
+- Why? Because we are fully committed in our support for businesses in the UK - from start-up, to scaling, to well established companies. | NatWest Group
+- Regional growth is at the heart of our strategy | NatWest Group
+
 <!-- @partner.natwest.video.title -->
 Watch the announcement
 
@@ -488,6 +501,8 @@ Each zone brings together the people one sector needs. Put your name on the zone
 - ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
 - ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
 
+<!-- note: the partner setup page is left out of the partner brochure for now (2026-10-26); its words stay here so it can come back. -->
+
 <!-- @partner.setup.eyebrow -->
 On the day
 
@@ -503,10 +518,10 @@ Your branding is in place when you arrive, across every option you chose.
 - Just show up | Bring your team and start meeting people.
 
 <!-- @partner.stage.eyebrow -->
-Sessions and awards
+On stage and in the room
 
 <!-- @partner.stage.headline -->
-Lead the [[conversation]] at _Climb27_
+_Sessions_ and [[awards]]
 
 <!-- @partner.stage.items -->
 - round-table | Workshops and roundtables | Lead a session on what you know best, for the businesses you want to work with. | £5,000 per session
