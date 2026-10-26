@@ -24,6 +24,8 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **Name the person.** Credit each quote to a named person, their role and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly; to shorten, use whole sentences. A set of quotes on a page shows three.
 - **Paying in instalments.** Name the providers and say the fee plainly: "A 5% financing fee is added to your total order." Where a footnote lists the payment options, the fee goes in it too.
 - **Speaking slots.** Offer "An opportunity to speak on a relevant panel session" with a footnote: limited availability, guided by the speaker terms and conditions, a chance to speak and not a promise of a place.
+- **Printing is charged separately.** Write "4 branded panels, printing charged separately", never "cost of printing not included".
+- **Passes on a stand.** Name both kinds: "2x 2-day exhibitor passes", "4x 2-day guest passes".
 - **Say only what is set.** Do not place fringe events "around" the festival or say the agenda brings people "past every stand".
 - **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.

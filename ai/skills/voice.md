@@ -19,7 +19,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 
 - No emojis, no exclamation marks, no em or en dashes. Plain hyphens only.
 - Never "Climb" on its own. Write ClimbUK (the brand), ClimbGroup (the company, for legal lines and corporate pieces only), or the edition (Climb27, Climb26). The app is the "ClimbGroup Event App". Never explain who runs ClimbUK.
-- Venue embargo: until it is announced, name no venue, city area, venue type or size, and do not hint at one. The word "venue" and "somewhere new" are banned. The check copy tool knows whether the embargo is on.
+- Venue embargo: the city is public and may be named. Until the venue is announced, name no venue, venue type or size, and do not hint at one. The word "venue" and "somewhere new" are banned. The check copy tool knows whether the embargo is on.
 - No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) the share of attendees who follow up after meeting a partner and the share of attendees with major purchasing authority ("87% of attendees have major purchasing authority"), taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
 - No promises we cannot keep: no guarantees, never a number of investor meetings, introductions or funding. "Find investors looking for real deal flow" is fine; never "meet investors".
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols. Places that really are limited, such as marketplace tables, may say "Limited spaces available".
@@ -29,6 +29,8 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - The smallest stand is the "Startup pod", never "starter pod". The 2m x 2m stand is the "Expo stand".
 - Offer "An opportunity to speak on a relevant panel session" with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place.
+- Branded panels: "printing charged separately", never "cost of printing not included".
+- Name both kinds of pass: "2x 2-day exhibitor passes", "4x 2-day guest passes".
 - Do not place fringe events "around" the festival or say the agenda brings people "past every stand".
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.

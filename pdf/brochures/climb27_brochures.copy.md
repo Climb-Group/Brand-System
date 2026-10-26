@@ -157,6 +157,9 @@ Profile your product
 <!-- @exhibitor.display.note -->
 *Limited availability. Speaking places follow our speaker terms and conditions, so this gives you the chance to speak, not a promise of a place.
 
+<!-- @exhibitor.expo.note -->
+*Limited availability. Speaking places follow our speaker terms and conditions, so this gives you the chance to speak, not a promise of a place.
+
 <!-- @exhibitor.expo.card -->
 Demos, discussions and deals.
 
@@ -164,27 +167,31 @@ Demos, discussions and deals.
 Stand type 3
 
 <!-- @exhibitor.expo.name -->
-Expo stand
+Expo and showcase stand
 
 <!-- @exhibitor.expo.strap -->
 Room for your team, your product and a crowd.
 
 <!-- @exhibitor.expo.size -->
-2m x 2m
+From 2m x 2m
 
 <!-- @exhibitor.expo.price -->
-£4,000
+From £4,000
 
 <!-- @exhibitor.expo.unit -->
 per 2m x 2m space
 
 <!-- @exhibitor.expo.includes -->
-- 2m x 2m space
-- 2 exhibitor passes
-- 4 branded panels
+- From 2m x 2m
+- 2x 2-day exhibitor passes
+- 4x 2-day guest passes
+- 4 branded panels, printing charged separately
 - Power and lighting included
 - Poseur table and 2 stools
 - 32 inch screen
+- Marketing before and after the festival
+- Your logo in one of our newsletters
+- An opportunity to speak on a relevant panel session*
 - £100 instantprint voucher per exhibitor pass
 
 <!-- @exhibitor.sizes.eyebrow -->
@@ -197,9 +204,10 @@ Start at 2m x 2m. [[Grow]] from _there_.
 Every showcase stand is built from 2m x 2m expo spaces, so you take the room you need. Here is each size at Climb26.
 
 <!-- @exhibitor.sizes.items -->
-- 2m x 2m | 2 exhibitor passes
-- 2m x 4m | 4 exhibitor passes
-- 4m x 4m and larger | 8 exhibitor passes or more
+- 2m x 4m | 4x 2-day exhibitor passes and 8x 2-day guest passes
+- 4m x 4m and larger | 8x 2-day exhibitor passes and 16x 2-day guest passes, doubling with each size
+
+<!-- note: the exhibitor setup page is left out of the exhibitor brochure for now (2026-10-26); its words stay here so it can come back. -->
 
 <!-- @exhibitor.setup.eyebrow -->
 How it works
@@ -234,7 +242,7 @@ Stand type 4
 Marketplace table
 
 <!-- @exhibitor.market.strap -->
-Take a table in the [[marketplace]]
+[[Showcase]] your product to an audience like no other
 
 <!-- @exhibitor.market.body -->
 The marketplace is a run of tables on the expo floor for businesses that want to be in the room without a full stand. Bring your products, your samples and your best opening line, and talk to everyone who walks the floor. Limited spaces available.

@@ -334,6 +334,7 @@ CSS = """
 .fnote p{margin:0;font-size:21px;line-height:1.45;color:var(--ch)}
 .feesbox{position:absolute;background:var(--db);color:var(--w);border-radius:12px;padding:28px 36px;font-size:26px;line-height:1.45;font-weight:700}
 .price small{font-size:22px;font-weight:700;color:var(--tint)}
+.price.stack{flex-direction:column;align-items:flex-start;gap:6px}
 .row{display:flex;gap:28px;align-items:flex-start}
 .row h3{font-family:Montserrat;font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:-.005em;color:var(--w)}
 .row p{font-size:21px;line-height:1.5;color:var(--lg);margin-top:6px}
@@ -425,8 +426,7 @@ POD_PHOTOS = (B + "stand_display_in-use.jpg", B + "expo_floor_dsc03145.jpg", B +
 DISPLAY_PHOTOS = (B + "expo_floor_maf-344.jpg", B + "expo_floor_052a2042.jpg")
 # Each stand page shows two different stands: MAF-435 and DSC03182 are one stand, so only DSC03182 is used.
 EXPO_PHOTOS = (B + "expo_floor_maf-432.jpg", B + "expo_floor_dsc03165.jpg", B + "expo_floor_dsc03182.jpg")
-SIZE_PHOTOS = ((B + "expo_floor_maf-415.jpg", B + "expo_floor_dsc03044.jpg"),
-               (B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
+SIZE_PHOTOS = ((B + "expo_floor_maf-234.jpg", B + "expo_floor_dsc03152.jpg"),
                (B + "expo_floor_maf-410.jpg", B + "stand_pod_03.jpg"))
 ZONE_PHOTOS = (B + "branding_052a3130.jpg", B + "branding_maf-448.jpg", B + "branding_052a3125.jpg",
                B + "branding_maf-404.jpg", B + "branding_maf-395.jpg", B + "branding_maf-389.jpg")
@@ -566,7 +566,8 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
     items = C["exhibitor.%s.includes" % key]
     many = len(items) > 5
     inc = "".join("<li>%s</li>" % t(i[0]) for i in items)
-    price = '<div class="price">%s%s</div>' % (
+    # Beside the payment badges a unit goes under the price, so price and badges share one row.
+    price = '<div class="price%s">%s%s</div>' % (" stack" if pay and unit else "",
         t(C["exhibitor.%s.price" % key]), ("<small>%s</small>" % t(unit)) if unit else "")
     if pay:
         price = ('<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 30px">%s<div><div class="paynote">%s</div>%s</div></div>'
@@ -585,9 +586,9 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
             % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72 if len(C["exhibitor.%s.name" % key]) < 16 else 58, ital_last=False), strap_col,
                t(C["exhibitor.%s.strap" % key]),
                ('<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>' % t(body)) if body else "",
-               ("font-size:24px;line-height:1.35;" if body or len(items) > 12 else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
+               ("font-size:22px;line-height:1.28;" if len(items) > 10 and len(C["exhibitor.%s.name" % key]) >= 16 else "font-size:24px;line-height:1.35;" if body or len(items) > 12 else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
                + ("columns:2;column-gap:32px" if many else ""), inc,
-               ('<p class="copy" style="margin-top:12px;font-size:19px;line-height:1.4">%s</p>' % t(note)) if note else "", price))
+               ('<p class="copy" style="margin-top:10px;font-size:18px;line-height:1.35">%s</p>' % t(note)) if note else "", price))
     big = tile(pool.photo(*names), 940, 96, 860, 440)
     if render:
         low = ('<div class="tile" style="left:940px;top:560px;width:420px;height:384px;background:#fff">'
@@ -638,11 +639,12 @@ def sizes_page(bk, cls):
     pool = bk.pool
     cols = []
     for i, ((size, line), names) in enumerate(zip(C["exhibitor.sizes.items"], SIZE_PHOTOS)):
-        x = 120 + i * 573
-        cols.append('<div style="position:absolute;left:%dpx;top:330px;width:533px">'
+        w = (1680 - 40 * (len(C["exhibitor.sizes.items"]) - 1)) // len(C["exhibitor.sizes.items"])
+        x = 120 + i * (w + 40)
+        cols.append('<div style="position:absolute;left:%dpx;top:330px;width:%dpx">'
                     '<div class="mont" style="font-weight:800;font-size:40px;color:var(--w);text-transform:uppercase">%s</div>'
-                    '<div style="font-size:22px;color:var(--lg);margin-top:6px">%s</div></div>' % (x, t(size), t(line))
-                    + tile(pool.photo(names[0]), x, 450, 533, 236) + tile(pool.photo(names[1]), x, 704, 533, 236))
+                    '<div style="font-size:22px;color:var(--lg);margin-top:6px">%s</div></div>' % (x, w, t(size), t(line))
+                    + tile(pool.photo(names[0]), x, 450, w, 236) + tile(pool.photo(names[1]), x, 704, w, 236))
     inner = ('<div style="position:absolute;left:120px;top:96px">%s<p class="copy" style="margin-top:20px;font-size:25px;max-width:1500px">%s</p></div>'
              % (head(C["exhibitor.sizes.eyebrow"], C["exhibitor.sizes.headline"], 68, 1600), t(C["exhibitor.sizes.intro"])) + "".join(cols))
     bk.add(cls, inner)
@@ -707,7 +709,8 @@ def exhibitor():
                C["exhibitor.expo.size"], unit=C["exhibitor.expo.unit"], pay=True)
     # 8 Every expo size, 9 how simple the day is.
     sizes_page(bk, "ch")
-    setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
+    # The setup page is left out of the exhibitor brochure for now (sales review, October 2026). Uncomment to bring it back.
+    # setup_page(bk, "wh", "exhibitor", B + "expo_stand_natwest_busy.jpg")
 
     # 8 The marketplace has its own page, on Light Grey.
     who = "".join("<li>%s</li>" % t(w[0]) for w in C["exhibitor.market.who"])
