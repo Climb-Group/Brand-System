@@ -88,6 +88,9 @@
 | Take a table in the marketplace | Describes the furniture | Showcase your product to an audience like no other |
 | Marketplace table | Undersells it | Marketplace stall |
 | A speaking slot on a panel | Reads as a promise | An opportunity to speak on a relevant panel session, with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place |
+| Meetings with the right people (why partner) | Leads with one benefit and no proof | Why partner: brand awareness, access to customers, partners or investors, and long-term relationships that matter, each with its figure |
+| Lead the conversation at Climb27 | Says what the partner does, not what they buy | Sessions and awards |
+| Build your partnership your way | Long, and says less than the offer | Bespoke solutions |
 
 ## ClimbVoice, corrected
 

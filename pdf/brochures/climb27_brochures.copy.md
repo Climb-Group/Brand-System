@@ -347,21 +347,22 @@ Partner with
 Climb27
 
 <!-- @partner.why.eyebrow -->
-Why partner
+Climb27
 
 <!-- @partner.why.headline -->
-[[Meetings]] with the _right_ people
+_Why_ [[partner]]
 
 <!-- @partner.why.points -->
-- The right people | Growing businesses, their founders, investors looking for real deal flow and the advisers around them, together for two days.
-- A place in the festival | Own something people use and remember: the event app, the badges, a zone, the VIP space, a stage moment.
-- Built around you | No fixed tiers. We build your partnership around what you want to achieve, then deliver it with you.
+<!-- note: each point is title | text | figure | what it counts, with a second figure and line where there is one. -->
+- Brand awareness | Your brand in front of growing businesses, in our newsletter, on our channels and across the festival. | 40,000+ | newsletter readers a month | 150,000+ | website page views in our peak month
+- Access to customers, partners or investors | Founders, high-growth companies and the advisers around them, in one place for two days. | 87% | of attendees have major purchasing authority
+- Long-term relationships that matter | Come to make partnerships with others, and keep them going long after the festival. | 80% | follow-through rate on meetings
 
 <!-- @partner.how.eyebrow -->
 How it works
 
 <!-- @partner.how.headline -->
-Build your [[partnership]] your _way_
+[[Bespoke]] _solutions_
 
 <!-- @partner.how.steps -->
 - Choose your level | Your level sets the size of your presence. Partner gives you a place sized to your goals, built from the branding options. Headline Partner is an upgrade on top, with your name across the whole festival.
@@ -470,6 +471,11 @@ NatWest, here for the [[long run]]
 <!-- @partner.natwest.body -->
 At Climb26, NatWest announced a three-year partnership with ClimbUK. That makes NatWest a key partner for Climb27, Climb28 and Climb29, backing growing businesses from one festival to the next.
 
+<!-- @partner.natwest.quotes -->
+<!-- note: NatWest's own words from its Climb26 partnership post, word for word, as printed on the NatWest page. -->
+- Why? Because we are fully committed in our support for businesses in the UK - from start-up, to scaling, to well established companies. | NatWest Group
+- Regional growth is at the heart of our strategy | NatWest Group
+
 <!-- @partner.natwest.video.title -->
 Watch the announcement
 
@@ -495,6 +501,8 @@ Each zone brings together the people one sector needs. Put your name on the zone
 - ClimbCreative | Creative businesses, from design and media to games, meeting clients and collaborators, with Creative UK.
 - ClimbCyber | Cyber security firms showing what they do, and businesses learning how to keep themselves safe.
 
+<!-- note: the partner setup page is left out of the partner brochure for now (2026-10-26); its words stay here so it can come back. -->
+
 <!-- @partner.setup.eyebrow -->
 On the day
 
@@ -510,10 +518,10 @@ Your branding is in place when you arrive, across every option you chose.
 - Just show up | Bring your team and start meeting people.
 
 <!-- @partner.stage.eyebrow -->
-Sessions and awards
+On stage and in the room
 
 <!-- @partner.stage.headline -->
-Lead the [[conversation]] at _Climb27_
+_Sessions_ and [[awards]]
 
 <!-- @partner.stage.items -->
 - round-table | Workshops and roundtables | Lead a session on what you know best, for the businesses you want to work with. | £5,000 per session

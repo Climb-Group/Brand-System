@@ -20,7 +20,13 @@ OUT = os.path.join(HERE, "..", "brochures", "climb27_who-was-there.copy.md")
 # In-the-room logos added to the page's featured logos so the page ends on a full row of 12.
 NAMES_FILL = ["ebay.png", "bbc-sport.png", "coutts-company.png", "digital-catapult.png"]
 # Featured logos the brochures leave out (the owner's call, 2026-10-26), each swapped in place for an in-the-room logo.
-NAMES_SWAP = {"clubit-group.png": "royal-mail.png", "wainwright-consulting-limited.png": "taylor-wessing.png"}
+NAMES_SWAP = {"clubit-group.png": "royal-mail.png", "wainwright-consulting-limited.png": "taylor-wessing.png",
+              "university-of-leeds.jpg": "north-east-mayor.png", "bruntwood-scitech.png": "bionow.png",
+              "leeds-digital.png": "bootskins.png", "utc-travel.png": "meissner-bolte-uk-limited.png"}
+# In-the-room logos the owner asked to add (2026-10-26), then more of the page's in-the-room logos to fill the last row.
+NAMES_ADD = ["sh-p.png", "yoti.png", "nhs.png", "sony.png",
+             "foresight-group.png", "bgf.png", "shoosmiths.png", "hpe.png", "taylors-of-harrogate.png", "ward-hadaway.png",
+             "walker-morris.png", "northstar-ventures.png"]
 
 PACK = {
     "wwt.names.eyebrow": "Partners, speakers and sessions",
@@ -37,7 +43,7 @@ def text(s):
 
 def logos(body):
     out = []
-    for src, alt in re.findall(r'<img src="/climb27/logos/([^"]+)"[^>]*alt="([^"]*)"', body):
+    for src, alt in re.findall(r'<img src="/(?:climb27|climb_website_brand/static/src/img)/logos/([^"]+)"[^>]*alt="([^"]*)"', body):
         out.append([src, text(alt)] if alt.strip() else [src])
     return out
 
@@ -52,12 +58,14 @@ def build(xml):
     got += [room[f] for f in NAMES_FILL if f not in {r[0] for r in got}]
     assert all(f in room for f in NAMES_SWAP.values()), "a NAMES_SWAP logo is not in the page's in-the-room logos"
     got = [room[NAMES_SWAP[r[0]]] if r[0] in NAMES_SWAP else r for r in got]
+    assert all(f in room for f in NAMES_ADD), "a NAMES_ADD logo is not in the page's in-the-room logos"
+    got += [room[f] for f in NAMES_ADD if f not in {r[0] for r in got}]
     assert len(got) % 12 == 0, "the logos do not fill whole rows of 12: %d" % len(got)
     out = [("wwt.names.eyebrow", PACK["wwt.names.eyebrow"]), ("wwt.names.headline", PACK["wwt.names.headline"]),
            ("wwt.names.intro", text(lead.group(1))), ("wwt.names.logos", got)]
     notes = {"wwt.names.logos": "logo file | organisation, in the order the website shows them; a file alone has no "
                                 "name on the page; the last ones are NAMES_FILL picks from the in-the-room logos, and NAMES_SWAP "
-                                "logos stand in for featured ones the brochures leave out"}
+                                "logos stand in for featured ones the brochures leave out, and NAMES_ADD logos follow"}
 
     lines = ["---", "copy: climb27-who-was-there", "title: In the room at ClimbUK",
              "deliverable: The In the room at ClimbUK page near the end of the exhibitor and partner brochures",

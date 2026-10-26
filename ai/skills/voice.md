@@ -25,13 +25,14 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols. Places that really are limited, such as marketplace tables, may say "Limited spaces available".
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
-- Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Quotes come in threes on a page.
+- Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor" (except a partner's own undated statement on its spotlight page). Print their words exactly. Quotes come in threes on a page.
 - For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - The smallest stand is the "Startup pod", never "starter pod". The stand sold from 2m x 2m is the "Expo and showcase stand". The marketplace is sold as "Marketplace stalls", not tables.
 - Offer "An opportunity to speak on a relevant panel session" with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place.
 - Branded panels: "printing charged separately", never "cost of printing not included".
 - Name both kinds of pass: "2x 2-day exhibitor passes", "4x 2-day guest passes".
 - Do not place fringe events "around" the festival or say the agenda brings people "past every stand".
+- Why partner is three reasons, each with its figure: brand awareness (newsletter readers, website page views), access to customers, partners or investors (87% with major purchasing authority) and long-term relationships that matter (80% follow-through rate on meetings).
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
 - No vendor or platform names in customer copy.
 - Big moments, not keynotes. Clinics are roundtables or workshops.
