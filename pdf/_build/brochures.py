@@ -572,6 +572,8 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
         price = ('<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 30px">%s<div><div class="paynote">%s</div>%s</div></div>'
                  % (price, t(C["exhibitor.pay.badge"]), pay_badges(56, 12)))
     body = C.get("exhibitor.%s.body" % key)
+    # A footnote for an included item marked with an asterisk, printed under the list.
+    note = C.get("exhibitor.%s.note" % key)
     strap_col = "#7A3B16" if cls == "gr" else "var(--deep)"
     text = ('<div style="position:absolute;left:120px;top:96px;bottom:150px;width:740px;display:flex;flex-direction:column;align-items:flex-start">'
             '<span class="tag" style="font-size:20px;color:%s">%s</span>'
@@ -579,12 +581,13 @@ def stand_page(bk, cls, key, names, size_text, unit=None, render=None, pay=False
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:34px;color:%s;line-height:1.2">%s</div>'
             '%s'
             '<div class="mont" style="margin-top:22px;font-weight:800;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--ch)">Includes</div>'
-            '<ul class="list copy" style="margin-top:16px;width:100%%;%s">%s</ul><div style="margin-top:auto;padding-top:20px">%s</div></div>'
+            '<ul class="list copy" style="margin-top:16px;width:100%%;%s">%s</ul>%s<div style="margin-top:auto;padding-top:20px">%s</div></div>'
             % (strap_col, t(C["exhibitor.%s.eyebrow" % key]), labels([C["exhibitor.%s.name" % key]], 72 if len(C["exhibitor.%s.name" % key]) < 16 else 58, ital_last=False), strap_col,
                t(C["exhibitor.%s.strap" % key]),
                ('<p class="copy" style="margin-top:14px;font-size:24px;line-height:1.5">%s</p>' % t(body)) if body else "",
-               ("font-size:24px;line-height:1.35;" if body else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
-               + ("columns:2;column-gap:32px" if many else ""), inc, price))
+               ("font-size:24px;line-height:1.35;" if body or len(items) > 12 else "font-size:27px;line-height:1.45;" if len(items) <= 10 else "font-size:26px;line-height:1.4;")
+               + ("columns:2;column-gap:32px" if many else ""), inc,
+               ('<p class="copy" style="margin-top:12px;font-size:19px;line-height:1.4">%s</p>' % t(note)) if note else "", price))
     big = tile(pool.photo(*names), 940, 96, 860, 440)
     if render:
         low = ('<div class="tile" style="left:940px;top:560px;width:420px;height:384px;background:#fff">'

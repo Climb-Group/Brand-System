@@ -25,10 +25,10 @@ The [[best]] business event this _year_
 Johnny J Pawlik, CEO, Mantra Media Ltd
 
 <!-- @shared.what.facts -->
-- 30 June and 1 July 2027
-- Founders, scaling companies, investors, advisers, universities and the public sector
-- An expo floor at the heart of the festival, with the agenda bringing people past every stand
-- Fringe events around the festival, for more time with the people you meet
+- 30 June and 1 July 2027, Manchester
+- Founders, high-growth companies, investors, advisers, universities and the public sector
+- An expo floor at the heart of the festival
+- Fringe events, for more time with the people you meet
 
 <!-- @shared.proof.eyebrow -->
 In their words
@@ -46,7 +46,7 @@ In their words
 All prices ex. VAT.
 
 <!-- @shared.payment -->
-Payment options available: spread the cost with Klarna, PayPal Pay Later or Afterpay.
+Payment options available: spread the cost with Klarna, PayPal Pay Later or Afterpay, with a 5% financing fee.
 
 <!-- @shared.contact -->
 partnerships@climb-uk.com
@@ -72,12 +72,12 @@ Why exhibit
 _Because_ we are [[different]]
 
 <!-- @exhibitor.why.reasons -->
-- people | Relevant people to do business | Businesses that need what you do, and people who can open the next door. Everyone comes to grow, so conversations start easily.
+- people | Relevant people | Businesses that need what you do, and people who can open the next door: 87% of attendees have major purchasing authority.
 - target | Full of opportunity | A steady flow of leads all day, from people who arrive ready to buy and leave with your card in their pocket.
 - handshake | Partners worth having | Meet the firms, universities and public bodies you can build something with, and start partnerships that last.
 - puzzle | Built on collaboration | A community that shares ideas, swaps what works and sends each other work, long after the festival.
 - party-popper | Buzzing with energy | It feels like a festival from the first hello: packed stages, busy aisles and after parties. Nothing like a trade show.
-- spotlight | Be seen | Your brand on the expo floor in front of everyone the agenda brings past your stand, and in our marketing before and after the festival.
+- spotlight | Be seen | Your brand on the expo floor, and in our marketing before and after the festival.
 
 <!-- @exhibitor.why.quote -->
 - It's an awesome audience of people who want to learn and grow | Dr Gary Crotaz, The Unlock Moment
@@ -92,7 +92,7 @@ From a pod to a _showcase_ [[stand]]
 Four ways onto the expo floor, each one built and ready when you arrive.
 
 <!-- @exhibitor.pod.card -->
-An affordable option to showcase your brand: your own window on the expo floor.
+An affordable option to showcase your brand.
 
 <!-- @exhibitor.pod.eyebrow -->
 Stand type 1
@@ -114,9 +114,8 @@ Stand out from the crowd
 - 3 branded panels, design to be supplied
 - 1x 2-day exhibitor pass
 - 1x 2-day guest ticket
-- Immediate access to the exhibitor portal
 - Video guides for first-time exhibitors
-- A pitching opportunity
+- An opportunity to pitch
 - Marketing before and after the festival
 - Your logo in one of our newsletters
 - £100 instantprint voucher per exhibitor pass
@@ -144,42 +143,45 @@ Profile your product
 - 2m x 1m space
 - 1x 2-day exhibitor pass
 - 2x 2-day guest tickets
-- 2 branded panels
+- 2 branded panels, design to be supplied
 - Cupboard
 - Power included
 - 1 stool
 - 32 inch monitor
+- Marketing before and after the festival
+- Your logo in one of our newsletters
+- An opportunity to speak on a relevant panel session*
 - £100 instantprint voucher per exhibitor pass
 - Stand extras available from the exhibitor portal
 
+<!-- @exhibitor.display.note -->
+*Limited availability. Speaking places follow our speaker terms and conditions, so this gives you the chance to speak, not a promise of a place.
+
 <!-- @exhibitor.expo.card -->
-Demos, discussions and deals, on a stand built to your size.
+Demos, discussions and deals.
 
 <!-- @exhibitor.expo.eyebrow -->
 Stand type 3
 
 <!-- @exhibitor.expo.name -->
-Expo and showcase stand
+Expo stand
 
 <!-- @exhibitor.expo.strap -->
-Room for demos, your team and a crowd, built and branded to your size.
-
-<!-- @exhibitor.expo.body -->
-Space for demos, live activity and a fully branded stand. This is where people stop, gather and get involved.
+Room for your team, your product and a crowd.
 
 <!-- @exhibitor.expo.size -->
-From 2m x 2m
+2m x 2m
 
 <!-- @exhibitor.expo.price -->
-From £4,000
+£4,000
 
 <!-- @exhibitor.expo.unit -->
 per 2m x 2m space
 
 <!-- @exhibitor.expo.includes -->
-- From 2m x 2m
-- 2 exhibitor passes per 2m x 2m
-- From 4 branded panels
+- 2m x 2m space
+- 2 exhibitor passes
+- 4 branded panels
 - Power and lighting included
 - Poseur table and 2 stools
 - 32 inch screen
@@ -192,7 +194,7 @@ Showcase stands
 Start at 2m x 2m. [[Grow]] from _there_.
 
 <!-- @exhibitor.sizes.intro -->
-Every showcase stand is built from 2m x 2m spaces, so you take the room you need. Here is each size at Climb26.
+Every showcase stand is built from 2m x 2m expo spaces, so you take the room you need. Here is each size at Climb26.
 
 <!-- @exhibitor.sizes.items -->
 - 2m x 2m | 2 exhibitor passes
@@ -223,7 +225,7 @@ Doors open
 One table
 
 <!-- @exhibitor.market.card -->
-Bring your product and sell, sell, sell.
+Bring your product and sell, sell, sell. Limited spaces available.
 
 <!-- @exhibitor.market.eyebrow -->
 Stand type 4
@@ -235,7 +237,7 @@ Marketplace table
 Take a table in the [[marketplace]]
 
 <!-- @exhibitor.market.body -->
-The marketplace is a run of tables on the expo floor for businesses that want to be in the room without a full stand. Bring your products, your samples and your best opening line, and talk to everyone who walks the floor.
+The marketplace is a run of tables on the expo floor for businesses that want to be in the room without a full stand. Bring your products, your samples and your best opening line, and talk to everyone who walks the floor. Limited spaces available.
 
 <!-- @exhibitor.market.who.eyebrow -->
 Who it is for
