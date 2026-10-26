@@ -86,6 +86,7 @@
 | Cost of printing not included | Names a cost, not what the reader gets | 4 branded panels, printing charged separately |
 | 2 exhibitor passes | Leaves out the guest passes and the length | 2x 2-day exhibitor passes, 4x 2-day guest passes |
 | Take a table in the marketplace | Describes the furniture | Showcase your product to an audience like no other |
+| Marketplace table | Undersells it | Marketplace stall |
 | A speaking slot on a panel | Reads as a promise | An opportunity to speak on a relevant panel session, with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place |
 
 ## ClimbVoice, corrected

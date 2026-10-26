@@ -18,7 +18,7 @@ In the room at _ClimbUK_
 Banks, funds, universities, combined authorities, global tech companies and growing firms partnered, spoke and exhibited at ClimbUK.
 
 <!-- @wwt.names.logos -->
-<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos -->
+<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos, and NAMES_SWAP logos stand in for featured ones the brochures leave out -->
 - natwest-group-plc.png | Natwest Group
 - barclays.png | Barclays
 - british-business-bank.png | British Business Bank
@@ -35,11 +35,11 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - ubs.png | UBS
 - blacks-solicitors-llp.png | Blacks Solicitors
 - caspian-insurance.png | Caspian Insurance
-- clubit-group.png | Clubit Group
+- royal-mail.png | Royal Mail
 - medilink-north-of-england-limited.png | Medilink North Of England
 - perfect-cellar.png | Perfect Cellar
 - calmness-crew.jpg | Calmness Crew
-- wainwright-consulting-limited.png | Wainwright Consulting
+- taylor-wessing.png | Taylor Wessing
 - leeds-university-business-school.png | Leeds University Business School
 - mishcon-de-reya-llp.jpg | Mishcon de Reya
 - sure-valley-ventures.png | Sure Valley Ventures

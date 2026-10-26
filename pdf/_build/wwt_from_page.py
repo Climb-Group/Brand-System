@@ -19,6 +19,8 @@ OUT = os.path.join(HERE, "..", "brochures", "climb27_who-was-there.copy.md")
 
 # In-the-room logos added to the page's featured logos so the page ends on a full row of 12.
 NAMES_FILL = ["ebay.png", "bbc-sport.png", "coutts-company.png", "digital-catapult.png"]
+# Featured logos the brochures leave out (the owner's call, 2026-10-26), each swapped in place for an in-the-room logo.
+NAMES_SWAP = {"clubit-group.png": "royal-mail.png", "wainwright-consulting-limited.png": "taylor-wessing.png"}
 
 PACK = {
     "wwt.names.eyebrow": "Partners, speakers and sessions",
@@ -48,11 +50,14 @@ def build(xml):
     room = {r[0]: r for r in logos(secs["in-the-room"])}
     assert all(f in room for f in NAMES_FILL), "a NAMES_FILL logo is not in the page's in-the-room logos"
     got += [room[f] for f in NAMES_FILL if f not in {r[0] for r in got}]
+    assert all(f in room for f in NAMES_SWAP.values()), "a NAMES_SWAP logo is not in the page's in-the-room logos"
+    got = [room[NAMES_SWAP[r[0]]] if r[0] in NAMES_SWAP else r for r in got]
     assert len(got) % 12 == 0, "the logos do not fill whole rows of 12: %d" % len(got)
     out = [("wwt.names.eyebrow", PACK["wwt.names.eyebrow"]), ("wwt.names.headline", PACK["wwt.names.headline"]),
            ("wwt.names.intro", text(lead.group(1))), ("wwt.names.logos", got)]
     notes = {"wwt.names.logos": "logo file | organisation, in the order the website shows them; a file alone has no "
-                                "name on the page; the last ones are NAMES_FILL picks from the in-the-room logos"}
+                                "name on the page; the last ones are NAMES_FILL picks from the in-the-room logos, and NAMES_SWAP "
+                                "logos stand in for featured ones the brochures leave out"}
 
     lines = ["---", "copy: climb27-who-was-there", "title: In the room at ClimbUK",
              "deliverable: The In the room at ClimbUK page near the end of the exhibitor and partner brochures",

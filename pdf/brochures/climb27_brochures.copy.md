@@ -239,28 +239,25 @@ Bring your product and sell, sell, sell. Limited spaces available.
 Stand type 4
 
 <!-- @exhibitor.market.name -->
-Marketplace table
+Marketplace stall
 
 <!-- @exhibitor.market.strap -->
 [[Showcase]] your product to an audience like no other
 
-<!-- @exhibitor.market.body -->
-The marketplace is a run of tables on the expo floor for businesses that want to be in the room without a full stand. Bring your products, your samples and your best opening line, and talk to everyone who walks the floor. Limited spaces available.
-
-<!-- @exhibitor.market.who.eyebrow -->
-Who it is for
-
-<!-- @exhibitor.market.who -->
-- Founders and new businesses testing their offer
-- Makers and product businesses with something to show
-
 <!-- @exhibitor.market.includes -->
-- A table in the marketplace
-- Room to show your products and samples
-- Your festival ticket, bought separately
+- A table for two days at Climb27
+- Your festival ticket
+- A £100 instantprint voucher
+- A media pack to edit and post yourself
+- Optional extras from our website
+
+<!-- @exhibitor.market.limited -->
+Limited spaces available.
 
 <!-- @exhibitor.market.price -->
 £300
+
+<!-- note: the extras page is left out of the exhibitor brochure for now (2026-10-26); its words stay here so it can come back. -->
 
 <!-- @exhibitor.extras.eyebrow -->
 Add to your stand

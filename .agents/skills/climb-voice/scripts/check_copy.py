@@ -81,6 +81,7 @@ WORD_HINTS = [
     (r"\bevents? around the festival\b", "fringe events are not placed yet: do not say they are around the festival"),
     (r"\bpast every stand\b", "do not claim the agenda brings people past every stand"),
     (r"\bpitching opportunity\b", "write 'An opportunity to pitch'"),
+    (r"\bmarketplace tables?\b", "the marketplace is sold as 'Marketplace stalls'"),
 ]
 
 BEFORE_ANNOUNCEMENT = [

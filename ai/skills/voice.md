@@ -27,7 +27,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Real people only. Never invent a quote, a name or a company.
 - Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Quotes come in threes on a page.
 - For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
-- The smallest stand is the "Startup pod", never "starter pod". The 2m x 2m stand is the "Expo stand".
+- The smallest stand is the "Startup pod", never "starter pod". The stand sold from 2m x 2m is the "Expo and showcase stand". The marketplace is sold as "Marketplace stalls", not tables.
 - Offer "An opportunity to speak on a relevant panel session" with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place.
 - Branded panels: "printing charged separately", never "cost of printing not included".
 - Name both kinds of pass: "2x 2-day exhibitor passes", "4x 2-day guest passes".

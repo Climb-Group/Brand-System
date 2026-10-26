@@ -26,6 +26,7 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 - **Speaking slots.** Offer "An opportunity to speak on a relevant panel session" with a footnote: limited availability, guided by the speaker terms and conditions, a chance to speak and not a promise of a place.
 - **Printing is charged separately.** Write "4 branded panels, printing charged separately", never "cost of printing not included".
 - **Passes on a stand.** Name both kinds: "2x 2-day exhibitor passes", "4x 2-day guest passes".
+- **Stand names.** The smallest stand is the "Startup pod". The stand sold from 2m x 2m is the "Expo and showcase stand". The marketplace is sold as "Marketplace stalls", not tables.
 - **Say only what is set.** Do not place fringe events "around" the festival or say the agenda brings people "past every stand".
 - **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.
