@@ -73,6 +73,12 @@
 | Your business. Bigger stage. (on the general flyer) | Fine as the edition line, but the general flyer needs the reasons to come | Bring your ambition. Find your people. Accelerate your growth. |
 | Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
 
+## From the decision on press releases (November 2026)
+
+| Before | Problem | After |
+| --- | --- | --- |
+| ClimbUK and DreamBrew open the Business North East Festival with a Coffee Rave | Only matters to the people at the event, so the press will not print it | Coffee that funds people's first business comes to Gateshead as DreamBrew partners with ClimbUK (the first paragraph then says DreamBrew gives a minimum of 10% of its profits to fund people's dreams, with no repayment and no equity taken) |
+
 ## ClimbVoice, corrected
 
 The 2025 ClimbVoice prompt is the root of this skill. Two things changed:
