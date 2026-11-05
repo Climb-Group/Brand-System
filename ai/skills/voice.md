@@ -24,6 +24,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - No promises we cannot keep: no guarantees, never a number of investor meetings, introductions or funding. "Find investors looking for real deal flow" is fine; never "meet investors".
 - A partner hosts a stage or zone, never the festival: "Cyber City, hosted by <partner>", never a bare "Hosted by <partner>" or "<partner> hosts Climb27".
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
+- A countdown sells tickets: close every countdown piece on a ticket call to action with true urgency ("Get your ticket today", "Before the price goes up", "Final week: book now"), never "Save the date".
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
 - Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Quotes come in threes on a page.

@@ -27,6 +27,7 @@
 | Book a call: climb-uk.com/partnerships | Web address not written in full | Book a call: www.climb-uk.com/partnerships |
 | "Together we create spaces where knowledge meets opportunity." University of Huddersfield | Quote credited to a company, not a person | "Partnerships like this are essential in creating new opportunities for innovators to connect with the right people." Dr Neville Young, Director of Enterprise & Innovation, Health Innovation Yorkshire & Humber |
 | ClimbAdvisory: advisers and fractional leaders, in 24 pods. | Describes the furniture and a count, not what happens | ClimbAdvisory: advisers and fractional leaders mentoring founders, meeting and talking through what comes next. |
+| Save the dates (sticker on a countdown card) | A countdown that does not sell | Before the price goes up |
 | Hosted by SECURE \| CYBER CONNECT (a line in a countdown video) | Reads as if the partner hosts the whole festival | Cyber City, hosted by SECURE \| CYBER CONNECT |
 | Display stand: Big enough to be seen. Sharp enough to close. | A slogan that says nothing about the stand | Display stand: Your product on a screen and two branded panels, without the cost of a full stand. |
 | "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd, Climb24 | The edition dates the quote and makes the festival look old | "The best business event this year so far" - Johnny J Pawlik, Mantra Media Ltd |

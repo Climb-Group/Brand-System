@@ -78,6 +78,7 @@ WORD_HINTS = [
     # Third review of the Climb27 sales brochures, October 2026.
     (r"\bstarter pods?\b", "the smallest stand is the 'Startup pod'"),
     # Review of the partner countdown videos, November 2026.
+    (r"\bsave the dates?\b", "on a countdown, close on a ticket call to action with true urgency ('Get your ticket today', 'Final week: book now'), not 'Save the date'"),
     (r"\bhosted by\b", "name what they host, the stage or zone ('Cyber City, hosted by ...'): a bare 'Hosted by' reads as hosting the festival"),
 ]
 
