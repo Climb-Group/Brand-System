@@ -14,6 +14,7 @@ Social builds reach and free sign-ups, not ticket sales: judge it on reach. Sale
 | Partner and speaker share kit | Partners post in their own voice | Three ready posts per partner: short, medium, long. First person plural for the partner ("We are at Climb27"). | Their own tagged link |
 | Print, signage, merch | Recognition and atmosphere | Display lines of 1 to 5 words. No body copy on merch. | A URL or QR on print only |
 | Screens and stage | Moments | One line per screen, readable at 20 metres | None, or the session name |
+| Press release | Earned coverage beyond the event's audience | Headline and standfirst on what it means for the public, the first paragraph on the public problem, then what the partner does about it. Sent in one short email per newsroom (see "Press releases" in the skill). | The press contacts for every organisation in the story |
 
 ## UTM tags
 

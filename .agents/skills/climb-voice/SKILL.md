@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the three reviews of the Climb27 sales brochures (October 2026), the review of the partners web page (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
-  version: "1.12"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the three reviews of the Climb27 sales brochures (October 2026), the review of the partners web page (October 2026), the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026) and the decision to lead press releases on what the story means for the public and to send each release to a newsroom in one short email of the same shape (November 2026)
+  version: "1.13"
 ---
 
 # ClimbUK voice
@@ -94,6 +94,23 @@ From the review of the Climb27 flyers (October 2026). They apply to every headli
 - **Be specific about who is in the room.** Name the kinds of people and what they bring, for this audience. A list that would fit any event is too generic.
 - **Prices people remember.** Round, steady steps: £250, not £252. Each release step should feel like a sensible jump.
 - **End every page well.** The last section and the footer are a real closing line in the voice with one next step, not a leftover label. Partner calls to action say what they are for: "Interested in partnering? Book a call with the team."
+
+## Press releases
+
+From the decision on press releases (November 2026). They apply to every release ClimbUK or ClimbGroup sends, on its own or with a partner.
+
+- **Lead on what it means for the public.** A release leads on what the story means for people outside the room, not only for the people who come to the event. Name who benefits and how: people who could not otherwise start a business, young people, jobs, communities, the region, customers, public safety. If the effect is too narrow, the press will not print it.
+- **Build it in that order.** The headline and standfirst carry the public angle. The first paragraph sets out the public problem. Then say what the partner does about it, in facts the partner publishes. Any figure comes from an official or primary source, named in the same sentence ("according to the Office for National Statistics").
+- **Quote briefs point outward.** The brief beside each empty quote slot steers the speaker to the wider impact: who benefits beyond the event, and how.
+- **The email that carries it is short, plain and the same shape every time:**
+  1. A subject line with the headline.
+  2. One line on what it is and when it is for.
+  3. Two sentences on why it is news.
+  4. A list of what is attached: the release as Word and PDF, photos with captions and credits, logos.
+  5. The press contacts for every organisation in the story: ClimbUK marketing@climb-uk.com, ClimbGroup marketing@climb-group.com, and each partner's press contact.
+  6. A sign-off.
+  7. One line saying how to stop receiving releases.
+- **One email per newsroom.** Never a list of newsrooms in blind copy (BCC). The release and images go as attachments, under 10 megabytes (MB) in total.
 
 ## Where the name comes from
 
