@@ -22,7 +22,9 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Venue embargo: until it is announced, name no venue, city area, venue type or size, and do not hint at one. The word "venue" and "somewhere new" are banned. The check copy tool knows whether the embargo is on.
 - No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
 - No promises we cannot keep: no guarantees, never a number of investor meetings, introductions or funding. "Find investors looking for real deal flow" is fine; never "meet investors".
+- A partner hosts a stage or zone, never the festival: "Cyber City, hosted by <partner>", never a bare "Hosted by <partner>" or "<partner> hosts Climb27".
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
+- A countdown sells tickets: close every countdown piece on a ticket call to action with true urgency ("Get your ticket today", "Before the price goes up", "Final week: book now"), never "Save the date".
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
 - Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Quotes come in threes on a page.
