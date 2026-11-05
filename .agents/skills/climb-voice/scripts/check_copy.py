@@ -23,6 +23,7 @@ ALWAYS = [
     (r"[\u2122\u00AE]", "trademark symbol"),
     (r"(?<![.\w-])(?<!\bc in )climb(?![-.\w])(?!\]\]\w)(?! orange\b)(?! li monogram\b)", "'Climb' on its own: write Climb27, ClimbUK, ClimbGroup or ClimbAwards"),
     (r"\bclimb app\b", "the app is the ClimbGroup Event App"),
+    (r"\bhost(s|ed|ing)? (of )?climb\d\d\b", "a partner hosts a stage or zone, never the festival: name it ('Cyber City, hosted by ...')"),
     (r"\bthousands\b", "attendance claim"),
     (r"\b\d+\s*(\+\s*)?(meetings|investors|partners|attendees|delegates)\b", "a number of meetings, investors, partners or attendees"),
     (r"\bpremier\b|\bbiggest\b|\blargest\b|\bthe best\b|bigger than ever", "unsupported superlative or size claim"),
@@ -76,6 +77,8 @@ WORD_HINTS = [
     (r"\bdeal flow\b", "jargon: explain it in the sentence or link it to the glossary"),
     # Third review of the Climb27 sales brochures, October 2026.
     (r"\bstarter pods?\b", "the smallest stand is the 'Startup pod'"),
+    # Review of the partner countdown videos, November 2026.
+    (r"\bhosted by\b", "name what they host, the stage or zone ('Cyber City, hosted by ...'): a bare 'Hosted by' reads as hosting the festival"),
 ]
 
 BEFORE_ANNOUNCEMENT = [
