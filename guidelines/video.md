@@ -48,7 +48,7 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 ## Logo and end card
 
 - Open with a moment, not the logo. The logo sting (see Motion) goes at the end, 3 seconds, followed by an end card: the edition mark, one line ("The Festival for Business Growth" or the campaign line), the dates and the URL.
-- **The end card is the main stage.** A film ends on a festival moment, never a flat card: a light show (Climb Orange and Orange Tint beams sweeping to the beat, haze, sparks), a crowd's energy and the name lit like a stage screen, with the edition mark, the dates, one button and the web address. The words hold steady (no shake, pulse or wobble on the end card): the lights and the crowd carry the movement, and the beams sweep slowly. Stage beams belong to the finale: across the rest of the film they lose their impact.
+- **The end card is the big moment, kept clean.** A film ends on one bold festival idea, never a plain logo card: a Climb Orange poster over a packed crowd, a ticket card rising over the venue, a marquee sign with bulbs chasing round it, or the venue on a giant stage screen. It carries the edition mark, the place, the dates, one button and the web address. The words land on the beats, then hold steady (no shake, pulse or wobble) while the picture behind them keeps moving. Keep it uncluttered: no crowd drawn in silhouette, no storm of beams, haze and sparks. Stage beams are rare: never across the film, and at most two soft ones on an end card. A photo behind an end card is a busy crowd, never a few people standing around.
 - The ClimbUK bug, if used, is the reversed monogram at 60% opacity, top right, 160px on a 4K frame. Off during sponsor and speaker credits.
 
 ## Sound
