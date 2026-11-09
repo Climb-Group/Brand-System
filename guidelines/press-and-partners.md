@@ -42,6 +42,12 @@ Use as written. Shorten only by cutting whole sentences.
 - Quotes come from named, real people who agreed to them. ClimbUK supplies spokesperson quotes on request.
 - Use only the figures ClimbUK publishes for an edition, and cite them to that edition ("at Climb26"). Do not project or round them up.
 
+## Press releases from ClimbUK
+
+- Every release leads on what the story means for the public, not only for the people at the event. Any figure in it names its source. The Voice section says how releases are written.
+- Each release comes to your newsroom in its own short email, never in a list in blind copy. The subject line is the headline. The email says why it is news and lists what is attached: the release as Word and PDF, photos with captions and credits, and logos. Attachments stay under 10 megabytes (MB) in total.
+- The email gives the press contact for every organisation in the story, and says how to stop receiving releases.
+
 ## Co-branding with partners
 
 - **Lockup:** the partner logo and the ClimbUK logo side by side at equal optical height, separated by a 1px rule in the ground's quiet line colour, with clear space of the "C" height between each logo and the rule. ClimbUK sits on the right on partner-led pieces and on the left on ClimbUK-led pieces.

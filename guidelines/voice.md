@@ -100,6 +100,14 @@ These apply to every headline, title and list heading, and most of all to flyers
 - **Talk about the community:** people who share what they learned and send each other work.
 - **End every page well:** a real closing line and one next step. Partner calls to action say what they are for: "Interested in partnering? Book a call with the team."
 
+## Press releases
+
+- **Lead on what it means for the public.** A release leads on what the story means for people outside the room, not only for the people who come to the event. Name who benefits and how: people who could not otherwise start a business, young people, jobs, communities, the region, customers, public safety. If the effect is too narrow, the press will not print it.
+- **Build it in that order.** The headline and standfirst carry the public angle. The first paragraph sets out the public problem. Then say what the partner does about it, in facts the partner publishes. Any figure comes from an official or primary source, named in the same sentence.
+- **Quote briefs point outward.** The brief beside each empty quote slot steers the speaker to the wider impact.
+- **The email that carries it is short, plain and the same shape every time:** a subject line with the headline; one line on what it is and when it is for; two sentences on why it is news; a list of what is attached (the release as Word and PDF, photos with captions and credits, logos); the press contacts for every organisation in the story (ClimbUK marketing@climb-uk.com, ClimbGroup marketing@climb-group.com, and each partner's press contact); a sign-off; and one line saying how to stop receiving releases.
+- **One email per newsroom,** never a list of newsrooms in blind copy. The release and images go as attachments, under 10 megabytes (MB) in total.
+
 ## Who we are talking to
 
 Every piece is written for one of these audiences. Use their tone, and talk about what they need. Pages for people coming with a ticket and pages for partners are separate: do not sell a package on an attendee page.
@@ -176,6 +184,7 @@ Every designed piece keeps its words in its own copy file: one plain Markdown fi
 | Can I bring the team? | Asks permission instead of selling | Why your team should come. |
 | Will you introduce me to people? | Promises a personal service | How will I connect with the right people? |
 | What Climb27 does for an advisory firm | A heading with no benefit | New clients, from the growing businesses you want to serve |
+| ClimbUK and DreamBrew open the Business North East Festival with a Coffee Rave | Only matters to the people at the event | Coffee that funds people's first business comes to Gateshead as DreamBrew partners with ClimbUK |
 
 ## Before it goes out
 

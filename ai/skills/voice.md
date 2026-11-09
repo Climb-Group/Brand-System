@@ -58,6 +58,15 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 - General Climb27 flyer headline: Bring your ambition. Find your people. Accelerate your growth.
 - Themes: Find Your People, and Main Stage Moments.
 
+## Press releases
+
+- Lead on what the story means for the public, not only for the event's audience. Name who outside the room benefits and how: people who could not otherwise start a business, young people, jobs, communities, the region, customers, public safety. Too narrow, and the press will not print it.
+- The headline and standfirst carry that public angle. The first paragraph sets out the public problem, then what the partner does about it, in facts the partner publishes. Any figure comes from an official or primary source named in the sentence.
+- Quote briefs steer the speaker to the wider impact.
+- Before: "ClimbUK and DreamBrew open the Business North East Festival with a Coffee Rave". After: "Coffee that funds people's first business comes to Gateshead as DreamBrew partners with ClimbUK".
+- The email to a newsroom is short, plain and the same shape every time: a subject line with the headline; one line on what it is and when it is for; two sentences on why it is news; a list of what is attached (the release as Word and PDF, photos with captions and credits, logos); the press contacts for every organisation in the story (ClimbUK marketing@climb-uk.com, ClimbGroup marketing@climb-group.com, each partner's press contact); a sign-off; one line saying how to stop receiving releases.
+- One email per newsroom, never a list in blind copy. Attachments under 10 megabytes (MB) in total.
+
 ## Clear for everyone
 
 - Links say where they go. Never "click here", "read more", "learn more" or a bare "here".
