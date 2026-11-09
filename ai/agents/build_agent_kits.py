@@ -14,9 +14,10 @@ It writes:
   package (app manifest, declarative agent, icons) built from ai/agents/copilot/;
 - ai/open-in.json, the "Open in" links and install commands that the brand
   centre shows, so every surface uses the same words and addresses;
-- skills-lock.json at the repository root, which lists the house skills synced
-  into .agents/skills, so `npx skills add Climb-Group/Brand-System` offers only
-  the brand skills.
+- skills-lock.json at the repository root, which lists every other skill in
+  .agents/skills (the house skills synced in, the community skills copied in
+  and this repository's own pointers) with where each comes from, so
+  `npx skills add Climb-Group/Brand-System` offers only the brand skills.
 
 Zips are deterministic (sorted entries, fixed timestamps), so --check compares
 bytes. Standard library only, apart from --icons.
@@ -36,6 +37,18 @@ BRAND_SKILLS = ("climb-voice", "climb-visual-style")
 # Brand skills for one platform only. npx skills offers them with the others; the packages and prompts leave them out,
 # because they apply only when the work is on that platform.
 PLATFORM_SKILLS = ("climb-odoo-pages",)
+# Other people's skills, copied with their LICENSE from the commit that was reviewed: name -> (repository, commit,
+# SKILL.md path there). The only edit is the house sanitize step: em and en dashes become hyphens, never inside licence
+# text. The lock records the commit as the ref npx skills checks out. To update one, read the upstream diff, copy the
+# new files, sanitize them, move the commit here and rebuild. Their folders are also in .graphifyignore and LICENSE.
+COMMUNITY_SKILLS = {
+    "figma-designer": ("elayadesign/ai-design-skills", "456d9e0d3e2d84c748bb143c6ca3d90c45e16213", "skills/figma-designer/SKILL.md"),
+    "landing-page-design": ("elayadesign/ai-design-skills", "456d9e0d3e2d84c748bb143c6ca3d90c45e16213", "skills/landing-page-design/SKILL.md"),
+    "openverse-sfx": ("Varnan-Tech/opendirectory", "caac7cda5621e289591e4e74b400e66ac72ad25b", "skills/openverse-sfx/SKILL.md"),
+}
+# This repository's own skills that are not about the brand, such as a pointer to a skill that cannot be copied in.
+# The lock lists them as coming from here, so npx skills offers only the brand skills.
+POINTER_SKILLS = ("openverse-search",)
 SKILLS_DIR = ".agents/skills"
 PACKAGES = "ai/packages"
 COPILOT = "ai/agents/copilot"
@@ -220,9 +233,35 @@ def copilot_entries():
     return entries
 
 
+def lock_source(name):
+    """Where a skill that is not a brand skill comes from, as skills-lock.json fields."""
+    if name in COMMUNITY_SKILLS:
+        repository, commit, path = COMMUNITY_SKILLS[name]
+        return {
+            "source": repository,
+            "sourceType": "github",
+            "sourceUrl": "https://github.com/%s.git" % repository,
+            "ref": commit,
+            "skillPath": path,
+        }
+    if name in POINTER_SKILLS:
+        return {
+            "source": REPOSITORY,
+            "sourceType": "github",
+            "sourceUrl": "%s.git" % GITHUB,
+            "skillPath": "%s/%s/SKILL.md" % (SKILLS_DIR, name),
+        }
+    return {
+        "source": "Resnovas/.github",
+        "sourceType": "github",
+        "sourceUrl": "https://github.com/Resnovas/.github.git",
+        "skillPath": "templates/.agents/skills/%s/SKILL.md" % name,
+    }
+
+
 def skills_lock():
-    """House skills synced into .agents/skills. npx skills skips a skill that a lock lists."""
-    house = {}
+    """Every skill in .agents/skills but the brand ones, with its source. npx skills skips a skill that a lock lists."""
+    others = {}
     base = os.path.join(ROOT, SKILLS_DIR)
     for name in sorted(os.listdir(base)):
         if name in BRAND_SKILLS + PLATFORM_SKILLS or not os.path.isfile(os.path.join(base, name, "SKILL.md")):
@@ -232,14 +271,8 @@ def skills_lock():
             digest.update(relative.encode())
             with open(full, "rb") as handle:
                 digest.update(handle.read())
-        house[name] = {
-            "source": "Resnovas/.github",
-            "sourceType": "github",
-            "sourceUrl": "https://github.com/Resnovas/.github.git",
-            "skillPath": "templates/.agents/skills/%s/SKILL.md" % name,
-            "computedHash": digest.hexdigest(),
-        }
-    return (json.dumps({"version": 1, "skills": house}, indent=2) + "\n").encode()
+        others[name] = dict(lock_source(name), computedHash=digest.hexdigest())
+    return (json.dumps({"version": 1, "skills": others}, indent=2) + "\n").encode()
 
 
 def outputs():

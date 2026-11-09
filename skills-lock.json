@@ -162,6 +162,14 @@
       "skillPath": "templates/.agents/skills/feature-flags/SKILL.md",
       "computedHash": "c05f092bc1c117bf5f3791e6991e941886be5fc108913c4d8775223a4a841ed3"
     },
+    "figma-designer": {
+      "source": "elayadesign/ai-design-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elayadesign/ai-design-skills.git",
+      "ref": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "skillPath": "skills/figma-designer/SKILL.md",
+      "computedHash": "f9ea35472d9ec0f5d916169b377c1d0e2233ef3a93e376048bd25eff5d52def6"
+    },
     "flags-sdk-vendor": {
       "source": "Resnovas/.github",
       "sourceType": "github",
@@ -246,6 +254,14 @@
       "skillPath": "templates/.agents/skills/investigate-first/SKILL.md",
       "computedHash": "06c80d02255cc106840d2a198be0d2260e3db638aabbdc5a07a1314e68b4e051"
     },
+    "landing-page-design": {
+      "source": "elayadesign/ai-design-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elayadesign/ai-design-skills.git",
+      "ref": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "skillPath": "skills/landing-page-design/SKILL.md",
+      "computedHash": "3d3c38767dd080d7b2cd30473af5469e8b718abfd292a0304c6cb04c4a0284b7"
+    },
     "lean-build": {
       "source": "Resnovas/.github",
       "sourceType": "github",
@@ -287,6 +303,21 @@
       "sourceUrl": "https://github.com/Resnovas/.github.git",
       "skillPath": "templates/.agents/skills/odoo-module-separation/SKILL.md",
       "computedHash": "7d5bcfd9ca8497321f584b67b85cfc0e41314a3b9b1287171fdb2da8b6a8bd61"
+    },
+    "openverse-search": {
+      "source": "Climb-Group/Brand-System",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Climb-Group/Brand-System.git",
+      "skillPath": ".agents/skills/openverse-search/SKILL.md",
+      "computedHash": "d625ff338542606a3dadc4871e58e5a4f4c745e97b60dc991586217d2cd4b3f2"
+    },
+    "openverse-sfx": {
+      "source": "Varnan-Tech/opendirectory",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Varnan-Tech/opendirectory.git",
+      "ref": "caac7cda5621e289591e4e74b400e66ac72ad25b",
+      "skillPath": "skills/openverse-sfx/SKILL.md",
+      "computedHash": "27f9421369c859b701ea5471dfc27d60d411a2e2d5f917024943c12187b87bbf"
     },
     "project-dev-surfaces": {
       "source": "Resnovas/.github",

@@ -54,13 +54,26 @@ class SkillPackageTest(unittest.TestCase):
 
 
 class SkillsLockTest(unittest.TestCase):
-    def test_lock_lists_every_house_skill_and_no_brand_skill(self):
+    def test_lock_lists_every_skill_but_the_brand_ones(self):
         lock = json.loads(kits.skills_lock())
         base = os.path.join(kits.ROOT, kits.SKILLS_DIR)
         present = {n for n in os.listdir(base) if os.path.isfile(os.path.join(base, n, "SKILL.md"))}
         self.assertEqual(set(lock["skills"]), present - set(kits.BRAND_SKILLS) - set(kits.PLATFORM_SKILLS))
         self.assertNotIn("climb-odoo-pages", lock["skills"])
         self.assertEqual(lock["version"], 1)
+
+    def test_community_and_pointer_skills_keep_their_own_source(self):
+        skills = json.loads(kits.skills_lock())["skills"]
+        for name, (repository, commit, path) in kits.COMMUNITY_SKILLS.items():
+            self.assertEqual(skills[name]["source"], repository)
+            # A full commit, so the reviewed version cannot move under the pin.
+            self.assertRegex(skills[name]["ref"], r"^[0-9a-f]{40}$")
+            self.assertEqual(skills[name]["ref"], commit)
+            self.assertEqual(skills[name]["skillPath"], path)
+            self.assertTrue(os.path.isfile(os.path.join(kits.ROOT, kits.SKILLS_DIR, name, "LICENSE")), name)
+        for name in kits.POINTER_SKILLS:
+            self.assertEqual(skills[name]["source"], kits.REPOSITORY)
+            self.assertNotIn("ref", skills[name])
 
 
 class CopilotPackageTest(unittest.TestCase):
