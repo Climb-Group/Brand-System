@@ -8,6 +8,7 @@ For videographers, editors and animators. Motion values (durations, curves, the 
 - **Stage light.** Expose for the faces and let the stage glow orange. Keep the warmth: white balance around 4300 to 5000K on stage, do not neutralise the orange lighting.
 - **Movement.** Handheld or gimbal with intent, slow push-ins on speakers, quick whip pans between moments in recaps. No drone shots of empty roofs, no slow pans across empty rooms.
 - **Branded backdrops in frame.** Orange lanyards, the logo wall, the stage set: they tell the viewer where they are without a caption.
+- **Hype for announcements.** An announcement film is a hype film: one big word per beat across the frame, a punch-in on every kick, half-beat cuts in the drops and one Climb Orange flash on a drop (never white, never a strobe).
 - **Always moving.** No scene holds a still picture. A photo pushes in, pans or pulls back on every cut, and footage never freezes on a frame: a clip shorter than its shot keeps playing, forward and back if it must. Only a plain or gradient ground may stay still.
 
 ## Grade
@@ -47,7 +48,7 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 ## Logo and end card
 
 - Open with a moment, not the logo. The logo sting (see Motion) goes at the end, 3 seconds, followed by an end card: the edition mark, one line ("The Festival for Business Growth" or the campaign line), the dates and the URL.
-- **The end card is the main stage.** A film ends on a festival moment, never a flat card: a light show (Climb Orange and Orange Tint beams sweeping to the beat, haze, sparks), a crowd's energy and the name lit like a stage screen, with the edition mark, the dates, one button and the web address. The words hold steady (no shake, pulse or wobble on the end card): the lights and the crowd carry the movement, and the beams sweep slowly.
+- **The end card is the main stage.** A film ends on a festival moment, never a flat card: a light show (Climb Orange and Orange Tint beams sweeping to the beat, haze, sparks), a crowd's energy and the name lit like a stage screen, with the edition mark, the dates, one button and the web address. The words hold steady (no shake, pulse or wobble on the end card): the lights and the crowd carry the movement, and the beams sweep slowly. Stage beams belong to the finale: across the rest of the film they lose their impact.
 - The ClimbUK bug, if used, is the reversed monogram at 60% opacity, top right, 160px on a 4K frame. Off during sponsor and speaker credits.
 
 ## Sound

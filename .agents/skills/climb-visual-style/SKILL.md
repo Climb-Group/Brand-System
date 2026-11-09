@@ -144,7 +144,7 @@ Everything the brand makes can be edited by the team with free tools. Every file
 
 ## Before you finish
 
-- In a film nothing stands still: every photo or clip keeps moving on every cut (a gradient ground may stay still), and the end card is the main stage, a light show with a crowd's energy and the name lit like a stage screen, never a flat card, with the words held steady (no shake or wobble) while the lights and the crowd move. No applause over the end (`guidelines/video.md`).
+- In a film nothing stands still: every photo or clip keeps moving on every cut (a gradient ground may stay still), and the end card is the main stage, a light show with a crowd's energy and the name lit like a stage screen, never a flat card, with the words held steady (no shake or wobble) while the lights and the crowd move. Stage beams are kept for that finale. An announcement film is a hype film: one big word per beat, a punch-in on every kick, half-beat cuts in the drops, one orange flash on a drop. No applause over the end (`guidelines/video.md`).
 - Every colour is a token. No `#EC752A`.
 - The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.
