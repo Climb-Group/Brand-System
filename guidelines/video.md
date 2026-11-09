@@ -52,6 +52,7 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 
 - Music with a festival pulse: live instruments, brass and drums suit the band-on-stage opening; no stock corporate ukulele or generic "inspiring" piano.
 - License for every channel the cut will run on, including paid social. Keep the licence with the master.
+- **Never cut the ending.** ClimbUK's tracks end on their closing hits and a cymbal ringing out, and that ending is the brand's sound. Run the film until the track has rung out: never trim it or fade it early. If the cut is too long, hold the end card longer, never shorten the music. Land the end card's last move on the final hit.
 - Let real sound in: applause, laughter, a line from the stage. Duck music under speech to -18 LUFS short-term; deliver at -14 LUFS integrated for social, -23 LUFS for broadcast.
 
 ## Audio for everyone
