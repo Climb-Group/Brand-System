@@ -80,3 +80,10 @@ externals/
 
 # Repository rules go below this line; the house sync keeps them.
 # house:local
+
+# Community skills, copied in from their authors (COMMUNITY_SKILLS in
+# ai/agents/build_agent_kits.py): vendored upstream text, reviewed by
+# provenance rather than read, like externals/.
+.agents/skills/figma-designer/
+.agents/skills/landing-page-design/
+.agents/skills/openverse-sfx/

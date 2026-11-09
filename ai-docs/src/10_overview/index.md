@@ -38,7 +38,7 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 
 ### Install the skills elsewhere
 
-- `npx skills add Climb-Group/Brand-System` offers exactly the two brand skills. The house skills synced into `.agents/skills` are listed in `skills-lock.json`, which `npx skills` treats as already installed and hides.
+- `npx skills add Climb-Group/Brand-System` offers exactly the two brand skills. The house skills synced into `.agents/skills`, the community skills copied in (`COMMUNITY_SKILLS` in `ai/agents/build_agent_kits.py`, each pinned to the commit that was reviewed) and the pointer skills are listed in `skills-lock.json` with their sources, which `npx skills` treats as already installed and hides.
 - `ai/open-in.json` holds the "Open in" links for Claude, Claude Code, Codex, ChatGPT, Microsoft Copilot, Gemini, Perplexity, Grok, Le Chat and DeepSeek. Most prefill a prompt; Gemini and DeepSeek have no prompt link, so their entry carries the prompt in `copy` for the page to copy first. None of these assistants has a link that installs a skill directly.
 - `ai/packages/` holds a zip per skill (an assistant's skill upload), both skills together, and a Microsoft 365 Copilot agent package.
 
@@ -49,6 +49,8 @@ This repository is the ClimbUK brand: tokens, logos, illustrations, photography,
 3. Run `node --run check` and `node --run test`.
 
 A house sync that adds or removes a house skill also needs step 2, or `--check` fails on `skills-lock.json`.
+
+To add or update a community skill, read every file at the upstream commit first, copy its folder with the upstream `LICENSE` beside it, replace any em or en dash with a hyphen (the house sanitize step, never inside licence text), add or move its entry in `COMMUNITY_SKILLS`, add its folder to the local rules in `.graphifyignore` and to `LICENSE`, then run step 2. A skill without an open licence is never copied in: add a pointer skill to `POINTER_SKILLS` instead.
 
 ### Release the media kit exports
 
