@@ -8,6 +8,7 @@ For videographers, editors and animators. Motion values (durations, curves, the 
 - **Stage light.** Expose for the faces and let the stage glow orange. Keep the warmth: white balance around 4300 to 5000K on stage, do not neutralise the orange lighting.
 - **Movement.** Handheld or gimbal with intent, slow push-ins on speakers, quick whip pans between moments in recaps. No drone shots of empty roofs, no slow pans across empty rooms.
 - **Branded backdrops in frame.** Orange lanyards, the logo wall, the stage set: they tell the viewer where they are without a caption.
+- **Always moving.** No scene holds a still picture. A photo pushes in, pans or pulls back on every cut, and footage never freezes on a frame: a clip shorter than its shot keeps playing, forward and back if it must. Only a plain or gradient ground may stay still.
 
 ## Grade
 
@@ -46,13 +47,15 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 ## Logo and end card
 
 - Open with a moment, not the logo. The logo sting (see Motion) goes at the end, 3 seconds, followed by an end card: the edition mark, one line ("The Festival for Business Growth" or the campaign line), the dates and the URL.
+- **The end card is the main stage.** A film ends on a festival moment, never a flat card: a light show (Climb Orange and Orange Tint beams sweeping to the beat, haze, sparks), a crowd's energy and the name lit like a stage screen, with the edition mark, the dates, one button and the web address.
 - The ClimbUK bug, if used, is the reversed monogram at 60% opacity, top right, 160px on a 4K frame. Off during sponsor and speaker credits.
 
 ## Sound
 
 - Music with a festival pulse: live instruments, brass and drums suit the band-on-stage opening; no stock corporate ukulele or generic "inspiring" piano.
 - License for every channel the cut will run on, including paid social. Keep the licence with the master.
-- Let real sound in: applause, laughter, a line from the stage. Duck music under speech to -18 LUFS short-term; deliver at -14 LUFS integrated for social, -23 LUFS for broadcast.
+- Promo and announcement films tell their story with words on screen and motion graphics. Add a voiceover only when one is planned for the piece and cast for it.
+- Let real sound in: laughter, a cheer, a line from the stage, but no applause over the end of a film: the music's closing hits carry it. Duck music under speech to -18 LUFS short-term; deliver at -14 LUFS integrated for social, -23 LUFS for broadcast.
 
 ## Audio for everyone
 
