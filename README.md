@@ -109,7 +109,7 @@ Details and options for each generator are in `generators/README.md`. The compon
 
 - **A pair fails after a colour change.** Darken the foreground (for orange text on light grounds) or lighten it (on dark grounds) until the build passes; hover states go darker, never lighter.
 - **The checker flags "Climb".** Write the full name: ClimbUK, ClimbGroup or the edition, for example Climb27.
-- **The checker flags the venue.** Venue details are embargoed until ClimbUK announces them. Use `--announced` only after the announcement is live.
+- **The checker flags the venue.** Venue details are embargoed until ClimbUK announces them. Use `--announced` only after the announcement is live. Climb27's venue, Victoria Warehouse, Manchester, is public from 9 November 2026.
 
 ## Repository setup and checks
 
