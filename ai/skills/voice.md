@@ -36,6 +36,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 
 ## Headlines and titles
 
+- **Past is past.** Write what ClimbUK has done so it cannot read as a plan: "We visited 14 cities on the 2026 tour", not "14 cities on tour", which reads as the next tour. Give the year when it helps.
 - Open positive, above all on flyers, banners and posters: say what ClimbUK is, never what it is not. Never "Not a conference".
 - A title names the benefit, not the slot: "Connections that lead to work", not "New partners". Leave out points that are not a reason to come, such as booking in the app.
 - Peers are people one step ahead who give advice ("Advice from one step ahead"), not "founders at your stage".

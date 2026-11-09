@@ -92,6 +92,7 @@ These apply to every headline, title and list heading, and most of all to flyers
 
 ## Answer the question
 
+- **Past is past.** Write what ClimbUK has done so it cannot read as a plan: "We visited 14 cities on the 2026 tour", not "14 cities on tour", which reads as the next tour. Give the year when it helps.
 - **Every claim gets its answer on the same page.** If a line makes the reader ask something (two days of what, which ticket, who will I meet, what happens after), the same page answers it.
 - **Answer first, then explain.** "When is the agenda published?" opens with when.
 - **Write questions as the buyer would ask them.** "I want a one-day ticket. Which day should I pick?"

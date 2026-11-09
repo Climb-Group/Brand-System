@@ -5,8 +5,8 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
-  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026), the two reviews of the Climb27 sales brochures (October 2026), the two reviews of the partners web pages (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
-  version: "1.13"
+  sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026), the two reviews of the Climb27 sales brochures (October 2026), the two reviews of the partners web pages (October 2026), the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026) and the review of the Climb27 announcement film (November 2026)
+  version: "1.14"
 ---
 
 # ClimbUK visual style
@@ -144,6 +144,7 @@ Everything the brand makes can be edited by the team with free tools. Every file
 
 ## Before you finish
 
+- In a film nothing stands still: every photo or clip keeps moving on every cut (a gradient ground may stay still), and the end card is the big moment, kept clean: one bold festival idea (an orange poster over a packed crowd, a ticket card, a marquee sign, a giant screen), the words held steady (no shake or wobble) while the picture behind them moves, no crowd in silhouette, at most two soft stage beams, and a busy crowd in any photo. An announcement film is a hype film: one big word per beat, a punch-in on every kick, half-beat cuts in the drops, one orange flash on a drop. No applause over the end (`guidelines/video.md`).
 - Every colour is a token. No `#EC752A`.
 - The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.

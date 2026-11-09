@@ -8,6 +8,8 @@ For videographers, editors and animators. Motion values (durations, curves, the 
 - **Stage light.** Expose for the faces and let the stage glow orange. Keep the warmth: white balance around 4300 to 5000K on stage, do not neutralise the orange lighting.
 - **Movement.** Handheld or gimbal with intent, slow push-ins on speakers, quick whip pans between moments in recaps. No drone shots of empty roofs, no slow pans across empty rooms.
 - **Branded backdrops in frame.** Orange lanyards, the logo wall, the stage set: they tell the viewer where they are without a caption.
+- **Hype for announcements.** An announcement film is a hype film: one big word per beat across the frame, a punch-in on every kick, half-beat cuts in the drops and one Climb Orange flash on a drop (never white, never a strobe).
+- **Always moving.** No scene holds a still picture. A photo pushes in, pans or pulls back on every cut, and footage never freezes on a frame: a clip shorter than its shot keeps playing, forward and back if it must. Only a plain or gradient ground may stay still.
 
 ## Grade
 
@@ -46,13 +48,15 @@ Masters: a 10-bit intermediate codec (ProRes 422 HQ or DNxHR HQX; ProRes 4444 or
 ## Logo and end card
 
 - Open with a moment, not the logo. The logo sting (see Motion) goes at the end, 3 seconds, followed by an end card: the edition mark, one line ("The Festival for Business Growth" or the campaign line), the dates and the URL.
+- **The end card is the big moment, kept clean.** A film ends on one bold festival idea, never a plain logo card: a Climb Orange poster over a packed crowd, a ticket card rising over the venue, a marquee sign with bulbs chasing round it, or the venue on a giant stage screen. It carries the edition mark, the place, the dates, one button and the web address. The words land on the beats, then hold steady (no shake, pulse or wobble) while the picture behind them keeps moving. Keep it uncluttered: no crowd drawn in silhouette, no storm of beams, haze and sparks. Stage beams are rare: never across the film, and at most two soft ones on an end card. A photo behind an end card is a busy crowd, never a few people standing around.
 - The ClimbUK bug, if used, is the reversed monogram at 60% opacity, top right, 160px on a 4K frame. Off during sponsor and speaker credits.
 
 ## Sound
 
 - Music with a festival pulse: live instruments, brass and drums suit the band-on-stage opening; no stock corporate ukulele or generic "inspiring" piano.
 - License for every channel the cut will run on, including paid social. Keep the licence with the master.
-- Let real sound in: applause, laughter, a line from the stage. Duck music under speech to -18 LUFS short-term; deliver at -14 LUFS integrated for social, -23 LUFS for broadcast.
+- Promo and announcement films tell their story with words on screen and motion graphics. Add a voiceover only when one is planned for the piece and cast for it.
+- Let real sound in: laughter, a cheer, a line from the stage, but no applause over the end of a film: the music's closing hits carry it. Duck music under speech to -18 LUFS short-term; deliver at -14 LUFS integrated for social, -23 LUFS for broadcast.
 
 ## Audio for everyone
 

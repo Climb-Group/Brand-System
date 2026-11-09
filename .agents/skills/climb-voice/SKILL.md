@@ -4,8 +4,8 @@ description: 'The ClimbUK, ClimbGroup and Climb27 brand voice and copy rules. Lo
 license: Proprietary
 metadata:
   owner: ClimbGroup marketing
-  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the three reviews of the Climb27 sales brochures (October 2026), the review of the partners web page (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
-  version: "1.12"
+  sources: ClimbUK voice guide, Climb27 marketing brief, the sales and partner review of the website (October 2026), the reviews of the Climb27 flyers (October 2026), the decision to keep every piece's words in an editable copy file (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of past testimonials (October 2026), the three reviews of the Climb27 sales brochures (October 2026), the review of the partners web page (October 2026) the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026) and the review of the Climb27 announcement film (November 2026)
+  version: "1.13"
 ---
 
 # ClimbUK voice
@@ -87,6 +87,7 @@ From the review of the Climb27 flyers (October 2026). They apply to every headli
 
 ## Answer the question
 
+- **Past is past.** Write what ClimbUK has done so it cannot read as a plan: "We visited 14 cities on the 2026 tour", not "14 cities on tour", which reads as the next tour. Give the year when it helps.
 - **Every claim gets its answer on the same page.** If a line makes the reader ask something ("two days", a price, who they will meet, what happens after), the same page answers it.
 - **Answer first.** An FAQ answer opens with the answer, in one sentence, then the reason. "When is the agenda published?" starts with the timing (the agenda goes live a few weeks before the event), not with why agendas are hard.
 - **Write questions from the buyer's side.** People reading the page have not bought yet: "I want a one-day ticket. Which day should I pick?", not "I bought a one-day ticket".
