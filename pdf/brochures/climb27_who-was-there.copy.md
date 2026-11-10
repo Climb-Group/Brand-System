@@ -18,7 +18,7 @@ In the room at _ClimbUK_
 Banks, funds, universities, combined authorities, global tech companies and growing firms partnered, spoke and exhibited at ClimbUK.
 
 <!-- @wwt.names.logos -->
-<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos -->
+<!-- note: logo file | organisation, in the order the website shows them; a file alone has no name on the page; the last ones are NAMES_FILL picks from the in-the-room logos, and NAMES_SWAP logos stand in for featured ones the brochures leave out, and NAMES_ADD logos follow -->
 - natwest-group-plc.png | Natwest Group
 - barclays.png | Barclays
 - british-business-bank.png | British Business Bank
@@ -35,20 +35,20 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - ubs.png | UBS
 - blacks-solicitors-llp.png | Blacks Solicitors
 - caspian-insurance.png | Caspian Insurance
-- clubit-group.png | Clubit Group
+- royal-mail.png | Royal Mail
 - medilink-north-of-england-limited.png | Medilink North Of England
 - perfect-cellar.png | Perfect Cellar
 - calmness-crew.jpg | Calmness Crew
-- wainwright-consulting-limited.png | Wainwright Consulting
+- taylor-wessing.png | Taylor Wessing
 - leeds-university-business-school.png | Leeds University Business School
 - mishcon-de-reya-llp.jpg | Mishcon de Reya
 - sure-valley-ventures.png | Sure Valley Ventures
 - tech-sy.png | Tech Sy
-- utc-travel.png | UTC Travel
+- meissner-bolte-uk-limited.png | Meissner Bolte
 - zendesk.png | Zendesk
 - alt-labs.png | Alt Labs
 - dtp.png | DTP
-- university-of-leeds.jpg | University Of Leeds
+- north-east-mayor.png | North East Combined Authority
 - acas.png | ACAS
 - albionvc.png | AlbionVC
 - alt-legal-limited.jpg | Alt-Legal
@@ -63,7 +63,7 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - bluetree-group-ltd.png | Bluetree Group
 - bright-spark-pas.jpg | Bright Spark PAs
 - broughton-group.png | Broughton Group
-- bruntwood-scitech.png | Bruntwood SciTech
+- bionow.png | Bionow
 - canvvs.png | Canvvs
 - chevet-technology.png | Chevet Technology
 - claritas-tax.png | Claritas Tax
@@ -81,7 +81,7 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - gm-business-growth-hub.png | GM Business Growth Hub
 - journey-further.png | Journey Further
 - leeds-angels.png | Leeds Angels
-- leeds-digital.png | Leeds Digital
+- bootskins.png | Bootskins
 - manchester-angels.png | Manchester Angels
 - mountside-ventures.png | Mountside Ventures
 - northern-gritstone.png | Northern Gritstone
@@ -103,3 +103,15 @@ Banks, funds, universities, combined authorities, global tech companies and grow
 - bbc-sport.png | BBC Sport
 - coutts-company.png | Coutts & Company
 - digital-catapult.png | Digital Catapult
+- sh-p.png | SH&P
+- yoti.png | Yoti
+- nhs.png | NHS
+- sony.png | Sony
+- foresight-group.png | Foresight Group
+- bgf.png | BGF
+- shoosmiths.png | Shoosmiths
+- hpe.png | HPE
+- taylors-of-harrogate.png | Taylors of Harrogate
+- ward-hadaway.png | Ward Hadaway
+- walker-morris.png | Walker Morris
+- northstar-ventures.png | Northstar Ventures

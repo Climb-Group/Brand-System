@@ -73,6 +73,25 @@
 | Your business. Bigger stage. (on the general flyer) | Fine as the edition line, but the general flyer needs the reasons to come | Bring your ambition. Find your people. Accelerate your growth. |
 | Live music and DJ sets | Only the grand opening has live music | Investor Speed Networking, the ClimbAwards or another real moment |
 
+## From the fourth review of the Climb27 exhibitor brochure (October 2026)
+
+| Before | Problem | After |
+| --- | --- | --- |
+| Founders, scaling companies, investors... | Undersells the businesses in the room | Founders, high-growth companies, investors... |
+| Fringe events around the festival | Places events that are not placed yet | Fringe events, for more time with the people you meet |
+| Relevant people to do business | Says less than the facts do | Relevant people: 87% of attendees have major purchasing authority |
+| Your brand in front of everyone the agenda brings past your stand | A claim about the floor plan we cannot make | Your brand on the expo floor, and in our marketing before and after the festival |
+| Your own window on the expo floor | Filler | An affordable option to showcase your brand |
+| A pitching opportunity | A label, not an offer | An opportunity to pitch |
+| Cost of printing not included | Names a cost, not what the reader gets | 4 branded panels, printing charged separately |
+| 2 exhibitor passes | Leaves out the guest passes and the length | 2x 2-day exhibitor passes, 4x 2-day guest passes |
+| Take a table in the marketplace | Describes the furniture | Showcase your product to an audience like no other |
+| Marketplace table | Undersells it | Marketplace stall |
+| A speaking slot on a panel | Reads as a promise | An opportunity to speak on a relevant panel session, with a footnote: limited availability, speaker terms and conditions apply, a chance to speak and not a promise of a place |
+| Meetings with the right people (why partner) | Leads with one benefit and no proof | Why partner: brand awareness, access to customers, partners or investors, and long-term relationships that matter, each with its figure |
+| Lead the conversation at Climb27 | Says what the partner does, not what they buy | Sessions and awards |
+| Build your partnership your way | Long, and says less than the offer | Bespoke solutions |
+
 ## ClimbVoice, corrected
 
 The 2025 ClimbVoice prompt is the root of this skill. Two things changed:
