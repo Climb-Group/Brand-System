@@ -15,13 +15,13 @@ ClimbUK is **business with a party, not a party for business**. The copy has the
 
 - **No emojis, no exclamation marks, no em or en dashes.** Use full stops, commas and colons. Let design and photography carry the energy.
 - **Names.** Never "Climb" on its own. Write **ClimbUK** (the brand and the festival), **ClimbGroup** (the company name, for legal lines and corporate pieces) or the edition: **Climb27**, **Climb26**. The app is the **ClimbGroup Event App**. Never "Climb UK" with a space, and never "CLIMBUK" in running text.
-- **No numbers we have not published.** No audience sizes, attendance claims or counts of partners or meetings. Figures from a past edition appear only as ClimbUK publishes them, cited to that edition ("at Climb26"). Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
+- **No numbers we have not published.** No audience sizes, attendance claims or counts of partners or meetings. Figures from a past edition appear only as ClimbUK publishes them, cited to that edition ("at Climb26"). Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). For marketing materials, never an attendance figure, an audience size for the event or a promised number of meetings. Press releases may additionally use a figure explicitly cleared for publication in that release, with its source, period and definition recorded. Never turn a forecast into a fact or promise an outcome.
 - **No promises we cannot keep.** No guarantees, and never a promised number of investor meetings, introductions or funding. Saying investors come looking for deal flow is fine: "Find investors looking for real deal flow", never "meet investors". Partners are sold "meetings with the right people", never a number of meetings or an audience size for the event. Partners get their leads and an engagement report in the portal after the festival; never promise an impact report or audience data. Partner and stand prices exclude VAT: say "ex. VAT", never "inc VAT".
 - **Say who the right people are.** When you sell "the right people", explain what makes them right for the reader, in our words, rather than repeating a list of segments.
 - **Scarcity only when it is true.** Ticket releases really do close, so name the release, its price and its state (open now, next, final), and say the price goes up when it is gone. No invented scarcity, no "last few" unless it is so, no "premier", no superlatives we cannot prove, no trademark symbols in copy. Prices are round numbers people remember: 250, not 252.
 - **No hedges.** No "TBC", "coming soon", "subject to" or "we hope". Say what happens, or leave it out until it is confirmed.
 - **Real people only.** Quotes and testimonials come from named, real people who agreed to them. Never invent a quote, a name or a company.
-- **Name the person.** Credit each quote to a named person, their role and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly; to shorten, use whole sentences. A set of quotes on a page shows three.
+- **Name the person.** Credit each quote to a named person, their role and their organisation, never to a company alone, and leave out lines such as "Climb26 exhibitor". Print their words exactly; to shorten, use whole sentences. A marketing testimonial panel shows three quotes; press releases use the voices the story needs.
 - **Paying in instalments.** Name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - **Quotes without the date.** Credit a quote with the person and their organisation, not the year or edition it came from, and choose quotes that do not name an old edition in their own words.
 - **No company structure.** Do not explain who runs or owns ClimbUK ("ClimbUK is run by ClimbGroup", "ClimbGroup runs ClimbUK"). It means nothing to the reader; say what they get instead.
@@ -81,7 +81,7 @@ Drop "with your eyes open", "in their patch", "at least three" and "unmatched". 
 
 ## Headlines and titles
 
-These apply to every headline, title and list heading, and most of all to flyers, banners, posters and social cards, which a stranger reads first.
+For press releases, follow the news method below. The following rules apply to marketing headlines, titles and list headings, and most of all to flyers, banners, posters and social cards, which a stranger reads first.
 
 - **Open positive.** The first line says what ClimbUK is, never what it is not. "The Festival for Business Growth." works; "Not a conference." does not.
 - **Name the benefit, not the slot.** A title says what the reader gets: "Connections that lead to work", not "New partners"; "Roundtables and workshops", not "Time to talk". If a point is not a reason to come, leave it out.
@@ -128,7 +128,7 @@ What every audience can hear:
 ## How to write a piece
 
 1. Pick the audience and the channel.
-2. Write the headline first: 3 to 8 words, one idea, ideally in two or three beats ("Iconic moments. Real advice. No fluff."). On designed pieces, one word goes orange and one goes italic.
+2. For press, use a factual news headline with no poster word limit. For other channels, write the headline first: 3 to 8 words, one idea, ideally in two or three beats ("Iconic moments. Real advice. No fluff."). On designed pieces, one word goes orange and one goes italic.
 3. Write the body as short, complete paragraphs, each a small pitch: what happens, why it matters to this reader, what to do next. Strong verbs, varied sentence length, no filler.
 4. End with one call to action that names the action: "Get your ticket", "Book your meetings", "Apply to pitch". Never "Click here" or "Submit".
 5. Read it back against the four lines and the rules above.
@@ -183,3 +183,13 @@ Every designed piece keeps its words in its own copy file: one plain Markdown fi
 - It names one audience and gives them one reason and one next step.
 - Nothing in it would still be true of any other event.
 - Every fact (date, price, format, speaker) comes from ClimbUK's published information, not from memory.
+
+## Press releases use a news voice
+
+For press releases, use a factual headline and an opening paragraph that explains the news and its value to the reader. Short poster slogans and a sales pitch are not the default. Write in third person outside approved quotes, with short, complete paragraphs that a journalist can reuse. Put the most useful facts first, and move secondary history and logistics to Notes to editors.
+
+Lead with confirmed developments, practical opportunities and evidence of founder outcomes. An investor story can lead when it explains the benefit to founders. Keep new partner activity distinct from the festival's established relationships. Name each organisation's role accurately.
+
+Keep the tone optimistic, grounded and precise. Let real quotes carry warmth and conviction. A press release needs the voices that add evidence, not a fixed quota of testimonials. Preserve approved words and obtain approval for changes. A draft, an unsigned deal or a proposed quote stays out of publishable copy until cleared.
+
+Follow the agreed media and public launch times across every channel. Reuse one approved master release and its cleared images. The press and partner guide gives the full method and release review.

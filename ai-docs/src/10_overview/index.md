@@ -79,3 +79,7 @@ To add or update a community skill, read every file at the upstream commit first
 - `motion` renders `climb-video-motion.zip` when `templates/_build/`, `generators/motifs.py`, `tokens/`, `logos/` or the fonts change, or when no motion release exists, and publishes a new `climb-video-motion-<date>-<commit>` release.
 - Every release is created as a draft, uploaded, then published; never upload to a published release.
 - The package carries `payload/defaults/<Brand>/` (`Normal.dotm`, `Blank.potx`, `Book.xltx`, `Default Theme.thmx`) from `templates/_build/defaults_build.py`. The per-person scripts `install/windows/Set-ClimbDefaultsUser.ps1` and `install/macos/set-climb-defaults.sh` copy one brand's set into each person's Office folders; the default brand is ClimbGroup. Rebuild the defaults after changing the letterhead, the deck or the themes, and never edit them by hand.
+
+## Press writing
+
+Use `guidelines/press-and-partners.md` for the public method and `.agents/skills/climb-voice/references/channels.md` when drafting. Press releases use factual headlines and third-person reporting; poster word limits and the three-quote marketing layout do not apply. Preserve approved quotations, distinguish new and established partner roles, and verify claims and embargoes against the campaign record. Source correspondence and unfinished announcements stay in the team-only `internal` folder. Style checks cannot prove factual accuracy or permission to publish.

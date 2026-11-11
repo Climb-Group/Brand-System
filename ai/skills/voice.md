@@ -20,12 +20,12 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - No emojis, no exclamation marks, no em or en dashes. Plain hyphens only.
 - Never "Climb" on its own. Write ClimbUK (the brand), ClimbGroup (the company, for legal lines and corporate pieces only), or the edition (Climb27, Climb26). The app is the "ClimbGroup Event App". Never explain who runs ClimbUK.
 - Venue embargo: until it is announced, name no venue, city area, venue type or size, and do not hint at one. The word "venue" and "somewhere new" are banned. The check copy tool knows whether the embargo is on.
-- No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). Never an attendance figure, an audience size for the event or a promised number of meetings.
+- No internal numbers: no attendance targets, "thousands", audience size, partner counts or late-booking percentages. Channel reach is the exception: partner materials may show the reach of ClimbUK's own channels (newsletter readers, monthly website and social views) and the share of attendees who follow up after meeting a partner, taken from the source data and written as a floor with a plus ("40k+ monthly newsletter readers"). For marketing materials, never an attendance figure, an audience size for the event or a promised number of meetings. Press releases may additionally use a figure explicitly cleared for publication in that release, with its source, period and definition recorded. Never turn a forecast into a fact or promise an outcome.
 - No promises we cannot keep: no guarantees, never a number of investor meetings, introductions or funding. "Find investors looking for real deal flow" is fine; never "meet investors".
 - Scarcity only when it is true. Name the ticket release, its price and its state. No "sold out", "last few" or "selling fast" unless the shop says so. No "premier", unsupported superlatives or trademark symbols.
 - No hedges: no "TBC", "coming soon", "subject to", "we hope", "we never". State what happens.
 - Real people only. Never invent a quote, a name or a company.
-- Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Quotes come in threes on a page.
+- Credit each quote to a named person, their role and their organisation, never a company alone or a line such as "Climb26 exhibitor". Print their words exactly. Marketing testimonial panels use three quotes; press releases have no fixed quote count.
 - For paying in instalments, name the providers and say the fee plainly: "A 5% financing fee is added to your total order."
 - The smallest stand is the "Startup pod", never "starter pod".
 - Credit quotes with the person and organisation only, never the edition or year, and skip quotes that name an old edition.
@@ -39,7 +39,7 @@ ClimbUK is business with a party, not a party for business: a festival-energy ev
 - Open positive, above all on flyers, banners and posters: say what ClimbUK is, never what it is not. Never "Not a conference".
 - A title names the benefit, not the slot: "Connections that lead to work", not "New partners". Leave out points that are not a reason to come, such as booking in the app.
 - Peers are people one step ahead who give advice ("Advice from one step ahead"), not "founders at your stage".
-- The investor side can be mentioned but is never the main point. "The Investor Ladder" is not a title on its own.
+- On general marketing pieces, the investor side can be mentioned but is not the main point. A press release can lead on an investor development when it explains the founder benefit. "The Investor Ladder" is not a title on its own.
 - ClimbUK supports the whole funding journey: never "up to Series A".
 - Only the grand opening has live music: never sell music or DJ sets as a reason to come.
 
@@ -68,7 +68,7 @@ agenda (not programme, for the schedule); Affiliate Programme (not referral sche
 ## How to write a piece
 
 1. Pick the audience and the channel. Call the audience tool and the channel tool for their tone, needs, shape and call to action.
-2. Write the headline first: 3 to 8 words, one idea, a two or three beat rhythm.
+2. For press, use a factual news headline with no poster word limit. For other channels, write the headline first: 3 to 8 words, one idea, a two or three beat rhythm.
 3. Write short, complete paragraphs: what happens, why it matters to this reader, what to do next.
 4. End with one call to action that names the action ("Get your ticket", "Book your meetings").
 5. Call the check copy tool on the full text. Fix every problem, act on the hints, then check again until it passes.
@@ -79,3 +79,13 @@ When a piece has a copy file (a Markdown file of its words, with each part of th
 Social handles: LinkedIn, Instagram, TikTok, X and Bluesky, all as climbuk.
 
 For examples and rewrites, call the guide tool with the topic "rewrites" or "lines that work".
+
+## Press releases use a news voice
+
+For press releases, use a factual headline and an opening paragraph that explains the news and its value to the reader. Short poster slogans and a sales pitch are not the default. Write in third person outside approved quotes, with short, complete paragraphs that a journalist can reuse. Put the most useful facts first, and move secondary history and logistics to Notes to editors.
+
+Lead with confirmed developments, practical opportunities and evidence of founder outcomes. An investor story can lead when it explains the benefit to founders. Keep new partner activity distinct from the festival's established relationships. Name each organisation's role accurately.
+
+Keep the tone optimistic, grounded and precise. Let real quotes carry warmth and conviction. A press release needs the voices that add evidence, not a fixed quota of testimonials. Preserve approved words and obtain approval for changes. A draft, an unsigned deal or a proposed quote stays out of publishable copy until cleared.
+
+Follow the agreed media and public launch times across every channel. Reuse one approved master release and its cleared images. The press and partner guide gives the full method and release review.

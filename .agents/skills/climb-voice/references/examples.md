@@ -79,3 +79,16 @@ The 2025 ClimbVoice prompt is the root of this skill. Two things changed:
 
 - Its example paragraphs use em dashes, which the brand bans. Use full stops or commas.
 - It is written founder-first. Climb27 is audience-led: keep the festival energy for everyone, and use the tone note for the audience you are writing for.
+
+## Press writing rewrites
+
+These are illustrative structures, not approved announcements or quotes. Fill them only with cleared facts.
+
+| Before | Better approach | Reason |
+| --- | --- | --- |
+| A slogan followed by the tagline | Name the organisation, confirmed development and reader benefit in one factual headline. | An editor needs to know what happened. |
+| A paragraph about how the partnership began | Lead with what the partnership now enables; move its history to the background. | The news comes before the backstory. |
+| A visiting network presented as the whole investor offer | Explain the visiting group's role, then the established network's separate contribution. | Distinct roles preserve credit and accuracy. |
+| A long product description in the main story | Keep the feature relevant to this news; put the wider product description in Notes to editors. | Each paragraph advances the story. |
+| A discount code and ticket urgency in every release | Include sales details only when material to the news or needed for participation. | Press writing serves the story. |
+| Three quotes to satisfy a layout rule | Choose approved voices that add purpose, evidence or a founder outcome. | Press copy has no fixed testimonial quota. |
