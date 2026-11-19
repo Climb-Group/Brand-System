@@ -42,7 +42,9 @@ if (version === undefined || bundles.length === 0) {
 const COMMENT = /\n\/\/# sourceMappingURL=[^\n]*\n?$/
 
 // Removes the map and the comment that points at it.
+/** Delete a bundle's adjacent map and remove its trailing sourceMappingURL before the artifact ships. */
 const strip = (bundle: string) => {
+  // Removal and comment stripping are both necessary: shipped bundles must neither contain nor reference private maps.
   rmSync(`${bundle}.map`, { force: true })
   writeFileSync(bundle, readFileSync(bundle, 'utf8').replace(COMMENT, '\n'))
 }
@@ -66,11 +68,16 @@ if (key === undefined || key.trim() === '' || posthog === undefined) {
 
 // The CLI works on a directory, so each bundle and its map are moved into one
 // of their own, processed there, and moved back.
-for (const bundle of bundles.map((path) => resolve(path))) {
+for (const bundle of bundles.map(
+  /** Anchor paths before moving artifacts into the CLI's isolated work directory. */ (path) => resolve(path),
+)) {
   const work = mkdtempSync(join(tmpdir(), `${config.name}-sourcemaps-`))
   const name = basename(bundle)
   renameSync(bundle, join(work, name))
   renameSync(`${bundle}.map`, join(work, `${name}.map`))
+  const source = readFileSync(join(work, name), 'utf8')
+  const shebang = source.match(/^#![^\n]*/)?.[0]
+  /** Invoke the pinned CLI against only this bundle's work directory and configured project/release. */
   const cli = (...args: Array<string>) =>
     execFileSync(
       'npx',
@@ -94,7 +101,21 @@ for (const bundle of bundles.map((path) => resolve(path))) {
       },
     )
   try {
+    // The injector prepends JavaScript at byte zero, which would displace an
+    // executable header. Leave its newline so existing body mappings stay valid.
+    if (shebang !== undefined) writeFileSync(join(work, name), source.slice(shebang.length))
     cli('inject')
+    if (shebang !== undefined) {
+      const mapPath = join(work, `${name}.map`)
+      const map = JSON.parse(readFileSync(mapPath, 'utf8')) as { mappings: string }
+      // esbuild emits flat maps. Restore the header before upload and shift all
+      // generated lines with it, retaining the vendor's chunk id and map fields.
+      writeFileSync(join(work, name), `${shebang}\n${readFileSync(join(work, name), 'utf8')}`)
+      map.mappings = `;${map.mappings}`
+      writeFileSync(mapPath, JSON.stringify(map))
+    }
+    // Fail before upload/publication if instrumentation produced invalid JavaScript.
+    execFileSync(process.execPath, ['--check', join(work, name)], { stdio: 'inherit' })
     // --delete-after removes the map and the sourceMappingURL comment once they are uploaded.
     cli('upload', '--delete-after')
   } finally {
