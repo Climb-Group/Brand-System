@@ -6,7 +6,7 @@ metadata:
   owner: ClimbGroup marketing
   tokens: tokens/brand.tokens.json
   sources: the ClimbUK brand book, the Climb27 homepage and affiliate page, the decision that every asset ships with sources the team can edit in free tools (October 2026), the decision to keep team-only material in an internal folder that is never published (October 2026), the review of the posts for an organiser ClimbUK partners with (October 2026), the reviews of the Climb27 flyers (October 2026), the review of the Climb26 sales brochures (October 2026), the two reviews of the Climb27 sales brochures (October 2026), the two reviews of the partners web pages (October 2026) and the rebuild of the partner and exhibitor web pages from the Climb27 packs (October 2026)
-  version: "1.13"
+  version: "1.14"
 ---
 
 # ClimbUK visual style
@@ -22,6 +22,8 @@ All values come from `tokens/brand.tokens.json` (CSS in `tokens.css`, SCSS in `_
 3. **Type does the shouting.** Montserrat Bold or Black, uppercase for display lines, tight leading (0.98 to 1.1), slightly negative tracking. One word in Climb Orange and one in italic per headline ("THE FESTIVAL FOR BUSINESS *GROWTH*.", with FESTIVAL in orange); every headline opens positive (climb-voice, Headlines and titles). A short orange rule or a tracked eyebrow sits above. Open Sans for everything you read. Never more than two sizes of display type on one view.
 4. **Real people, real light.** Photography of actual attendees, speakers and stage moments, with consent: laughing faces, orange lanyards, branded backdrops, crowds, close conversations. Full colour under a Dark Brown fade where text sits; dense photo walls rather than one lonely picture. No stock handshakes, no empty rooms, no generic skylines, and nothing that can be misread out of context (a hug that looks like a struggle). Pick photos that show a fair mix of people (women and men, ages, backgrounds), never a frame filled by one group. A cover is one photo or a three-photo header (one big, two stacked beside it). When a web page has a matching pack (the partner pack for partnership pages, the exhibitor pack for exhibitor pages), use the photos the pack chose for each part, in the same part, and set its headlines with the pack's orange and italic words.
 5. **Contrast is not optional.** Pick a preset (below) and use its pairs. White on Climb Orange only at 19px bold or larger (or the print equivalent: 14pt bold). Check anything new against the tokens build.
+
+**Use each image once per page or composition.** Every photo and decorative illustration must be unique across the whole piece, including separate sections, collages and the closing call to action. A different crop, colour treatment, filename or URL of the same source image still counts as a repeat. Choose a different image or remove the extra placement. Check the whole desktop and mobile layouts; mutually exclusive responsive renditions of the same placement count as one use.
 
 ## Grounds and pairs (the five presets)
 
@@ -144,6 +146,7 @@ Everything the brand makes can be edited by the team with free tools. Every file
 
 ## Before you finish
 
+- Check image uniqueness across the whole piece, including photos and decorative illustrations. Compare the source images, not only their filenames.
 - Every colour is a token. No `#EC752A`.
 - The asset has its editable sources beside it: its copy file and, for artwork, a layered SVG grouped by row and block, with groups named by the copy file's sections. The finished PDF or PNG ships too.
 - One orange call to action per view, with orange markers around it, and it still feels like a festival, not a conference.

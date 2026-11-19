@@ -27,6 +27,8 @@ For event photographers, designers choosing images and anyone briefing a shoot. 
 
 ## Using photos in designs
 
+- **Every image is unique across the whole piece.** Use each source photo or decorative illustration once per page or composition, across all sections and collages. Cropping, recolouring, resizing or renaming it does not make it a new image. Choose a different image or remove the extra placement. Review the whole desktop and mobile layouts; mutually exclusive renditions of one responsive placement count as one use.
+
 - **Text over a photo** sits on a Dark Brown fade (left to right, or bottom up), not a flat grey box. See "Photo fades" below for the recipes.
 - **Photo cards:** title at the top, a line at the bottom, a Dark Brown fade top and bottom, rounded `radius-card` corners.
 - **Photo walls:** a mosaic of squares with one big tile. Dense is better than sparse.

@@ -5,7 +5,7 @@ license: Proprietary
 metadata:
   owner: ClimbGroup marketing
   applies-to: Odoo 19 and Odoo 20 websites
-  version: "1.3"
+  version: "1.4"
 ---
 
 # ClimbUK on an Odoo website
@@ -26,6 +26,8 @@ The brand rules (`climb-visual-style`, `climb-voice`) say what a page looks and 
 10. **Record what you learn in the brand pack.** A brand preference or decision a person gives you while you build a page goes into the brand pack in the same piece of work: Odoo-only rules in this skill, everything else in `climb-voice` or `climb-visual-style` (see "The pack learns as it goes" in the brand pack's AGENTS.md). This copy of the skill is synced from the pack, so change it there.
 11. **Generated words come from a copy file.** A script that builds pages, blocks or emails reads every word it writes from a `<name>.copy.md` copy file beside it (the standard is `references/copy-files.md` in `climb-voice`), and writes them into the view XML at build time; never type a printed word in the script. Images a page ships get an `@alt` section there with their alt text. When someone changes words on the live page in the editor (rule 8), put the same change in the copy file, so the next build keeps it.
 
+12. **Never repeat an image on a page.** Give every photo and decorative illustration one placement across the entire page, including the hero, cards, background images and closing section. Different crops, sizes, recolours and attachment URLs of the same source still count as repeats. Responsive alternatives may share an image only for the same placement when they are mutually exclusive. Check each public and affiliate variant independently at desktop and mobile sizes, and update the source image mapping as well as the live view.
+
 ## How to check a page before you call it done
 
 On a local Odoo 19 and Odoo 20 with the module installed or upgraded:
@@ -34,5 +36,7 @@ On a local Odoo 19 and Odoo 20 with the module installed or upgraded:
 2. As a website designer, view the page source: the `oe_structure` carries `data-oe-model="ir.ui.view"`, a `data-oe-id` and a `data-oe-xpath`; every section has a colour preset; nothing a script fills or changes is inside the view as rendered data.
 3. Click **Edit** and try each kind of change: type in a paragraph, change a button's style and link, replace an image, change a section's colour preset and background, move a section, copy a card, drop a new block between two sections. Save, and reload as a visitor: every change shows, and the live tools and data still work. Check that the locked tools cannot be edited inside. Then delete the website copy of the view (developer mode, **Settings > Technical > Views**, the copy with a website set) to put the page back.
 4. Cover it with a test: an `HttpCase` that fetches the page as an admin and asserts the branded structure, the presets, the button and image classes and the locked tools, and one that saves through `ir.ui.view.save()` at the structure's `data-oe-xpath` and finds the change on the page.
+
+5. Audit all visible image placements across the entire rendered page at desktop and mobile sizes. Compare image content as well as normalised source URLs; there must be no repeated photos or decorative illustrations across sections. Include CSS background images and alternate public or affiliate variants.
 
 Say in your final message which pages you checked, on which versions, and what you found.
